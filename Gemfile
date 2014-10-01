@@ -42,4 +42,5 @@ group :test, :development do
   gem 'rspec-rails'
 end
 
-gem 'haml'
+gem 'haml-rails'
+
