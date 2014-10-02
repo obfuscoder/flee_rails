@@ -44,3 +44,8 @@ end
 
 gem 'haml-rails'
 
+gem 'simple_form', github: 'plataformatec/simple_form'
+
+gem 'bootstrap-sass'
+
+gem 'awesome_print'
