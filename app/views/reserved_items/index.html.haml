@@ -1,0 +1,22 @@
+%h1 Listing reserved_items
+
+%table
+  %tr
+    %th Reservation
+    %th Item
+    %th Number
+    %th Code
+    %th Sold
+    %td= link_to 'New', new_reserved_item_path
+
+  - @reserved_items.each do |reserved_item|
+    %tr
+      %td= link_to reserved_item.reservation, reserved_item.reservation
+      %td= link_to reserved_item.item, reserved_item.item
+      %td= reserved_item.number
+      %td= reserved_item.code
+      %td= reserved_item.sold
+      %td
+        = link_to 'Show', reserved_item
+        = link_to 'Edit', edit_reserved_item_path(reserved_item)
+        = link_to 'Destroy', reserved_item, :method => :delete, :data => { :confirm => 'Are you sure?' }

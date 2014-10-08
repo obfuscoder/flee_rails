@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :reserved_items
+
+  resources :reservations
+
+  resources :items
+
+  resources :categories
+
+  resources :sellers
+
   resources :events
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Seller:
+  = link_to @reservation.seller, @reservation.seller
+%p
+  %b Event:
+  = link_to @reservation.event, @reservation.event
+%p
+  %b Number:
+  = @reservation.number
+
+= link_to 'Edit', edit_reservation_path(@reservation)
+\|
+= link_to 'Back', reservations_path

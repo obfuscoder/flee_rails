@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @seller.first_name
+%p
+  %b Last name:
+  = @seller.last_name
+%p
+  %b Street:
+  = @seller.street
+%p
+  %b Zip code:
+  = @seller.zip_code
+%p
+  %b City:
+  = @seller.city
+%p
+  %b Email:
+  = @seller.email
+%p
+  %b Phone:
+  = @seller.phone
+
+= link_to 'Edit', edit_seller_path(@seller)
+\|
+= link_to 'Back', sellers_path

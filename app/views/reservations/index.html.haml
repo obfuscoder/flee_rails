@@ -1,0 +1,18 @@
+%h1 Listing reservations
+
+%table
+  %tr
+    %th Seller
+    %th Event
+    %th Number
+    %td= link_to 'New', new_reservation_path
+
+  - @reservations.each do |reservation|
+    %tr
+      %td= link_to reservation.seller, reservation.seller
+      %td= link_to reservation.event, reservation.event
+      %td= reservation.number
+      %td
+        = link_to 'Show', reservation
+        = link_to 'Edit', edit_reservation_path(reservation)
+        = link_to 'Destroy', reservation, :method => :delete, :data => { :confirm => 'Are you sure?' }

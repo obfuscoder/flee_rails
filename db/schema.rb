@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001204153) do
+ActiveRecord::Schema.define(version: 20141008123702) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -22,5 +30,61 @@ ActiveRecord::Schema.define(version: 20141001204153) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "items", force: true do |t|
+    t.integer  "seller_id"
+    t.integer  "category_id"
+    t.string   "description"
+    t.string   "size"
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["category_id"], name: "index_items_on_category_id"
+  add_index "items", ["seller_id"], name: "index_items_on_seller_id"
+
+  create_table "reservations", force: true do |t|
+    t.integer  "seller_id"
+    t.integer  "event_id"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true
+  add_index "reservations", ["event_id", "seller_id"], name: "index_reservations_on_event_id_and_seller_id", unique: true
+  add_index "reservations", ["event_id"], name: "index_reservations_on_event_id"
+  add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
+
+  create_table "reserved_items", force: true do |t|
+    t.integer  "reservation_id"
+    t.integer  "item_id"
+    t.integer  "number"
+    t.string   "code"
+    t.datetime "sold"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reserved_items", ["code"], name: "index_reserved_items_on_code", unique: true
+  add_index "reserved_items", ["item_id"], name: "index_reserved_items_on_item_id"
+  add_index "reserved_items", ["reservation_id", "item_id"], name: "index_reserved_items_on_reservation_id_and_item_id", unique: true
+  add_index "reserved_items", ["reservation_id", "number"], name: "index_reserved_items_on_reservation_id_and_number", unique: true
+  add_index "reserved_items", ["reservation_id"], name: "index_reserved_items_on_reservation_id"
+
+  create_table "sellers", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "street"
+    t.string   "zip_code"
+    t.string   "city"
+    t.string   "email"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true
 
 end
