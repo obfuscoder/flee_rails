@@ -3,4 +3,8 @@ class ReservedItem < ActiveRecord::Base
   belongs_to :item
 
   validates_presence_of :reservation, :item, :number, :code
+
+  def to_s
+    code
+  end
 end
