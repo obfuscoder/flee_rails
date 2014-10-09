@@ -23,13 +23,9 @@ RSpec.describe EventsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:event) }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { FactoryGirl.attributes_for(:event).inject({}) { |h, (k, v)| h[k] = nil; h } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -103,14 +99,15 @@ RSpec.describe EventsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: "New Eventname", max_sellers: 2 }
       }
 
       it "updates the requested event" do
         event = Event.create! valid_attributes
         put :update, {:id => event.to_param, :event => new_attributes}, valid_session
         event.reload
-        skip("Add assertions for updated state")
+        event.name.should be_eql("New Eventname")
+        event.max_sellers.should be_eql(2)
       end
 
       it "assigns the requested event as @event" do

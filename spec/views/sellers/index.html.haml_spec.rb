@@ -1,37 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "sellers/index", :type => :view do
+  let(:sellers) { [FactoryGirl.create(:seller), FactoryGirl.create(:seller)] }
+
   before(:each) do
-    assign(:sellers, [
-      Seller.create!(
-        :first_name => "First Name",
-        :last_name => "Last Name",
-        :street => "Street",
-        :zip_code => "Zip Code",
-        :city => "City",
-        :email => "Email",
-        :phone => "Phone"
-      ),
-      Seller.create!(
-        :first_name => "First Name",
-        :last_name => "Last Name",
-        :street => "Street",
-        :zip_code => "Zip Code",
-        :city => "City",
-        :email => "Email",
-        :phone => "Phone"
-      )
-    ])
+    assign(:sellers, sellers)
   end
 
   it "renders a list of sellers" do
     render
-    assert_select "tr>td", :text => "First Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Last Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Street".to_s, :count => 2
-    assert_select "tr>td", :text => "Zip Code".to_s, :count => 2
-    assert_select "tr>td", :text => "City".to_s, :count => 2
-    assert_select "tr>td", :text => "Email".to_s, :count => 2
-    assert_select "tr>td", :text => "Phone".to_s, :count => 2
+    assert_select "tr>td", :text => sellers.first.first_name, :count => 2
+    assert_select "tr>td", :text => sellers.first.last_name, :count => 2
+    assert_select "tr>td", :text => sellers.first.email, :count => 1
+    assert_select "tr>td", :text => sellers.last.email, :count => 1
   end
 end

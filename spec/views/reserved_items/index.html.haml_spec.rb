@@ -1,28 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe "reserved_items/index", :type => :view do
-  before(:each) do
-    assign(:reserved_items, [
-      ReservedItem.create!(
-        :reservation => nil,
-        :item => nil,
-        :number => 1,
-        :code => "Code"
-      ),
-      ReservedItem.create!(
-        :reservation => nil,
-        :item => nil,
-        :number => 1,
-        :code => "Code"
-      )
-    ])
+describe "reserved_items/index", type: :view do
+  let(:reserved_items) { [FactoryGirl.create(:reserved_item), FactoryGirl.create(:reserved_item)] }
+
+  before do
+    assign(:reserved_items, reserved_items)
   end
 
   it "renders a list of reserved_items" do
     render
-    assert_select "tr>td", :text => nil.to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => "Code".to_s, :count => 2
+    assert_select "tr>td", :text => reserved_items.first.reservation, :count => 1
+    assert_select "tr>td", :text => reserved_items.last.reservation, :count => 1
+    assert_select "tr>td", :text => reserved_items.first.item, :count => 2
+    assert_select "tr>td", :text => reserved_items.first.number, :count => 1
+    assert_select "tr>td", :text => reserved_items.last.number, :count => 1
+    assert_select "tr>td", :text => reserved_items.first.code, :count => 1
+    assert_select "tr>td", :text => reserved_items.last.code, :count => 1
   end
 end

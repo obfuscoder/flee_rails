@@ -2,25 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "sellers/show", :type => :view do
   before(:each) do
-    @seller = assign(:seller, Seller.create!(
-      :first_name => "First Name",
-      :last_name => "Last Name",
-      :street => "Street",
-      :zip_code => "Zip Code",
-      :city => "City",
-      :email => "Email",
-      :phone => "Phone"
-    ))
+    @seller = assign(:seller, FactoryGirl.create(:seller))
   end
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/First Name/)
-    expect(rendered).to match(/Last Name/)
-    expect(rendered).to match(/Street/)
-    expect(rendered).to match(/Zip Code/)
-    expect(rendered).to match(/City/)
-    expect(rendered).to match(/Email/)
-    expect(rendered).to match(/Phone/)
+    expect(rendered).to match(/#{@seller.first_name}/)
+    expect(rendered).to match(/#{@seller.last_name}/)
+    expect(rendered).to match(/#{@seller.street}/)
+    expect(rendered).to match(/#{@seller.zip_code}/)
+    expect(rendered).to match(/#{@seller.city}/)
+    expect(rendered).to match(/#{@seller.email}/)
+    expect(rendered).to match(/#{@seller.phone}/)
   end
 end

@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  root 'pages#home'
+
+  get 'pages/home'
+  get 'pages/contact'
+  get 'pages/imprint'
+  get 'pages/privacy'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :reserved_items
 
@@ -8,7 +15,11 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  resources :sellers
+  resources :sellers do
+    collection do
+      get :resend_activation, as: :resend_activation
+    end
+  end
 
   resources :events
 

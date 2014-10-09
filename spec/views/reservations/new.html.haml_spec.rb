@@ -13,11 +13,8 @@ RSpec.describe "reservations/new", :type => :view do
     render
 
     assert_select "form[action=?][method=?]", reservations_path, "post" do
-
-      assert_select "input#reservation_seller_id[name=?]", "reservation[seller_id]"
-
-      assert_select "input#reservation_event_id[name=?]", "reservation[event_id]"
-
+      assert_select "select#reservation_seller_id[name=?]", "reservation[seller_id]"
+      assert_select "select#reservation_event_id[name=?]", "reservation[event_id]"
       assert_select "input#reservation_number[name=?]", "reservation[number]"
     end
   end

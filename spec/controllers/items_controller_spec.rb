@@ -20,15 +20,23 @@ require 'rails_helper'
 
 RSpec.describe ItemsController, :type => :controller do
 
+  let(:seller) { FactoryGirl.create(:seller) }
+  let(:category) { FactoryGirl.create(:category) }
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {seller_id: seller.id,
+     category_id: category.id,
+     description: "Description",
+     price: 9.99}
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+  let(:invalid_attributes) { {
+    seller_id: nil,
+    category_id: nil,
+    description: nil,
+    price: nil}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +111,16 @@ RSpec.describe ItemsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {description: "New Description",
+         price: 10.99}
       }
 
       it "updates the requested item" do
         item = Item.create! valid_attributes
         put :update, {:id => item.to_param, :item => new_attributes}, valid_session
         item.reload
-        skip("Add assertions for updated state")
+        item.description.should be_eql("New Description")
+        item.price.should be_eql(10.99)
       end
 
       it "assigns the requested item as @item" do

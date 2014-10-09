@@ -1,28 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "items/index", :type => :view do
+  let(:category) { FactoryGirl.create(:category) }
+  let(:items) { [FactoryGirl.create(:item, size: "Size"), FactoryGirl.create(:item, size: "Size")] }
   before(:each) do
-    assign(:items, [
-      Item.create!(
-        :seller => nil,
-        :description => "Description",
-        :size => "Size",
-        :price => "9.99"
-      ),
-      Item.create!(
-        :seller => nil,
-        :description => "Description",
-        :size => "Size",
-        :price => "9.99"
-      )
-    ])
+    assign(:items, items)
   end
 
   it "renders a list of items" do
     render
-    assert_select "tr>td", :text => nil.to_s, :count => 2
-    assert_select "tr>td", :text => "Description".to_s, :count => 2
-    assert_select "tr>td", :text => "Size".to_s, :count => 2
-    assert_select "tr>td", :text => "9.99".to_s, :count => 2
+    assert_select "tr>td", :text => items.first.seller.to_s, :count => 2
+    assert_select "tr>td", :text => items.first.category.to_s, :count => 1
+    assert_select "tr>td", :text => items.last.category.to_s, :count => 1
+    assert_select "tr>td", :text => items.first.description, :count => 2
+    assert_select "tr>td", :text => items.first.size, :count => 2
+    assert_select "tr>td", :text => items.first.price.to_s, :count => 2
   end
 end

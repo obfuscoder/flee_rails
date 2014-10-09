@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "categories/index", :type => :view do
+  let (:categories) { [FactoryGirl.create(:category), FactoryGirl.create(:category)] }
   before(:each) do
-    assign(:categories, [
-      Category.create!(
-        :name => "Name"
-      ),
-      Category.create!(
-        :name => "Name"
-      )
-    ])
+    assign(:categories, categories)
   end
 
   it "renders a list of categories" do
     render
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
+    assert_select "tr>td", :text => categories.first.name, :count => 1
+    assert_select "tr>td", :text => categories.last.name, :count => 1
   end
 end
