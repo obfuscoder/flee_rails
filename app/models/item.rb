@@ -6,6 +6,6 @@ class Item < ActiveRecord::Base
   validates_presence_of :seller, :category, :description, :price
 
   def to_s
-    description
+    description || super
   end
 end

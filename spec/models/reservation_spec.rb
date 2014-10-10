@@ -1,5 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Reservation, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Reservation do
+  subject { FactoryGirl.build(:reservation) }
+
+  it { should be_valid }
+  it { should validate_presence_of(:seller) }
+  it { should validate_presence_of(:event) }
+  it { should validate_presence_of(:number) }
+  it { should validate_numericality_of(:number).is_greater_than(0).only_integer }
+  it { should validate_uniqueness_of(:number).scoped_to(:event_id) }
+  it { should validate_uniqueness_of(:seller_id).scoped_to(:event_id) }
+  it { should have_many(:reserved_item).dependent(:destroy) }
+  it { should belong_to(:event) }
+  it { should belong_to(:seller) }
+  its(:to_s) { should eq("#{subject.event.name} - #{subject.number}") }
 end
