@@ -3,31 +3,39 @@ require 'rails_helper'
 RSpec.describe PagesController, :type => :controller do
 
   describe "GET home" do
-    it "returns http success" do
+    before do
       get :home
-      expect(response).to have_http_status(:success)
     end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template('home') }
   end
 
   describe "GET contact" do
-    it "returns http success" do
+    before do
       get :contact
-      expect(response).to have_http_status(:success)
     end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template('contact') }
   end
 
   describe "GET imprint" do
-    it "returns http success" do
+    before do
       get :imprint
-      expect(response).to have_http_status(:success)
     end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template('imprint') }
   end
 
   describe "GET privacy" do
-    it "returns http success" do
+    before do
       get :privacy
-      expect(response).to have_http_status(:success)
     end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template('privacy') }
   end
 
 end
