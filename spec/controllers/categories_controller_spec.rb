@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 
+
 RSpec.describe CategoriesController do
   let!(:category) { FactoryGirl.create(:category) }
 
@@ -58,12 +59,16 @@ RSpec.describe CategoriesController do
 
   describe "POST create" do
     context "with valid params" do
-      before do
+      def create_category
         post :create, category: FactoryGirl.attributes_for(:category)
       end
 
+      before do
+        create_category
+      end
+
       it "creates a new Category" do
-        expect { post :create, category: FactoryGirl.attributes_for(:category) }.to change(Category, :count).by(1)
+        expect { create_category }.to change(Category, :count).by(1)
       end
 
       it { expect(assigns(:category)).to be_a(Category) }
@@ -107,12 +112,12 @@ RSpec.describe CategoriesController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested category" do
-      expect { delete :destroy, id: category.to_param }.to change(Category, :count).by(-1)
-    end
+    let(:delete_category) { delete :destroy, id: category.to_param }
+
+    it { expect { delete_category }.to change(Category, :count).by(-1) }
 
     it "redirects to the categories list" do
-      delete :destroy, id: category.to_param
+      delete_category
       expect(response).to redirect_to(categories_path)
     end
   end
