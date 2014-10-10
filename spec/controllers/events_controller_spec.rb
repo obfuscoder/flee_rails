@@ -106,8 +106,8 @@ RSpec.describe EventsController, :type => :controller do
         event = Event.create! valid_attributes
         put :update, {:id => event.to_param, :event => new_attributes}, valid_session
         event.reload
-        event.name.should be_eql("New Eventname")
-        event.max_sellers.should be_eql(2)
+        expect(event.name).to eq("New Eventname")
+        expect(event.max_sellers).to eq(2)
       end
 
       it "assigns the requested event as @event" do

@@ -119,8 +119,8 @@ RSpec.describe ItemsController, :type => :controller do
         item = Item.create! valid_attributes
         put :update, {:id => item.to_param, :item => new_attributes}, valid_session
         item.reload
-        item.description.should be_eql("New Description")
-        item.price.should be_eql(10.99)
+        expect(item.description).to eq("New Description")
+        expect(item.price).to eq(10.99)
       end
 
       it "assigns the requested item as @item" do
