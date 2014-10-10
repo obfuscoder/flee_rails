@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "reservations/new", :type => :view do
+RSpec.describe "reservations/new" do
   before(:each) do
     assign(:reservation, Reservation.new(
       :seller => nil,

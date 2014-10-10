@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "reservations/show", :type => :view do
+RSpec.describe "reservations/show" do
   before(:each) do
     @reservation = assign(:reservation, FactoryGirl.create(:reservation))
+    render
   end
 
   it "renders attributes in <p>" do
-    render
-    expect(rendered).to match(/Eventname/)
+    expect(rendered).to match(/#{@reservation.event.name}/)
     expect(rendered).to match(/Firstname Lastname/)
     expect(rendered).to match(/1/)
   end

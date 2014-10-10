@@ -10,13 +10,13 @@
 %h3 Kommende Flohmärkte
 - if @events
   %ul
-  - @events.each do |event|
-    %li
-      %h4= event.name
-      %p= event.details
-      %p
-        Plätze:
-        = event.max_sellers
+    - @events.each do |event|
+      %li
+        %h4= event.name
+        %p= event.details
+        %p
+          Plätze:
+          = event.max_sellers
 - else
   %p Aktuell sind keine Flohmärkte geplant.
 %p
