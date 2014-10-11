@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "categories/edit", :type => :view do
+RSpec.describe "categories/edit" do
   before(:each) do
     @category = assign(:category, FactoryGirl.create(:category))
   end

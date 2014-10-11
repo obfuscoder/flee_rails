@@ -9,6 +9,19 @@ RSpec.describe PagesController do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template('home') }
+
+    context "with events" do
+      let!(:event) { FactoryGirl.create(:event) }
+
+      it "assigns all events as @events" do
+        expect(assigns(:events)).to match_array([event])
+      end
+    end
+    context "without events" do
+      it "assigns an empty array as @events" do
+        expect(assigns(:events)).to match_array([])
+      end
+    end
   end
 
   describe "GET contact" do

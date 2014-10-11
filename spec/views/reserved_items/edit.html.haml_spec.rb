@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "reserved_items/edit", :type => :view do
+RSpec.describe "reserved_items/edit" do
   before(:each) do
     @reserved_item = assign(:reserved_item, FactoryGirl.create(:reserved_item))
   end

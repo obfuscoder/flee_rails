@@ -1,14 +1,15 @@
-%h1 Flohmarkt Königsbach
 %p
   = image_tag "kitaregenbogen.jpg"
-  = image_tag "/img/archenoahkita.jpg"
+  = image_tag "archenoahkita.jpg"
 %p Auf diesen Seiten können Sie sich für unsere kommenden Flohmärkte als Verkäufer registrieren. Sie werden dann zeitnah per Mail über den weiteren Ablauf informiert.
 %p Die Anzahl der Verkäufer ist in der Regel begrenzt. Die Reservierung findet ab einem bestimmten Datum vor Beginn des Flohmarkts statt und wird hier auf den Webseiten sowie per eMail an alle registrierten Interessenten rechtzeitig angekündigt. Nur registrierte Verkäufer können eine Reservierung online durchführen. Genaue Informationen darüber erhalten Sie mit der Registrierung.
-%p= link_to "Zur Registrierung", new_seller_path
-%p Sie sind <strong>bereits registriert</strong>, finden aber nicht mehr die eMail mit den Zugangsinformationen zu Ihren privaten Bereich? Dann klicken Sie bitte #{ link_to "auf diesen Link", resend_activation_sellers_path }.
+%p= link_to "Zur Registrierung", new_seller_path, class: 'btn btn-primary'
+%p Sie sind <strong>bereits registriert</strong>, finden aber nicht mehr die eMail mit den Zugangsinformationen zu Ihren privaten Bereich? Dann klicken Sie bitte #{ link_to "hier", resend_activation_sellers_path }.
 
 %h3 Kommende Flohmärkte
-- if @events
+- if @events.empty?
+  %p Aktuell sind keine Flohmärkte geplant.
+- else
   %ul
     - @events.each do |event|
       %li
@@ -17,8 +18,6 @@
         %p
           Plätze:
           = event.max_sellers
-- else
-  %p Aktuell sind keine Flohmärkte geplant.
 %p
   %small Hier noch ein paar Impressionen unseres Flohmarkts in der Festhalle Königsbach
 = image_tag "flohmarkt.jpg", width: 300, style: "margin: 5px"

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe "sellers/new", :type => :view do
+RSpec.describe "sellers/new" do
   before(:each) do
     assign(:seller, Seller.new(
-      :first_name => "MyString",
-      :last_name => "MyString",
-      :street => "MyString",
-      :zip_code => "MyString",
-      :city => "MyString",
-      :email => "MyString",
-      :phone => "MyString"
+      first_name: "MyString",
+      last_name: "MyString",
+      street: "MyString",
+      zip_code: "MyString",
+      city: "MyString",
+      email: "MyString",
+      phone: "MyString"
     ))
   end
 

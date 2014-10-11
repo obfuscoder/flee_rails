@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "events/show", :type => :view do
+RSpec.describe "events/show" do
   before(:each) do
     @event = assign(:event, FactoryGirl.create(:event, details: "Details", max_items_per_seller: 50, confirmed: true ))
   end

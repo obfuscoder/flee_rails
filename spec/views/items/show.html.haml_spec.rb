@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "items/show", :type => :view do
+RSpec.describe "items/show" do
   before(:each) do
     @item = assign(:item, FactoryGirl.create(:item))
   end

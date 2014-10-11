@@ -12,11 +12,11 @@ RSpec.describe SellersController do
     end
 
     it "routes to #show" do
-      expect(get: "/sellers/1").to route_to("sellers#show", :id => "1")
+      expect(get: "/sellers/1").to route_to("sellers#show", id: "1")
     end
 
     it "routes to #edit" do
-      expect(get: "/sellers/1/edit").to route_to("sellers#edit", :id => "1")
+      expect(get: "/sellers/1/edit").to route_to("sellers#edit", id: "1")
     end
 
     it "routes to #create" do
@@ -24,11 +24,11 @@ RSpec.describe SellersController do
     end
 
     it "routes to #update" do
-      expect(put: "/sellers/1").to route_to("sellers#update", :id => "1")
+      expect(put: "/sellers/1").to route_to("sellers#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/sellers/1").to route_to("sellers#destroy", :id => "1")
+      expect(delete: "/sellers/1").to route_to("sellers#destroy", id: "1")
     end
 
     it "routes to #resend_activation" do

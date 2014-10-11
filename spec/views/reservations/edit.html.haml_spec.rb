@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "reservations/edit", :type => :view do
+RSpec.describe "reservations/edit" do
   before(:each) do
     @reservation = assign(:reservation, FactoryGirl.create(:reservation))
   end

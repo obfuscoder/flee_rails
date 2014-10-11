@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Sellers", :type => :request do
+RSpec.describe "Sellers" do
   describe "GET /sellers" do
     it "works! (now write some real specs)" do
       get sellers_path

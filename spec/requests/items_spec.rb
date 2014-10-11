@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Items", :type => :request do
+RSpec.describe "Items" do
   describe "GET /items" do
     it "works! (now write some real specs)" do
       get items_path

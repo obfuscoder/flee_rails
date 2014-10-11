@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "reserved_items/new", :type => :view do
+RSpec.describe "reserved_items/new" do
   before(:each) do
     assign(:reserved_item, ReservedItem.new(
-      :reservation => nil,
-      :item => nil,
-      :number => 1,
-      :code => "MyString"
+      reservation: nil,
+      item: nil,
+      number: 1,
+      code: "MyString"
     ))
   end
 

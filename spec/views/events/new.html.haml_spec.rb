@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "events/new", :type => :view do
+RSpec.describe "events/new" do
   before(:each) do
     assign(:event, Event.new(
-      :name => "MyString",
-      :details => "MyText",
-      :max_sellers => 1,
-      :max_items_per_seller => 1,
-      :confirmed => false
+      name: "MyString",
+      details: "MyText",
+      max_sellers: 1,
+      max_items_per_seller: 1,
+      confirmed: false
     ))
   end
 

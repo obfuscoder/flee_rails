@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "categories/new", :type => :view do
+RSpec.describe "categories/new" do
   before(:each) do
     assign(:category, Category.new(
-      :name => "MyString"
+      name: "MyString"
     ))
   end
 

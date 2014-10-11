@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "ReservedItems", :type => :request do
+RSpec.describe "ReservedItems" do
   describe "GET /reserved_items" do
     it "works! (now write some real specs)" do
       get reserved_items_path

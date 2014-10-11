@@ -7,6 +7,10 @@ RSpec.describe "pages/home.html.haml" do
     render
   end
 
+  it "does not set content for title" do
+    expect(view.content_for(:title)).to be_nil
+  end
+
   it "links to registration" do
     assert_select "a[href=?]", new_seller_path
   end
@@ -15,8 +19,15 @@ RSpec.describe "pages/home.html.haml" do
     assert_select "a[href=?]", resend_activation_sellers_path
   end
 
-  it "lists the upcoming events" do
-    assert_select "ul>li>h4", text: events.first.name, count: 1
-    assert_select "ul>li>h4", text: events.last.name, count: 1
+  it "lists the events" do
+    assert_select "ul>li>h4", events.first.name
+    assert_select "ul>li>h4", events.last.name
+  end
+
+  context "without events" do
+    let(:events) { [] }
+    it "it displays info that there are no events" do
+      expect(rendered).to match(/Aktuell sind keine/)
+    end
   end
 end
