@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "categories/new" do
   before(:each) do
-    assign(:category, Category.new(
-      name: "MyString"
-    ))
+    assign(:category, FactoryGirl.build(:category))
   end
 
   it "renders new category form" do

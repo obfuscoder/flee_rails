@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "reservations/new" do
   before(:each) do
-    assign(:reservation, Reservation.new(
-      seller: nil,
-      event: nil,
-      number: 1
-    ))
+    assign(:reservation, FactoryGirl.build(:reservation))
   end
 
   it "renders new reservation form" do

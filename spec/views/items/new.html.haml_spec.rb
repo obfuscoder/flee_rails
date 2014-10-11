@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "items/new" do
   before(:each) do
-    assign(:item, Item.new(
-      seller: FactoryGirl.create(:seller),
-      category: FactoryGirl.create(:category),
-      description: "MyString",
-      size: "MyString",
-      price: "9.99"
-    ))
+    assign(:item, FactoryGirl.build(:item))
   end
 
   it "renders new item form" do

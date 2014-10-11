@@ -2,12 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "reserved_items/new" do
   before(:each) do
-    assign(:reserved_item, ReservedItem.new(
-      reservation: nil,
-      item: nil,
-      number: 1,
-      code: "MyString"
-    ))
+    assign(:reserved_item, FactoryGirl.build(:reserved_item))
   end
 
   it "renders new reserved_item form" do
