@@ -54,3 +54,4 @@ gem 'bootstrap-sass'
 gem 'awesome_print'
 
 gem 'rails_admin'
+gem 'redcarpet'

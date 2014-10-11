@@ -20,7 +20,7 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand(href="#") Flohmarkthelfer
+        .navbar-brand Flohmarkt<strong>helfer</strong>
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             = render partial: 'layouts/menu_item',
@@ -29,5 +29,8 @@
                              {pages_imprint_path => "Impressum"},
                              {pages_privacy_path => "Datenschutz"}], as: :item
     .container
-      %h2= content_for?(:title) ? yield(:title) : "Flohmarkthelfer"
+      - if content_for?(:title)
+        %h2= yield(:title)
+      - else
+        %h1 Flohmarkt<strong>helfer</strong>
       = yield
