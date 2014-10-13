@@ -81,6 +81,7 @@ de:
         city: Ort
         email: eMail-Adresse
         phone: Telefonnummer
+        accept_terms: Teilnahmebedingungen
   helpers:
     select:
       prompt: Bitte wählen

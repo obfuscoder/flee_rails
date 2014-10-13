@@ -2,6 +2,7 @@ RSpec.shared_examples "a standard controller" do
   let(:models) { described_class.controller_name.to_sym }
   let(:model) { models.to_s.singularize.to_sym }
   let(:model_class) { model.to_s.camelcase.constantize }
+  let(:additional_attributes) { respond_to?(:virtual_attributes) ? virtual_attributes : {} }
   let!(:model_instance) { FactoryGirl.create(model) }
 
   describe "GET index" do
@@ -59,7 +60,7 @@ RSpec.shared_examples "a standard controller" do
   describe "POST create" do
     context "with valid params" do
       def call_post
-        post :create, model => FactoryGirl.build(model).attributes
+        post :create, model => FactoryGirl.build(model).attributes.merge(additional_attributes)
       end
 
       before do

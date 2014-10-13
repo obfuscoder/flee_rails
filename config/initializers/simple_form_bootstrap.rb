@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper tag: 'label' do |ba|
+    b.wrapper tag: 'label', class: 'control-label' do |ba|
       ba.use :input
       ba.use :label_text
     end

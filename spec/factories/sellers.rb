@@ -6,6 +6,7 @@ FactoryGirl.define do
     zip_code "12345"
     city "City"
     phone "0815/4711"
+    accept_terms "1"
     sequence(:email) { |n| "email#{n}@example.com" }
   end
 end
