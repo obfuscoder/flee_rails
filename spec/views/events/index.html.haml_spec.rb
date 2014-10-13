@@ -7,6 +7,8 @@ RSpec.describe "events/index" do
     render
   end
 
+  it_behaves_like "a standard view"
+
   it "renders a list of events" do
     assert_select "tr>td", text: events.first.name, count: 1
     assert_select "tr>td", text: events.last.name, count: 1

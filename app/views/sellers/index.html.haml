@@ -1,11 +1,11 @@
-%h1 Listing sellers
+- content_for :title, t('.title')
 
 %table
   %tr
-    %th First name
-    %th Last name
-    %th Email
-    %td= link_to 'New', new_seller_path
+    %th= Seller.human_attribute_name :first_name
+    %th= Seller.human_attribute_name :last_name
+    %th= Seller.human_attribute_name :email
+    %td= link_to t('new'), new_seller_path
 
   - @sellers.each do |seller|
     %tr
@@ -13,6 +13,6 @@
       %td= seller.last_name
       %td= seller.email
       %td
-        = link_to 'Show', seller
-        = link_to 'Edit', edit_seller_path(seller)
-        = link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to t('show'), seller
+        = link_to t('edit'), edit_seller_path(seller)
+        = link_to t('destroy'), seller, method: :delete, data: { confirm: t('sure') }

@@ -1,9 +1,9 @@
+- content_for :title, t('.title')
+
 %p#notice= notice
 
-%p
-  %b Name:
-  = @category.name
+= render 'shared/details', instance: @category, attributes: [:name]
 
-= link_to 'Edit', edit_category_path(@category)
+= link_to t('edit'), edit_category_path(@category)
 \|
-= link_to 'Back', categories_path
+= link_to t('back'), categories_path

@@ -1,6 +1,6 @@
-%h1 Editing event
+- content_for :title, t('.title')
 
 = render 'form'
 
-= link_to 'Show', @event, class: 'btn btn-default'
-= link_to 'Back', events_path, class: 'btn btn-default'
+= link_to t('show'), @event, class: 'btn btn-default'
+= link_to t('back'), events_path, class: 'btn btn-default'

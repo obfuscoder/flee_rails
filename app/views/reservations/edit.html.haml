@@ -1,7 +1,7 @@
-%h1 Editing reservation
+- content_for :title, t('.title')
 
 = render 'form'
 
-= link_to 'Show', @reservation
+= link_to t('show'), @reservation
 \|
-= link_to 'Back', reservations_path
+= link_to t('back'), reservations_path

@@ -5,6 +5,8 @@ RSpec.describe "items/new" do
     assign(:item, FactoryGirl.build(:item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new item form" do
     render
 

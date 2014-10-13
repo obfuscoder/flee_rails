@@ -5,6 +5,8 @@ RSpec.describe "reserved_items/show" do
     @reserved_item = assign(:reserved_item, FactoryGirl.create(:reserved_item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/#{@reserved_item.reservation.to_s}/)

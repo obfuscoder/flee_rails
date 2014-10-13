@@ -7,6 +7,8 @@ RSpec.describe "sellers/index" do
     assign(:sellers, sellers)
   end
 
+  it_behaves_like "a standard view"
+
   it "renders a list of sellers" do
     render
     assert_select "tr>td", text: sellers.first.first_name, count: 2

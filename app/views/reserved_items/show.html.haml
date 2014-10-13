@@ -1,21 +1,10 @@
+- content_for :title, t('.title')
+
 %p#notice= notice
 
-%p
-  %b Reservation:
-  = link_to @reserved_item.reservation, @reserved_item.reservation
-%p
-  %b Item:
-  = link_to @reserved_item.item, @reserved_item.item
-%p
-  %b Number:
-  = @reserved_item.number
-%p
-  %b Code:
-  = @reserved_item.code
-%p
-  %b Sold:
-  = @reserved_item.sold
+= render 'shared/details', instance: @reserved_item,
+  attributes: [:reservation, :item, :number, :code, :sold, :created_at, :updated_at]
 
-= link_to 'Edit', edit_reserved_item_path(@reserved_item)
+= link_to t('edit'), edit_reserved_item_path(@reserved_item)
 \|
-= link_to 'Back', reserved_items_path
+= link_to t('back'), reserved_items_path

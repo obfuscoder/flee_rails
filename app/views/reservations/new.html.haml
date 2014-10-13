@@ -1,5 +1,5 @@
-%h1 New reservation
+- content_for :title, t('.title')
 
 = render 'form'
 
-= link_to 'Back', reservations_path
+= link_to t('back'), reservations_path

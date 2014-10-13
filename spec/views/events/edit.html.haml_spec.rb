@@ -5,6 +5,8 @@ RSpec.describe "events/edit" do
     @event = assign(:event, FactoryGirl.create(:event))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders the edit event form" do
     render
 

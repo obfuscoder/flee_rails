@@ -5,6 +5,8 @@ RSpec.describe "items/show" do
     @item = assign(:item, FactoryGirl.create(:item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/#{@item.seller.to_s}/)

@@ -1,0 +1,4 @@
+%dl.dl-horizontal
+  - attributes.each do |attr|
+    %dt= instance.class.human_attribute_name attr
+    %dd= instance.try attr

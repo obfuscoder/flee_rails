@@ -5,6 +5,8 @@ RSpec.describe "reservations/new" do
     assign(:reservation, FactoryGirl.build(:reservation))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new reservation form" do
     render
 

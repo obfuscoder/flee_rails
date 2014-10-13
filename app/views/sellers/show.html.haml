@@ -1,4 +1,5 @@
-- content_for :title, "Registrierung erfolgreich"
+- content_for :title, t('.title')
+
 :markdown
   Vielen Dank für Ihre Registrierung. Es wird Ihnen innerhalb weniger Minuten eine **eMail zugeschickt**,
   mit der wir die Angabe Ihrer eMail-Adresse verifizieren. Schauen Sie bitte in Ihren Mail-Client
@@ -10,7 +11,5 @@
 
   Hier zur Bestätigung die von Ihnen gemachten Angaben:
 
-%dl.dl-horizontal
-  - [:first_name, :last_name, :street, :zip_code, :city, :email, :phone].each do |attr|
-    %dt= @seller.class.human_attribute_name attr
-    %dd= @seller[attr]
+= render 'shared/details', instance: @seller,
+  attributes: [:first_name, :last_name, :street, :zip_code, :city, :email, :phone]

@@ -6,6 +6,8 @@ RSpec.describe "reservations/show" do
     render
   end
 
+  it_behaves_like "a standard view"
+
   it "renders attributes in <p>" do
     expect(rendered).to match(/#{@reservation.event.name}/)
     expect(rendered).to match(/Firstname Lastname/)

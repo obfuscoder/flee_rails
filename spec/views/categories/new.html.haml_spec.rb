@@ -5,6 +5,8 @@ RSpec.describe "categories/new" do
     assign(:category, FactoryGirl.build(:category))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new category form" do
     render
 

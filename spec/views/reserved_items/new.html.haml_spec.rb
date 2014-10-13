@@ -5,6 +5,8 @@ RSpec.describe "reserved_items/new" do
     assign(:reserved_item, FactoryGirl.build(:reserved_item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new reserved_item form" do
     render
 

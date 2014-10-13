@@ -1,4 +1,121 @@
 de:
+  attributes:
+    created_at: "Erstellt"
+    updated_at: "Aktualisiert"
+  new: Neu
+  show: Anzeigen
+  edit: Bearbeiten
+  destroy: Löschen
+  sure: Sind Sie sicher?
+  back: Zurück
+  helpers:
+    submit:
+      create: '%{model} erstellen'
+      update: '%{model} aktualisieren'
+      seller:
+        create: Registrieren
+  categories:
+    index:
+      title: Kategorien
+    show:
+      title: Kategorie
+    new:
+      title: Kategorie erstellen
+    edit:
+      title: Kategorie bearbeiten
+  events:
+    index:
+      title: Termine
+    show:
+      title: Termin
+    new:
+      title: Termin erstellen
+    edit:
+      title: Termin bearbeiten
+  items:
+    index:
+      title: Artikel
+    show:
+      title: Artikel
+    new:
+      title: Artikel erstellen
+    edit:
+      title: Artikel bearbeiten
+  sellers:
+    index:
+      title: Verkäufer
+    new:
+      title: Registrierung
+    show:
+      title: Registrierung erfolgreich
+    edit:
+      title: Verkäufer bearbeiten
+    form:
+      accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
+  reservations:
+    index:
+      title: Reservierungen
+    show:
+      title: Reservierung
+    new:
+      title: Reservierung erstellen
+    edit:
+      title: Reservierung bearbeiten
+  reserved_items:
+    index:
+      title: Artikelreservierungen
+    new:
+      title: Artikelreservierung erstellen
+    show:
+      title: Artikelreservierung
+    edit:
+      title: Artikelreservierung bearbeiten
+  activerecord:
+    models:
+      category: Kategorie
+      event: Termin
+      item: Artikel
+      seller: Verkäufer
+      reservation: Reservierung
+      reserved_item: Artikelreservierung
+    attributes:
+      category:
+        name: Name
+      event:
+        name: Name
+        details: Details
+        max_sellers: maximale Anzahl Verkäufer
+        max_items_per_seller: maximale Anzahl Artikel je Verkäufer
+        confirmed: steht fest
+      item:
+        seller: Verkäufer
+        category: Kategorie
+        description: Beschreibung
+        size: Größe
+        price: Preis
+      seller:
+        first_name: Vorname
+        last_name: Nachname
+        street: Straße
+        zip_code: Postleitzahl
+        city: Ort
+        email: eMail-Adresse
+        phone: Telefonnummer
+      reservation:
+        seller: Verkäufer
+        event: Termin
+        number: Nummer
+      reserved_item:
+        reservation: Reservierung
+        item: Artikel
+        number: Nummer
+        code: Code
+        sold: verkauft am
+  pages:
+    imprint:
+      title: Impressum
+    contact:
+      title: Hilfe / Kontakt
   terms:
     title: Teilnahmebedingungen
     content: |
@@ -65,39 +182,8 @@ de:
       verpflichtet sind oder Sie uns zuvor eine entsprechende Einwilligung erteilt haben.
       1. Ohne Ihre Einwilligung werden Ihre personenbezogenen Daten nicht für Zwecke der Werbung, Markt- oder
       Meinungsforschung genutzt.
+
       <small>*Quelle: http://www.datenschutzerklaerung-online.de/*</small>
-  attributes:
-    created_at: "Erstellt"
-    updated_at: "Aktualisiert"
-  activerecord:
-    models:
-      seller: Verkäufer
-    attributes:
-      seller:
-        first_name: Vorname
-        last_name: Nachname
-        street: Straße
-        zip_code: Postleitzahl
-        city: Ort
-        email: eMail-Adresse
-        phone: Telefonnummer
-        accept_terms: Teilnahmebedingungen
-  helpers:
-    select:
-      prompt: Bitte wählen
-    submit:
-      create: ! '%{model} erstellen'
-      submit: ! '%{model} speichern'
-      update: ! 'Aktualisieren'
-      seller:
-        create: Registrieren
-  sellers:
-    form:
-      accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
-    create:
-      title: Registrierung
-    show:
-      title: Registrierung erfolgreich
   date:
     abbr_day_names:
     - So

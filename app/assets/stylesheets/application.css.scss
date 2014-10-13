@@ -8,3 +8,7 @@
 dl > dt:after {
   content: ":";
 }
+
+.translation_missing {
+  border: 2px solid red;
+}

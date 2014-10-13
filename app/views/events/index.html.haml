@@ -1,16 +1,16 @@
-%h2 Listing events
+- content_for :title, t('.title')
 
 %table
   %tr
-    %th Name
-    %th Max sellers
-    %td= link_to 'New', new_event_path
+    %th= Event.human_attribute_name :name
+    %th= Event.human_attribute_name :max_sellers
+    %td= link_to t('new'), new_event_path
 
   - @events.each do |event|
     %tr
       %td= event.name
       %td= event.max_sellers
       %td
-        = link_to 'Show', event
-        = link_to 'Edit', edit_event_path(event)
-        = link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to t('show'), event
+        = link_to t('edit'), edit_event_path(event)
+        = link_to t('destroy'), event, method: :delete, data: { confirm: t('sure') }

@@ -1,4 +1,5 @@
-- content_for :title, "Registrierung"
+- content_for :title, t('.title')
+
 :markdown
   Sie können sich hier als Interessent für den Verkauf von Ware auf kommenden Kommissions- und Tischflohmärkten
   registrieren. Die erfassten Daten dienen in erster Linie dazu,
@@ -36,6 +37,6 @@
           %span.sr-only Close
         %h4.modal-title#privacy-label= t('privacy.title')
       .modal-body
-        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('terms.content')).html_safe
+        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('privacy.content')).html_safe
       .modal-footer
         %button.btn.btn-primary(data-dismiss="modal") Close

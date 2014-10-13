@@ -5,6 +5,8 @@ RSpec.describe "categories/edit" do
     @category = assign(:category, FactoryGirl.create(:category))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders the edit category form" do
     render
 

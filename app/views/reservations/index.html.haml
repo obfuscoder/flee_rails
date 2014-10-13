@@ -1,11 +1,11 @@
-%h1 Listing reservations
+- content_for :title, t('.title')
 
 %table
   %tr
-    %th Seller
-    %th Event
-    %th Number
-    %td= link_to 'New', new_reservation_path
+    %th= Reservation.human_attribute_name :seller
+    %th= Reservation.human_attribute_name :event
+    %th= Reservation.human_attribute_name :number
+    %td= link_to t('new'), new_reservation_path
 
   - @reservations.each do |reservation|
     %tr
@@ -13,6 +13,6 @@
       %td= link_to reservation.event, reservation.event
       %td= reservation.number
       %td
-        = link_to 'Show', reservation
-        = link_to 'Edit', edit_reservation_path(reservation)
-        = link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to t('show'), reservation
+        = link_to t('edit'), edit_reservation_path(reservation)
+        = link_to t('destroy'), reservation, method: :delete, data: { confirm: t('sure') }

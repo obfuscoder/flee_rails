@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "items/index" do
-  let(:category) { FactoryGirl.create(:category) }
   let(:items) { [FactoryGirl.create(:item, size: "Size"), FactoryGirl.create(:item, size: "Size")] }
   before(:each) do
     assign(:items, items)
   end
+
+  it_behaves_like "a standard view"
 
   it "renders a list of items" do
     render

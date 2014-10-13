@@ -1,7 +1,7 @@
-%h1 Editing seller
+- content_for :title, t('.title')
 
 = render 'form'
 
-= link_to 'Show', @seller
+= link_to t('show'), @seller
 \|
-= link_to 'Back', sellers_path
+= link_to t('back'), sellers_path

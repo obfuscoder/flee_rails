@@ -1,21 +1,10 @@
+- content_for :title, t('.title')
+
 %p#notice= notice
 
-%p
-  %b Name:
-  = @event.name
-%p
-  %b Details:
-  = @event.details
-%p
-  %b Max sellers:
-  = @event.max_sellers
-%p
-  %b Max items per seller:
-  = @event.max_items_per_seller
-%p
-  %b Confirmed:
-  = @event.confirmed
+= render 'shared/details', instance: @event,
+  attributes: [:name, :details, :max_sellers, :max_items_per_seller, :confirmed]
 
-= link_to 'Edit', edit_event_path(@event)
+= link_to t('edit'), edit_event_path(@event)
 \|
-= link_to 'Back', events_path
+= link_to t('back'), events_path

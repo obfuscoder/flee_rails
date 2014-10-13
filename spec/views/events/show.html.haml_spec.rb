@@ -5,7 +5,9 @@ RSpec.describe "events/show" do
     @event = assign(:event, FactoryGirl.create(:event, details: "Details", max_items_per_seller: 50, confirmed: true ))
   end
 
-  it "renders attributes in <p>" do
+  it_behaves_like "a standard view"
+
+  it "renders attributes" do
     render
     expect(rendered).to match(/#{@event.name}/)
     expect(rendered).to match(/#{@event.details}/)

@@ -1,19 +1,14 @@
-%h1 Listing categories
+- content_for :title, t('.title')
 
 %table
   %tr
-    %th Name
-    %th
-    %th
-    %th
+    %th= Category.human_attribute_name :name
+    %th= link_to t('new'), new_category_path
 
   - @categories.each do |category|
     %tr
       %td= category.name
-      %td= link_to 'Show', category
-      %td= link_to 'Edit', edit_category_path(category)
-      %td= link_to 'Destroy', category, data: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Category', new_category_path
+      %td
+        = link_to t('show'), category
+        = link_to t('edit'), edit_category_path(category)
+        = link_to t('destroy'), category, data: :delete, data: { confirm: t('sure') }

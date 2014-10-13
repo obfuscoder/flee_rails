@@ -5,6 +5,8 @@ RSpec.describe "categories/show" do
     @category = assign(:category, FactoryGirl.create(:category))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/Name/)

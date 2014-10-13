@@ -7,6 +7,8 @@ describe "reserved_items/index", type: :view do
     assign(:reserved_items, reserved_items)
   end
 
+  it_behaves_like "a standard view"
+
   it "renders a list of reserved_items" do
     render
     assert_select "tr>td", text: reserved_items.first.reservation, count: 1

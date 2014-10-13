@@ -1,2 +1,3 @@
 - content_for :title, t('privacy.title')
+
 = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('privacy.content')).html_safe

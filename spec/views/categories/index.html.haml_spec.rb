@@ -6,6 +6,8 @@ RSpec.describe "categories/index" do
     assign(:categories, categories)
   end
 
+  it_behaves_like "a standard view"
+
   it "renders a list of categories" do
     render
     assert_select "tr>td", text: categories.first.name, count: 1

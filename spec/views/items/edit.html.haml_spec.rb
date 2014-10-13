@@ -5,6 +5,8 @@ RSpec.describe "items/edit" do
     @item = assign(:item, FactoryGirl.create(:item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders the edit item form" do
     render
 

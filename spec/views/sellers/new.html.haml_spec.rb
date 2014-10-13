@@ -5,6 +5,8 @@ RSpec.describe "sellers/new" do
     assign(:seller, FactoryGirl.build(:seller))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new seller form" do
     render
     assert_select "form[action=?][method=?]", sellers_path, "post" do

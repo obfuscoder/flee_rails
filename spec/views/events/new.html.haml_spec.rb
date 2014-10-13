@@ -5,6 +5,8 @@ RSpec.describe "events/new" do
     assign(:event, FactoryGirl.build(:event))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders new event form" do
     render
 

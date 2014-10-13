@@ -5,6 +5,8 @@ RSpec.describe "reserved_items/edit" do
     @reserved_item = assign(:reserved_item, FactoryGirl.create(:reserved_item))
   end
 
+  it_behaves_like "a standard view"
+
   it "renders the edit reserved_item form" do
     render
 

@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'support/shared_examples_for_views'
 
 RSpec.describe "sellers/show" do
   before(:each) do

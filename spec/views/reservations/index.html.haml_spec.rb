@@ -7,6 +7,8 @@ RSpec.describe "reservations/index" do
     render
   end
 
+  it_behaves_like "a standard view"
+
   it "renders a list of reservations" do
     assert_select "tr>td", text: "Firstname Lastname", count: 2
     assert_select "tr>td", text: reservations.first.event.name, count: 1
