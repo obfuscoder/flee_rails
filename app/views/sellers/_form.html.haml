@@ -9,6 +9,8 @@
     = f.input :city
     = f.input :email
     = f.input :phone
-
+    = f.input :accept_terms, as: :boolean, label: t('.accept_terms',
+      terms: link_to(t('terms.title'), '#', 'data-toggle' => 'modal', 'data-target' => '#terms'),
+      privacy: link_to(t('privacy.title'), '#', 'data-toggle' => 'modal', 'data-target' => '#privacy')).html_safe unless @seller.id
   .form-actions
     = f.button :submit

@@ -1,27 +1,16 @@
-%p#notice= notice
+- content_for :title, "Registrierung erfolgreich"
+:markdown
+  Vielen Dank für Ihre Registrierung. Es wird Ihnen innerhalb weniger Minuten eine **eMail zugeschickt**,
+  mit der wir die Angabe Ihrer eMail-Adresse verifizieren. Schauen Sie bitte in Ihren Mail-Client
+  (z.B. Outlook oder Thunderbird), um den Erhalt dieser Mail zu kontrollieren. Prüfen Sie gegebenenfalls
+  auch Ihren SPAM-Ordner.
 
-%p
-  %b First name:
-  = @seller.first_name
-%p
-  %b Last name:
-  = @seller.last_name
-%p
-  %b Street:
-  = @seller.street
-%p
-  %b Zip code:
-  = @seller.zip_code
-%p
-  %b City:
-  = @seller.city
-%p
-  %b Email:
-  = @seller.email
-%p
-  %b Phone:
-  = @seller.phone
+  In dieser Mail befindet sich ein Link, den Sie **bitte anklicken**, um den Erhalt der Mail zu bestätigen.
+  Erst mit Bestätigen wird Ihre **Registrierung aktiv** und Sie werden dann über Neuigkeiten per Mail informiert.
 
-= link_to 'Edit', edit_seller_path(@seller)
-\|
-= link_to 'Back', sellers_path
+  Hier zur Bestätigung die von Ihnen gemachten Angaben:
+
+%dl.dl-horizontal
+  - [:first_name, :last_name, :street, :zip_code, :city, :email, :phone].each do |attr|
+    %dt= @seller.class.human_attribute_name attr
+    %dd= @seller[attr]

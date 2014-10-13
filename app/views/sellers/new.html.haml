@@ -1,5 +1,41 @@
 - content_for :title, "Registrierung"
+:markdown
+  Sie können sich hier als Interessent für den Verkauf von Ware auf kommenden Kommissions- und Tischflohmärkten
+  registrieren. Die erfassten Daten dienen in erster Linie dazu,
+  um Sie hinsichtlich des weiteren Ablaufs des kommenden Flohmarkts zu kontaktieren und informieren.
+  In der Regel findet dies per eMail statt. Auch die Zugangsinformationen zum geschützten Bereich erhalten
+  Sie per Mail. Die Telefonnummer wird benötigt, damit wir Sie in dringenden Fällen (bspw. Ware
+  verlorengegangen, anderweitig nicht erreichbar) anrufen können. Die Adressdaten dienen der Abrechnung.
+  Ebenso werden wir zum Schutz Ihrer Daten Ihre Angaben erfragen, sollten Sie mit uns telefonisch Kontakt
+  aufnehmen.
+
+  Pflichtfelder sind <span class="required"><abbr title="Pflichtfeld">entsprechend</abbr></span> gekennzeichnet.
 
 = render 'form'
 
-= link_to 'Back', sellers_path
+#terms.modal.fade(tabindex="-1" role="dialog" aria-labelledby="terms-label" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close(data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only Close
+        %h4.modal-title#terms-label= t('terms.title')
+      .modal-body
+        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('terms.content')).html_safe
+      .modal-footer
+        %button.btn.btn-primary(data-dismiss="modal") Close
+#privacy.modal.fade(tabindex="-1" role="dialog" aria-labelledby="privacy-label" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close(data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only Close
+        %h4.modal-title#privacy-label= t('privacy.title')
+      .modal-body
+        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('terms.content')).html_safe
+      .modal-footer
+        %button.btn.btn-primary(data-dismiss="modal") Close

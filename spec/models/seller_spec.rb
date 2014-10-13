@@ -12,6 +12,7 @@ RSpec.describe Seller do
   it { should validate_presence_of(:phone) }
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
+  it { should validate_acceptance_of(:accept_terms).on(:create) }
   it { should have_many(:item).dependent(:destroy) }
   it { should have_many(:reservation).dependent(:destroy) }
   its(:to_s) { should eq("#{subject.first_name} #{subject.last_name}") }

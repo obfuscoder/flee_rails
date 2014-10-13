@@ -1,9 +1,12 @@
 require 'rails_helper'
+require 'support/shared_examples_for_views'
 
 RSpec.describe "sellers/show" do
   before(:each) do
     @seller = assign(:seller, FactoryGirl.create(:seller))
   end
+
+  it_behaves_like "a standard view"
 
   it "renders attributes in <p>" do
     render

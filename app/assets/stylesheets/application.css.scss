@@ -1,2 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.required abbr {
+  color: red;
+}
+
+dl > dt:after {
+  content: ":";
+}

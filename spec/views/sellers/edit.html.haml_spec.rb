@@ -16,6 +16,7 @@ RSpec.describe "sellers/edit" do
       assert_select "input#seller_city[name=?]", "seller[city]"
       assert_select "input#seller_email[name=?]", "seller[email]"
       assert_select "input#seller_phone[name=?]", "seller[phone]"
+      assert_select "input#seller_accept_terms[name=?]", "seller[accept_terms]", count: 0
     end
   end
 end
