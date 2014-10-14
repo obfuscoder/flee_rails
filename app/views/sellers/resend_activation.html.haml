@@ -1,0 +1,13 @@
+- content_for :title, t('.title')
+%p Mit Abschluss Ihrer Registrierung wurde eine eMail an Sie mit der Registrierungsbestätigung und den Zugangsinformationen zu Ihre geschützten Bereich an die von Ihnen bei der Registrierung angegeben eMail-Adresse geschickt.
+%p Bitte prüfen Sie zunächst noch einmal, ob die eMail mittlerweile angekommen ist. Prüfen Sie auch den SPAM-Ordner in Ihrem Mailprogramm.
+%p Sollten Sie diese eMail auch nach Ablauf einer Stunde noch nicht in Ihrem Mailprogramm finden, können Sie sich diese nochmals zusenden lassen. Geben Sie dazu bitte hier die eMail-Adresse an, die Sie bei der Registrierung verwendet haben.
+
+- if flash[:alert]
+  .alert.alert-danger= flash[:alert]
+
+= simple_form_for(@seller, url: request.original_fullpath) do |f|
+  .form-inputs
+    = f.input :email
+  .form-actions
+    = f.button :submit

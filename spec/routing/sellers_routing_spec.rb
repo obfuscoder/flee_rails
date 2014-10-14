@@ -33,7 +33,7 @@ RSpec.describe SellersController do
 
     it "routes to #resend_activation" do
       expect(get: "/sellers/resend_activation").to route_to("sellers#resend_activation")
+      expect(post: "/sellers/resend_activation").to route_to("sellers#resend_activation")
     end
-
   end
 end

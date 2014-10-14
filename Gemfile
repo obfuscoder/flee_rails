@@ -55,3 +55,4 @@ gem 'awesome_print'
 
 gem 'rails_admin'
 gem 'redcarpet'
+gem 'validates_email_format_of'

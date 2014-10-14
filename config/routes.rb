@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :sellers do
     collection do
       get :resend_activation
+      post :resend_activation
     end
   end
 

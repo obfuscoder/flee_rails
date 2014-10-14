@@ -1,7 +1,8 @@
 de:
+  email_not_found: Es konnte kein Nutzer mit dieser eMail-Adresse gefunden werden. Bitte überprüfen Sie Ihre Eingabe oder registrieren Sie sich neu.
   attributes:
-    created_at: "Erstellt"
-    updated_at: "Aktualisiert"
+    created_at: Erstellt
+    updated_at: Aktualisiert
   new: Neu
   show: Anzeigen
   edit: Bearbeiten
@@ -52,6 +53,10 @@ de:
       title: Verkäufer bearbeiten
     form:
       accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
+    resend_activation:
+      title: Erneutes Senden der Registrierungsbestätigung
+    activation_resent:
+      title: Registrierungsbestätigung zugesendet
   reservations:
     index:
       title: Reservierungen
@@ -111,6 +116,23 @@ de:
         number: Nummer
         code: Code
         sold: verkauft am
+      models:
+        seller:
+          attributes:
+            email:
+              invalid_email_address: |
+                Bitte geben Sie eine gültige %{attribute} ein. Nur mit korrekter %{attribute} ist eine Aktivierung
+                Ihres Zugangs möglich.
+            phone:
+              invalid: |
+                Bitte geben Sie eine vollständige %{attribute} mit Vorwahl ein.
+                Beispiele: 07232/1234567, +49 7232 / 1234567, 072321234567, 07232/1234-567
+            zip_code:
+              invalid: Die %{attribute} muss aus 5 Ziffern bestehen.
+  activemodel:
+    errors:
+      messages:
+        invalid_email_address: Bitte geben Sie eine gültige eMail-Adresse ein.
   pages:
     imprint:
       title: Impressum

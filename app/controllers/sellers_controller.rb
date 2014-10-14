@@ -61,6 +61,26 @@ class SellersController < ApplicationController
     end
   end
 
+  def resend_activation
+    if request.post?
+      email = params[:seller][:email]
+      @seller = Seller.new({ email: email })
+      result = ValidatesEmailFormatOf::validate_email_format(email)
+      unless result
+        if Seller.find_by_email email
+          # TODO send mail
+          render :activation_resent
+        else
+          flash.now[:alert] = t('email_not_found')
+        end
+      else
+        flash.now[:alert] = result.join(' ')
+      end
+    else
+      @seller = Seller.new
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seller
