@@ -28,6 +28,7 @@ class SellersController < ApplicationController
 
     respond_to do |format|
       if @seller.save
+        SellerMailer.registration.deliver
         format.html { redirect_to @seller, notice: 'Seller was successfully created.' }
         format.json { render :show, status: :created, location: @seller }
       else
@@ -68,7 +69,7 @@ class SellersController < ApplicationController
       result = ValidatesEmailFormatOf::validate_email_format(email)
       unless result
         if Seller.find_by_email email
-          # TODO send mail
+          SellerMailer.registration.deliver
           render :activation_resent
         else
           flash.now[:alert] = t('email_not_found')
