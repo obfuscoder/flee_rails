@@ -67,13 +67,17 @@ RSpec.shared_examples "a standard controller" do
         call_post
       end
 
-      it "creates a new model instance" do
+      it "increases the number of model instances in the database" do
         expect { call_post }.to change(model_class, :count).by(1)
       end
 
-      it { expect(assigns(model)).to be_a(model_class) }
+      it "assigns the instance to @model" do
+        expect(assigns(model)).to eq(model_class.last)
+      end
       it { expect(assigns(model)).to be_persisted }
-      it { expect(response).to redirect_to(model_class.last) }
+      it "redirects to the created instance" do
+        expect(response).to redirect_to(model_class.last)
+      end
     end
 
     context "with invalid params" do
@@ -81,7 +85,9 @@ RSpec.shared_examples "a standard controller" do
         post :create, model => {name: nil}
       end
 
-      it { expect(assigns(model)).to be_a_new(model_class) }
+      it "assigns the not yet persisted instance to @model" do
+        expect(assigns(model)).to be_a_new(model_class)
+      end
       it { expect(response).to render_template("new") }
       it { expect(response).to have_http_status :ok }
     end
@@ -96,19 +102,25 @@ RSpec.shared_examples "a standard controller" do
     context "with valid params" do
       let(:new_attributes) { valid_update_attributes }
 
-      it { expect(assigns(model)).to eq(model_instance) }
+      it "assigns the updated model instance to @model" do
+        expect(assigns(model)).to eq(model_instance)
+      end
       it "updates the attributes of the model instance" do
         new_attributes.keys.each do |attribute|
           expect(model_instance[attribute]).to eq(new_attributes[attribute])
         end
       end
-      it { expect(response).to redirect_to(model_instance) }
+      it "redirects to the updated instance" do
+        expect(response).to redirect_to(model_instance)
+      end
     end
 
     context "with invalid params" do
       let(:new_attributes) { invalid_update_attributes }
 
-      it { expect(assigns(model)).to eq(model_instance) }
+      it "assigns the not updated model instance to @model" do
+        expect(assigns(model)).to eq(model_instance)
+      end
       it { expect(response).to render_template("edit") }
       it { expect(response).to have_http_status :ok }
     end

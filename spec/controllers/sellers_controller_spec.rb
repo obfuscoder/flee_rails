@@ -58,7 +58,9 @@ RSpec.describe SellersController do
     context "with unknown email" do
       let(:email) { 'unknown@email.com' }
 
-      it { expect(assigns(:seller)).to be_a_new(Seller) }
+      it "assigns a new Seller as @seller" do
+        expect(assigns(:seller)).to be_a_new(Seller)
+      end
       it { expect(response).to render_template("resend_activation") }
       it { expect(response).to have_http_status :ok }
       it "sets appropriate alert message" do
@@ -69,7 +71,9 @@ RSpec.describe SellersController do
     context "with invalid email" do
       let(:email) { 'invalid@email.' }
 
-      it { expect(assigns(:seller)).to be_a_new(Seller) }
+      it "assigns a new Seller as @seller" do
+        expect(assigns(:seller)).to be_a_new(Seller)
+      end
       it { expect(response).to render_template("resend_activation") }
       it { expect(response).to have_http_status :ok }
       it "sets appropriate alert message" do

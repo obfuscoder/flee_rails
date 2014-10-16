@@ -6,10 +6,14 @@ class Seller < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :street, :zip_code, :city, :phone, :email
   validates_acceptance_of :accept_terms, on: :create
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, case_sensitive: false
   validates_email_format_of :email
   validates_format_of :zip_code, with: /\A\d{5}\z/
   validates_format_of :phone, with: /\A(\+ ?49|0)[ \(\)\/\-\d]{5,30}[0-9]\z/
+
+  before_validation do
+    email.try(:downcase!)
+  end
 
   def to_s
     "#{first_name} #{last_name}"
