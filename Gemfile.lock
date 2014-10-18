@@ -127,6 +127,8 @@ GEM
       json (~> 1.4)
     redcarpet (3.1.2)
     remotipart (1.2.1)
+    rspec-collection_matchers (1.0.0)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.1.5)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -196,6 +198,7 @@ DEPENDENCIES
   rails (= 4.1.6)
   rails_admin
   redcarpet
+  rspec-collection_matchers
   rspec-its
   rspec-rails
   sass-rails (~> 4.0.3)

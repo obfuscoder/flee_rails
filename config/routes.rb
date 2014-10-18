@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     collection do
       get :resend_activation
       post :resend_activation
+      get :login
     end
   end
 

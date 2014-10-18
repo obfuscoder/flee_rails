@@ -1,0 +1,18 @@
+<p>Sehr geehrter Flohmarkt Interessent/sehr geehrte Interessentin,</p>
+<p>Sie haben sich auf ###URL### mit den folgenden Daten registriert:</p>
+<p/>
+<p><%= @seller.first_name %> <%= @seller.last_name %><br/>
+<%= @seller.street %><br/>
+<%= @seller.zip_code %> <%= @seller.city %><br/>
+Tel.: <%= @seller.phone %><br/>
+Mail: <%= @seller.email %><br/>
+</p>
+<p>Um Ihre Registrierung zu abzuschließen, klicken Sie bitte auf den folgenden Link:</p>
+<p><a href="#"><?php echo $this->Html->url("/sellers/login/$token", true) ?></a></p>
+<p>Über diesen Link gelangen Sie zu Ihrem geschützten Bereich zum Bearbeiten Ihrer persönlichen
+    Daten sowie zum Bearbeiten Ihrer Artikel zum Verkauf auf Kommissionsflohmärkten sowie zum Reservieren
+    bei aktuellen Flohmärkten</p>
+<p>Bitte bewahren Sie diesen Link gut auf und schicken Sie diesen nicht an Dritte weiter.</p>
+<p/>
+<p>Viele Grüße,<br/>
+Ihr Flohmarkt-Team</p>

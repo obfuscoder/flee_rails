@@ -28,7 +28,7 @@ class SellersController < ApplicationController
 
     respond_to do |format|
       if @seller.save
-        SellerMailer.registration.deliver
+        SellerMailer.registration(@seller).deliver
         format.html { redirect_to @seller, notice: 'Seller was successfully created.' }
         format.json { render :show, status: :created, location: @seller }
       else

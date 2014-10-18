@@ -2,6 +2,10 @@ require 'rails_helper'
 require 'support/shared_examples_for_controllers'
 
 RSpec.describe SellersController do
+  before do
+    allow(SellerMailer).to receive(:registration).and_return(double deliver: self)
+  end
+
   it_behaves_like "a standard controller" do
     let(:valid_update_attributes) { { first_name: "Newfirst", last_name: "Newlast" } }
     let(:virtual_attributes) { { accept_terms: "1" } }
@@ -12,7 +16,7 @@ RSpec.describe SellersController do
     context "with valid params" do
       it "sends activation email" do
         mail = double("mail")
-        expect(SellerMailer).to receive(:registration).with(no_args).and_return(mail)
+        expect(SellerMailer).to receive(:registration).with(kind_of Seller).and_return(mail)
         expect(mail).to receive(:deliver).with(no_args)
         post :create, seller: FactoryGirl.attributes_for(:seller)
       end

@@ -138,6 +138,10 @@ de:
       title: Impressum
     contact:
       title: Hilfe / Kontakt
+  seller_mailer:
+    registration:
+      subject: Registrierungsbestätigung
+
   terms:
     title: Teilnahmebedingungen
     content: |

@@ -41,8 +41,9 @@ gem 'spring',        group: :development
 group :test, :development do
   gem 'rspec-rails'
   gem 'rspec-its'
-  gem 'factory_girl_rails'
+  gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 gem 'haml-rails'
