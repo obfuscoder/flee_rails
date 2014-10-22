@@ -129,4 +129,6 @@ RSpec.describe SellersController do
       end
     end
   end
+
+  it 'allows login with token'
 end
