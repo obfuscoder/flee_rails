@@ -71,4 +71,15 @@ RSpec.describe Seller do
       expect(subject.email).to eq(subject.email.downcase)
     end
   end
+
+  describe '#token' do
+    let(:another_seller) { FactoryGirl.create(:seller) }
+    let(:yet_another_seller) { FactoryGirl.create(:seller) }
+
+    it 'is a unique random string' do
+      subject.save
+      expect(subject.token).not_to eq(another_seller.token)
+      expect(subject.token).not_to eq(yet_another_seller.token)
+    end
+  end
 end

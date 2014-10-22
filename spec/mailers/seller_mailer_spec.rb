@@ -9,13 +9,14 @@ RSpec.shared_examples "a mail body part" do
   it { should match /#{seller.city}/ }
   it { should match /#{seller.phone}/ }
   it { should match /#{seller.email}/ }
-  xit { should match /#{login_sellers_url}/ }
+  it { should match /#{login_url}/ }
 end
 
 RSpec.describe SellerMailer do
   describe "#registration" do
     let(:seller) { FactoryGirl.build :seller }
-    subject(:mail) { SellerMailer.registration seller }
+    let(:login_url) { "http://login/1234" }
+    subject(:mail) { SellerMailer.registration seller, login_url }
 
     its(:from) { should eq ['info@flohmarkt-koenigsbach.de'] }
     its(:class) { should eq Mail::Message }

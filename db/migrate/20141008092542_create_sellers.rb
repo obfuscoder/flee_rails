@@ -1,6 +1,8 @@
 class CreateSellers < ActiveRecord::Migration
   def change
     create_table :sellers do |t|
+      t.timestamps
+
       t.string :first_name
       t.string :last_name
       t.string :street
@@ -8,8 +10,6 @@ class CreateSellers < ActiveRecord::Migration
       t.string :city
       t.string :email
       t.string :phone
-
-      t.timestamps
     end
     add_index :sellers, :email, unique: true
   end

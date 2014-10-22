@@ -15,6 +15,13 @@ class Seller < ActiveRecord::Base
     email.try(:downcase!)
   end
 
+  before_create do
+    self.token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+      break random_token unless self.class.exists?(token: random_token)
+    end
+  end
+
   def to_s
     "#{first_name} #{last_name}"
   end

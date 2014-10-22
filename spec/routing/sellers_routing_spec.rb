@@ -37,7 +37,7 @@ RSpec.describe SellersController do
     end
 
     it "routes to login" do
-      expect(get: "/sellers/login").to route_to("sellers#login")
+      expect(get: "/sellers/login/12345").to route_to("sellers#login", token: "12345")
     end
   end
 end

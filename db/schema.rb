@@ -11,45 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008123702) do
+ActiveRecord::Schema.define(version: 20141022192137) do
 
   create_table "categories", force: true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
   create_table "events", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.text     "details"
     t.integer  "max_sellers"
     t.integer  "max_items_per_seller"
     t.boolean  "confirmed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "items", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "seller_id"
     t.integer  "category_id"
     t.string   "description"
     t.string   "size"
     t.decimal  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id"
   add_index "items", ["seller_id"], name: "index_items_on_seller_id"
 
   create_table "reservations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "seller_id"
     t.integer  "event_id"
     t.integer  "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true
@@ -58,13 +58,13 @@ ActiveRecord::Schema.define(version: 20141008123702) do
   add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
 
   create_table "reserved_items", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "reservation_id"
     t.integer  "item_id"
     t.integer  "number"
     t.string   "code"
     t.datetime "sold"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "reserved_items", ["code"], name: "index_reserved_items_on_code", unique: true
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20141008123702) do
   add_index "reserved_items", ["reservation_id"], name: "index_reserved_items_on_reservation_id"
 
   create_table "sellers", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "street"
@@ -81,10 +83,10 @@ ActiveRecord::Schema.define(version: 20141008123702) do
     t.string   "city"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "token"
   end
 
   add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true
+  add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true
 
 end

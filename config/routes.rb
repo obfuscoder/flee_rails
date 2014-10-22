@@ -7,23 +7,20 @@ Rails.application.routes.draw do
   get 'pages/privacy'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   resources :reserved_items
-
   resources :reservations
-
   resources :items
-
   resources :categories
-
+  resources :events
   resources :sellers do
     collection do
       get :resend_activation
       post :resend_activation
-      get :login
     end
   end
 
-  resources :events
+  get 'sellers/login/:token', to: 'sellers#login', as: 'login_seller'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

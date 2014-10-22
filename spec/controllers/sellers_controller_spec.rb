@@ -14,9 +14,13 @@ RSpec.describe SellersController do
 
   describe "POST create" do
     context "with valid params" do
-      it "sends activation email" do
+      it "sends activation email with correct parameters" do
         mail = double("mail")
-        expect(SellerMailer).to receive(:registration).with(kind_of Seller).and_return(mail)
+        expect(SellerMailer).to receive(:registration) do |seller, login_url|
+          expect(seller).to be_a Seller
+          expect(login_url).to match /#{seller.token}/
+          mail
+        end
         expect(mail).to receive(:deliver).with(no_args)
         post :create, seller: FactoryGirl.attributes_for(:seller)
       end
