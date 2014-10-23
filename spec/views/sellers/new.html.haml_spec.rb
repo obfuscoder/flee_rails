@@ -9,7 +9,7 @@ RSpec.describe "sellers/new" do
 
   it "renders new seller form" do
     render
-    assert_select "form[action=?][method=?]", sellers_path, "post" do
+    assert_select "form[action=?][method=?]", seller_path, "post" do
       assert_select "input#seller_first_name[name=?]", "seller[first_name]"
       assert_select "input#seller_last_name[name=?]", "seller[last_name]"
       assert_select "input#seller_street[name=?]", "seller[street]"

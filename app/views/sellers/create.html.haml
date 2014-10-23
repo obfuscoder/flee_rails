@@ -1,0 +1,15 @@
+- content_for :title, t('.title')
+
+:markdown
+  Vielen Dank für Ihre Registrierung. Es wird Ihnen innerhalb weniger Minuten eine **eMail zugeschickt**,
+  mit der wir die Angabe Ihrer eMail-Adresse verifizieren. Schauen Sie bitte in Ihren Mail-Client
+  (z.B. Outlook oder Thunderbird), um den Erhalt dieser Mail zu kontrollieren. Prüfen Sie gegebenenfalls
+  auch Ihren SPAM-Ordner.
+
+  In dieser Mail befindet sich ein Link, den Sie **bitte anklicken**, um den Erhalt der Mail zu bestätigen.
+  Erst mit Bestätigen wird Ihre **Registrierung aktiv** und Sie werden dann über Neuigkeiten per Mail informiert.
+
+  Hier zur Bestätigung die von Ihnen gemachten Angaben:
+
+= render 'shared/details', instance: @seller,
+  attributes: [:first_name, :last_name, :street, :zip_code, :city, :email, :phone]

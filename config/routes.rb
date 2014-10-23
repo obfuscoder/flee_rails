@@ -13,11 +13,8 @@ Rails.application.routes.draw do
   resources :items
   resources :categories
   resources :events
-  resources :sellers do
-    collection do
-      get :resend_activation
-      post :resend_activation
-    end
+  resource :seller do
+    match :resend_activation, via: [:get, :post]
   end
 
   get 'sellers/login/:token', to: 'sellers#login', as: 'login_seller'

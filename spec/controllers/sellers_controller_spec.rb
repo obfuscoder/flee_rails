@@ -6,10 +6,52 @@ RSpec.describe SellersController do
     allow(SellerMailer).to receive(:registration).and_return(double deliver: self)
   end
 
-  it_behaves_like "a standard controller" do
-    let(:valid_update_attributes) { { first_name: "Newfirst", last_name: "Newlast" } }
-    let(:virtual_attributes) { { accept_terms: "1" } }
-    let(:invalid_update_attributes) { { first_name: nil, last_name: nil } }
+  describe "GET new" do
+    before do
+      get :new
+    end
+
+    it "assigns a new Seller as @seller" do
+      expect(assigns(:seller)).to be_a_new(Seller)
+    end
+
+    it { expect(response).to render_template("new") }
+    it { expect(response).to have_http_status :ok }
+  end
+
+  describe "POST create" do
+    context "with valid params" do
+      def call_post
+        post :create, seller: FactoryGirl.build(:seller).attributes.merge({accept_terms: "1"})
+      end
+
+      before do
+        call_post
+      end
+
+      it "increases the number of seller instances in the database" do
+        expect { call_post }.to change{Seller.count}.by(1)
+      end
+
+      it "assigns the new instance to @seller" do
+        expect(assigns(:seller)).to eq(Seller.last)
+      end
+      it { expect(assigns(:seller)).to be_persisted }
+      it { expect(response).to render_template "create" }
+      it { expect(response).to have_http_status :ok }
+    end
+
+    context "with invalid params" do
+      before do
+        post :create, seller: {name: nil}
+      end
+
+      it "assigns the not yet persisted instance to @seller" do
+        expect(assigns(:seller)).to be_a_new(Seller)
+      end
+      it { expect(response).to render_template("new") }
+      it { expect(response).to have_http_status :ok }
+    end
   end
 
   describe "POST create" do
@@ -130,5 +172,21 @@ RSpec.describe SellersController do
     end
   end
 
-  it 'allows login with token'
+  describe "GET login" do
+    let(:seller) { FactoryGirl.create(:seller) }
+
+    subject { get :login, token: token }
+
+    context "with valid token" do
+      let(:token) { seller.token }
+      it { is_expected.to redirect_to seller_path }
+      it "resets session"
+      it "stores seller id in session"
+    end
+
+    context "with invalid token" do
+      let(:token) { "invalid_token" }
+      it "should redirect to 401"
+    end
+  end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "sellers/show" do
+RSpec.describe "sellers/create" do
   before(:each) do
     @seller = assign(:seller, FactoryGirl.create(:seller))
   end

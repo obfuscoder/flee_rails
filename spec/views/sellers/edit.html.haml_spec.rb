@@ -11,7 +11,7 @@ RSpec.describe "sellers/edit" do
   it "renders the edit seller form" do
     render
 
-    assert_select "form[action=?][method=?]", seller_path(@seller), "post" do
+    assert_select "form[action=?][method=?]", seller_path, "post" do
       assert_select "input#seller_first_name[name=?]", "seller[first_name]"
       assert_select "input#seller_last_name[name=?]", "seller[last_name]"
       assert_select "input#seller_street[name=?]", "seller[street]"

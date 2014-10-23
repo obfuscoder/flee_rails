@@ -43,14 +43,14 @@ de:
     edit:
       title: Artikel bearbeiten
   sellers:
-    index:
-      title: Verkäufer
     new:
       title: Registrierung
-    show:
+    create:
       title: Registrierung erfolgreich
+    show:
+      title: Nutzerbereich
     edit:
-      title: Verkäufer bearbeiten
+      title: Stammdaten bearbeiten
     form:
       accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
     resend_activation:
