@@ -44,6 +44,7 @@ group :test, :development do
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'pry-rails'
 end
 
 gem 'haml-rails'

@@ -1,10 +1,6 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @sellers = Seller.all
-  end
-
   def show
   end
 
@@ -16,7 +12,7 @@ class SellersController < ApplicationController
   end
 
   def create
-    @seller = Seller.new(seller_params)
+    @seller = Seller.new seller_params
 
     respond_to do |format|
       if @seller.save
@@ -54,7 +50,7 @@ class SellersController < ApplicationController
     if request.post?
       email = params[:seller][:email]
       @seller = Seller.new({ email: email })
-      result = ValidatesEmailFormatOf::validate_email_format(email)
+      result = ValidatesEmailFormatOf::validate_email_format email
       unless result
         if Seller.find_by_email email
           SellerMailer.registration.deliver
@@ -63,7 +59,7 @@ class SellersController < ApplicationController
           flash.now[:alert] = t('email_not_found')
         end
       else
-        flash.now[:alert] = result.join(' ')
+        flash.now[:alert] = result.join ' '
       end
     else
       @seller = Seller.new
@@ -71,18 +67,23 @@ class SellersController < ApplicationController
   end
 
   def login
+    reset_session
+    seller = Seller.find_by_token params[:token]
+    return render "#{Rails.root}/public/401", status: :unauthorized unless seller
+    session[:seller_id] = seller.id
     redirect_to seller_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seller
-      # TODO id must be taken from session
-      # @seller = Seller.find(params[:id])
+      seller_id = session[:seller_id]
+      return render "#{Rails.root}/public/401", status: :unauthorized unless seller_id
+      @seller = Seller.find session[:seller_id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seller_params
-      params.require(:seller).permit(:first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms)
+      params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms
     end
 end
