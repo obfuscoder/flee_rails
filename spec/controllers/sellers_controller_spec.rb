@@ -203,7 +203,7 @@ RSpec.describe SellersController do
       it { is_expected.to have_http_status :unauthorized}
     end
 
-    context "with valid user session" do
+    context "with valid seller session" do
       before do
         session[:seller_id] = seller.id
       end

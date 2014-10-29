@@ -1,1 +1,15 @@
 - content_for :title, t('.title')
+%p Von hier aus können Sie Ihre Stammdaten und Artikel verwalten. Sollten Sie keine weitere eMail-Benachrichtigung erhalten oder Ihre Daten löschen wollen, können Sie dies in der Stammdatenbearbeitung durchführen.
+%h3 Reservierungen
+%h3 Artikel
+%p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
+= link_to 'Artikel bearbeiten', items_path, class: 'btn btn-primary'
+%h3 Ihre Stammdaten
+%p
+  %strong #{@seller.first_name} #{@seller.last_name}<br/>
+  #{@seller.street}<br/>
+  #{@seller.zip_code} #{@seller.city}<br/>
+%p
+  Tel.: #{@seller.phone}<br/>
+  Mail: #{link_to "mailto:#{@seller.email}", @seller.email}
+= link_to 'Stammdaten bearbeiten', edit_seller_path, class: 'btn btn-primary'

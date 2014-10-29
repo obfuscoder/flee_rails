@@ -7,7 +7,7 @@ RSpec.describe "sellers/create" do
 
   it_behaves_like "a standard view"
 
-  it "renders attributes in <p>" do
+  it "renders seller information" do
     render
     expect(rendered).to match(/#{@seller.first_name}/)
     expect(rendered).to match(/#{@seller.last_name}/)
