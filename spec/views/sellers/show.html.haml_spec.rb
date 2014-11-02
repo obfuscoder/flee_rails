@@ -2,14 +2,15 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) { assign :seller, FactoryGirl.create(:seller) }
-  let!(:reservations) { assign :reservations, [] }
+  let!(:seller) { assign :seller, FactoryGirl.create(:seller, reservations: reservations) }
+  let(:reservations) { reservation ? [reservation] : [] }
+  let(:reservation) { nil }
+
+  it_behaves_like 'a standard view'
 
   before do
     render
   end
-
-  it_behaves_like 'a standard view'
 
   it 'links to items_path' do
     assert_select "a[href=?]", items_path
@@ -29,28 +30,34 @@ RSpec.describe 'sellers/show' do
     assert_select "a[href=?]", edit_seller_path
   end
 
-  context 'with open reservable events' do
-    let!(:events) { assign :events, (0..2).map { FactoryGirl.create :event } }
+  context 'with reservable event' do
+    let(:event) { FactoryGirl.create :event }
+    let!(:events) { assign :events, [event] }
     xit 'links to reservation' do
-      events.each do |event|
-        assert_select 'form[action=?][method=?]', reservations_path, 'post' do
-          assert_select "input#reservation_event_id[name=?]", "reservation[event_id]", event.id
-        end
+      assert_select 'form[action=?][method=?]', reservations_path, 'post' do
+        assert_select "input#reservation_event_id[name=?]", "reservation[event_id]", event.id
       end
     end
   end
 
   context 'with reservation' do
-    let(:reservation) { FactoryGirl.create :reservation, seller: seller }
-    let!(:reservations) { r =  assign :reservations, [ reservation ]; p "reservations"; r }
+    let(:reservation) { FactoryGirl.create :reservation }
 
-    it 'shows event name and date'
+    it_behaves_like 'a standard view'
 
-    it 'shows reservation number'
+    it 'shows event name' do
+      expect(rendered).to match /#{reservation.event.name}/
+    end
+
+    it 'shows event date'
+
+    it 'shows reservation number' do
+      expect(rendered).to match /<strong>#{reservation.number}<\/strong>/
+    end
 
     context 'with reservation phase ongoing' do
-      xit 'allows deletion of reservation' do
-        assert_select 'form[action=?][method=?]', reservation_path(reservation), 'delete'
+      it 'allows deletion of reservation' do
+        assert_select 'a[href=?][data-method=?]', reservation_path(reservation), 'delete'
       end
 
       it 'does not link to event statistics page'

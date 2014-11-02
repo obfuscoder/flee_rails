@@ -2,13 +2,18 @@
 = @seller.first_name
 %p Von hier aus können Sie Ihre Stammdaten und Artikel verwalten. Sollten Sie keine weitere eMail-Benachrichtigung erhalten oder Ihre Daten löschen wollen, können Sie dies in der Stammdatenbearbeitung durchführen.
 %h3 Reservierungen
-%p Sie haben die folgenden Reservierungen:
-%ul
-  - @reservations.each do |reservation|
-    %li
-      %p
-        %strong= reservation.event.name
-        / am #{reservation.event.date}<br/>
+- if @seller.reservations.any?
+  %p Sie haben die folgenden Reservierungen:
+  %ul
+    - @seller.reservations.each do |reservation|
+      %li
+        %p
+          %strong= reservation.event.name
+          -# am #{reservation.event.date}<br/>
+          Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
+          Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
+          = link_to 'geben Sie Ihre Reservierung wieder frei.', reservation, method: :delete,
+            data: { confirm: t('.confirm_delete_reservation') }
 %h3 Artikel
 %p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
 = link_to 'Artikel bearbeiten', items_path, class: 'btn btn-primary'

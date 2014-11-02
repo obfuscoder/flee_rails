@@ -49,6 +49,9 @@ de:
       title: Registrierung erfolgreich
     show:
       title: Verkäuferbereich
+      confirm_delete_reservation: >
+        Sind Sie sicher, dass Sie die Reservierung freigeben möchten?
+        Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
     edit:
       title: Stammdaten bearbeiten
     form:
