@@ -3,12 +3,13 @@ require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
   let!(:seller) { assign :seller, FactoryGirl.create(:seller) }
-
-  it_behaves_like 'a standard view'
+  let!(:reservations) { assign :reservations, [] }
 
   before do
     render
   end
+
+  it_behaves_like 'a standard view'
 
   it 'links to items_path' do
     assert_select "a[href=?]", items_path
@@ -39,12 +40,40 @@ RSpec.describe 'sellers/show' do
     end
   end
 
-  context 'with reservations' do
-    let!(:reservations) { (0..2).map { FactoryGirl.create :reservation, seller: seller } }
-    xit 'links to destroy_reservation' do
-      reservations.each do |reservation|
+  context 'with reservation' do
+    let(:reservation) { FactoryGirl.create :reservation, seller: seller }
+    let!(:reservations) { r =  assign :reservations, [ reservation ]; p "reservations"; r }
+
+    it 'shows event name and date'
+
+    it 'shows reservation number'
+
+    context 'with reservation phase ongoing' do
+      xit 'allows deletion of reservation' do
         assert_select 'form[action=?][method=?]', reservation_path(reservation), 'delete'
       end
+
+      it 'does not link to event statistics page'
+      it 'does not link to event review page'
+
+      context 'with type commission' do
+        it 'shows date until labels need to be created'
+      end
+      context 'with type direct' do
+        it 'does not show reservation end date'
+      end
+    end
+
+    context 'with event date passed' do
+      it 'does not show reservation end date'
+      it 'links to event statistics page'
+      it 'links to event review page'
+    end
+
+    context 'with reservation phase passed and event upcoming' do
+      it 'does not show reservation end date'
+      it 'does not link to event statistics page'
+      it 'does not link to event review page'
     end
   end
 end
