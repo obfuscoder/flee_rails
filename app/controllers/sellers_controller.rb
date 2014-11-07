@@ -2,6 +2,7 @@ class SellersController < ApplicationController
   before_action :set_seller, only: [:show, :edit, :update, :destroy]
 
   def show
+    @events = Event.without_reservation_for @seller
   end
 
   def new
@@ -51,15 +52,15 @@ class SellersController < ApplicationController
       email = params[:seller][:email]
       @seller = Seller.new({ email: email })
       result = ValidatesEmailFormatOf::validate_email_format email
-      unless result
+      if result
+        flash.now[:alert] = result.join ' '
+      else
         if Seller.find_by_email email
           SellerMailer.registration.deliver
           render :activation_resent
         else
           flash.now[:alert] = t('email_not_found')
         end
-      else
-        flash.now[:alert] = result.join ' '
       end
     else
       @seller = Seller.new

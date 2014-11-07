@@ -199,6 +199,7 @@ RSpec.describe SellersController do
   describe "GET show" do
     let(:seller) { FactoryGirl.create :seller }
     subject { get :show }
+
     context "without valid seller session" do
       it { is_expected.to have_http_status :unauthorized}
     end
@@ -209,9 +210,15 @@ RSpec.describe SellersController do
       end
       it { is_expected.to render_template :show }
       it { is_expected.to have_http_status :ok }
-      it "assigns the seller as @seller" do
+      it 'assigns the seller from the session to @seller' do
         subject
         expect(assigns :seller).to eq seller
+      end
+      it 'assigns the reservable events to @events' do
+        events = double
+        allow(Event).to receive(:without_reservation_for) { events }
+        subject
+        expect(assigns :events).to eq events
       end
     end
   end

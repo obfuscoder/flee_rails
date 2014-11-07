@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022192137) do
+ActiveRecord::Schema.define(version: 20141104203605) do
 
   create_table "categories", force: true do |t|
     t.datetime "created_at"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20141022192137) do
     t.integer  "max_sellers"
     t.integer  "max_items_per_seller"
     t.boolean  "confirmed"
+    t.datetime "shopping_start"
+    t.datetime "shopping_end"
+    t.datetime "reservation_start"
+    t.datetime "reservation_end"
+    t.datetime "handover_start"
+    t.datetime "handover_end"
+    t.datetime "pickup_start"
+    t.datetime "pickup_end"
   end
 
   create_table "items", force: true do |t|

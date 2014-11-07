@@ -1,5 +1,4 @@
 - content_for :title, t('.title')
-= @seller.first_name
 %p Von hier aus können Sie Ihre Stammdaten und Artikel verwalten. Sollten Sie keine weitere eMail-Benachrichtigung erhalten oder Ihre Daten löschen wollen, können Sie dies in der Stammdatenbearbeitung durchführen.
 %h3 Reservierungen
 - if @seller.reservations.any?
@@ -9,11 +8,30 @@
       %li
         %p
           %strong= reservation.event.name
-          -# am #{reservation.event.date}<br/>
+          am #{l(reservation.event.shopping_start.to_date, format: :long)}<br/>
+          Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
           Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
           Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
           = link_to 'geben Sie Ihre Reservierung wieder frei.', reservation, method: :delete,
             data: { confirm: t('.confirm_delete_reservation') }
+- if @events
+  %p Die folgenden Flohmärkte sind aktuell in der Reservierungsphase und Sie haben noch keine Reservierung für diese:
+  %ul
+    - @events.each do |event|
+      %li
+        %p
+          %strong= event.name
+          am #{l(event.shopping_start.to_date, format: :long)} <br/>
+          - if event.max_sellers <= event.reservations.count
+            Leider sind alle Plätze bereits vergeben.
+            -# <?php if ($seller["Seller"]["notify"]): ?>
+            -#          Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
+            -#      <?php else: ?>
+            -#        <?php echo $this->Form->postLink("Hier", array("controller" => "sellers", "action" => "notify")) ?> können Sie sich auf die Warteliste setzen lassen. Sie erhalten eine Mail sobald ein Platz frei wird.
+            -#      <?php endif; ?>
+            -#  <?php else: ?>
+          - else
+            Sie können sich #{ link_to 'hier', event_reservations_path(event), method: :post } einen Verkäuferplatz reservieren.
 %h3 Artikel
 %p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
 = link_to 'Artikel bearbeiten', items_path, class: 'btn btn-primary'

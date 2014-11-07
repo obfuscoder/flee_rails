@@ -11,4 +11,4 @@
       %td
         = link_to t('show'), category
         = link_to t('edit'), edit_category_path(category)
-        = link_to t('destroy'), category, data: :delete, data: { confirm: t('sure') }
+        = link_to t('destroy'), category, method: :delete, data: { confirm: t('sure') }

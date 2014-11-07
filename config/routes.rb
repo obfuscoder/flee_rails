@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   resources :reservations
   resources :items
   resources :categories
-  resources :events
+  resources :events do
+    resources :reservations
+  end
+
   resource :seller do
     match :resend_activation, via: [:get, :post]
   end

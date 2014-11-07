@@ -2,9 +2,10 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) { assign :seller, FactoryGirl.create(:seller, reservations: reservations) }
-  let(:reservations) { reservation ? [reservation] : [] }
-  let(:reservation) { nil }
+  let!(:seller) { assign :seller, FactoryGirl.build(:seller, reservations: reservation ? [reservation] : []) }
+  let!(:events) { assign :events, event ? [event] : [] }
+  let(:reservation) {}
+  let(:event) {}
 
   it_behaves_like 'a standard view'
 
@@ -30,12 +31,21 @@ RSpec.describe 'sellers/show' do
     assert_select "a[href=?]", edit_seller_path
   end
 
-  context 'with reservable event' do
-    let(:event) { FactoryGirl.create :event }
-    let!(:events) { assign :events, [event] }
-    xit 'links to reservation' do
-      assert_select 'form[action=?][method=?]', reservations_path, 'post' do
-        assert_select "input#reservation_event_id[name=?]", "reservation[event_id]", event.id
+  context 'with event' do
+    let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
+    it 'links to reservation' do
+      assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post'
+    end
+    context 'when event is full' do
+      let(:event) { FactoryGirl.create :full_event }
+      it 'does not link to reservation' do
+        assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
+      end
+      context 'when seller is not notified yet' do
+        it 'links to notification'
+      end
+      context 'when seller is notified' do
+        it 'does not link to notification'
       end
     end
   end
@@ -49,7 +59,9 @@ RSpec.describe 'sellers/show' do
       expect(rendered).to match /#{reservation.event.name}/
     end
 
-    it 'shows event date'
+    it 'shows event date' do
+      expect(rendered).to match /#{l(reservation.event.shopping_start.to_date, format: :long)}/
+    end
 
     it 'shows reservation number' do
       expect(rendered).to match /<strong>#{reservation.number}<\/strong>/
@@ -64,7 +76,9 @@ RSpec.describe 'sellers/show' do
       it 'does not link to event review page'
 
       context 'with type commission' do
-        it 'shows date until labels need to be created'
+        it 'shows date until labels need to be created' do
+          expect(rendered).to match /#{l(reservation.event.reservation_end, format: :long)}/
+        end
       end
       context 'with type direct' do
         it 'does not show reservation end date'
