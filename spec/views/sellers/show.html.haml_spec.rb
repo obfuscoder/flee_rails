@@ -34,15 +34,17 @@ RSpec.describe 'sellers/show' do
   context 'with event' do
     let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
     it 'links to reservation' do
-      assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post'
+      assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post'
     end
     context 'when event is full' do
       let(:event) { FactoryGirl.create :full_event }
       it 'does not link to reservation' do
-        assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
+        assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post', 0
       end
       context 'when seller is not notified yet' do
-        it 'links to notification'
+        it 'links to notification' do
+          assert_select 'a[href=?][data-method=?]', event_notification_path(event), 'post'
+        end
       end
       context 'when seller is notified' do
         it 'does not link to notification'

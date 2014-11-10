@@ -27,11 +27,11 @@
             -# <?php if ($seller["Seller"]["notify"]): ?>
             -#          Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
             -#      <?php else: ?>
-            -#        <?php echo $this->Form->postLink("Hier", array("controller" => "sellers", "action" => "notify")) ?> können Sie sich auf die Warteliste setzen lassen. Sie erhalten eine Mail sobald ein Platz frei wird.
+            #{ link_to 'Hier', event_notification_path(event), method: :post } können Sie sich auf die Warteliste setzen lassen. Sie erhalten eine Mail sobald ein Platz frei wird.
             -#      <?php endif; ?>
             -#  <?php else: ?>
           - else
-            Sie können sich #{ link_to 'hier', event_reservations_path(event), method: :post } einen Verkäuferplatz reservieren.
+            Sie können sich #{ link_to 'hier', event_reservation_path(event), method: :post } einen Verkäuferplatz reservieren.
 %h3 Artikel
 %p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
 = link_to 'Artikel bearbeiten', items_path, class: 'btn btn-primary'

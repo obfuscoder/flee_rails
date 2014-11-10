@@ -30,6 +30,5 @@ RSpec.describe EventsController do
     it "routes to #destroy" do
       expect(delete: "/events/1").to route_to("events#destroy", id: "1")
     end
-
   end
 end

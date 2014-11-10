@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resources :items
   resources :categories
   resources :events do
-    resources :reservations
+    resource :reservation
+    resource :notification, only: [:create, :destroy]
   end
 
   resource :seller do
