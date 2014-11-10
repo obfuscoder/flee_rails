@@ -24,12 +24,10 @@
           am #{l(event.shopping_start.to_date, format: :long)} <br/>
           - if event.max_sellers <= event.reservations.count
             Leider sind alle Plätze bereits vergeben.
-            -# <?php if ($seller["Seller"]["notify"]): ?>
-            -#          Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
-            -#      <?php else: ?>
-            #{ link_to 'Hier', event_notification_path(event), method: :post } können Sie sich auf die Warteliste setzen lassen. Sie erhalten eine Mail sobald ein Platz frei wird.
-            -#      <?php endif; ?>
-            -#  <?php else: ?>
+            - if @seller.notifications.any? { |notification| notification.event == event }
+              Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
+            - else
+              #{ link_to 'Hier', event_notification_path(event), method: :post } können Sie sich auf die Warteliste setzen lassen. Sie erhalten eine Mail sobald ein Platz frei wird.
           - else
             Sie können sich #{ link_to 'hier', event_reservation_path(event), method: :post } einen Verkäuferplatz reservieren.
 %h3 Artikel

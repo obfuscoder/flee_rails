@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104203605) do
+ActiveRecord::Schema.define(version: 20141110201256) do
 
   create_table "categories", force: true do |t|
     t.datetime "created_at"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 20141104203605) do
 
   add_index "items", ["category_id"], name: "index_items_on_category_id"
   add_index "items", ["seller_id"], name: "index_items_on_seller_id"
+
+  create_table "notifications", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_id"
+    t.integer  "seller_id"
+  end
+
+  add_index "notifications", ["event_id", "seller_id"], name: "index_notifications_on_event_id_and_seller_id", unique: true
+  add_index "notifications", ["event_id"], name: "index_notifications_on_event_id"
+  add_index "notifications", ["seller_id"], name: "index_notifications_on_seller_id"
 
   create_table "reservations", force: true do |t|
     t.datetime "created_at"

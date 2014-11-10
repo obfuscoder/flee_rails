@@ -7,6 +7,7 @@ RSpec.describe Event do
   it { should validate_presence_of :name }
   it { should validate_numericality_of(:max_sellers).is_greater_than(0).only_integer }
   it { should have_many(:reservations).dependent(:destroy) }
+  it { should have_many(:notifications).dependent(:destroy) }
 
   describe "#to_s" do
     its(:to_s) { should eq subject.name }

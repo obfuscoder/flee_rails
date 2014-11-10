@@ -16,6 +16,7 @@ RSpec.describe Seller do
   it { should validate_acceptance_of(:accept_terms).on(:create) }
   it { should have_many(:items).dependent(:destroy) }
   it { should have_many(:reservations).dependent(:destroy) }
+  it { should have_many(:notifications).dependent(:destroy) }
   its(:to_s) { should eq("#{subject.first_name} #{subject.last_name}") }
 
   describe '#zip_code' do

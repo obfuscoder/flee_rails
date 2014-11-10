@@ -3,6 +3,7 @@ class Seller < ActiveRecord::Base
 
   has_many :items, dependent: :destroy
   has_many :reservations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates_presence_of :first_name, :last_name, :street, :zip_code, :city, :phone, :email
   validates_acceptance_of :accept_terms, on: :create

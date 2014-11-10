@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   has_many :reservations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates_presence_of :name
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }

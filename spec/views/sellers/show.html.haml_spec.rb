@@ -46,8 +46,12 @@ RSpec.describe 'sellers/show' do
           assert_select 'a[href=?][data-method=?]', event_notification_path(event), 'post'
         end
       end
-      context 'when seller is notified' do
-        it 'does not link to notification'
+      context 'when seller is notified already' do
+        let(:notification) { FactoryGirl.build :notification, seller: seller }
+        let(:event) { FactoryGirl.create :full_event, notifications: [notification] }
+        it 'does not link to notification' do
+          assert_select 'a[href=?][data-method=?]', event_notification_path(event), 'post', 0
+        end
       end
     end
   end
