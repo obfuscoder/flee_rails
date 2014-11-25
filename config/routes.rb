@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :events do
     resource :reservation
     resource :notification, only: [:create, :destroy]
+    resource :review
   end
 
   resource :seller do

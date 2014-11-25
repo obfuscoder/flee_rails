@@ -2,9 +2,12 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) { assign :seller, FactoryGirl.build(:seller, reservations: reservation ? [reservation] : []) }
+  let!(:seller) { assign :seller, FactoryGirl.create(:seller,
+                                                     reservations: reservation ? [reservation] : [],
+                                                     reviews: review ? [review] : []) }
   let!(:events) { assign :events, event ? [event] : [] }
   let(:reservation) {}
+  let(:review) {}
   let(:event) {}
 
   it_behaves_like 'a standard view'
@@ -74,33 +77,78 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with reservation phase ongoing' do
+      let(:reservation) { FactoryGirl.create :ongoing_reservation }
+
       it 'allows deletion of reservation' do
         assert_select 'a[href=?][data-method=?]', reservation_path(reservation), 'delete'
       end
 
-      it 'does not link to event statistics page'
-      it 'does not link to event review page'
+      it 'does not link to event statistics page' do
+        assert_select 'a[href=?]', event_path(reservation.event), 0
+      end
 
-      context 'with type commission' do
+      it 'does not link to new event review page' do
+        assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+      end
+
+      context 'with event kind commission' do
+        let(:reservation) { FactoryGirl.create :ongoing_reservation_for_commission_event }
+
         it 'shows date until labels need to be created' do
           expect(rendered).to match /#{l(reservation.event.reservation_end, format: :long)}/
         end
       end
-      context 'with type direct' do
-        it 'does not show reservation end date'
+      context 'with event kind direct' do
+        let(:reservation) { FactoryGirl.create :ongoing_reservation_for_direct_event }
+
+        it 'does not show reservation end date' do
+          expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+        end
       end
     end
 
     context 'with event date passed' do
-      it 'does not show reservation end date'
-      it 'links to event statistics page'
-      it 'links to event review page'
+      Event.kinds.keys.each do |kind|
+        context "with #{kind} event" do
+          let(:reservation) { FactoryGirl.create :reservation_with_passed_event, kind: kind }
+
+          it 'does not show reservation end date' do
+            expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+          end
+
+          context 'without review' do
+            it 'links to new event review page' do
+              assert_select 'a[href=?]', new_event_review_path(reservation.event)
+            end
+          end
+
+          context 'with review' do
+            let(:review) { FactoryGirl.create :review, event: reservation.event }
+
+            it 'does not link to new event review page' do
+              assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+            end
+          end
+
+          it 'links to event statistics page' do
+            assert_select 'a[href=?]', event_path(reservation.event)
+          end
+        end
+      end
     end
 
     context 'with reservation phase passed and event upcoming' do
-      it 'does not show reservation end date'
-      it 'does not link to event statistics page'
-      it 'does not link to event review page'
+      it 'does not show reservation end date' do
+        expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+      end
+
+      it 'does not link to event statistics page' do
+        assert_select 'a[href=?]', event_path(reservation.event), 0
+      end
+
+      it 'does not link to new event review page' do
+        assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+      end
     end
   end
 end

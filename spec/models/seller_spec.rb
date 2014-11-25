@@ -17,6 +17,8 @@ RSpec.describe Seller do
   it { should have_many(:items).dependent(:destroy) }
   it { should have_many(:reservations).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
+  it { should have_many(:reviews).dependent(:destroy) }
+
   its(:to_s) { should eq("#{subject.first_name} #{subject.last_name}") }
 
   describe '#zip_code' do

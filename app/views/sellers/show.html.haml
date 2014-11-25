@@ -9,11 +9,17 @@
         %p
           %strong= reservation.event.name
           am #{l(reservation.event.shopping_start.to_date, format: :long)}<br/>
-          Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
-          Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
-          Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
-          = link_to 'geben Sie Ihre Reservierung wieder frei.', reservation, method: :delete,
-            data: { confirm: t('.confirm_delete_reservation') }
+          - if reservation.event.shopping_end.past?
+            Der Flohmarkt ist beendet. Sie können sich #{ link_to 'hier', reservation.event } die Ergebnisse des Flohmarkts anschauen.
+            - unless reservation.event.reviewed_by? @seller
+              Wir würden uns auch freuen, wenn Sie den #{ link_to 'Flohmarkt bewerten', new_event_review_path(reservation.event) } würden.
+          - else
+            - if reservation.event.commission? && reservation.event.reservation_end.future?
+              Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
+            Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
+            Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
+            = link_to 'geben Sie Ihre Reservierung wieder frei.', reservation, method: :delete,
+              data: { confirm: t('.confirm_delete_reservation') }
 - if @events
   %p Die folgenden Flohmärkte sind aktuell in der Reservierungsphase und Sie haben noch keine Reservierung für diese:
   %ul
