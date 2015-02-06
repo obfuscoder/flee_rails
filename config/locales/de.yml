@@ -9,6 +9,7 @@ de:
   destroy: Löschen
   sure: Sind Sie sicher?
   back: Zurück
+  position: Position
   helpers:
     submit:
       create: '%{model} erstellen'

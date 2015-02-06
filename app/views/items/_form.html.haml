@@ -2,7 +2,6 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :seller
     = f.association :category, collection: Category.order(:name)
     = f.input :description
     = f.input :size

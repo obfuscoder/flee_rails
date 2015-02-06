@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :reserved_items
   resources :reservations
-  resources :items
+  resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :categories
   resources :events do
     resource :reservation

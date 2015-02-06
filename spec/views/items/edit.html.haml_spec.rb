@@ -11,7 +11,7 @@ RSpec.describe "items/edit" do
     render
 
     assert_select "form[action=?][method=?]", item_path(@item), "post" do
-      assert_select "select#item_seller_id[name=?]", "item[seller_id]"
+      assert_select "select#item_category_id[name=?]", "item[category_id]"
       assert_select "input#item_description[name=?]", "item[description]"
       assert_select "input#item_size[name=?]", "item[size]"
       assert_select "input#item_price[name=?]", "item[price]"
