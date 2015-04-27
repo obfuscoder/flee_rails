@@ -35,5 +35,13 @@ RSpec.describe SellersController do
     it 'routes to login' do
       expect(get: '/sellers/login/12345').to route_to('sellers#login', token: '12345')
     end
+
+    it 'routes to enable mailing' do
+      expect(post: '/seller/mail').to route_to('sellers#enable_mail')
+    end
+
+    it 'routes to disable mailing' do
+      expect(delete: '/seller/mail').to route_to('sellers#disable_mail')
+    end
   end
 end

@@ -16,6 +16,7 @@ de:
       update: '%{model} aktualisieren'
       seller:
         create: Registrieren
+        update: 'Änderungen speichern'
   categories:
     index:
       title: Kategorien
@@ -55,6 +56,7 @@ de:
         Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
     edit:
       title: Stammdaten bearbeiten
+      back: Zurück ohne Speichern der Änderungen
     form:
       accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
     resend_activation:
