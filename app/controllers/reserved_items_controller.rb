@@ -62,13 +62,14 @@ class ReservedItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reserved_item
-      @reserved_item = ReservedItem.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def reserved_item_params
-      params.require(:reserved_item).permit(:reservation_id, :item_id, :number, :code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_reserved_item
+    @reserved_item = ReservedItem.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def reserved_item_params
+    params.require(:reserved_item).permit(:reservation_id, :item_id, :number, :code)
+  end
 end

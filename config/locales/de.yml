@@ -59,6 +59,7 @@ de:
       accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
     resend_activation:
       title: Erneutes Senden der Registrierungsbestätigung
+      resend: Erneut zusenden
     activation_resent:
       title: Registrierungsbestätigung zugesendet
   reservations:

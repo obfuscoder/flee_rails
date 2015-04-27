@@ -6,8 +6,8 @@
 - if flash[:alert]
   .alert.alert-danger= flash[:alert]
 
-= simple_form_for(@seller, url: request.original_fullpath) do |f|
+= simple_form_for(@seller, url: resend_activation_seller_path) do |f|
   .form-inputs
     = f.input :email
   .form-actions
-    = f.button :submit
+    = f.button :submit, t('.resend')

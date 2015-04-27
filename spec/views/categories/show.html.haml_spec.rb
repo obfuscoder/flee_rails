@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "categories/show" do
+RSpec.describe 'categories/show' do
   before(:each) do
     @category = assign(:category, FactoryGirl.create(:category))
   end
 
-  it_behaves_like "a standard view"
+  it_behaves_like 'a standard view'
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Name/)
   end

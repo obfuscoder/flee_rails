@@ -6,12 +6,12 @@ RSpec.describe SellersController do
     allow(SellerMailer).to receive(:registration).and_return(double deliver: self)
   end
 
-  describe "GET new" do
+  describe 'GET new' do
     before do
       get :new
     end
 
-    it "assigns a new Seller as @seller" do
+    it 'assigns a new Seller as @seller' do
       expect(assigns :seller).to be_a_new Seller
     end
 
@@ -19,21 +19,21 @@ RSpec.describe SellersController do
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "POST create" do
-    context "with valid params" do
+  describe 'POST create' do
+    context 'with valid params' do
       def call_post
-        post :create, seller: FactoryGirl.build(:seller).attributes.merge({ accept_terms: "1" })
+        post :create, seller: FactoryGirl.build(:seller).attributes.merge(accept_terms: '1')
       end
 
       before do
         call_post
       end
 
-      it "increases the number of seller instances in the database" do
-        expect { call_post }.to change{Seller.count}.by 1
+      it 'increases the number of seller instances in the database' do
+        expect { call_post }.to change { Seller.count }.by 1
       end
 
-      it "assigns the new instance to @seller" do
+      it 'assigns the new instance to @seller' do
         expect(assigns :seller).to eq Seller.last
       end
       it { expect(assigns :seller).to be_persisted }
@@ -41,12 +41,12 @@ RSpec.describe SellersController do
       it { expect(response).to have_http_status :ok }
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       before do
-        post :create, seller: {name: nil}
+        post :create, seller: { name: nil }
       end
 
-      it "assigns the not yet persisted instance to @seller" do
+      it 'assigns the not yet persisted instance to @seller' do
         expect(assigns(:seller)).to be_a_new Seller
       end
       it { expect(response).to render_template :new }
@@ -54,13 +54,12 @@ RSpec.describe SellersController do
     end
   end
 
-  describe "POST create" do
-    context "with valid params" do
-      it "sends activation email with correct parameters" do
+  describe 'POST create' do
+    context 'with valid params' do
+      it 'sends activation email with correct parameters' do
         mail = double :mail
-        expect(SellerMailer).to receive :registration do |seller, login_url|
+        expect(SellerMailer).to receive :registration do |seller|
           expect(seller).to be_a Seller
-          expect(login_url).to match /#{seller.token}/
           mail
         end
         expect(mail).to receive(:deliver).with no_args
@@ -68,20 +67,20 @@ RSpec.describe SellersController do
       end
     end
 
-    context "with invalid params" do
-      it "does not send activation email" do
+    context 'with invalid params' do
+      it 'does not send activation email' do
         expect(SellerMailer).not_to receive :registration
-        post :create, seller: {name: nil}
+        post :create, seller: { name: nil }
       end
     end
   end
 
-  describe "GET resend_activation" do
+  describe 'GET resend_activation' do
     before do
       get :resend_activation
     end
 
-    it "assigns a new Seller as @seller" do
+    it 'assigns a new Seller as @seller' do
       expect(assigns(:seller)).to be_a_new Seller
     end
 
@@ -89,122 +88,106 @@ RSpec.describe SellersController do
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "POST resend_activation" do
+  describe 'POST resend_activation' do
     def post_it
       post :resend_activation, seller: { email: email }
     end
-    context "with known email" do
-      let(:email) do
-        seller = FactoryGirl.create :seller
-        seller.email
-      end
+    context 'with known email' do
+      let(:seller) { FactoryGirl.create :seller }
+      let(:email) { seller.email }
 
-      it "renders activation_resent template" do
+      it 'renders activation_resent template' do
         post_it
         expect(response).to render_template :activation_resent
       end
 
-      it "responds with :ok" do
+      it 'responds with :ok' do
         post_it
         expect(response).to have_http_status :ok
       end
 
-      it "sends activation email" do
-        mail = double("mail")
-        expect(SellerMailer).to receive(:registration).with(no_args).and_return mail
+      it 'sends registration email' do
+        mail = double('mail')
+        expect(SellerMailer).to receive(:registration).with(seller).and_return mail
         expect(mail).to receive(:deliver).with no_args
         post_it
       end
     end
 
-    context "with unknown email" do
+    context 'with unknown email' do
       let(:email) { 'unknown@email.com' }
 
-      it "assigns a new Seller as @seller" do
-        post_it
-        expect(assigns(:seller)).to be_a_new Seller
-      end
-      it "renders template resend_activation" do
+      it 'renders template resend_activation' do
         post_it
         expect(response).to render_template :resend_activation
       end
-      it "responds with :ok" do
+      it 'responds with :ok' do
         post_it
         expect(response).to have_http_status :ok
       end
-      it "sets appropriate alert message" do
+      it 'sets appropriate alert message' do
         post_it
         expect(flash[:alert]).to_not be_nil
       end
-      it "does not send email" do
+      it 'does not send email' do
         expect(SellerMailer).not_to receive :registration
         post_it
       end
     end
 
-    context "with invalid email" do
+    context 'with invalid email' do
       let(:email) { 'invalid@email.' }
 
-      it "assigns a new Seller as @seller" do
-        post_it
-        expect(assigns(:seller)).to be_a_new Seller
-      end
-
-      it "renders template resend_activation" do
-        post_it
-        expect(response).to render_template :resend_activation
-      end
-
-      it "responds with :ok" do
+      it 'responds with :ok' do
         post_it
         expect(response).to have_http_status :ok
       end
 
-      it "sets appropriate alert message" do
+      it 'sets appropriate alert message' do
         post_it
         expect(flash[:alert]).to_not be_nil
       end
 
-      it "does not send email" do
+      it 'does not send email' do
         expect(SellerMailer).not_to receive :registration
         post_it
       end
     end
   end
 
-  describe "GET login" do
+  describe 'GET login' do
     let(:seller) { FactoryGirl.create :seller }
 
     subject { get :login, token: token }
 
-    context "with valid token" do
+    context 'with valid token' do
       let(:token) { seller.token }
       it { is_expected.to redirect_to seller_path }
-      it "resets session" do
+      it 'resets session' do
         session[:foo] = :bar
-        expect{subject}.to change{session[:foo]}.to nil
+        expect { subject }.to change { session[:foo] }.to nil
       end
 
-      it "stores seller id in session" do
-        expect{subject}.to change{session[:seller_id]}.to seller.id
+      it 'stores seller id in session' do
+        expect { subject }.to change { session[:seller_id] }.to seller.id
       end
     end
 
-    context "with unknown token" do
-      let(:token) { "unknown_token" }
+    context 'with unknown token' do
+      let(:token) { 'unknown_token' }
       it { is_expected.to have_http_status :unauthorized }
     end
   end
 
-  describe "GET show" do
+  describe 'GET show' do
     let(:seller) { FactoryGirl.create :seller }
     subject { get :show }
 
-    context "without valid seller session" do
-      it { is_expected.to have_http_status :unauthorized}
+    context 'without valid seller session' do
+      it { is_expected.to have_http_status :unauthorized }
     end
 
-    context "with valid seller session" do
+    context 'with valid seller session' do
       before do
         session[:seller_id] = seller.id
       end

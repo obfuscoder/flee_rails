@@ -1,64 +1,64 @@
-RSpec.shared_examples "a standard controller" do
+RSpec.shared_examples 'a standard controller' do
   let(:models) { described_class.controller_name.to_sym }
   let(:model) { models.to_s.singularize.to_sym }
   let(:model_class) { model.to_s.camelcase.constantize }
   let(:additional_attributes) { respond_to?(:virtual_attributes) ? virtual_attributes : {} }
   let!(:model_instance) { FactoryGirl.create(model) }
 
-  describe "GET index" do
+  describe 'GET index' do
     before do
       get :index
     end
 
-    it "assigns all model instances as @models" do
+    it 'assigns all model instances as @models' do
       expect(assigns(models)).to match_array([model_instance])
     end
 
-    it { expect(response).to render_template("index") }
+    it { expect(response).to render_template('index') }
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "GET show" do
+  describe 'GET show' do
     before do
       get :show, id: model_instance.to_param
     end
 
-    it "assigns the requested model instance as @model" do
+    it 'assigns the requested model instance as @model' do
       expect(assigns(model)).to eq(model_instance)
     end
 
-    it { expect(response).to render_template("show") }
+    it { expect(response).to render_template('show') }
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "GET new" do
+  describe 'GET new' do
     before do
       get :new
     end
 
-    it "assigns a new model instance as @model" do
+    it 'assigns a new model instance as @model' do
       expect(assigns(model)).to be_a_new(model_class)
     end
 
-    it { expect(response).to render_template("new") }
+    it { expect(response).to render_template('new') }
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "GET edit" do
+  describe 'GET edit' do
     before do
       get :edit, id: model_instance.to_param
     end
 
-    it "assigns the requested model instance as @model" do
+    it 'assigns the requested model instance as @model' do
       expect(assigns(model)).to eq(model_instance)
     end
 
-    it { expect(response).to render_template("edit") }
+    it { expect(response).to render_template('edit') }
     it { expect(response).to have_http_status :ok }
   end
 
-  describe "POST create" do
-    context "with valid params" do
+  describe 'POST create' do
+    context 'with valid params' do
       def call_post
         post :create, model => FactoryGirl.build(model).attributes.merge(additional_attributes)
       end
@@ -67,71 +67,71 @@ RSpec.shared_examples "a standard controller" do
         call_post
       end
 
-      it "increases the number of model instances in the database" do
+      it 'increases the number of model instances in the database' do
         expect { call_post }.to change(model_class, :count).by(1)
       end
 
-      it "assigns the instance to @model" do
+      it 'assigns the instance to @model' do
         expect(assigns(model)).to eq(model_class.last)
       end
       it { expect(assigns(model)).to be_persisted }
-      it "redirects to the created instance" do
+      it 'redirects to the created instance' do
         expect(response).to redirect_to(model_class.last)
       end
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       before do
-        post :create, model => {name: nil}
+        post :create, model => { name: nil }
       end
 
-      it "assigns the not yet persisted instance to @model" do
+      it 'assigns the not yet persisted instance to @model' do
         expect(assigns(model)).to be_a_new(model_class)
       end
-      it { expect(response).to render_template("new") }
+      it { expect(response).to render_template('new') }
       it { expect(response).to have_http_status :ok }
     end
   end
 
-  describe "PUT update" do
+  describe 'PUT update' do
     before do
       put :update, id: model_instance.to_param, model => new_attributes
       model_instance.reload
     end
 
-    context "with valid params" do
+    context 'with valid params' do
       let(:new_attributes) { valid_update_attributes }
 
-      it "assigns the updated model instance to @model" do
+      it 'assigns the updated model instance to @model' do
         expect(assigns(model)).to eq(model_instance)
       end
-      it "updates the attributes of the model instance" do
+      it 'updates the attributes of the model instance' do
         new_attributes.keys.each do |attribute|
           expect(model_instance[attribute]).to eq(new_attributes[attribute])
         end
       end
-      it "redirects to the updated instance" do
+      it 'redirects to the updated instance' do
         expect(response).to redirect_to(model_instance)
       end
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       let(:new_attributes) { invalid_update_attributes }
 
-      it "assigns the not updated model instance to @model" do
+      it 'assigns the not updated model instance to @model' do
         expect(assigns(model)).to eq(model_instance)
       end
-      it { expect(response).to render_template("edit") }
+      it { expect(response).to render_template('edit') }
       it { expect(response).to have_http_status :ok }
     end
   end
 
-  describe "DELETE destroy" do
+  describe 'DELETE destroy' do
     let(:delete_action) { delete :destroy, id: model_instance.to_param }
 
     it { expect { delete_action }.to change(model_class, :count).by(-1) }
 
-    it "redirects to the categories list" do
+    it 'redirects to the categories list' do
       delete_action
       expect(response).to redirect_to(eval "#{models}_path")
     end

@@ -2,9 +2,11 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) { assign :seller, FactoryGirl.create(:seller,
-                                                     reservations: reservation ? [reservation] : [],
-                                                     reviews: review ? [review] : []) }
+  let!(:seller) do
+    assign :seller, FactoryGirl.create(:seller,
+                                       reservations: reservation ? [reservation] : [],
+                                       reviews: review ? [review] : [])
+  end
   let!(:events) { assign :events, event ? [event] : [] }
   let(:reservation) {}
   let(:review) {}
@@ -17,7 +19,7 @@ RSpec.describe 'sellers/show' do
   end
 
   it 'links to items_path' do
-    assert_select "a[href=?]", items_path
+    assert_select 'a[href=?]', items_path
   end
 
   it 'shows seller information' do
@@ -31,7 +33,7 @@ RSpec.describe 'sellers/show' do
   end
 
   it 'links to edit_seller_path' do
-    assert_select "a[href=?]", edit_seller_path
+    assert_select 'a[href=?]', edit_seller_path
   end
 
   context 'with event' do
@@ -65,15 +67,15 @@ RSpec.describe 'sellers/show' do
     it_behaves_like 'a standard view'
 
     it 'shows event name' do
-      expect(rendered).to match /#{reservation.event.name}/
+      expect(rendered).to match(/#{reservation.event.name}/)
     end
 
     it 'shows event date' do
-      expect(rendered).to match /#{l(reservation.event.shopping_start.to_date, format: :long)}/
+      expect(rendered).to match(/#{l(reservation.event.shopping_start.to_date, format: :long)}/)
     end
 
     it 'shows reservation number' do
-      expect(rendered).to match /<strong>#{reservation.number}<\/strong>/
+      expect(rendered).to match(/<strong>#{reservation.number}<\/strong>/)
     end
 
     context 'with reservation phase ongoing' do
@@ -95,14 +97,14 @@ RSpec.describe 'sellers/show' do
         let(:reservation) { FactoryGirl.create :ongoing_reservation_for_commission_event }
 
         it 'shows date until labels need to be created' do
-          expect(rendered).to match /#{l(reservation.event.reservation_end, format: :long)}/
+          expect(rendered).to match(/#{l(reservation.event.reservation_end, format: :long)}/)
         end
       end
       context 'with event kind direct' do
         let(:reservation) { FactoryGirl.create :ongoing_reservation_for_direct_event }
 
         it 'does not show reservation end date' do
-          expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+          expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
         end
       end
     end
@@ -113,7 +115,7 @@ RSpec.describe 'sellers/show' do
           let(:reservation) { FactoryGirl.create :reservation_with_passed_event, kind: kind }
 
           it 'does not show reservation end date' do
-            expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+            expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
           end
 
           context 'without review' do
@@ -139,7 +141,7 @@ RSpec.describe 'sellers/show' do
 
     context 'with reservation phase passed and event upcoming' do
       it 'does not show reservation end date' do
-        expect(rendered).not_to match /#{l(reservation.event.reservation_end, format: :long)}/
+        expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
       end
 
       it 'does not link to event statistics page' do

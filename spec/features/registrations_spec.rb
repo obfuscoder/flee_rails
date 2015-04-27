@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.feature 'Registrations' do
   def fill_in_registration_form
     fill_in 'Vorname', with: 'Erika'

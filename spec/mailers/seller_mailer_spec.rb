@@ -1,42 +1,40 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.shared_examples "a mail body part" do
-  it { should_not match /translation missing/ }
-  it { should match /#{seller.first_name}/ }
-  it { should match /#{seller.last_name}/ }
-  it { should match /#{seller.street}/ }
-  it { should match /#{seller.zip_code}/ }
-  it { should match /#{seller.city}/ }
-  it { should match /#{seller.phone}/ }
-  it { should match /#{seller.email}/ }
-  it { should match /#{login_url}/ }
+RSpec.shared_examples 'a mail body part' do
+  it { is_expected.not_to match(/translation missing/) }
+  it { is_expected.to match(/#{seller.first_name}/) }
+  it { is_expected.to match(/#{seller.street}/) }
+  it { is_expected.to match(/#{seller.zip_code}/) }
+  it { is_expected.to match(/#{seller.city}/) }
+  it { is_expected.to match(/#{seller.phone}/) }
+  it { is_expected.to match(/#{seller.email}/) }
+  it { is_expected.to match(/#{seller.token}/) }
 end
 
 RSpec.describe SellerMailer do
-  describe "#registration" do
+  describe '#registration' do
     let(:seller) { FactoryGirl.build :seller }
-    let(:login_url) { "http://login/1234" }
-    subject(:mail) { SellerMailer.registration seller, login_url }
+    subject(:mail) { SellerMailer.registration seller }
 
-    its(:from) { should eq ['info@flohmarkt-koenigsbach.de'] }
-    its(:class) { should eq Mail::Message }
-    its(:to) { should eq [seller.email] }
-    its(:subject) { should_not match /translation missing/ }
+    its(:from) { is_expected.to eq ['info@flohmarkt-koenigsbach.de'] }
+    its(:class) { is_expected.to eq Mail::Message }
+    its(:to) { is_expected.to eq [seller.email] }
+    its(:subject) { is_expected.not_to match(/translation missing/) }
 
-    describe "body" do
+    describe 'body' do
       subject(:body) { mail.body }
 
       it { is_expected.to be_multipart }
-      its(:parts) { should have(2).elements }
+      its(:parts) { is_expected.to have(2).elements }
 
-      describe "text" do
+      describe 'text' do
         subject { body.parts.first.to_s }
-        it_behaves_like "a mail body part"
+        it_behaves_like 'a mail body part'
       end
 
-      describe "html" do
+      describe 'html' do
         subject { body.parts.last.to_s }
-        it_behaves_like "a mail body part"
+        it_behaves_like 'a mail body part'
       end
     end
   end

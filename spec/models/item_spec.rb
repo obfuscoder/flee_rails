@@ -11,13 +11,13 @@ RSpec.describe Item do
   it { should belong_to(:category) }
   it { should belong_to(:seller) }
 
-  describe "#to_s" do
+  describe '#to_s' do
     its(:to_s) { should eq(subject.description) }
 
-    context "without description" do
+    context 'without description' do
       subject { Item.new }
 
-      it "calls superclass" do
+      it 'calls superclass' do
         expect(subject.to_s).to eq(subject.class.superclass.instance_method(:to_s).bind(subject).call)
       end
     end

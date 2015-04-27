@@ -3,6 +3,6 @@ FactoryGirl.define do
     reservation
     item
     sequence(:number) { |n| n }
-    sequence(:code) { |n| "code#{n}"}
+    sequence(:code) { |n| "code#{n}" }
   end
 end

@@ -1,7 +1,7 @@
 class NoDefaultBackend < I18n::Backend::Simple
   def lookup(locale, key, scope = [], options = {})
-    options.delete_if { |key,value| key == :default && default_string?(value) }
-    if options.has_key?(:default) && options[:default].is_a?(Array)
+    options.delete_if { |key, value| key == :default && default_string?(value) }
+    if options.key?(:default) && options[:default].is_a?(Array)
       options[:default].reject! { |item| default_string?(item) }
     end
     super
