@@ -45,6 +45,9 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'pry-rails'
+  gem 'capybara'
+  gem 'capybara-email'
+  gem 'launchy'
 end
 
 gem 'haml-rails'
