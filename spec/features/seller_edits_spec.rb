@@ -33,11 +33,11 @@ RSpec.feature 'Seller edit area' do
 
   scenario 'user edits master data and aborts change' do
     navigate_to_seller_edit_page
-    expect {
+    expect do
       fill_out_seller_edit_form
       click_link 'Zurück ohne Speichern der Änderungen'
       expect(current_path).to eq seller_path
-    }.not_to change{seller.reload.first_name}
+    end.not_to change { seller.reload.first_name }
   end
 
   feature 'email blocking' do

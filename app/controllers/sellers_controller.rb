@@ -62,12 +62,16 @@ class SellersController < ApplicationController
   def block_mailing
     if @seller.update!(mailing: false)
       redirect_to seller_path, notice: t('.success')
+    else
+      redirect_to seller_path, alert: t('.failure')
     end
   end
 
   def allow_mailing
     if @seller.update(mailing: true)
       redirect_to seller_path, notice: t('.success')
+    else
+      redirect_to seller_path, alert: t('.failure')
     end
   end
 
