@@ -1,5 +1,5 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_seller, only: [:show, :edit, :update, :destroy, :allow_mailing, :block_mailing]
 
   def show
     @events = Event.without_reservation_for @seller
@@ -14,6 +14,8 @@ class SellersController < ApplicationController
 
   def create
     @seller = Seller.new seller_params
+    @seller.active = false
+    @seller.mailing = true
 
     if @seller.save
       send_registration_mail @seller
@@ -29,7 +31,7 @@ class SellersController < ApplicationController
 
   def update
     if @seller.update(seller_params)
-      redirect_to @seller, notice: 'Seller was successfully updated.'
+      redirect_to seller_path, notice: t('.success')
     else
       render :edit
     end
@@ -37,7 +39,7 @@ class SellersController < ApplicationController
 
   def destroy
     @seller.destroy
-    redirect_to sellers_url, notice: 'Seller was successfully destroyed.'
+    redirect_to sellers_path, notice: 'Seller was successfully destroyed.'
   end
 
   def resend_activation
@@ -52,8 +54,21 @@ class SellersController < ApplicationController
     reset_session
     seller = Seller.find_by_token params[:token]
     return render "#{Rails.root}/public/401", status: :unauthorized unless seller
+    seller.update(active: true)
     session[:seller_id] = seller.id
     redirect_to seller_path
+  end
+
+  def block_mailing
+    if @seller.update!(mailing: false)
+      redirect_to seller_path, notice: t('.success')
+    end
+  end
+
+  def allow_mailing
+    if @seller.update(mailing: true)
+      redirect_to seller_path, notice: t('.success')
+    end
   end
 
   private
@@ -85,7 +100,7 @@ class SellersController < ApplicationController
   def send_activation_email_when_found(email)
     seller = Seller.find_by_email email
     return unless seller
-    SellerMailer.registration(seller).deliver
+    send_registration_mail(seller)
     render :activation_resent
   end
 end

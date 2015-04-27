@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   resource :seller do
     match :resend_activation, via: [:get, :post]
     member do
-      post :mail, to: :enable_mail, as: :enable_mail
-      delete :mail, to: :disable_mail, as: :disable_mail
+      post :mailing, to: :allow_mailing
+      delete :mailing, to: :block_mailing
     end
   end
 

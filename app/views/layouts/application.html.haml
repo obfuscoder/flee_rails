@@ -33,4 +33,6 @@
         %h2= yield(:title)
       - else
         %h1 Flohmarkt<strong>helfer</strong>
+      - flash.each do |type, message|
+        %div{class: flash_class_from_type(type)}= message
       = yield

@@ -14,19 +14,21 @@ RSpec.describe 'sellers/edit' do
     expect(view).to render_template partial: 'sellers/_form'
   end
 
-  it 'allows to go back to seller home page' do
+  it 'links to seller home page' do
     assert_select 'a[href=?]', seller_path
   end
 
   context 'when seller has disabled mails' do
-    xit 'allows to enable mail notificatios' do
-      assert_select 'a[href=?]', enable_mail_seller_path
+    let(:seller) { FactoryGirl.create(:seller, mailing: false) }
+    it 'links to enable mailing' do
+      assert_select 'a[href=?][data-method=post]', mailing_seller_path
     end
   end
 
   context 'when seller has enabled mails' do
-    xit 'allows to disable mail notificatios' do
-      assert_select 'a[href=?]', disable_mail_seller_path
+    let(:seller) { FactoryGirl.create(:seller, mailing: true) }
+    it 'links to disable mailing' do
+      assert_select 'a[href=?][data-method=delete]', mailing_seller_path
     end
   end
 end

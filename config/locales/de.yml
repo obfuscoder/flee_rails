@@ -56,7 +56,12 @@ de:
         Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
     edit:
       title: Stammdaten bearbeiten
-      back: Zurück ohne Speichern der Änderungen
+    update:
+      success: Stammdaten aktualisiert.
+    block_mailing:
+      success: Die Mailbenachrichtigungen wurden für Sie deaktiviert.
+    allow_mailing:
+      success: Die Mailbenachrichtigungen wurden für Sie aktiviert.
     form:
       accept_terms: Ich akzeptiere die %{terms} und %{privacy}.
     resend_activation:

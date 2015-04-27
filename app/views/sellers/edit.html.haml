@@ -1,3 +1,13 @@
 - content_for :title, t('.title')
 = render 'form'
-= link_to t('.back'), seller_path
+= link_to 'Zurück ohne Speichern der Änderungen', seller_path
+%h3 eMail Benachrichtigungen
+%p
+  Aktuell informieren wir Sie über anstehende Termine und stattfindende Flohmärkte.
+  Möchten Sie keine Benachrichtigungen mehr von uns erhalten, benutzen Sie den folgenden Link.
+  Sie können sich weiterhin anmelden und sich selbst über Neuigkeiten informieren.
+  Die Benachrichtigung können Sie jederzeit wieder aktivieren.
+- if @seller.mailing
+  = link_to 'Ich möchte keine eMails mehr erhalten', mailing_seller_path, method: :delete
+- else
+  = link_to 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten', mailing_seller_path, method: :post
