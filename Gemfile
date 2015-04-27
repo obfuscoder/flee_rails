@@ -50,6 +50,10 @@ group :test, :development do
   gem 'launchy'
 end
 
+group :development do
+  gem 'rubocop'
+end
+
 gem 'haml-rails'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
