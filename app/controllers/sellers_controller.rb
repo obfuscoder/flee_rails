@@ -1,7 +1,6 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :edit, :update, :destroy, :allow_mailing, :block_mailing]
-
   def show
+    @seller = current_seller
     @events = Event.without_reservation_for @seller
   end
 
@@ -10,6 +9,7 @@ class SellersController < ApplicationController
   end
 
   def edit
+    @seller = current_seller
   end
 
   def create
@@ -30,6 +30,7 @@ class SellersController < ApplicationController
   end
 
   def update
+    @seller = current_seller
     if @seller.update(seller_params)
       redirect_to seller_path, notice: t('.success')
     else
@@ -38,7 +39,7 @@ class SellersController < ApplicationController
   end
 
   def destroy
-    @seller.destroy
+    current_seller.destroy
     reset_session
     redirect_to pages_deleted_path
   end
@@ -54,38 +55,24 @@ class SellersController < ApplicationController
   def login
     reset_session
     seller = Seller.find_by_token params[:token]
-    return render "#{Rails.root}/public/401", status: :unauthorized unless seller
+    fail UnauthorizedError unless seller
     seller.update(active: true)
     session[:seller_id] = seller.id
     redirect_to seller_path
   end
 
   def block_mailing
-    if @seller.update!(mailing: false)
-      redirect_to seller_path, notice: t('.success')
-    else
-      redirect_to seller_path, alert: t('.failure')
-    end
+    current_seller.update!(mailing: false)
+    redirect_to seller_path, notice: t('.success')
   end
 
   def allow_mailing
-    if @seller.update(mailing: true)
-      redirect_to seller_path, notice: t('.success')
-    else
-      redirect_to seller_path, alert: t('.failure')
-    end
+    current_seller.update!(mailing: true)
+    redirect_to seller_path, notice: t('.success')
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_seller
-    seller_id = session[:seller_id]
-    return render "#{Rails.root}/public/401", status: :unauthorized unless seller_id
-    @seller = Seller.find session[:seller_id]
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
   def seller_params
     params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms
   end

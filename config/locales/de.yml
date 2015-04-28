@@ -51,11 +51,16 @@ de:
       title: Registrierung erfolgreich
     show:
       title: Verkäuferbereich
-      confirm_delete_reservation: >
+      confirm_delete_reservation: |
         Sind Sie sicher, dass Sie die Reservierung freigeben möchten?
         Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
     edit:
       title: Stammdaten bearbeiten
+      delete:
+        text: Ich möchte mich abmelden und meine Daten löschen
+        confirm: |
+          Sind Sie sicher, dass Sie Ihre Daten löschen wollen?
+          Sie verlieren damit unwiderruflich alle Artikel und Reservierungen.
     update:
       success: Stammdaten aktualisiert.
     block_mailing:

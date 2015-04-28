@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  class UnauthorizedError < StandardError; end
+
+  rescue_from UnauthorizedError do
+    render '/public/401', status: :unauthorized
+  end
 
   private
 
@@ -10,6 +14,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_seller
-    @current_seller ||= Seller.find current_seller_id if current_seller_id
+    @current_seller ||= (Seller.find current_seller_id if current_seller_id)
+    fail UnauthorizedError unless @current_seller
+    @current_seller
   end
 end

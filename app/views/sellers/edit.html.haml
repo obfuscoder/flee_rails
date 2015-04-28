@@ -15,4 +15,4 @@
 %p
   Mit dem folgenden Link können Sie alle Ihre Daten inklusive aller Artikel und Reservierungen löschen.
   Sie können sich jederzeit wieder neu registrieren. Ihre bisher eingebenen Daten sind aber unwiderruflich verloren.
-%p= link_to 'Ich möchte mich abmelden und meine Daten löschen', seller_path, method: :delete
+%p= link_to t('.delete.text'), seller_path, method: :delete, confirm: t('.delete.confirm')

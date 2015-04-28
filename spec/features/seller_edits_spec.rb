@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Seller edit area' do
   let(:seller) { FactoryGirl.create :seller }
-  before do
+  background do
     visit login_seller_path(seller.token)
   end
 
@@ -66,8 +66,8 @@ RSpec.feature 'Seller edit area' do
     scenario 'user deletes account' do
       expect do
         click_link 'Ich möchte mich abmelden und meine Daten löschen'
-        expect(page).to have_content(/Daten gelöscht/)
       end.to change(Seller, :count).by(-1)
+      expect(page).to have_content(/Daten gelöscht/)
       visit login_seller_path(seller.token)
       expect(page).to have_content(/Anmeldung fehlgeschlagen/)
     end
