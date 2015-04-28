@@ -7,20 +7,17 @@ class Event < ActiveRecord::Base
   validates_presence_of :name
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
 
-  scope :within_reservation_time, -> do
-    where { reservation_start <= Time.now }.where { reservation_end >= Time.now }
-  end
+  scope :reservation_started, -> { where { reservation_start <= Time.now } }
+  scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }
+  scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
+  scope :without_reservation_for, ->(seller) { where { id << seller.reservations.map(&:event_id) } }
 
-  scope :with_available_reservations, -> do
+  def self.with_available_reservations
     joins { reservations.outer }.group(:id).having { count(reservations.id) < max_sellers }
   end
 
-  scope :reservable_by, -> (seller) do
-    where { id << seller.reservations.map(&:event_id) }.within_reservation_time.with_available_reservations
-  end
-
-  scope :without_reservation_for, -> (seller) do
-    where { id << seller.reservations.map(&:event_id) }
+  def self.reservable_by(seller)
+    without_reservation_for(seller).within_reservation_time.with_available_reservations
   end
 
   def reviewed_by?(seller)
