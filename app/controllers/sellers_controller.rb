@@ -39,7 +39,8 @@ class SellersController < ApplicationController
 
   def destroy
     @seller.destroy
-    redirect_to sellers_path, notice: 'Seller was successfully destroyed.'
+    reset_session
+    redirect_to pages_deleted_path
   end
 
   def resend_activation

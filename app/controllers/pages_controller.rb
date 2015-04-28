@@ -11,4 +11,7 @@ class PagesController < ApplicationController
 
   def privacy
   end
+
+  def deleted
+  end
 end

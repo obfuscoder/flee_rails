@@ -8,6 +8,11 @@
   Sie können sich weiterhin anmelden und sich selbst über Neuigkeiten informieren.
   Die Benachrichtigung können Sie jederzeit wieder aktivieren.
 - if @seller.mailing
-  = link_to 'Ich möchte keine eMails mehr erhalten', mailing_seller_path, method: :delete
+  %p= link_to 'Ich möchte keine eMails mehr erhalten', mailing_seller_path, method: :delete
 - else
-  = link_to 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten', mailing_seller_path, method: :post
+  %p= link_to 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten', mailing_seller_path, method: :post
+%h3 Daten löschen
+%p
+  Mit dem folgenden Link können Sie alle Ihre Daten inklusive aller Artikel und Reservierungen löschen.
+  Sie können sich jederzeit wieder neu registrieren. Ihre bisher eingebenen Daten sind aber unwiderruflich verloren.
+%p= link_to 'Ich möchte mich abmelden und meine Daten löschen', seller_path, method: :delete

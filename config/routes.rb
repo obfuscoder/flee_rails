@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'pages/imprint'
   get 'pages/privacy'
+  get 'pages/deleted'
 
   mount RailsAdmin::Engine => '/admin', as: :rails_admin
 
