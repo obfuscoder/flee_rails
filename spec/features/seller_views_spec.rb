@@ -22,6 +22,16 @@ RSpec.feature 'Seller view area' do
     scenario 'make a reservation' do
       login
       click_link 'hier', href: event_reservation_path(event)
+      expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
+      expect(page).to have_content 'Sie haben die Reservierungsnummer 1'
+    end
+    xscenario 'try a reservation when reservation limit has been reached' do
+
+    end
+    xscenario 'free an existing reservation' do
+      Reservation.create event: event, seller: seller
+      login
+      click_link 'geben Sie Ihre Reservierung wieder frei', href: event_reservation_path(event)
     end
   end
 end

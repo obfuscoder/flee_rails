@@ -18,7 +18,7 @@
               Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
             Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
             Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
-            = link_to 'geben Sie Ihre Reservierung wieder frei.', reservation, method: :delete,
+            = link_to 'geben Sie Ihre Reservierung wieder frei.', event_reservation_path(reservation), method: :delete,
               data: { confirm: t('.confirm_delete_reservation') }
 - if @events
   %p Die folgenden Flohmärkte sind aktuell in der Reservierungsphase und Sie haben noch keine Reservierung für diese:

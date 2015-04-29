@@ -82,7 +82,7 @@ RSpec.describe 'sellers/show' do
       let(:reservation) { FactoryGirl.create :ongoing_reservation }
 
       it 'allows deletion of reservation' do
-        assert_select 'a[href=?][data-method=?]', reservation_path(reservation), 'delete'
+        assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation), 'delete'
       end
 
       it 'does not link to event statistics page' do

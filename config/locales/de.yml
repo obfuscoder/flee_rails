@@ -17,28 +17,8 @@ de:
       seller:
         create: Registrieren
         update: 'Änderungen speichern'
-  categories:
-    index:
-      title: Kategorien
-    show:
-      title: Kategorie
-    new:
-      title: Kategorie erstellen
-    edit:
-      title: Kategorie bearbeiten
-  events:
-    index:
-      title: Termine
-    show:
-      title: Termin
-    new:
-      title: Termin erstellen
-    edit:
-      title: Termin bearbeiten
   items:
     index:
-      title: Artikel
-    show:
       title: Artikel
     new:
       title: Artikel erstellen
@@ -77,23 +57,11 @@ de:
     activation_resent:
       title: Registrierungsbestätigung zugesendet
   reservations:
-    index:
-      title: Reservierungen
-    show:
-      title: Reservierung
-    new:
-      title: Reservierung erstellen
-    edit:
-      title: Reservierung bearbeiten
-  reserved_items:
-    index:
-      title: Artikelreservierungen
-    new:
-      title: Artikelreservierung erstellen
-    show:
-      title: Artikelreservierung
-    edit:
-      title: Artikelreservierung bearbeiten
+    create:
+      success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
+      failure: |
+        Die Reservierung konnte nicht durchgeführt werden.
+        Entweder haben Sie bereits eine Reservierung oder es ist keine Reservierung mehr möglich.
   activerecord:
     models:
       category: Kategorie

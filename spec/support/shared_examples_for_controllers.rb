@@ -1,4 +1,4 @@
-RSpec.shared_examples 'a standard controller' do
+RSpec.shared_examples '_a standard controller' do
   let(:models) { described_class.controller_name.to_sym }
   let(:model) { models.to_s.singularize.to_sym }
   let(:model_class) { model.to_s.camelcase.constantize }
