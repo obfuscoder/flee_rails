@@ -9,12 +9,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def current_seller_id
-    session[:seller_id]
-  end
-
   def current_seller
-    @current_seller ||= (Seller.find current_seller_id if current_seller_id)
+    @current_seller ||= (Seller.find session[:seller_id] if session[:seller_id])
     fail UnauthorizedError unless @current_seller
     @current_seller
   end

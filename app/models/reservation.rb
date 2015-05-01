@@ -14,6 +14,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def create_number
-    self.number = event.reservations.count + 1 if self.number.nil? && self.event.present?
+    self.number = event.reservations.count + 1 if number.nil? && event.present?
   end
 end

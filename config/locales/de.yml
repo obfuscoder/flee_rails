@@ -62,6 +62,13 @@ de:
       failure: |
         Die Reservierung konnte nicht durchgeführt werden.
         Entweder haben Sie bereits eine Reservierung oder es ist keine Reservierung mehr möglich.
+    destroy:
+      success: Ihre Reservierung wurde freigegeben.
+  notifications:
+    create:
+      success: |
+        Sie wurden auf der Warteliste eingetragen.
+        Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
   activerecord:
     models:
       category: Kategorie

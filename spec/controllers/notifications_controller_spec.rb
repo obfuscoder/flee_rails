@@ -38,7 +38,11 @@ RSpec.describe NotificationsController do
     end
 
     context 'with out seller signed in' do
-      it 'shows unauthorized error'
+      let!(:event) { FactoryGirl.create :event }
+      before { session[:seller_id] = nil }
+      it 'shows unauthorized error' do
+        expect(post :create, event_id: event.id).to have_http_status :unauthorized
+      end
     end
   end
 
