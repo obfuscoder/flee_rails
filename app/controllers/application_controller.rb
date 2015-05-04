@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   class UnauthorizedError < StandardError; end
 
   rescue_from UnauthorizedError do
-    render '/public/401', status: :unauthorized
+    render file: '/public/401', status: :unauthorized
   end
 
   private
