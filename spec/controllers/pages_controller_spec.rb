@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PagesController do
-
   describe 'GET home' do
     before do
       get :home
@@ -50,5 +49,4 @@ RSpec.describe PagesController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template('privacy') }
   end
-
 end

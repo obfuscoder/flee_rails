@@ -75,7 +75,7 @@ RSpec.describe 'sellers/show' do
     end
 
     it 'shows reservation number' do
-      expect(rendered).to match(/<strong>#{reservation.number}<\/strong>/)
+      expect(rendered).to match(/#{reservation.number}/)
     end
 
     context 'with reservation phase ongoing' do

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe SellersController do
   describe 'routing' do
-
     it 'routes to #new' do
       expect(get: '/seller/new').to route_to('sellers#new')
     end

@@ -11,7 +11,7 @@ class Seller < ActiveRecord::Base
   validates_uniqueness_of :email, case_sensitive: false
   validates_email_format_of :email
   validates_format_of :zip_code, with: /\A\d{5}\z/
-  validates_format_of :phone, with: /\A(\+ ?49|0)[ \(\)\/\-\d]{5,30}[0-9]\z/
+  validates_format_of :phone, with: %r(\A(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z)
 
   before_validation do
     email.try(:downcase!)

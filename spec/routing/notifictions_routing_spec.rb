@@ -9,6 +9,5 @@ RSpec.describe NotificationsController do
     it 'routes to #destroy' do
       expect(delete: '/events/1/reservation').to route_to('reservations#destroy', event_id: '1')
     end
-
   end
 end
