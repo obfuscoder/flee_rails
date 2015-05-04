@@ -39,7 +39,7 @@
             Sie können sich #{ link_to 'einen Verkäuferplatz reservieren', event_reservation_path(event), method: :post }.
 %h3 Artikel
 %p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
-= link_to 'Artikel bearbeiten', items_path, class: 'btn btn-primary'
+= link_to 'Artikel bearbeiten', items_path
 %h3 Ihre Stammdaten
 %p
   %strong #{@seller.first_name} #{@seller.last_name}<br/>
@@ -48,4 +48,4 @@
 %p
   Tel.: #{@seller.phone}<br/>
   Mail: #{link_to @seller.email, "mailto:#{@seller.email}"}
-= link_to 'Stammdaten bearbeiten', edit_seller_path, class: 'btn btn-primary'
+= link_to 'Stammdaten bearbeiten', edit_seller_path

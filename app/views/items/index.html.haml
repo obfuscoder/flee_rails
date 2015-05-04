@@ -1,6 +1,7 @@
 - content_for :title, t('.title')
 %p Hier können Sie Ihre Artikel verwalten.
 %p Sie haben aktuell #{@items.count} Artikel angelegt.
+= link_to 'Artikel hinzufügen', new_item_path
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
@@ -8,7 +9,7 @@
     %th= Item.human_attribute_name :description
     %th= Item.human_attribute_name :size
     %th= Item.human_attribute_name :price
-    %td= link_to t('new'), new_item_path
+    %th Aktionen
 
   - @items.each_with_index do |item, index|
     %tr
@@ -18,4 +19,5 @@
       %td= item.size
       %td= item.price
       %td= link_to t('edit'), edit_item_path(item)
-      %td= link_to t('destroy'), item, method: :delete, data: { confirm: t('sure') }
+      %td= link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
+%p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path

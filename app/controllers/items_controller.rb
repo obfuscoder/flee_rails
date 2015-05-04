@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
     @item = current_seller.items.build(item_params)
 
     if @item.save
-      redirect_to items_path, notice: t('Item was successfully created.')
+      redirect_to items_path, notice: t('.success')
     else
       render :new
     end
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     if @item.update(item_params)
-      redirect_to items_path, notice: t('Item was successfully updated.')
+      redirect_to items_path, notice: t('.success')
     else
       render :edit
     end
@@ -42,10 +42,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     @item.destroy
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to items_url, notice: t('.success')
   end
 
   private

@@ -17,13 +17,24 @@ de:
       seller:
         create: Registrieren
         update: 'Änderungen speichern'
+      item:
+        create: Speichern
+        update: Speichern
   items:
     index:
       title: Artikel
+      destroy:
+        confirm: Sind Sie sicher, dass Sie diesen Artikel löschen wollen?
     new:
-      title: Artikel erstellen
+      title: Artikel anlegen
     edit:
       title: Artikel bearbeiten
+    create:
+      success: Artikel wurde gespeichert.
+    update:
+      success: Artikel wurde aktualisiert.
+    destroy:
+      success: Artikel wurde gelöscht.
   sellers:
     new:
       title: Registrierung

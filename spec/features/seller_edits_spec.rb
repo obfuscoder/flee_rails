@@ -7,7 +7,7 @@ RSpec.feature 'Seller edit area' do
   end
 
   def navigate_to_seller_edit_page
-    click_link 'Stammdaten bearbeiten'
+    click_on 'Stammdaten bearbeiten'
   end
 
   feature 'editing user information' do
@@ -24,7 +24,7 @@ RSpec.feature 'Seller edit area' do
 
     scenario 'user edits master data and saves changes' do
       fill_out_seller_edit_form
-      click_button 'Änderungen speichern'
+      click_on 'Änderungen speichern'
       expect(page).to have_content(/Stammdaten aktualisiert./)
       expect(page).to have_content(/Maximilian/)
       expect(page).to have_content(/Neue Straße 2/)
@@ -34,7 +34,7 @@ RSpec.feature 'Seller edit area' do
     scenario 'user edits master data and aborts change' do
       expect do
         fill_out_seller_edit_form
-        click_link 'Zurück ohne Speichern der Änderungen'
+        click_on 'Zurück ohne Speichern der Änderungen'
       end.not_to change { seller.reload.first_name }
     end
   end
@@ -46,7 +46,7 @@ RSpec.feature 'Seller edit area' do
     end
     let(:preparation) {}
     scenario 'user blocks emails' do
-      click_link 'Ich möchte keine eMails mehr erhalten'
+      click_on 'Ich möchte keine eMails mehr erhalten'
       expect(page).to have_content(/Die Mailbenachrichtigungen wurden für Sie deaktiviert./)
       expect(seller.reload.mailing).to eq false
     end
@@ -54,7 +54,7 @@ RSpec.feature 'Seller edit area' do
     context 'when mail is blocked' do
       let(:preparation) { seller.update(mailing: false) }
       scenario 'user unblocks emails' do
-        click_link 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten'
+        click_on 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten'
         expect(page).to have_content(/Die Mailbenachrichtigungen wurden für Sie aktiviert./)
         expect(seller.reload.mailing).to eq true
       end
@@ -65,7 +65,7 @@ RSpec.feature 'Seller edit area' do
     background { navigate_to_seller_edit_page }
     scenario 'user deletes account' do
       expect do
-        click_link 'Ich möchte mich abmelden und meine Daten löschen'
+        click_on 'Ich möchte mich abmelden und meine Daten löschen'
       end.to change(Seller, :count).by(-1)
       expect(page).to have_content(/Daten gelöscht/)
       visit login_seller_path(seller.token)
