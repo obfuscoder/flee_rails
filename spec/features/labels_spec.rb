@@ -15,13 +15,15 @@ RSpec.feature 'labels generation' do
     context 'with one reservation' do
       let(:reservation) { FactoryGirl.create :reservation, seller: seller }
       let(:preparations) { items && reservation }
-      it 'can create labels' do
+      it 'creates labels on the fly' do
         click_on 'Etiketten drucken'
         click_on 'Drucken'
         expect(page.response_headers['Content-Type']).to eq 'application/pdf'
-        # save_and_open_page(File.expand_path('t.pdf', Capybara.save_and_open_page_path))
       end
+
+      it 'autogenerates proper codes'
     end
+
 
     context 'without any reservation' do
       let(:preparations) { items }
