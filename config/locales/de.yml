@@ -16,10 +16,12 @@ de:
       update: '%{model} aktualisieren'
       seller:
         create: Registrieren
-        update: 'Änderungen speichern'
+        update: Änderungen speichern
       item:
         create: Speichern
         update: Speichern
+      labels:
+        submit: Drucken
   items:
     index:
       title: Artikel
@@ -35,6 +37,9 @@ de:
       success: Artikel wurde aktualisiert.
     destroy:
       success: Artikel wurde gelöscht.
+  labels:
+    index:
+      title: Etiketten drucken
   sellers:
     new:
       title: Registrierung

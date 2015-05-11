@@ -51,14 +51,15 @@ gem 'rubocop', group: :development
 
 gem 'haml-rails'
 
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form'
 
 gem 'bootstrap-sass'
-gem 'bootstrap-multiselect-rails'
 
 gem 'awesome_print'
 
 gem 'rails_admin'
-gem 'redcarpet'
+gem 'redcarpet' # markdown
 gem 'validates_email_format_of'
-gem 'squeel'
+gem 'squeel' # database query DSL
+gem 'prawn' # pdf generation
+gem 'barby' # pdf barcodes

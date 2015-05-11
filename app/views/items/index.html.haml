@@ -2,7 +2,7 @@
 %p
   Hier können Sie Ihre Artikel verwalten.
   Sie können beliebig viele Artikel eingeben, auch ohne eine Reservierung zu haben.
-  Sobald Sie eine Reservierung haben, können Sie Etiketten für die Reservierung und für ausgewählte Artikel erzeugen.
+  Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel erzeugen.
 %p Sie haben aktuell #{@items.count} Artikel angelegt.
 = link_to 'Artikel hinzufügen', new_item_path
 %table.table.table-condensed.table-hover.table-striped
@@ -25,15 +25,8 @@
         = link_to t('edit'), edit_item_path(item)
         = link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path
-%p Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel erzeugen und drucken.
-%p
-  %small
-    :markdown
-      Die Etiketten werden als PDF-Dokument generiert.
-      PDF-Dokumente werden standardmäßig von aktuellen Betriebssystemen (Windows 8, Mac OSX, Linux)
-      und den aktuellen Browsern
-      <a href="http://www.google.com/chrome/" target=_blank">Chrome</a>,
-      <a href="https://www.mozilla.org/en-US/firefox/new/" target=_blank">Firefox</a> und Safari unterstützt.
-      Sollten Sie den Internet Explorer verwenden, oder Probleme mit Anzeige oder Drucken haben, empfehlen wir die
-      Installation des kostenlosen Programms
-      <a target="_blank" href="http://get.adobe.com/reader/">Adobe Acrobat Reader</a>.
+- unless @items.empty?
+  - if @seller.reservations.empty?
+    %p Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel drucken.
+  - else
+    = link_to 'Etiketten drucken', labels_path

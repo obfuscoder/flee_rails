@@ -24,7 +24,7 @@ RSpec.feature 'Viewing and editing items' do
       expect(page).to have_content 'Sie haben aktuell 0 Artikel angelegt.'
     end
 
-    scenario 'allows to navigate back to seller home page' do
+    scenario 'navigate back to seller home page' do
       click_on 'Zur Hauptseite des gesicherten Bereichs'
       expect(page).to have_content 'Verkäuferbereich'
     end
@@ -54,7 +54,7 @@ RSpec.feature 'Viewing and editing items' do
         expect(page).to have_content item2.price
       end
 
-      scenario 'allows to edit item' do
+      scenario 'edit item' do
         click_link 'Bearbeiten', href: edit_item_path(item1)
         expect(find_field('Beschreibung').value).to have_content item1.description
         expect(find_field('Preis').value).to have_content item1.price
@@ -65,7 +65,7 @@ RSpec.feature 'Viewing and editing items' do
         expect(page).to have_content 'blaue Jeans'
       end
 
-      scenario 'allows to delete item' do
+      scenario 'delete item' do
         expect(page).to have_content 'Sie haben aktuell 2 Artikel angelegt.'
         click_link 'Löschen', href: item_path(item1)
         expect(page).to have_content 'Artikel wurde gelöscht.'

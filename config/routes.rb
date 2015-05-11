@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: :rails_admin
 
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :labels, only: [:index, :create]
   resources :events do
     resource :reservation, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
