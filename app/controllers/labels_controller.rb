@@ -7,7 +7,25 @@ class LabelsController < ApplicationController
   end
 
   def create
-    pdf = LabelDocument.new current_seller.reservations.first.reserved_item
+    reservation = current_seller.reservations.first
+    if reservation.reserved_items.empty?
+      current_seller.items.each do |item|
+        ReservedItem.create(reservation: reservation, item: item)
+      end
+    end
+    pdf = LabelDocument.new(labels(reservation.reserved_items))
     send_data pdf.render, filename: 'etiketten.pdf', type: 'application/pdf'
+  end
+
+  def labels(reserved_items)
+    reserved_items.map do |reserved_item|
+      {
+        number: reserved_item.to_s,
+        price: view_context.number_to_currency(reserved_item.item.price),
+        details: "#{reserved_item.item.category}\n#{reserved_item.item}" +
+          (reserved_item.item.size ? "\nGröße: #{reserved_item.item.size}" : ''),
+        code: reserved_item.code
+      }
+    end
   end
 end

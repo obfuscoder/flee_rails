@@ -7,40 +7,44 @@ class LabelDocument < Prawn::Document
 
   def initialize(labels)
     super page_size: 'A4'
-    define_grid columns: COLS, rows: ROWS
     @labels = labels
   end
 
   def render
+    define_grid columns: COLS, rows: ROWS, gutter: 5
     cell = [0, 0]
-    @labels.each do |_label|
-      label_cell(cell)
+    @labels.each do |label|
+      label_cell(cell, label)
       cell = next_cell(cell)
     end
     super
   end
 
-  def label_cell(cell)
-    grid(cell).bounding_box do
-      header_cells
-      category_cell
-      description_cell
-      size_cell
-      barcode_cell
+  def label_cell(cell, label)
+    grid(cell[1], cell[0]).bounding_box do
+      stroke_bounds
+      header_cells label
+      details_cell label
+      barcode_cell label
     end
   end
 
-  def barcode_cell
-    barcode_top = bounds.top - header_line_height - small_line_height * 3
-    height = bounds.height - (bounds.top - barcode_top)
-    bounding_box [bounds.left, barcode_top], width: bounds.width, height: height do
-      barcode = Barby::Code128B.new 'AaZ040090015'
-      outputter = Barby::PrawnOutputter.new barcode
-      height = bounds.height * 0.6
-      horizontal_offset = (bounds.width - outputter.full_width) / 2
-      vertical_offset = (bounds.height - height) / 2
-      outputter.annotate_pdf self, height: height, x: horizontal_offset, y: vertical_offset
+  def barcode_cell(label)
+    cell_top = bounds.top - header_line_height - small_line_height * 3
+    cell_height = bounds.height - (bounds.top - cell_top)
+    bounding_box [bounds.left, cell_top], width: bounds.width, height: cell_height do
+      stroke_bounds
+      barcode(label)
     end
+  end
+
+  def barcode(label)
+    barcode = Barby::Code128C.new label[:code]
+    outputter = Barby::PrawnOutputter.new(barcode)
+    barcode_height = bounds.height * 0.6
+    horizontal_offset = (bounds.width - outputter.full_width) / 2
+    vertical_offset = (bounds.height - barcode_height) / 2
+    outputter.annotate_pdf self, height: barcode_height, x: horizontal_offset, y: vertical_offset
   end
 
   def small_line_height
@@ -51,51 +55,30 @@ class LabelDocument < Prawn::Document
     bounds.height / 4
   end
 
-  def bounding_box(pt, *args, &block)
-    super(pt, args) do
+  def details_cell(label)
+    boxed_text(label[:details], bounds.top - header_line_height, bounds.left, small_line_height * 3, bounds.width)
+  end
+
+  def boxed_text(text, top, left, height, width)
+    bounding_box [left, top], width: width, height: height do
       stroke_bounds
-      yield block
+      text_box text, align: :center, valign: :center, overflow: :shrink_to_fit
     end
   end
 
-  def size_cell
-    top_offset = bounds.top - header_line_height - small_line_height * 2
-    bounding_box [bounds.left, top_offset], width: bounds.width, height: small_line_height do
-      text 'Größe', align: :center, valign: :center
+  def header_cells(label)
+    font 'Helvetica', style: :bold, size: 20 do
+      number_header_cell label
+      price_header_cell label
     end
   end
 
-  def description_cell
-    top_offset = bounds.top - header_line_height - small_line_height
-    bounding_box [bounds.left, top_offset], width: bounds.width, height: small_line_height do
-      text 'Beschreibung', align: :center, valign: :center
-    end
+  def price_header_cell(label)
+    boxed_text(label[:price], bounds.top, bounds.left + bounds.width / 2, header_line_height, bounds.width / 2)
   end
 
-  def category_cell
-    top_offset = bounds.top - header_line_height
-    bounding_box [bounds.left, top_offset], width: bounds.width, height: small_line_height do
-      text 'Kategorie', align: :center, valign: :center
-    end
-  end
-
-  def header_cells
-    font 'Helvetica', style: :bold do
-      number_header_cell
-      price_header_cell
-    end
-  end
-
-  def price_header_cell
-    bounding_box [bounds.left + bounds.width / 2, bounds.top], width: bounds.width / 2, height: header_line_height do
-      text '999,99 €', align: :center, valign: :center, size: 20
-    end
-  end
-
-  def number_header_cell
-    bounding_box bounds.top_left, width: bounds.width / 2, height: header_line_height do
-      text '999-999', align: :center, valign: :center, size: 20
-    end
+  def number_header_cell(label)
+    boxed_text(label[:number], bounds.top, bounds.left, header_line_height, bounds.width / 2)
   end
 
   def next_cell(cell)

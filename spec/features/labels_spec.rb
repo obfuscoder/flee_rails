@@ -19,6 +19,7 @@ RSpec.feature 'labels generation' do
         click_on 'Etiketten drucken'
         click_on 'Drucken'
         expect(page.response_headers['Content-Type']).to eq 'application/pdf'
+        # save_and_open_page(File.expand_path('t.pdf', Capybara.save_and_open_page_path))
       end
     end
 

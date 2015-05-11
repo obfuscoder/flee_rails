@@ -1,7 +1,7 @@
 class Reservation < ActiveRecord::Base
   belongs_to :seller
   belongs_to :event
-  has_many :reserved_item, dependent: :destroy
+  has_many :reserved_items, dependent: :destroy
 
   validates_presence_of :seller, :event, :number
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }

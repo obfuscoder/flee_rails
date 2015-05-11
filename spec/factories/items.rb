@@ -3,6 +3,6 @@ FactoryGirl.define do
     seller
     category
     description 'Description'
-    price 1.90
+    price 1.9
   end
 end
