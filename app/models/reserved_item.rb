@@ -22,11 +22,21 @@ class ReservedItem < ActiveRecord::Base
 
   def create_code
     return if number.nil? || reservation.nil?
-    code = format('%03d%03d', reservation.number, number)
+    code = format('%02d%03d%03d', reservation.event.id, reservation.number, number)
     self.code = append_checksum(code)
   end
 
   def append_checksum(code)
-    code
+    bytes = code.reverse.bytes.each_with_index.map { |byte, index| digit_sum(byte * weight(index)) }
+    checksum = bytes.reduce(:+) % 10
+    code + checksum.to_s
+  end
+
+  def weight(index)
+    index % 2 + 1
+  end
+
+  def digit_sum(value)
+    value.to_s.chars.map(&:to_i).reduce(:+)
   end
 end

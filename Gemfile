@@ -35,28 +35,27 @@ gem 'spring', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group :test, :development do
+group :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
-  gem 'pry-rails'
   gem 'capybara'
   gem 'capybara-email'
   gem 'launchy'
+  gem 'pdf-inspector'
 end
 
-gem 'rubocop', group: :development
+group :test, :development do
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'rubocop'
+end
 
 gem 'haml-rails'
-
 gem 'simple_form'
-
 gem 'bootstrap-sass'
-
 gem 'awesome_print'
-
 gem 'rails_admin'
 gem 'redcarpet' # markdown
 gem 'validates_email_format_of'

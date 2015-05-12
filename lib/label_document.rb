@@ -34,17 +34,26 @@ class LabelDocument < Prawn::Document
     cell_height = bounds.height - (bounds.top - cell_top)
     bounding_box [bounds.left, cell_top], width: bounds.width, height: cell_height do
       stroke_bounds
-      barcode(label)
+      barcode label
     end
   end
 
   def barcode(label)
-    barcode = Barby::Code128C.new label[:code]
+    barcode = Barby::Code128.new label[:code]
     outputter = Barby::PrawnOutputter.new(barcode)
-    barcode_height = bounds.height * 0.6
+    barcode_height = bounds.height / 2
     horizontal_offset = (bounds.width - outputter.full_width) / 2
-    vertical_offset = (bounds.height - barcode_height) / 2
+    vertical_offset = barcode_height * 2 / 3
     outputter.annotate_pdf self, height: barcode_height, x: horizontal_offset, y: vertical_offset
+    barcode_text label, vertical_offset, horizontal_offset, vertical_offset, outputter.full_width
+  end
+
+  def barcode_text(label, top, left, height, width)
+    bounding_box [left, top], width: width, height: height do
+      font 'Courier', size: 10 do
+        text label[:code], align: :center, valign: :center, overflow: :shrink_to_fit, character_spacing: 2
+      end
+    end
   end
 
   def small_line_height
@@ -62,8 +71,12 @@ class LabelDocument < Prawn::Document
   def boxed_text(text, top, left, height, width)
     bounding_box [left, top], width: width, height: height do
       stroke_bounds
-      text_box text, align: :center, valign: :center, overflow: :shrink_to_fit
+      center_text text
     end
+  end
+
+  def center_text(text)
+    text_box text, align: :center, valign: :center, overflow: :shrink_to_fit
   end
 
   def header_cells(label)

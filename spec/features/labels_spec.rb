@@ -15,15 +15,33 @@ RSpec.feature 'labels generation' do
     context 'with one reservation' do
       let(:reservation) { FactoryGirl.create :reservation, seller: seller }
       let(:preparations) { items && reservation }
-      it 'creates labels on the fly' do
+      let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
+      before do
         click_on 'Etiketten drucken'
         click_on 'Drucken'
-        expect(page.response_headers['Content-Type']).to eq 'application/pdf'
       end
 
-      it 'autogenerates proper codes'
-    end
+      it 'creates labels on the fly' do
+        expect(page.response_headers['Content-Type']).to eq 'application/pdf'
+        items.each do |item|
+          expect(strings_from_rendered_pdf).to include item.description
+          expect(strings_from_rendered_pdf).to include item.category.name
+          expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.reserved_items.first.number}"
+          expect(strings_from_rendered_pdf).to include item.reserved_items.first.code
+        end
+      end
 
+      it 'autogenerates proper codes' do
+        text_analysis = PDF::Inspector::Text.analyze(page.body)
+        expect(text_analysis.strings).to include '010020016'
+      end
+
+      it 'blocks items with generated labels for editing'
+
+      context 'when selecting a few of the items' do
+        it 'generates labels of selected items'
+      end
+    end
 
     context 'without any reservation' do
       let(:preparations) { items }
@@ -40,6 +58,13 @@ RSpec.feature 'labels generation' do
       let(:reservation2) { FactoryGirl.create :reservation, seller: seller }
       let(:preparations) { items && reservation1 && reservation2 }
       it 'asks for the reservation to print labels for'
+      it 'does not allow to generate labels for items with labels for other reservation'
+    end
+  end
+  context 'with too many items for reservation' do
+    it 'selects items for reservation'
+    context 'when some labels have been created before' do
+      it 'allows to generate additional labels up to the reservation limit'
     end
   end
 end
