@@ -12,4 +12,11 @@ RSpec.describe Label do
   it { should belong_to(:reservation) }
   it { should belong_to(:item) }
   its(:to_s) { should eq("#{subject.reservation.number} - #{subject.number}") }
+
+  context 'with reservation' do
+    it 'autogenerates proper code' do
+      label = Label.create reservation: FactoryGirl.build(:reservation, number: 1)
+      expect(label.code).to eq '010010012'
+    end
+  end
 end

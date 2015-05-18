@@ -20,7 +20,7 @@ RSpec.feature 'labels generation' do
   end
 
   context 'with items' do
-    let(:items) { FactoryGirl.create_list :item, 30, seller: seller }
+    let(:items) { FactoryGirl.create_list :item, 5, seller: seller }
     context 'with one reservation' do
       let(:reservation) { FactoryGirl.create :reservation, seller: seller }
       let(:preparations) { items && reservation }
@@ -39,38 +39,8 @@ RSpec.feature 'labels generation' do
         end
       end
 
-      it 'autogenerates proper codes' do
-        text_analysis = PDF::Inspector::Text.analyze(page.body)
-        expect(text_analysis.strings).to include '010020016'
-      end
-
-      context 'when adding additional items and printing everything' do
-        let(:more_items) { FactoryGirl.create_list :item, 10, seller: seller }
-        before do
-          visit items_path
-          more_items
-          click_on 'Etiketten drucken'
-          click_on 'Drucken'
-        end
-
-        it 'does not generate more labels for existing items' do
-          items.each do |item|
-            expect(item.labels.count).to eq 1
-          end
-        end
-
-        it 'creates labels for additional items on the fly' do
-          more_items.each do |item|
-            expect(item.labels.count).to eq 1
-            check_pdf_for_label item.labels.first
-          end
-        end
-      end
-
-      it 'blocks items with generated labels for editing'
-
       context 'when selecting a few of the items' do
-        let(:selected_items) { items.take 5 }
+        let(:selected_items) { items.take 3 }
         let(:unselected_items) { items - selected_items }
         let(:make_selection) do
           selected_items.each { |item| find("input[type='checkbox'][value='#{item.id}']").set(true) }

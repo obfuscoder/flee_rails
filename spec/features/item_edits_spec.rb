@@ -71,6 +71,16 @@ RSpec.feature 'Viewing and editing items' do
         expect(page).to have_content 'Artikel wurde gelöscht.'
         expect(page).to have_content 'Sie haben aktuell 1 Artikel angelegt.'
       end
+
+      context 'when labels have been created already' do
+        let(:item) { FactoryGirl.create :item_with_label, seller: seller }
+        let(:preparations) { item }
+
+        it 'does not show edit/delete link to items with generated labels' do
+          expect(page).not_to have_link('Bearbeiten', href: edit_item_path(item))
+          expect(page).not_to have_link('Löschen', href: item_path(item))
+        end
+      end
     end
   end
 end

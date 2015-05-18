@@ -16,6 +16,8 @@ class Label < ActiveRecord::Base
     "#{reservation.number} - #{number}"
   end
 
+  private
+
   def create_number
     self.number = reservation.labels.count + 1 if number.nil? && reservation.present?
   end

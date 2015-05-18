@@ -22,8 +22,11 @@
       %td= item.size
       %td= item.price
       %td
-        = link_to t('edit'), edit_item_path(item)
-        = link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
+        - if item.labels.empty?
+          = link_to t('edit'), edit_item_path(item)
+          = link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
+        - else
+          Etikett erzeugt mit Nummer #{item.labels.first.code}
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path
 - unless @items.empty?
   - if @seller.reservations.empty?
