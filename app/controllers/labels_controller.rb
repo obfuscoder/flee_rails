@@ -8,10 +8,14 @@ class LabelsController < ApplicationController
 
   def create
     reservation = current_seller.reservations.first
-    current_seller.items.without_label.each do |item|
+    selected_items = current_seller.items
+    if params[:labels][:selection] != 'all'
+      selected_items = selected_items.where(id: params[:labels][:item])
+    end
+    selected_items.without_label.each do |item|
       Label.create!(reservation: reservation, item: item)
     end
-    pdf = LabelDocument.new(label_decorators(reservation.labels))
+    pdf = LabelDocument.new(label_decorators(reservation.labels.where(item: selected_items)))
     send_data pdf.render, filename: 'etiketten.pdf', type: 'application/pdf'
   end
 

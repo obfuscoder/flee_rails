@@ -4,10 +4,19 @@ RSpec.feature 'labels generation' do
   let(:seller) { FactoryGirl.create :seller }
   let!(:category) { FactoryGirl.create :category }
   let(:preparations) {}
+  let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
+
   background do
     preparations
     visit login_seller_path(seller.token)
     click_on 'Artikel bearbeiten'
+  end
+
+  def check_pdf_for_label(label)
+    expect(strings_from_rendered_pdf).to include label.item.description
+    expect(strings_from_rendered_pdf).to include label.item.category.name
+    expect(strings_from_rendered_pdf).to include "#{label.reservation.number} - #{label.number}"
+    expect(strings_from_rendered_pdf).to include label.code
   end
 
   context 'with items' do
@@ -15,9 +24,10 @@ RSpec.feature 'labels generation' do
     context 'with one reservation' do
       let(:reservation) { FactoryGirl.create :reservation, seller: seller }
       let(:preparations) { items && reservation }
-      let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
+      let(:make_selection) {}
       before do
         click_on 'Etiketten drucken'
+        make_selection
         click_on 'Drucken'
       end
 
@@ -25,10 +35,7 @@ RSpec.feature 'labels generation' do
         expect(page.response_headers['Content-Type']).to eq 'application/pdf'
         items.each do |item|
           expect(item.labels.count).to eq 1
-          expect(strings_from_rendered_pdf).to include item.description
-          expect(strings_from_rendered_pdf).to include item.category.name
-          expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.labels.first.number}"
-          expect(strings_from_rendered_pdf).to include item.labels.first.code
+          check_pdf_for_label item.labels.first
         end
       end
 
@@ -55,10 +62,7 @@ RSpec.feature 'labels generation' do
         it 'creates labels for additional items on the fly' do
           more_items.each do |item|
             expect(item.labels.count).to eq 1
-            expect(strings_from_rendered_pdf).to include item.description
-            expect(strings_from_rendered_pdf).to include item.category.name
-            expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.labels.first.number}"
-            expect(strings_from_rendered_pdf).to include item.labels.first.code
+            check_pdf_for_label item.labels.first
           end
         end
       end
@@ -66,7 +70,25 @@ RSpec.feature 'labels generation' do
       it 'blocks items with generated labels for editing'
 
       context 'when selecting a few of the items' do
-        it 'generates labels of selected items'
+        let(:selected_items) { items.take 5 }
+        let(:unselected_items) { items - selected_items }
+        let(:make_selection) do
+          selected_items.each { |item| find("input[type='checkbox'][value='#{item.id}']").set(true) }
+          unselected_items.each { |item| find("input[type='checkbox'][value='#{item.id}']").set(false) }
+        end
+
+        it 'generates labels of selected items' do
+          selected_items.each do |item|
+            expect(item.labels.count).to eq 1
+            check_pdf_for_label item.labels.first
+          end
+        end
+
+        it 'does not generate labels for unselected items' do
+          unselected_items.each do |item|
+            expect(item.labels).to be_empty
+          end
+        end
       end
     end
 
