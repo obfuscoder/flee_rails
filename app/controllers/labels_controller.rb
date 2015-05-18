@@ -9,20 +9,20 @@ class LabelsController < ApplicationController
   def create
     reservation = current_seller.reservations.first
     current_seller.items.without_label.each do |item|
-      ReservedItem.create!(reservation: reservation, item: item)
+      Label.create!(reservation: reservation, item: item)
     end
-    pdf = LabelDocument.new(labels(reservation.reserved_items))
+    pdf = LabelDocument.new(label_decorators(reservation.labels))
     send_data pdf.render, filename: 'etiketten.pdf', type: 'application/pdf'
   end
 
-  def labels(reserved_items)
-    reserved_items.map do |reserved_item|
+  def label_decorators(labels)
+    labels.map do |label|
       {
-        number: reserved_item.to_s,
-        price: view_context.number_to_currency(reserved_item.item.price),
-        details: "#{reserved_item.item.category}\n#{reserved_item.item}" +
-          (reserved_item.item.size ? "\nGröße: #{reserved_item.item.size}" : ''),
-        code: reserved_item.code
+        number: label.to_s,
+        price: view_context.number_to_currency(label.item.price),
+        details: "#{label.item.category}\n#{label.item}" +
+          (label.item.size ? "\nGröße: #{label.item.size}" : ''),
+        code: label.code
       }
     end
   end

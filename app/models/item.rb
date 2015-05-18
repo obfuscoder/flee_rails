@@ -1,11 +1,11 @@
 class Item < ActiveRecord::Base
   belongs_to :seller
   belongs_to :category
-  has_many :reserved_items, dependent: :destroy
+  has_many :labels, dependent: :destroy
 
   validates_presence_of :seller, :category, :description, :price
 
-  scope :without_label, -> { joins{reserved_items.outer}.where{reserved_items.id == nil} }
+  scope :without_label, -> { joins { labels.outer } .where { labels.id.eq nil } }
 
   def to_s
     description || super

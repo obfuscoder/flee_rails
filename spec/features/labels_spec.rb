@@ -24,11 +24,11 @@ RSpec.feature 'labels generation' do
       it 'creates labels on the fly' do
         expect(page.response_headers['Content-Type']).to eq 'application/pdf'
         items.each do |item|
-          expect(item.reserved_items.count).to eq 1
+          expect(item.labels.count).to eq 1
           expect(strings_from_rendered_pdf).to include item.description
           expect(strings_from_rendered_pdf).to include item.category.name
-          expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.reserved_items.first.number}"
-          expect(strings_from_rendered_pdf).to include item.reserved_items.first.code
+          expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.labels.first.number}"
+          expect(strings_from_rendered_pdf).to include item.labels.first.code
         end
       end
 
@@ -48,17 +48,17 @@ RSpec.feature 'labels generation' do
 
         it 'does not generate more labels for existing items' do
           items.each do |item|
-            expect(item.reserved_items.count).to eq 1
+            expect(item.labels.count).to eq 1
           end
         end
 
         it 'creates labels for additional items on the fly' do
           more_items.each do |item|
-            expect(item.reserved_items.count).to eq 1
+            expect(item.labels.count).to eq 1
             expect(strings_from_rendered_pdf).to include item.description
             expect(strings_from_rendered_pdf).to include item.category.name
-            expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.reserved_items.first.number}"
-            expect(strings_from_rendered_pdf).to include item.reserved_items.first.code
+            expect(strings_from_rendered_pdf).to include "#{reservation.number} - #{item.labels.first.number}"
+            expect(strings_from_rendered_pdf).to include item.labels.first.code
           end
         end
       end

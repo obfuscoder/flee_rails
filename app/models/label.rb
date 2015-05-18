@@ -1,4 +1,4 @@
-class ReservedItem < ActiveRecord::Base
+class Label < ActiveRecord::Base
   belongs_to :reservation
   belongs_to :item
 
@@ -17,7 +17,7 @@ class ReservedItem < ActiveRecord::Base
   end
 
   def create_number
-    self.number = reservation.reserved_items.count + 1 if number.nil? && reservation.present?
+    self.number = reservation.labels.count + 1 if number.nil? && reservation.present?
   end
 
   def create_code

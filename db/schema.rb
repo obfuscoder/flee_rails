@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427185942) do
+ActiveRecord::Schema.define(version: 20150518080450) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -53,6 +53,22 @@ ActiveRecord::Schema.define(version: 20150427185942) do
   add_index "items", ["category_id"], name: "index_items_on_category_id"
   add_index "items", ["seller_id"], name: "index_items_on_seller_id"
 
+  create_table "labels", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reservation_id"
+    t.integer  "item_id"
+    t.integer  "number"
+    t.string   "code"
+    t.datetime "sold"
+  end
+
+  add_index "labels", ["code"], name: "index_labels_on_code", unique: true
+  add_index "labels", ["item_id"], name: "index_labels_on_item_id"
+  add_index "labels", ["reservation_id", "item_id"], name: "index_labels_on_reservation_id_and_item_id", unique: true
+  add_index "labels", ["reservation_id", "number"], name: "index_labels_on_reservation_id_and_number", unique: true
+  add_index "labels", ["reservation_id"], name: "index_labels_on_reservation_id"
+
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -76,22 +92,6 @@ ActiveRecord::Schema.define(version: 20150427185942) do
   add_index "reservations", ["event_id", "seller_id"], name: "index_reservations_on_event_id_and_seller_id", unique: true
   add_index "reservations", ["event_id"], name: "index_reservations_on_event_id"
   add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
-
-  create_table "reserved_items", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "reservation_id"
-    t.integer  "item_id"
-    t.integer  "number"
-    t.string   "code"
-    t.datetime "sold"
-  end
-
-  add_index "reserved_items", ["code"], name: "index_reserved_items_on_code", unique: true
-  add_index "reserved_items", ["item_id"], name: "index_reserved_items_on_item_id"
-  add_index "reserved_items", ["reservation_id", "item_id"], name: "index_reserved_items_on_reservation_id_and_item_id", unique: true
-  add_index "reserved_items", ["reservation_id", "number"], name: "index_reserved_items_on_reservation_id_and_number", unique: true
-  add_index "reserved_items", ["reservation_id"], name: "index_reserved_items_on_reservation_id"
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "event_id"

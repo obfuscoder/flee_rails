@@ -92,7 +92,7 @@ de:
       item: Artikel
       seller: Verkäufer
       reservation: Reservierung
-      reserved_item: Artikelreservierung
+      label: Etikett
     attributes:
       category:
         name: Name
@@ -120,7 +120,7 @@ de:
         seller: Verkäufer
         event: Termin
         number: Nummer
-      reserved_item:
+      label:
         reservation: Reservierung
         item: Artikel
         number: Nummer

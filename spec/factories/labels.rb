@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :reserved_item do
+  factory :label do
     reservation
     item
     sequence(:number) { |n| n }

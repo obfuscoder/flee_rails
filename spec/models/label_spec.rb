@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe ReservedItem do
-  subject { FactoryGirl.build(:reserved_item) }
+RSpec.describe Label do
+  subject { FactoryGirl.build(:label) }
 
   it { should be_valid }
   it { should validate_presence_of(:reservation) }

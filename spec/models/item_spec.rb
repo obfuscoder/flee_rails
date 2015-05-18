@@ -7,7 +7,7 @@ RSpec.describe Item do
   it { should validate_presence_of(:category) }
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:price) }
-  it { should have_many(:reserved_items).dependent(:destroy) }
+  it { should have_many(:labels).dependent(:destroy) }
   it { should belong_to(:category) }
   it { should belong_to(:seller) }
 

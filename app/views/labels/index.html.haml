@@ -3,7 +3,7 @@
 = simple_form_for(:labels, url: labels_path) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :reserved_item, collection: @items, as: :check_boxes
+    = f.input :label, collection: @items, as: :check_boxes
   .form-actions
     = f.button :submit
 = link_to t('back'), items_path
