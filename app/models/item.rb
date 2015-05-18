@@ -5,6 +5,8 @@ class Item < ActiveRecord::Base
 
   validates_presence_of :seller, :category, :description, :price
 
+  scope :without_label, -> { joins{reserved_items.outer}.where{reserved_items.id == nil} }
+
   def to_s
     description || super
   end

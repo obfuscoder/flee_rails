@@ -8,10 +8,8 @@ class LabelsController < ApplicationController
 
   def create
     reservation = current_seller.reservations.first
-    if reservation.reserved_items.empty?
-      current_seller.items.each do |item|
-        ReservedItem.create(reservation: reservation, item: item)
-      end
+    current_seller.items.without_label.each do |item|
+      ReservedItem.create!(reservation: reservation, item: item)
     end
     pdf = LabelDocument.new(labels(reservation.reserved_items))
     send_data pdf.render, filename: 'etiketten.pdf', type: 'application/pdf'
