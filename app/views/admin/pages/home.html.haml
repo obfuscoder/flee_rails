@@ -1,0 +1,13 @@
+- content_for :title, t('.title')
+%h3 Verkäufer
+%ul
+  %li gesamt: #{Seller.count}
+  %li aktiviert: #{Seller.active.count}
+  %li wartend: #{Notification.count}
+%h3 Artikel
+%ul
+  %li gesamt: #{Item.count}
+  %li von Reservierungen: #{Item.with_reservation.count}
+  %li Etiketten: #{Label.count}
+%h3 Bewertungen
+gesamt: #{Review.count}

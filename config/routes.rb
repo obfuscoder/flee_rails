@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'pages/privacy'
   get 'pages/deleted'
 
-  mount RailsAdmin::Engine => '/admin', as: :rails_admin
+  # mount RailsAdmin::Engine => '/manager', as: :rails_admin
 
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :labels, only: [:index, :create]
@@ -26,4 +26,11 @@ Rails.application.routes.draw do
   end
 
   get 'sellers/login/:token', to: 'sellers#login', as: :login_seller
+
+  namespace :admin do
+    get '', controller: :pages, action: :home
+    resources :events, :sellers, :categories
+    get 'mails', controller: :mails
+    get 'password', controller: :pages, action: :password
+  end
 end

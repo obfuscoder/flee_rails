@@ -23,11 +23,12 @@
         .navbar-brand Flohmarkt<strong>helfer</strong>
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
+            - @menu ||= { root_path => "Hauptseite",
+                          pages_contact_path => "Hilfe/Kontakt",
+                          pages_imprint_path => "Impressum",
+                          pages_privacy_path => "Datenschutz" }
             = render partial: 'layouts/menu_item',
-                collection: [{root_path => "Hauptseite"},
-                             {pages_contact_path => "Hilfe/Kontakt"},
-                             {pages_imprint_path => "Impressum"},
-                             {pages_privacy_path => "Datenschutz"}], as: :item
+                collection: @menu.to_a, as: :item
     .container
       - if content_for?(:title)
         %h2= yield(:title)

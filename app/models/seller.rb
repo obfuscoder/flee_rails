@@ -13,6 +13,8 @@ class Seller < ActiveRecord::Base
   validates_format_of :zip_code, with: /\A\d{5}\z/
   validates_format_of :phone, with: %r(\A(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z)
 
+  scope :active, -> { where { active.eq true } }
+
   before_validation do
     email.try(:downcase!)
   end
