@@ -3,6 +3,7 @@ de:
   attributes:
     created_at: Erstellt
     updated_at: Aktualisiert
+    name: Name
   new: Neu
   show: Anzeigen
   edit: Bearbeiten
@@ -102,6 +103,8 @@ de:
         max_sellers: maximale Anzahl Verkäufer
         max_items_per_seller: maximale Anzahl Artikel je Verkäufer
         confirmed: steht fest
+        shopping_start: Datum
+        reservation_start: Reservierungsstart
       item:
         seller: Verkäufer
         category: Kategorie

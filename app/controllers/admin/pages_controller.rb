@@ -1,5 +1,5 @@
 module Admin
-  class PagesController < Admin::AdminController
+  class PagesController < AdminController
     def home
     end
   end
