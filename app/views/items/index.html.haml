@@ -27,9 +27,9 @@
           = link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.labels.first.code}
-%p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path
 - unless @items.empty?
   - if @seller.reservations.empty?
     %p Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel drucken.
   - else
     = link_to 'Etiketten drucken', labels_path
+%p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path
