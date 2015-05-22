@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'admin events' do
-  let(:events) { FactoryGirl.create_list :event, 3 }
+  let!(:events) { FactoryGirl.create_list :event, 3 }
   background do
-    events
     visit admin_path
     click_on 'Termine'
   end

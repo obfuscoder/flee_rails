@@ -97,6 +97,13 @@ de:
       destroy:
         success: Termin gelöscht.
         failure: Termin konnte nicht gelöscht werden.
+    reservations:
+      index:
+        new: Neue Reservierung
+      create:
+        success:
+          one: Reservierung erfolgreich durchgeführt
+          other: '%{count} Reservierungen erfolgreich durchgeführt'
   activerecord:
     models:
       category: Kategorie
@@ -130,6 +137,7 @@ de:
         city: Ort
         email: eMail-Adresse
         phone: Telefonnummer
+        item_count: Artikelzahl
       reservation:
         seller: Verkäufer
         event: Termin

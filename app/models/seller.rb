@@ -14,6 +14,7 @@ class Seller < ActiveRecord::Base
   validates_format_of :phone, with: %r(\A(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z)
 
   scope :active, -> { where { active.eq true } }
+  scope :without_reservation_for, ->(event) { where { id << event.reservations.map(&:seller_id) } }
 
   before_validation do
     email.try(:downcase!)
@@ -28,5 +29,11 @@ class Seller < ActiveRecord::Base
 
   def to_s
     "#{first_name} #{last_name}"
+  end
+
+  alias_method :name, :to_s
+
+  def label_for_reservation
+    "#{name}, #{city} (#{email}) - #{items.count} Artikel"
   end
 end
