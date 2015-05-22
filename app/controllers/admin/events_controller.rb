@@ -1,7 +1,15 @@
 module Admin
   class EventsController < AdminController
     def index
-      @objects = Event.all
+      @events = Event.all
+    end
+
+    def edit
+      @event = Event.find params[:id]
+    end
+
+    def show
+      @event = Event.find params[:id]
     end
   end
 end

@@ -1,0 +1,8 @@
+- content_for :title, t('.title')
+%dl
+  - @event.attributes.keys.each do |attribute|
+    %dt= Event.human_attribute_name attribute
+    %dd= @event[attribute]
+= link_to 'Bearbeiten', edit_admin_event_path(@event)
+= link_to 'Reservierungen', admin_event_reservations_path(@event)
+= link_to 'Bewertungen', admin_event_reviews_path(@event)

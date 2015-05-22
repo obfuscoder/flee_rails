@@ -29,7 +29,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '', controller: :pages, action: :home
-    resources :events, :sellers, :categories
+    resources :events do
+      resources :reservations, :reviews
+    end
+    resources :sellers, :categories
     get 'mails', controller: :mails
     get 'password', controller: :pages, action: :password
   end

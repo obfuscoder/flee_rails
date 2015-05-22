@@ -18,4 +18,43 @@ RSpec.feature 'admin events' do
       expect(page).to have_link 'Löschen', href: admin_event_path(event)
     end
   end
+
+  scenario 'new event'
+
+  feature 'show event' do
+    let(:event) { events.first }
+    background do
+      find("a[href='#{admin_event_path(event)}']", text: 'Anzeigen').click
+    end
+
+    scenario 'shows details about the event' do
+      expect(page).to have_content event.name
+      expect(page).to have_content event.details
+      expect(page).to have_content event.max_sellers
+      expect(page).to have_content event.max_items_per_seller
+      expect(page).to have_content event.shopping_start
+      expect(page).to have_content event.shopping_end
+      expect(page).to have_content event.reservation_start
+      expect(page).to have_content event.reservation_end
+      expect(page).to have_content event.handover_start
+      expect(page).to have_content event.handover_end
+      expect(page).to have_content event.pickup_start
+      expect(page).to have_content event.pickup_end
+    end
+
+    scenario 'links to event edit' do
+      click_on 'Bearbeiten'
+      expect(current_path).to eq edit_admin_event_path(event)
+    end
+
+    scenario 'links to reservations for that event' do
+      click_on 'Reservierungen'
+      expect(current_path).to eq admin_event_reservations_path(event)
+    end
+
+    scenario 'links to reviews for that event' do
+      click_on 'Bewertungen'
+      expect(current_path).to eq admin_event_reviews_path(event)
+    end
+  end
 end

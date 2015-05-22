@@ -56,7 +56,6 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'awesome_print'
-gem 'rails_admin'
 gem 'redcarpet' # markdown
 gem 'validates_email_format_of'
 gem 'squeel' # database query DSL
