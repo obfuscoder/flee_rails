@@ -5,7 +5,7 @@
     %th= Event.human_attribute_name :name
     %th= Event.human_attribute_name :shopping_start
     %th= Event.human_attribute_name :reservation_start
-    %th= link_to t('new'), new_admin_event_path
+    %th= link_to t('.new'), new_admin_event_path
 
 
   - @events.each_with_index do |event, index|

@@ -19,7 +19,38 @@ RSpec.feature 'admin events' do
     end
   end
 
-  scenario 'new event'
+  scenario 'new event' do
+    click_on 'Neuer Termin'
+    fill_in 'Name', with: 'Weihnachtsflohmarkt'
+    fill_in 'Details', with: 'Kinderbetreuung, Kuchenbasar, viel Platz'
+    fill_in 'maximale Anzahl Verkäufer', with: 10
+    fill_in 'maximale Anzahl Artikel je Verkäufer', with: 25
+    click_on 'Termin erstellen'
+    expect(page).to have_content 'Der Termin wurde erfolgreich hinzugefügt.'
+  end
+
+  scenario 'delete event' do
+    event = events.first
+    find("a[href='#{admin_event_path(event)}']", text: 'Löschen').click
+    expect(page).to have_content 'Termin gelöscht.'
+  end
+
+  feature 'edit event' do
+    let(:event) { events.first }
+    background do
+      find("a[href='#{edit_admin_event_path(event)}']", text: 'Bearbeiten').click
+    end
+
+    scenario 'changing event information' do
+      new_name = 'Herbstflohmarkt'
+      fill_in 'Name', with: new_name
+      fill_in 'maximale Anzahl Verkäufer', with: 10
+      fill_in 'maximale Anzahl Artikel je Verkäufer', with: 25
+      click_on 'Termin aktualisieren'
+      expect(page).to have_content 'Der Termin wurde erfolgreich aktualisiert.'
+      expect(page).to have_content new_name
+    end
+  end
 
   feature 'show event' do
     let(:event) { events.first }

@@ -86,6 +86,17 @@ de:
       success: |
         Sie wurden auf der Warteliste eingetragen.
         Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
+  admin:
+    events:
+      index:
+        new: Neuer Termin
+      create:
+        success: Der Termin wurde erfolgreich hinzugefügt.
+      update:
+        success: Der Termin wurde erfolgreich aktualisiert.
+      destroy:
+        success: Termin gelöscht.
+        failure: Termin konnte nicht gelöscht werden.
   activerecord:
     models:
       category: Kategorie
