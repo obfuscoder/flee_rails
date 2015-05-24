@@ -1,0 +1,10 @@
+= simple_form_for [:admin, @seller, @item] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.association :category, collection: Category.order(:name)
+    = f.input :description
+    = f.input :size
+    = f.input :price
+
+  .form-actions
+    = f.button :submit

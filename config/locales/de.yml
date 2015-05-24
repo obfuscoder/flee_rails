@@ -104,6 +104,31 @@ de:
         success:
           one: Reservierung erfolgreich durchgeführt
           other: '%{count} Reservierungen erfolgreich durchgeführt'
+    sellers:
+      index:
+        new: Neuer Verkäufer
+        items: Artikel
+      create:
+        success: Der Verkäufer wurde erfolgreich hinzugefügt.
+      update:
+        success: Der Verkäufer wurde erfolgreich aktualisiert.
+      destroy:
+        success: Verkäufer gelöscht.
+    items:
+      index:
+        title: Artikel
+        destroy:
+          confirm: Sind Sie sicher, dass Sie diesen Artikel löschen wollen?
+      new:
+        title: Artikel anlegen
+      edit:
+        title: Artikel bearbeiten
+      create:
+        success: Artikel wurde gespeichert.
+      update:
+        success: Artikel wurde aktualisiert.
+      destroy:
+        success: Artikel gelöscht.
   activerecord:
     models:
       category: Kategorie
@@ -138,6 +163,7 @@ de:
         email: eMail-Adresse
         phone: Telefonnummer
         item_count: Artikelzahl
+        active: aktiv
       reservation:
         seller: Verkäufer
         event: Termin

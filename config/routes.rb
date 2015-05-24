@@ -32,7 +32,10 @@ Rails.application.routes.draw do
     resources :events do
       resources :reservations, :reviews
     end
-    resources :sellers, :categories
+    resources :sellers do
+      resources :items
+    end
+    resources :categories
     get 'mails', controller: :mails
     get 'password', controller: :pages, action: :password
   end

@@ -1,0 +1,26 @@
+- content_for :title, t('.title')
+%p
+  %strong= @seller.name
+  %br
+  = @seller.street
+  %br
+  #{@seller.zip_code} #{@seller.city}
+%p
+  Tel.: #{@seller.phone}
+  %br
+  Mail: #{@seller.email}
+- if @seller.reservations.present?
+  %h3 Reservierungen
+  %ul
+    - @seller.reservations.each do |reservation|
+      %li
+        =link_to reservation.event.name, admin_event_path(reservation.event)
+        \- Verkäufernummer:
+        %strong= reservation.number
+%h3 Artikel
+%ul
+  %li Gesamt: #{@seller.items.count}
+  %li Etiketten: #{@seller.items.with_label.count}
+%p
+  = link_to 'Bearbeiten', edit_admin_seller_path(@seller)
+  = link_to 'Artikel auflisten', admin_seller_items_path(@seller)

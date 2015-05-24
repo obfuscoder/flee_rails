@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :seller, :category, :description, :price
 
   scope :without_label, -> { joins { labels.outer } .where { labels.id.eq nil } }
+  scope :with_label, -> { joins { labels }.uniq }
   scope :with_reservation, -> { joins { seller.reservations } }
 
   def to_s

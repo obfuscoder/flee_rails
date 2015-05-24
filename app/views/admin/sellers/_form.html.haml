@@ -1,0 +1,13 @@
+= simple_form_for([:admin, @seller]) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :street
+    = f.input :zip_code
+    = f.input :city
+    = f.input :phone
+    = f.input :email
+
+  .form-actions
+    = f.button :submit
