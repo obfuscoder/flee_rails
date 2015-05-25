@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SellersController do
   before do
-    allow(SellerMailer).to receive(:registration).and_return(double deliver_now: self)
+    allow(SellerMailer).to receive(:registration).and_return(double deliver_later: self)
   end
 
   describe 'GET new' do
@@ -61,7 +61,7 @@ RSpec.describe SellersController do
           expect(seller).to be_a Seller
           mail
         end
-        expect(mail).to receive(:deliver_now).with no_args
+        expect(mail).to receive(:deliver_later).with no_args
         post :create, seller: FactoryGirl.attributes_for(:seller)
       end
     end
@@ -108,7 +108,7 @@ RSpec.describe SellersController do
       it 'sends registration email' do
         mail = double('mail')
         expect(SellerMailer).to receive(:registration).with(seller).and_return mail
-        expect(mail).to receive(:deliver_now).with no_args
+        expect(mail).to receive(:deliver_later).with no_args
         post_it
       end
     end

@@ -26,7 +26,7 @@ class SellersController < ApplicationController
   end
 
   def send_registration_mail(seller)
-    SellerMailer.registration(seller).deliver_now
+    SellerMailer.registration(seller).deliver_later
   end
 
   def update
