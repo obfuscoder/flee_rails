@@ -129,6 +129,22 @@ de:
         success: Artikel wurde aktualisiert.
       destroy:
         success: Artikel gelöscht.
+    categories:
+      index:
+        title: Kategorien
+        new: Neue Kategorie
+        destroy:
+          confirm: Sind Sie sicher, dass Sie diese Kategorie löschen wollen?
+      new:
+        title: Kategorie anlegen
+      edit:
+        title: Kategorie bearbeiten
+      create:
+        success: Die Kategorie wurde erfolgreich hinzugefügt.
+      update:
+        success: Die Kategorie wurde erfolgreich aktualisiert.
+      destroy:
+        success: Kategorie gelöscht.
   activerecord:
     models:
       category: Kategorie
