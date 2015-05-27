@@ -6,7 +6,7 @@ module Admin
         admin_events_path => 'Termine',
         admin_sellers_path => 'Verkäufer',
         admin_categories_path => 'Kategorien',
-        admin_mails_path => 'Mails',
+        admin_emails_path => 'Mails',
         admin_password_path => 'Passwort'
       }
     end

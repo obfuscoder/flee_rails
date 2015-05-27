@@ -18,14 +18,14 @@ RSpec.describe 'sellers/edit' do
     assert_select 'a[href=?]', seller_path
   end
 
-  context 'when seller has disabled mails' do
+  context 'when seller has disabled emails' do
     let(:seller) { FactoryGirl.create(:seller, mailing: false) }
     it 'links to enable mailing' do
       assert_select 'a[href=?][data-method=post]', mailing_seller_path
     end
   end
 
-  context 'when seller has enabled mails' do
+  context 'when seller has enabled emails' do
     let(:seller) { FactoryGirl.create(:seller, mailing: true) }
     it 'links to disable mailing' do
       assert_select 'a[href=?][data-method=delete]', mailing_seller_path

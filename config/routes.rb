@@ -36,7 +36,8 @@ Rails.application.routes.draw do
       resources :items
     end
     resources :categories
-    get 'mails', controller: :mails
+    get 'emails', controller: :emails
+    post 'emails', controller: :emails, action: :create
     get 'password', controller: :pages, action: :password
   end
 end

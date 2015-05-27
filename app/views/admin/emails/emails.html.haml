@@ -1,0 +1,15 @@
+- content_for :title, t('.title')
+= simple_form_for [:admin, @email] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :subject
+    = f.input :body
+    = f.input :sellers, collection: @sellers, input_html: { multiple: true }
+    = f.input :active, as: :radio_buttons
+    = f.input :with_items, as: :radio_buttons
+    = f.input :reservation, as: :radio_buttons
+    = f.input :reservation_event, collection: @events
+    = f.input :notification, as: :radio_buttons
+    = f.input :notification_event, collection: @events
+  .form-actions
+    = f.button :submit

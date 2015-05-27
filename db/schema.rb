@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518080450) do
+ActiveRecord::Schema.define(version: 20150527201223) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20150518080450) do
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
+
+  create_table "emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "seller_id"
+    t.string   "to"
+    t.string   "subject"
+    t.text     "body"
+    t.boolean  "sent"
+  end
+
+  add_index "emails", ["seller_id"], name: "index_emails_on_seller_id"
 
   create_table "events", force: :cascade do |t|
     t.datetime "created_at"

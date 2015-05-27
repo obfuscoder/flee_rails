@@ -23,6 +23,8 @@ de:
         update: Speichern
       labels:
         submit: Drucken
+      email:
+        create: Senden
   items:
     index:
       title: Artikel
@@ -145,6 +147,9 @@ de:
         success: Die Kategorie wurde erfolgreich aktualisiert.
       destroy:
         success: Kategorie gelöscht.
+    emails:
+      create:
+        success: '%{count} Mails wurden versendet.'
   activerecord:
     models:
       category: Kategorie
@@ -153,6 +158,7 @@ de:
       seller: Verkäufer
       reservation: Reservierung
       label: Etikett
+      email: Mail
     attributes:
       category:
         name: Name
@@ -190,6 +196,17 @@ de:
         number: Nummer
         code: Code
         sold: verkauft am
+      email:
+        subject: Betreff
+        body: Inhalt
+        sellers: Verkäufer
+        active: aktiv
+        with_items: Mit Artikeln
+        reservation: Reservierung
+        reservation_event: für Termin
+        without_reservation: Ohne Reservierung für
+        notification: auf Warteliste
+        notification_event: für Termin
       models:
         seller:
           attributes:
