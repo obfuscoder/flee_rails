@@ -7,15 +7,7 @@ module Admin
     end
 
     def create
-      selection = Seller.where(mailing: true)
-      selection = case params[:email][:active]
-                  when 'true'
-                    selection.where(active: true)
-                  when 'false'
-                    selection.where(active: [false, nil])
-                  else
-                    selection
-                  end
+      selection = Seller.where(mailing: true).where(id: params[:email][:sellers])
       redirect_to admin_emails_path, notice: t('.success', count: selection.count)
     end
   end

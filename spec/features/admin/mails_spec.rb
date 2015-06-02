@@ -16,20 +16,14 @@ RSpec.feature 'admin emails' do
       fill_in 'Inhalt', with: 'Mailbody ' * 100
     end
 
-    scenario 'select and send mail to active sellers' do
-      within('.email_active') do
-        choose('Ja')
+    scenario 'select and send mail to several sellers' do
+      within '#email_sellers' do
+        selection.each do |seller|
+          find("option[value='#{seller.id}']").select_option
+        end
       end
       click_on 'Senden'
       expect(page).to have_content '2 Mails wurden versendet.'
-    end
-
-    scenario 'select and send mail to inactive sellers' do
-      within('.email_active') do
-        choose('Nein')
-      end
-      click_on 'Senden'
-      expect(page).to have_content '8 Mails wurden versendet.'
     end
   end
 end
