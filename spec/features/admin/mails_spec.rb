@@ -11,9 +11,11 @@ RSpec.feature 'admin emails' do
 
   context 'with active sellers' do
     let(:selection) { sellers.take(2).each { |seller| seller.update active: true } }
+    let(:subject) { 'Betreffzeile' }
+    let(:body) { 'Mailbody ' * 100 }
     before do
-      fill_in 'Betreff', with: 'Betreffzeile'
-      fill_in 'Inhalt', with: 'Mailbody ' * 100
+      fill_in 'Betreff', with: subject
+      fill_in 'Inhalt', with: body
     end
 
     scenario 'select and send mail to several sellers' do
@@ -24,6 +26,12 @@ RSpec.feature 'admin emails' do
       end
       click_on 'Senden'
       expect(page).to have_content '2 Mails wurden versendet.'
+
+      selection.each do |seller|
+        open_email seller.email
+        expect(current_email.subject).to eq subject
+        expect(current_email.body).to eq body
+      end
     end
   end
 end

@@ -6,4 +6,8 @@ class SellerMailer < ActionMailer::Base
     @login_url = login_seller_url(seller.token)
     mail to: seller.email
   end
+
+  def custom(seller, subject, body)
+    mail to: seller.email, subject: subject, body: body
+  end
 end
