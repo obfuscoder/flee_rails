@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:edit, :update, :destroy]
 
   # GET /items
   # GET /items.json
@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    redirect_to items_path, alert: t('.error.labeled') if @item.labels.any?
   end
 
   # POST /items
@@ -50,6 +51,7 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+    fail UnauthorizedError if @item.seller != current_seller
   end
 
   def item_params
