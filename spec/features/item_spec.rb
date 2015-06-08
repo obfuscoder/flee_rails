@@ -77,7 +77,6 @@ RSpec.feature 'Viewing and editing items' do
         let(:preparations) { item1 && item2 && reservation.event.update(max_items_per_seller: 2) }
         scenario 'does not allow to create additional items' do
           expect(page).not_to have_link 'Artikel hinzufügen'
-
         end
       end
 

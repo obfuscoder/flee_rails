@@ -101,8 +101,10 @@ RSpec.feature 'admin sellers' do
         let(:preparation) { item_with_code }
 
         scenario 'cannot edit item' do
-          expect(page).not_to have_link 'Bearbeiten', href: edit_admin_reservation_item_path(reservation, item_with_code)
+          expect(page).not_to have_link 'Bearbeiten',
+                                        href: edit_admin_reservation_item_path(reservation, item_with_code)
         end
+
         scenario 'can delete item' do
           expect(page).to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
         end
@@ -114,7 +116,6 @@ RSpec.feature 'admin sellers' do
         expect(page).to have_content 'Artikel gelöscht.'
       end
     end
-
 
     scenario 'links to seller edit' do
       click_on 'Bearbeiten'

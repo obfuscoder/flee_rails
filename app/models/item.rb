@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
 
   def create_code
     self.number = reservation.items.with_label.count + 1
-    code = format('%02d%03d%03d', reservation.event.id, reservation.number, self.number)
+    code = format('%02d%03d%03d', reservation.event.id, reservation.number, number)
     self.code = append_checksum(code)
   end
 

@@ -28,8 +28,8 @@ RSpec.describe ItemsController do
     it 'does not allow deleting item with label' do
       expect(delete :destroy, event_id: event.id, id: item.id).to redirect_to event_items_path(event)
     end
-
   end
+
   context 'with other seller signed in' do
     let(:seller) { FactoryGirl.create :seller }
     it 'does not allow editing/updating/deleting items which are not owned by the current seller' do
