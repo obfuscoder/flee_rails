@@ -1,14 +1,13 @@
 FactoryGirl.define do
   factory :item do
-    seller
     category
+    reservation
     description 'Description'
     price 1.9
 
-    factory :item_with_label do
-      after :create do |item, _evaluator|
-        reservation = create :reservation, seller: item.seller
-        create :label, item: item, reservation: reservation
+    factory :item_with_code do
+      after :build do |item, _evaluator|
+        item.create_code
       end
     end
   end

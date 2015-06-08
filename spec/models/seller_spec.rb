@@ -14,7 +14,6 @@ RSpec.describe Seller do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email).case_insensitive }
   it { should validate_acceptance_of(:accept_terms).on(:create) }
-  it { should have_many(:items).dependent(:destroy) }
   it { should have_many(:reservations).dependent(:destroy) }
   it { should have_many(:notifications).dependent(:destroy) }
   it { should have_many(:reviews).dependent(:destroy) }

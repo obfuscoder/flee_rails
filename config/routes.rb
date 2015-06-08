@@ -9,12 +9,12 @@ Rails.application.routes.draw do
 
   # mount RailsAdmin::Engine => '/manager', as: :rails_admin
 
-  resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :labels, only: [:index, :create]
   resources :events do
     resource :reservation, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
     resource :review
+    resources :items, except: :show
+    resources :labels, only: [:index, :create]
   end
 
   resource :seller do
@@ -30,12 +30,13 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', controller: :pages, action: :home
     resources :events do
-      resources :reservations, :reviews
+      resources :reviews, :reservations
     end
-    resources :sellers do
+    resources :sellers
+    resources :categories
+    resources :reservations do
       resources :items
     end
-    resources :categories
     get 'emails', controller: :emails
     post 'emails', controller: :emails, action: :create
     get 'password', controller: :pages, action: :password

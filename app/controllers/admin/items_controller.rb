@@ -1,7 +1,7 @@
 module Admin
   class ItemsController < AdminController
     before_filter do
-      @seller = Seller.find params[:seller_id]
+      @reservation = Reservation.find params[:reservation_id]
     end
 
     def index
@@ -13,9 +13,9 @@ module Admin
     end
 
     def create
-      @item = Item.new item_params, seller: @seller
+      @item = @reservation.items.build item_params
       if @item.save
-        redirect_to admin_seller_items_path(@seller), notice: t('.success')
+        redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
       else
         render :new
       end
@@ -27,8 +27,8 @@ module Admin
 
     def update
       @item = Item.find params[:id]
-      if @item.update(item_params.merge(seller: @seller))
-        redirect_to admin_seller_items_path(@seller), notice: t('.success')
+      if @item.update item_params.merge(reservation: @reservation)
+        redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
       else
         render :edit
       end
@@ -40,9 +40,9 @@ module Admin
 
     def destroy
       if Item.destroy params[:id]
-        redirect_to admin_seller_items_path(@seller), notice: t('.success')
+        redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
       else
-        redirect_to admin_seller_items_path(@seller), alert: t('.failure')
+        redirect_to admin_reservation_items_path(@reservation), alert: t('.failure')
       end
     end
 

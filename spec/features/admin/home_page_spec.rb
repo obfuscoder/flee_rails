@@ -9,9 +9,7 @@ RSpec.feature 'admin home page' do
 
   def create_items
     FactoryGirl.create :item
-    FactoryGirl.create :label
-    reservation = FactoryGirl.create :reservation
-    FactoryGirl.create :item, seller: reservation.seller
+    FactoryGirl.create :item_with_code
   end
 
   def create_reviews
@@ -26,14 +24,13 @@ RSpec.feature 'admin home page' do
   end
 
   scenario 'shows summary of sellers' do
-    expect(page).to have_content 'gesamt: 9'
+    expect(page).to have_content 'gesamt: 7'
     expect(page).to have_content 'aktiviert: 1'
     expect(page).to have_content 'wartend: 1'
   end
 
   scenario 'shows summary of items' do
-    expect(page).to have_content 'gesamt: 3'
-    expect(page).to have_content 'von Reservierungen: 1'
+    expect(page).to have_content 'gesamt: 2'
     expect(page).to have_content 'Etiketten: 1'
   end
 

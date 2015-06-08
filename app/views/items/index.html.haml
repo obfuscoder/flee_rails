@@ -4,7 +4,7 @@
   Sie können beliebig viele Artikel eingeben, auch ohne eine Reservierung zu haben.
   Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel erzeugen.
 %p Sie haben aktuell #{@items.count} Artikel angelegt.
-= link_to 'Artikel hinzufügen', new_item_path
+= link_to 'Artikel hinzufügen', new_event_item_path(@event) if @items.count < @event.max_items_per_seller
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
@@ -22,14 +22,11 @@
       %td= item.size
       %td= item.price
       %td
-        - if item.labels.empty?
-          = link_to t('edit'), edit_item_path(item)
-          = link_to t('destroy'), item, method: :delete, data: { confirm: t('.destroy.confirm') }
+        - if item.code.nil?
+          = link_to t('edit'), edit_event_item_path(@event, item)
+          = link_to t('destroy'), [@event, item], method: :delete, data: { confirm: t('.destroy.confirm') }
         - else
-          Etikett erzeugt mit Nummer #{item.labels.first.code}
+          Etikett erzeugt mit Nummer #{item.code}
 - unless @items.empty?
-  - if @seller.reservations.empty?
-    %p Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel drucken.
-  - else
-    = link_to 'Etiketten drucken', labels_path
+  = link_to 'Etiketten drucken', event_labels_path(@event)
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path

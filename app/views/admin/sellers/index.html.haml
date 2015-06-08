@@ -14,10 +14,9 @@
       %td= index+1
       %td= seller.name
       %td= seller.email
-      %td= seller.items.count
+      %td= seller.reservations.joins(:items).count
       %td= seller.active
       %td
         = link_to t('show'), [:admin, seller]
         = link_to t('edit'), edit_admin_seller_path(seller)
-        = link_to t('.items'), admin_seller_items_path(seller)
         = link_to t('destroy'), [:admin, seller], method: :delete, data: { confirm: t('sure') }

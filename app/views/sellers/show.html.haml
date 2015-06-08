@@ -16,6 +16,8 @@
           - else
             - if reservation.event.commission? && reservation.event.reservation_end.future?
               Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
+            Sie haben bisher #{ reservation.items.count } Artikel angelegt.
+            = link_to 'Artikel bearbeiten', event_items_path(reservation.event)
             Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
             Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
             = link_to 'geben Sie Ihre Reservierung wieder frei.', event_reservation_path(reservation.event), method: :delete,
@@ -37,9 +39,6 @@
               Sie erhalten eine Mail sobald ein Platz frei wird.
           - else
             Sie können sich #{ link_to 'einen Verkäuferplatz reservieren', event_reservation_path(event), method: :post }.
-%h3 Artikel
-%p Sie haben bisher #{ @seller.items.count } Artikel angelegt.
-= link_to 'Artikel bearbeiten', items_path
 %h3 Ihre Stammdaten
 %p
   %strong #{@seller.first_name} #{@seller.last_name}<br/>

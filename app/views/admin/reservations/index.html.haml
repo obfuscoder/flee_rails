@@ -13,5 +13,5 @@
       %td= link_to reservation.seller.name, admin_seller_path(reservation.seller)
       %td= reservation.seller.city
       %td= reservation.seller.email
-      %td= reservation.seller.items.count
+      %td= reservation.seller.reservations.joins(:items).count
       %td= link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete, data: { confirm: t('sure') }

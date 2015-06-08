@@ -1,9 +1,9 @@
 - content_for :title, t('.title')
 %p Bitte wählen Sie die Artikel aus, für die Sie Etiketten drucken wollen.
-= simple_form_for(:labels, url: labels_path) do |f|
+= simple_form_for(:labels, url: event_labels_path(@event)) do |f|
   = f.error_notification
   .form-inputs
     = f.input :item, collection: @items, as: :check_boxes, checked: @items.map(&:id)
   .form-actions
     = f.button :submit
-= link_to t('back'), items_path
+= link_to t('back'), event_items_path(@event)

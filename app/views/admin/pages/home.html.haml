@@ -7,7 +7,6 @@
 %h3 Artikel
 %ul
   %li gesamt: #{Item.count}
-  %li von Reservierungen: #{Item.with_reservation.count}
-  %li Etiketten: #{Label.count}
+  %li Etiketten: #{Item.with_label.count}
 %h3 Bewertungen
 gesamt: #{Review.count}

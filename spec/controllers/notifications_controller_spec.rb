@@ -18,7 +18,7 @@ RSpec.describe NotificationsController do
             expect(post :create, event_id: event.id).to redirect_to seller_path
           end
         end
-        context 'with nonexisting notification' do
+        context 'with non existing notification' do
           it 'creates notification' do
             expect(Notification.find_by event: event, seller: seller).to be_nil
             post :create, event_id: event.id

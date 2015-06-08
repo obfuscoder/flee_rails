@@ -9,7 +9,7 @@ RSpec.describe Reservation do
   it { should validate_numericality_of(:number).is_greater_than(0).only_integer }
   it { should validate_uniqueness_of(:number).scoped_to(:event_id) }
   it { should validate_uniqueness_of(:seller_id).scoped_to(:event_id) }
-  it { should have_many(:labels).dependent(:destroy) }
+  it { should have_many(:items).dependent(:destroy) }
   it { should belong_to(:event) }
   it { should belong_to(:seller) }
   its(:to_s) { should eq("#{subject.event.name} - #{subject.number}") }

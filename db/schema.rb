@@ -55,31 +55,20 @@ ActiveRecord::Schema.define(version: 20150527201223) do
   create_table "items", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "seller_id"
     t.integer  "category_id"
     t.string   "description"
     t.string   "size"
     t.decimal  "price"
-  end
-
-  add_index "items", ["category_id"], name: "index_items_on_category_id"
-  add_index "items", ["seller_id"], name: "index_items_on_seller_id"
-
-  create_table "labels", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "reservation_id"
-    t.integer  "item_id"
     t.integer  "number"
     t.string   "code"
     t.datetime "sold"
   end
 
-  add_index "labels", ["code"], name: "index_labels_on_code", unique: true
-  add_index "labels", ["item_id"], name: "index_labels_on_item_id"
-  add_index "labels", ["reservation_id", "item_id"], name: "index_labels_on_reservation_id_and_item_id", unique: true
-  add_index "labels", ["reservation_id", "number"], name: "index_labels_on_reservation_id_and_number", unique: true
-  add_index "labels", ["reservation_id"], name: "index_labels_on_reservation_id"
+  add_index "items", ["category_id"], name: "index_items_on_category_id"
+  add_index "items", ["code"], name: "index_items_on_code", unique: true
+  add_index "items", ["reservation_id", "number"], name: "index_items_on_reservation_id_and_number", unique: true
+  add_index "items", ["reservation_id"], name: "index_items_on_reservation_id"
 
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at"

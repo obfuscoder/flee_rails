@@ -12,10 +12,9 @@ RSpec.feature 'admin sellers' do
     sellers.each do |seller|
       expect(page).to have_content seller.name
       expect(page).to have_content seller.email
-      expect(page).to have_content seller.items.count
+      expect(page).to have_content seller.reservations.joins(:items).count
       expect(page).to have_link 'Anzeigen', href: admin_seller_path(seller)
       expect(page).to have_link 'Bearbeiten', href: edit_admin_seller_path(seller)
-      expect(page).to have_link 'Artikel', href: admin_seller_items_path(seller)
       expect(page).to have_link 'Löschen', href: admin_seller_path(seller)
     end
   end
@@ -38,50 +37,6 @@ RSpec.feature 'admin sellers' do
     expect(page).to have_content 'Verkäufer gelöscht.'
   end
 
-  feature 'seller items' do
-    let!(:items) { FactoryGirl.create_list :item, 5, seller: seller }
-    let(:item) { items.first }
-    let(:preparation) {}
-    background do
-      preparation
-      find("a[href='#{admin_seller_items_path(seller)}']", text: 'Artikel').click
-    end
-
-    scenario 'lists all items' do
-      items.each do |item|
-        expect(page).to have_content item.description
-        expect(page).to have_content item.category.name
-        expect(page).to have_link 'Bearbeiten', href: edit_admin_seller_item_path(seller, item)
-        expect(page).to have_link 'Löschen', href: admin_seller_item_path(seller, item)
-      end
-    end
-
-    scenario 'edit item' do
-      new_description = 'Neue Beschreibung'
-      find("a[href='#{edit_admin_seller_item_path(seller, item)}']", text: 'Bearbeiten').click
-      fill_in 'Beschreibung', with: new_description
-      click_on 'Speichern'
-      expect(page).to have_content new_description
-    end
-
-    context 'when label for item exists' do
-      let(:preparation) { FactoryGirl.create :label, item: item }
-
-      scenario 'cannot edit item' do
-        expect(page).not_to have_link 'Bearbeiten', href: edit_admin_seller_item_path(seller, item)
-      end
-      scenario 'can delete item' do
-        expect(page).to have_link 'Löschen', href: admin_seller_item_path(seller, item)
-      end
-    end
-
-    scenario 'delete item' do
-      find("a[href='#{admin_seller_item_path(seller, item)}']", text: 'Löschen').click
-      expect(page).not_to have_link 'Bearbeiten', href: edit_admin_seller_item_path(seller, item)
-      expect(page).to have_content 'Artikel gelöscht.'
-    end
-  end
-
   feature 'edit seller' do
     background do
       find("a[href='#{edit_admin_seller_path(seller)}']", text: 'Bearbeiten').click
@@ -101,7 +56,7 @@ RSpec.feature 'admin sellers' do
 
   feature 'show seller' do
     let!(:reservation) { FactoryGirl.create :reservation, seller: seller }
-    let!(:items) { FactoryGirl.create_list :item, 5, seller: seller }
+    let!(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
     background do
       find("a[href='#{admin_seller_path(seller)}']", text: 'Anzeigen').click
     end
@@ -116,14 +71,59 @@ RSpec.feature 'admin sellers' do
       expect(page).to have_content items.count
     end
 
+    feature 'reservation items' do
+      let(:item) { items.first }
+      let(:preparation) {}
+      background do
+        preparation
+        find("a[href='#{admin_reservation_items_path(reservation)}']", text: 'Artikel').click
+      end
+
+      scenario 'lists all items' do
+        items.each do |item|
+          expect(page).to have_content item.description
+          expect(page).to have_content item.category.name
+          expect(page).to have_link 'Bearbeiten', href: edit_admin_reservation_item_path(reservation, item)
+          expect(page).to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
+        end
+      end
+
+      scenario 'edit item' do
+        new_description = 'Neue Beschreibung'
+        find("a[href='#{edit_admin_reservation_item_path(reservation, item)}']", text: 'Bearbeiten').click
+        fill_in 'Beschreibung', with: new_description
+        click_on 'Speichern'
+        expect(page).to have_content new_description
+      end
+
+      context 'when label for item exists' do
+        let(:item_with_code) { FactoryGirl.create :item_with_code, reservation: reservation }
+        let(:preparation) { item_with_code }
+
+        scenario 'cannot edit item' do
+          expect(page).not_to have_link 'Bearbeiten', href: edit_admin_reservation_item_path(reservation, item_with_code)
+        end
+        scenario 'can delete item' do
+          expect(page).to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
+        end
+      end
+
+      scenario 'delete item' do
+        find("a[href='#{admin_reservation_item_path(reservation, item)}']", text: 'Löschen').click
+        expect(page).not_to have_link 'Bearbeiten', href: edit_admin_reservation_item_path(reservation, item)
+        expect(page).to have_content 'Artikel gelöscht.'
+      end
+    end
+
+
     scenario 'links to seller edit' do
       click_on 'Bearbeiten'
       expect(current_path).to eq edit_admin_seller_path(seller)
     end
 
-    scenario 'links to items for that seller' do
+    scenario 'links to items for that seller and reservation' do
       click_on 'Artikel auflisten'
-      expect(current_path).to eq admin_seller_items_path(seller)
+      expect(current_path).to eq admin_reservation_items_path(reservation)
     end
   end
 end

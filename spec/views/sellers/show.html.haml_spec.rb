@@ -18,10 +18,6 @@ RSpec.describe 'sellers/show' do
     render
   end
 
-  it 'links to items_path' do
-    assert_select 'a[href=?]', items_path
-  end
-
   it 'shows seller information' do
     expect(rendered).to match(/#{seller.first_name}/)
     expect(rendered).to match(/#{seller.last_name}/)

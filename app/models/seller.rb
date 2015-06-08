@@ -1,7 +1,6 @@
 class Seller < ActiveRecord::Base
   attr_accessor :accept_terms
 
-  has_many :items, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -34,6 +33,6 @@ class Seller < ActiveRecord::Base
   alias_method :name, :to_s
 
   def label_for_reservation
-    "#{name}, #{city} (#{email}) - #{items.count} Artikel"
+    "#{name}, #{city} (#{email})"
   end
 end
