@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   get 'sellers/login/:token', to: 'sellers#login', as: :login_seller
+  get 'sellers/reserve/:token/:event_id', to: 'sellers#reserve', as: :reserve_seller
 
   namespace :admin do
     get '', controller: :pages, action: :home

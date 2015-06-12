@@ -43,6 +43,14 @@ de:
   labels:
     index:
       title: Etiketten drucken
+  reservations:
+    create: &create_reservation
+      success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
+      failure: |
+        Die Reservierung konnte nicht durchgeführt werden.
+        Entweder haben Sie bereits eine Reservierung oder es ist keine Reservierung mehr möglich.
+    destroy:
+      success: Ihre Reservierung wurde freigegeben.
   sellers:
     new:
       title: Registrierung
@@ -76,14 +84,7 @@ de:
       resend: Erneut zusenden
     activation_resent:
       title: Registrierungsbestätigung zugesendet
-  reservations:
-    create:
-      success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
-      failure: |
-        Die Reservierung konnte nicht durchgeführt werden.
-        Entweder haben Sie bereits eine Reservierung oder es ist keine Reservierung mehr möglich.
-    destroy:
-      success: Ihre Reservierung wurde freigegeben.
+    reserve: *create_reservation
   notifications:
     create:
       success: |

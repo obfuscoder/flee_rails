@@ -25,8 +25,9 @@ class SellersController < ApplicationController
     end
   end
 
-  def send_registration_mail(seller)
-    SellerMailer.registration(seller, login_seller_url(seller.token)).deliver_later
+  def reserve
+    init_session_and_seller
+    create_reservation params[:event_id]
   end
 
   def update
@@ -53,12 +54,16 @@ class SellersController < ApplicationController
   end
 
   def login
+    init_session_and_seller
+    redirect_to seller_path
+  end
+
+  def init_session_and_seller
     reset_session
     seller = Seller.find_by_token params[:token]
     fail UnauthorizedError unless seller
     seller.update(active: true)
     session[:seller_id] = seller.id
-    redirect_to seller_path
   end
 
   def block_mailing
@@ -75,6 +80,10 @@ class SellersController < ApplicationController
 
   def seller_params
     params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms
+  end
+
+  def send_registration_mail(seller)
+    SellerMailer.registration(seller, login_seller_url(seller.token)).deliver_later
   end
 
   def resend_activation_for(email)
