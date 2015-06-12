@@ -47,4 +47,4 @@
 %p
   Tel.: #{@seller.phone}<br/>
   Mail: #{link_to @seller.email, "mailto:#{@seller.email}"}
-= link_to 'Stammdaten bearbeiten', edit_seller_path
+= link_to 'Stammdaten bearbeiten', edit_seller_path, type: :primary, icon: :user

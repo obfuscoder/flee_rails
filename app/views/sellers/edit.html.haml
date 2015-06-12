@@ -1,6 +1,6 @@
 - content_for :title, t('.title')
 = render 'form'
-= link_to 'Zurück ohne Speichern der Änderungen', seller_path
+= link_to 'Zurück ohne Speichern der Änderungen', seller_path, type: :default
 %h3 eMail Benachrichtigungen
 %p
   Aktuell informieren wir Sie über anstehende Termine und stattfindende Flohmärkte.
@@ -8,11 +8,11 @@
   Sie können sich weiterhin anmelden und sich selbst über Neuigkeiten informieren.
   Die Benachrichtigung können Sie jederzeit wieder aktivieren.
 - if @seller.mailing
-  %p= link_to 'Ich möchte keine eMails mehr erhalten', mailing_seller_path, method: :delete
+  %p= link_to 'Ich möchte keine eMails mehr erhalten', mailing_seller_path, method: :delete, icon: :remove, type: :warning
 - else
-  %p= link_to 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten', mailing_seller_path, method: :post
+  %p= link_to 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten', mailing_seller_path, method: :post, icon: :envelope, type: :success
 %h3 Daten löschen
 %p
   Mit dem folgenden Link können Sie alle Ihre Daten inklusive aller Artikel und Reservierungen löschen.
   Sie können sich jederzeit wieder neu registrieren. Ihre bisher eingebenen Daten sind aber unwiderruflich verloren.
-%p= link_to t('.delete.text'), seller_path, method: :delete, confirm: t('.delete.confirm')
+%p= link_to t('.delete.text'), seller_path, method: :delete, type: :danger, icon: :ban_circle, data: { confirm: t('.delete.confirm') }

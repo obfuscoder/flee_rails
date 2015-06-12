@@ -9,7 +9,7 @@
     Sie können keine weiteren Artikel anlegen.
   - else
     Sie können noch #{@event.max_items_per_seller-@items.count} Artikel anlegen.
-= link_to 'Artikel hinzufügen', new_event_item_path(@event) if @items.count < @event.max_items_per_seller
+= link_to 'Artikel hinzufügen', new_event_item_path(@event), type: :primary, icon: :file if @items.count < @event.max_items_per_seller
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
@@ -28,10 +28,10 @@
       %td= item.price
       %td
         - if item.code.nil?
-          = link_to t('edit'), edit_event_item_path(@event, item)
-          = link_to t('destroy'), [@event, item], method: :delete, data: { confirm: t('.destroy.confirm') }
+          = link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
+          = link_to t('destroy'), [@event, item], method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
 - unless @items.empty?
-  = link_to 'Etiketten drucken', event_labels_path(@event)
-%p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path
+  = link_to 'Etiketten drucken', event_labels_path(@event), type: :primary, icon: :print
+%p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path, type: :default
