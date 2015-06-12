@@ -1,9 +1,9 @@
 class SellerMailer < ActionMailer::Base
   default from: 'info@flohmarkt-koenigsbach.de'
 
-  def registration(seller)
+  def registration(seller, login_url)
     @seller = seller
-    @login_url = login_seller_url(seller.token)
+    @login_url = login_url
     mail to: seller.email
   end
 
