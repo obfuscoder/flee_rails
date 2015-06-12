@@ -53,6 +53,7 @@ de:
       confirm_delete_reservation: |
         Sind Sie sicher, dass Sie die Reservierung freigeben möchten?
         Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
+        Alle Ihre für diesen Flohmarkt eingegebenen Artikel werden gelöscht.
     edit:
       title: Stammdaten bearbeiten
       delete:

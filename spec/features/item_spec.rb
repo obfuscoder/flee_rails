@@ -39,6 +39,7 @@ RSpec.feature 'Viewing and editing items' do
       click_on 'Speichern'
       expect(page).to have_content 'Artikel wurde gespeichert.'
       expect(page).to have_content 'Sie haben aktuell 1 Artikel angelegt.'
+      expect(page).to have_content "Sie können noch #{reservation.event.max_items_per_seller - 1} Artikel anlegen."
     end
 
     context 'when items have been created already' do
@@ -77,6 +78,7 @@ RSpec.feature 'Viewing and editing items' do
         let(:preparations) { item1 && item2 && reservation.event.update(max_items_per_seller: 2) }
         scenario 'does not allow to create additional items' do
           expect(page).not_to have_link 'Artikel hinzufügen'
+          expect(page).to have_content 'Sie können keine weiteren Artikel anlegen.'
         end
       end
 

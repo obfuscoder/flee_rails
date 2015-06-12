@@ -3,7 +3,12 @@
   Hier können Sie Ihre Artikel verwalten.
   Sie können beliebig viele Artikel eingeben, auch ohne eine Reservierung zu haben.
   Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel erzeugen.
-%p Sie haben aktuell #{@items.count} Artikel angelegt.
+%p
+  Sie haben aktuell #{@items.count} Artikel angelegt.
+  - if @event.max_items_per_seller <= @items.count
+    Sie können keine weiteren Artikel anlegen.
+  - else
+    Sie können noch #{@event.max_items_per_seller-@items.count} Artikel anlegen.
 = link_to 'Artikel hinzufügen', new_event_item_path(@event) if @items.count < @event.max_items_per_seller
 %table.table.table-condensed.table-hover.table-striped
   %tr
