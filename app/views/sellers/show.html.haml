@@ -46,5 +46,5 @@
   #{@seller.zip_code} #{@seller.city}<br/>
 %p
   Tel.: #{@seller.phone}<br/>
-  Mail: #{link_to @seller.email, "mailto:#{@seller.email}"}
+  Mail: #{mail_to @seller.email}
 = link_to 'Stammdaten bearbeiten', edit_seller_path, type: :primary, icon: :user

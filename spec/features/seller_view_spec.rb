@@ -22,7 +22,7 @@ RSpec.feature 'Seller view area' do
   end
 
   context 'with event' do
-    let(:event) { FactoryGirl.create :event }
+    let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
     let(:preparation) { event }
 
     scenario 'can make a reservation' do
@@ -30,6 +30,16 @@ RSpec.feature 'Seller view area' do
       expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
       expect(page).to have_content 'Sie haben die Reservierungsnummer 1'
       expect(page).to have_link 'geben Sie Ihre Reservierung wieder frei', href: event_reservation_path(event)
+    end
+
+    context 'when reservation period is not yet reached' do
+      scenario 'reservation start is shown'
+      scenario 'reservation is not possible'
+    end
+
+    context 'when reservation period has passed' do
+      scenario 'reservation end is shown'
+      scenario 'reservation is not possible'
     end
 
     context 'with reservation limit reached' do
@@ -65,11 +75,14 @@ RSpec.feature 'Seller view area' do
           event.update max_sellers: 1
           FactoryGirl.create :notification, seller: other_seller, event: event
         end
+
         scenario 'notifies sellers on notification list when reservation is freed' do
           click_link 'geben Sie Ihre Reservierung wieder frei', href: event_reservation_path(event)
           open_email other_seller.email
+          expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
           current_email.click_on reserve_seller_url(other_seller.token, event.id)
           expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
+          expect(Notification.count).to be_zero
         end
       end
     end

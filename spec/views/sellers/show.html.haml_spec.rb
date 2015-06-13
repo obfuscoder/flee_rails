@@ -11,10 +11,12 @@ RSpec.describe 'sellers/show' do
   let(:reservation) {}
   let(:review) {}
   let(:event) {}
+  let(:preparations) {}
 
   it_behaves_like 'a standard view'
 
   before do
+    preparations
     render
   end
 
@@ -106,32 +108,30 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with event date passed' do
-      Event.kinds.keys.each do |kind|
-        context "with #{kind} event" do
-          let(:reservation) { FactoryGirl.create :reservation_with_passed_event, kind: kind }
+      let(:reservation) { FactoryGirl.create :reservation }
+      let(:preparations) { Timecop.freeze reservation.event.shopping_end + 1.hour }
+      after { Timecop.return }
 
-          it 'does not show reservation end date' do
-            expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
-          end
+      it 'does not show reservation end date' do
+        expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
+      end
 
-          context 'without review' do
-            it 'links to new event review page' do
-              assert_select 'a[href=?]', new_event_review_path(reservation.event)
-            end
-          end
-
-          context 'with review' do
-            let(:review) { FactoryGirl.create :review, event: reservation.event }
-
-            it 'does not link to new event review page' do
-              assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
-            end
-          end
-
-          it 'links to event statistics page' do
-            assert_select 'a[href=?]', event_path(reservation.event)
-          end
+      context 'without review' do
+        it 'links to new event review page' do
+          assert_select 'a[href=?]', new_event_review_path(reservation.event)
         end
+      end
+
+      context 'with review' do
+        let(:review) { FactoryGirl.create :review, event: reservation.event }
+
+        it 'does not link to new event review page' do
+          assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+        end
+      end
+
+      it 'links to event statistics page' do
+        assert_select 'a[href=?]', event_path(reservation.event)
       end
     end
 

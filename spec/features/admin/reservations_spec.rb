@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'admin event reservations' do
-  let(:event) { FactoryGirl.create :event }
+  let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
   let!(:sellers) { FactoryGirl.create_list :seller, 4, active: true }
   let!(:reservations) { FactoryGirl.create_list :reservation, 3, event: event }
   background do
@@ -27,4 +27,7 @@ RSpec.feature 'admin event reservations' do
     click_on 'Reservierung erstellen'
     expect(page).to have_content '2 Reservierungen erfolgreich durchgeführt'
   end
+
+  scenario 'allows reservation even if limit is reached'
+  scenario 'notifies sellers on notification list when reservation is freed'
 end

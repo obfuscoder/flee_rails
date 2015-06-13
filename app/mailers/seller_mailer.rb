@@ -15,6 +15,14 @@ class SellerMailer < ActionMailer::Base
     mail to: seller.email
   end
 
+  def invitation(seller, event, login_url, reserve_url)
+    @seller = seller
+    @event = event
+    @login_url = login_url
+    @reserve_url = reserve_url
+    mail to: seller.email
+  end
+
   def custom(seller, subject, body)
     mail to: seller.email, subject: subject, body: body
   end

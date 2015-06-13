@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'admin events' do
-  let!(:events) { FactoryGirl.create_list :event, 3 }
+  let!(:events) { FactoryGirl.create_list :event_with_ongoing_reservation, 3 }
   background do
     visit admin_path
     click_on 'Termine'
@@ -85,6 +85,23 @@ RSpec.feature 'admin events' do
     scenario 'links to reviews for that event' do
       click_on 'Bewertungen'
       expect(current_path).to eq admin_event_reviews_path(event)
+    end
+
+    context 'when invitation was not sent yet' do
+      let!(:inactive_seller) { FactoryGirl.create :seller }
+      let!(:active_seller) { FactoryGirl.create :seller, active: true }
+      let!(:active_seller_with_reservation) { FactoryGirl.create :seller, active: true }
+      let!(:seller_without_mailing) { FactoryGirl.create :seller, active: true, mailing: false }
+      let!(:reservation) { FactoryGirl.create :reservation, event: event, seller: active_seller_with_reservation }
+
+      scenario 'send invitation to active sellers without reservation' do
+        click_on 'Reservierungseinladung verschicken'
+        expect(page).to have_content 'Es wurde(n) 1 Einladung(en) verschickt. Es gibt bereits 1 Reservierung(en).'
+        expect(page).not_to have_link 'Reservierungseinladung verschicken'
+        open_email active_seller.email
+        expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
+        expect(current_email.body).to have_link reserve_seller_url(active_seller.token, event)
+      end
     end
   end
 end

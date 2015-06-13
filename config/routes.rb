@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     get '', controller: :pages, action: :home
     resources :events do
       resources :reviews, :reservations
+      post 'messages/:action', to: 'messages#:action', as: :messages
     end
     resources :sellers
     resources :categories

@@ -47,8 +47,7 @@ de:
     create: &create_reservation
       success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
       failure: |
-        Die Reservierung konnte nicht durchgeführt werden.
-        Entweder haben Sie bereits eine Reservierung oder es ist keine Reservierung mehr möglich.
+        Die Reservierung konnte nicht durchgeführt werden. Grund: %{reason}
     destroy:
       success: Ihre Reservierung wurde freigegeben.
   sellers:
@@ -152,6 +151,9 @@ de:
     emails:
       create:
         success: '%{count} Mails wurden versendet.'
+    messages:
+      invitation:
+        success: Es wurde(n) %{count} Einladung(en) verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
   activerecord:
     models:
       category: Kategorie
@@ -209,7 +211,16 @@ de:
         without_reservation: Ohne Reservierung für
         notification: auf Warteliste
         notification_event: für Termin
+    errors:
       models:
+        reservation:
+          attributes:
+            base:
+              too_early: |
+                Die Reservierung ist nocht nicht freigeschaltet.
+                Bitte haben Sie Verständnis dafür, dass wir allen Interessenten die gleiche Chance geben wollen,
+                indem wir alle vorab per Mail über den Reservierungsbeginn informieren, und jeder die Zeit hat,
+                sich auf diesen Termin vorzubereiten.
         seller:
           attributes:
             email:
@@ -222,10 +233,6 @@ de:
                 Beispiele: 07232/1234567, +49 7232 / 1234567, 072321234567, 07232/1234-567
             zip_code:
               invalid: Die %{attribute} muss aus 5 Ziffern bestehen.
-  activemodel:
-    errors:
-      messages:
-        invalid_email_address: Bitte geben Sie eine gültige eMail-Adresse ein.
   pages:
     imprint:
       title: Impressum
@@ -234,7 +241,10 @@ de:
   seller_mailer:
     registration:
       subject: Registrierungsbestätigung
-
+    notification:
+      subject: Verkäuferplatz beim Flohmarkt freigeworden
+    invitation:
+      subject: Reservierung zum Flohmarkt startet in Kürze
   terms:
     title: Teilnahmebedingungen
     content: |

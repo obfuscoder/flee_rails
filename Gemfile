@@ -44,6 +44,7 @@ group :test do
   gem 'capybara-email'
   gem 'launchy'
   gem 'pdf-inspector'
+  gem 'timecop'
 end
 
 group :test, :development do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527201223) do
+ActiveRecord::Schema.define(version: 20150613154138) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 20150527201223) do
   add_index "items", ["code"], name: "index_items_on_code", unique: true
   add_index "items", ["reservation_id", "number"], name: "index_items_on_reservation_id_and_number", unique: true
   add_index "items", ["reservation_id"], name: "index_items_on_reservation_id"
+
+  create_table "messages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "category"
+    t.integer  "event_id"
+  end
+
+  add_index "messages", ["category", "event_id"], name: "index_messages_on_category_and_event_id", unique: true
+  add_index "messages", ["event_id"], name: "index_messages_on_event_id"
 
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at"

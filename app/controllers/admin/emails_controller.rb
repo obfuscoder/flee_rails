@@ -2,12 +2,12 @@ module Admin
   class EmailsController < AdminController
     def emails
       @email = Email.new
-      @sellers = Seller.where(mailing: true)
+      @sellers = Seller.with_mailing
       @events = Event.all
     end
 
     def create
-      selection = Seller.where(mailing: true).where(id: params[:email][:sellers])
+      selection = Seller.with_mailing.where(id: params[:email][:sellers])
       subject = params[:email][:subject]
       body = params[:email][:body]
       selection.each do |seller|

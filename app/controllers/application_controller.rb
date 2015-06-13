@@ -10,11 +10,12 @@ class ApplicationController < ActionController::Base
   private
 
   def create_reservation(event_id)
-    reservation = Reservation.create event_id: event_id, seller: current_seller
+    event = Event.find event_id
+    reservation = Reservation.create event: event, seller: current_seller
     if reservation.persisted?
       redirect_to seller_path, notice: t('.success', number: reservation.number)
     else
-      redirect_to seller_path, alert: t('.failure')
+      redirect_to seller_path, alert: t('.failure', reason: reservation.errors.messages.values.join(','))
     end
   end
 
