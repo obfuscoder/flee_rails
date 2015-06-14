@@ -12,7 +12,10 @@ module Admin
     def create
       @event = Event.find params[:event_id]
       seller_ids = params[:reservation][:seller_id].select { |seller_id| !seller_id.empty? }
-      reservations = seller_ids.map { |seller_id| Reservation.create seller: Seller.find(seller_id), event: @event }
+      reservations = seller_ids.each do |seller_id|
+        reservation = @event.reservations.build seller: Seller.find(seller_id)
+        reservation.save! context: :admin
+      end
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end
   end

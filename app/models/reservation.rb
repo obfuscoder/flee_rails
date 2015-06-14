@@ -10,7 +10,7 @@ class Reservation < ActiveRecord::Base
   validate :within_reservation_period, on: :create
   validate :capacity_available, on: :create
 
-  before_validation :create_number, on: :create
+  before_validation :create_number
 
   def to_s
     "#{event.name} - #{number}"
@@ -19,7 +19,9 @@ class Reservation < ActiveRecord::Base
   private
 
   def create_number
-    self.number = event.reservations.count + 1 if number.nil? && event.present?
+    return if event.nil? || number.present?
+    current_max = event.reservations.maximum(:number) || 0
+    self.number = current_max + 1
   end
 
   def within_reservation_period
