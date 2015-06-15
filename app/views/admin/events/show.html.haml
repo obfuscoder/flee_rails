@@ -6,5 +6,5 @@
 = link_to 'Bearbeiten', edit_admin_event_path(@event)
 = link_to 'Reservierungen', admin_event_reservations_path(@event)
 = link_to 'Bewertungen', admin_event_reviews_path(@event)
-= link_to_unless Message.exists?(event: @event, category: :invitation), 'Reservierungseinladung verschicken',
-    admin_event_messages_path(@event, :invitation), method: :post
+- unless Message.exists?(event: @event, category: :invitation)
+  = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post
