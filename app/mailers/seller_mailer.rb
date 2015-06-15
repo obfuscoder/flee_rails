@@ -23,18 +23,19 @@ class SellerMailer < ActionMailer::Base
     mail to: seller.email
   end
 
-  def reservation_closing(seller, event)
-    @seller = seller
-    @event = event
+  def reservation_closing(reservation)
+    @seller = reservation.seller
+    @event = reservation.event
     @login_url = login_seller_url(@seller.token)
-    mail to: seller.email
+    mail to: @seller.email
   end
 
-  def reservation_closed(seller, event)
-    @seller = seller
-    @event = event
+  def reservation_closed(reservation, labels_pdf)
+    @seller = reservation.seller
+    @event = reservation.event
     @login_url = login_seller_url(@seller.token)
-    mail to: seller.email
+    attachments['etiketten.pdf'] = labels_pdf
+    mail to: @seller.email
   end
 
   def custom(seller, subject, body)

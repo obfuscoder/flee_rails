@@ -14,7 +14,7 @@ module Admin
     def reservation_closing
       event = Event.find params[:event_id]
       event.reservations.each do |reservation|
-        SellerMailer.reservation_closing(reservation.seller, event).deliver_later
+        SellerMailer.reservation_closing(reservation).deliver_later
       end
       event.messages.create! category: :reservation_closing
       redirect_to admin_event_path(params[:event_id]), notice: t('.success', count: event.reservations.count)
@@ -23,7 +23,8 @@ module Admin
     def reservation_closed
       event = Event.find params[:event_id]
       event.reservations.each do |reservation|
-        SellerMailer.reservation_closed(reservation.seller, event).deliver_later
+        pdf = create_label_document(reservation.items)
+        SellerMailer.reservation_closed(reservation, pdf).deliver_later
       end
       event.messages.create! category: :reservation_closed
       redirect_to admin_event_path(params[:event_id]), notice: t('.success', count: event.reservations.count)

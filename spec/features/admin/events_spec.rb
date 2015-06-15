@@ -30,14 +30,14 @@ RSpec.feature 'admin events' do
 
   scenario 'delete event' do
     event = events.first
-    find("a[href='#{admin_event_path(event)}']", text: 'Löschen').click
+    click_link 'Löschen', href: admin_event_path(event)
     expect(page).to have_content 'Termin gelöscht.'
   end
 
   feature 'edit event' do
     let(:event) { events.first }
     background do
-      find("a[href='#{edit_admin_event_path(event)}']", text: 'Bearbeiten').click
+      click_link 'Bearbeiten', href: edit_admin_event_path(event)
     end
 
     scenario 'changing event information' do
@@ -53,11 +53,12 @@ RSpec.feature 'admin events' do
 
   feature 'show event' do
     let(:event) { events.first }
-    background do
-      find("a[href='#{admin_event_path(event)}']", text: 'Anzeigen').click
+    def click_on_event
+      click_link 'Anzeigen', href: admin_event_path(event)
     end
 
     scenario 'shows details about the event' do
+      click_on_event
       expect(page).to have_content event.name
       expect(page).to have_content event.details
       expect(page).to have_content event.max_sellers
@@ -73,16 +74,19 @@ RSpec.feature 'admin events' do
     end
 
     scenario 'links to event edit' do
+      click_on_event
       click_on 'Bearbeiten'
       expect(current_path).to eq edit_admin_event_path(event)
     end
 
     scenario 'links to reservations for that event' do
+      click_on_event
       click_on 'Reservierungen'
       expect(current_path).to eq admin_event_reservations_path(event)
     end
 
     scenario 'links to reviews for that event' do
+      click_on_event
       click_on 'Bewertungen'
       expect(current_path).to eq admin_event_reviews_path(event)
     end
@@ -95,64 +99,102 @@ RSpec.feature 'admin events' do
       let!(:reservation) { FactoryGirl.create :reservation, event: event, seller: active_seller_with_reservation }
 
       scenario 'send invitation to active sellers without reservation' do
+        click_on_event
         click_on 'Reservierungseinladung verschicken'
         expect(page).to have_content 'Es wurde(n) 1 Einladung(en) verschickt. Es gibt bereits 1 Reservierung(en).'
-        expect(page).not_to have_link 'Reservierungseinladung verschicken'
         open_email active_seller.email
         expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
         expect(current_email.body).to have_link reserve_seller_url(active_seller.token, event)
       end
 
       context 'when reservation phase has passed' do
-        it 'does not allow to send invitation mail'
+        before { Timecop.freeze event.reservation_end + 1.hour }
+        after { Timecop.return }
+        it 'does not allow to send invitation mail' do
+          click_on_event
+          expect(page).not_to have_link 'Reservierungseinladung verschicken'
+        end
       end
 
       context 'when invitation mail was sent already' do
-        it 'does not allow to send invitation mail'
-        # is currently included in scenario 'send invitation to active sellers without reservation'
+        let!(:message) { FactoryGirl.create :invitation_message, event: event }
+        it 'does not allow to send invitation mail' do
+          click_on_event
+          expect(page).not_to have_link 'Reservierungseinladung verschicken'
+        end
       end
 
       scenario 'send reservation_closing mail to active sellers with reservation' do
+        click_on_event
         click_on 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
         expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
-        expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
         open_email active_seller_with_reservation.email
         expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
         expect(current_email.body).to have_link login_seller_url(active_seller_with_reservation.token)
       end
 
       context 'when reservation phase has not started yet' do
-        it 'does not allow to send closing mail'
+        before { Timecop.freeze event.reservation_start - 1.hour }
+        after { Timecop.return }
+        it 'does not allow to send closing mail' do
+          click_on_event
+          expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
+        end
       end
 
       context 'when reservation phase has passed already' do
-        it 'does not allow to send closing mail'
+        before { Timecop.freeze event.reservation_end + 1.hour }
+        after { Timecop.return }
+        it 'does not allow to send closing mail' do
+          click_on_event
+          expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
+        end
       end
 
       context 'when closing mail was sent already' do
-        it 'does not allow to send closing mail'
-        # is currently included in scenario 'send reservation_closing mail to active sellers with reservation'
+        let!(:message) { FactoryGirl.create :reservation_closing_message, event: event }
+        it 'does not allow to send closing mail' do
+          click_on_event
+          expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
+        end
       end
 
-      scenario 'send reservation_closed mail to active sellers with reservation' do
-        click_on 'Bearbeitungsabschlussmail verschicken'
-        expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
-        expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
-        open_email active_seller_with_reservation.email
-        expect(current_email.subject).to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt'
-        expect(current_email.body).to have_link('Zum geschützten Bereich',
-                                                href: login_seller_url(active_seller_with_reservation.token))
-      end
+      describe 'sending reservation_closed mail' do
+        before do
+          Timecop.freeze event.reservation_end + 1.hour do
+            click_on_event
+            click_on 'Bearbeitungsabschlussmail verschicken'
+            expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+            open_email active_seller_with_reservation.email
+          end
+        end
 
-      scenario 'closed mail contains attachments with labels as pdf'
+        describe 'sent mail' do
+          subject { current_email }
+          its(:subject) { is_expected.to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt' }
+          its(:body) do
+            is_expected.to have_link('Zum geschützten Bereich',
+                                     href: login_seller_url(active_seller_with_reservation.token))
+          end
+          its(:attachments) { is_expected.to have(1).element }
+        end
+      end
 
       context 'when reservation end was not reached yet' do
-        it 'does not allow to send closing mail'
+        before { Timecop.freeze event.reservation_end - 1.hour }
+        after { Timecop.return }
+        it 'does not allow to send closed mail' do
+          click_on_event
+          expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
+        end
       end
 
       context 'when closed mail was sent already' do
-        it 'does not allow to send closing mail'
-        # is currently included in scenario 'send reservation_closed mail to active sellers with reservation'
+        let!(:message) { FactoryGirl.create :reservation_closed_message, event: event }
+        it 'does not allow to send closed mail' do
+          click_on_event
+          expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
+        end
       end
     end
   end

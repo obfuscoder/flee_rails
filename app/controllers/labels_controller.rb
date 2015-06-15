@@ -1,5 +1,3 @@
-require 'label_document'
-
 class LabelsController < ApplicationController
   before_action :set_vars
 
@@ -15,23 +13,7 @@ class LabelsController < ApplicationController
 
   def create
     selected_items = @reservation.items.where(id: params[:labels][:item])
-    selected_items.without_label.each do |item|
-      item.create_code
-      item.save!
-    end
-    pdf = LabelDocument.new(label_decorators(selected_items))
-    send_data pdf.render, filename: 'etiketten.pdf', type: 'application/pdf'
-  end
-
-  def label_decorators(items)
-    items.map do |item|
-      {
-        number: "#{item.reservation.number} - #{item.number}",
-        price: view_context.number_to_currency(item.price),
-        details: "#{item.category}\n#{item.description}" +
-          (item.size ? "\nGröße: #{item.size}" : ''),
-        code: item.code
-      }
-    end
+    pdf = create_label_document(selected_items)
+    send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'
   end
 end
