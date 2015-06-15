@@ -107,6 +107,8 @@ de:
         success:
           one: Reservierung erfolgreich durchgeführt
           other: '%{count} Reservierungen erfolgreich durchgeführt'
+      destroy:
+        success: Die Reservierung wurde gelöscht
     sellers:
       index:
         new: Neuer Verkäufer

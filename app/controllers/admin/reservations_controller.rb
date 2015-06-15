@@ -18,5 +18,10 @@ module Admin
       end
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end
+
+    def destroy
+      Reservation.destroy_all event_id: params[:event_id], id: params[:id]
+      redirect_to admin_event_reservations_path, notice: t('.success')
+    end
   end
 end
