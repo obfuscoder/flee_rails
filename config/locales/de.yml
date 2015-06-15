@@ -90,9 +90,19 @@ de:
         Sie wurden auf der Warteliste eingetragen.
         Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
   admin:
+    pages:
+      home:
+        title: Adminbereich
     events:
       index:
         new: Neuer Termin
+        title: Termine
+      new:
+        title: Termin anlegen
+      edit:
+        title: Termin bearbeiten
+      show:
+        title: Termindetails
       create:
         success: Der Termin wurde erfolgreich hinzugefügt.
       update:
@@ -102,17 +112,30 @@ de:
         failure: Termin konnte nicht gelöscht werden.
     reservations:
       index:
+        title: Reservierungen
         new: Neue Reservierung
+      new:
+        title: Reservierungen durchführen
       create:
         success:
           one: Reservierung erfolgreich durchgeführt
           other: '%{count} Reservierungen erfolgreich durchgeführt'
       destroy:
         success: Die Reservierung wurde gelöscht
+    reviews:
+      index:
+        title: Bewertungen
     sellers:
       index:
+        title: Verkäufer
         new: Neuer Verkäufer
         items: Artikel
+      new:
+        title: Verkäufer anlegen
+      edit:
+        title: Verkäufer bearbeiten
+      show:
+        title: Verkäuferdetails
       create:
         success: Der Verkäufer wurde erfolgreich hinzugefügt.
       update:
@@ -151,6 +174,8 @@ de:
       destroy:
         success: Kategorie gelöscht.
     emails:
+      emails:
+        title: eMails
       create:
         success: '%{count} Mails wurden versendet.'
     messages:

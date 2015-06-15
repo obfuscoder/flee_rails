@@ -22,7 +22,6 @@ RSpec.feature 'admin event reservations' do
   end
 
   feature 'new reservation' do
-
     shared_examples 'create reservations for selected sellers' do
       before do
         click_on 'Neue Reservierung'
