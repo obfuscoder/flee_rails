@@ -7,6 +7,10 @@ FactoryGirl.define do
     shopping_end { shopping_start + 2.hours }
     reservation_start 1.day.from_now
     reservation_end { shopping_start - 1.day }
+    handover_start { reservation_end + 1.hour }
+    handover_end { handover_start + 2.hours }
+    pickup_start { shopping_end + 2.hours }
+    pickup_end { pickup_start + 2.hours }
   end
 
   factory :event_with_ongoing_reservation, parent: :event do

@@ -87,7 +87,7 @@ RSpec.feature 'admin events' do
       expect(current_path).to eq admin_event_reviews_path(event)
     end
 
-    context 'when invitation was not sent yet' do
+    feature 'sending mailings' do
       let!(:inactive_seller) { FactoryGirl.create :seller }
       let!(:active_seller) { FactoryGirl.create :seller, active: true }
       let!(:active_seller_with_reservation) { FactoryGirl.create :seller, active: true }
@@ -101,6 +101,58 @@ RSpec.feature 'admin events' do
         open_email active_seller.email
         expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
         expect(current_email.body).to have_link reserve_seller_url(active_seller.token, event)
+      end
+
+      context 'when reservation phase has passed' do
+        it 'does not allow to send invitation mail'
+      end
+
+      context 'when invitation mail was sent already' do
+        it 'does not allow to send invitation mail'
+        # is currently included in scenario 'send invitation to active sellers without reservation'
+      end
+
+      scenario 'send reservation_closing mail to active sellers with reservation' do
+        click_on 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
+        expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+        expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
+        open_email active_seller_with_reservation.email
+        expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
+        expect(current_email.body).to have_link login_seller_url(active_seller_with_reservation.token)
+      end
+
+      context 'when reservation phase has not started yet' do
+        it 'does not allow to send closing mail'
+      end
+
+      context 'when reservation phase has passed already' do
+        it 'does not allow to send closing mail'
+      end
+
+      context 'when closing mail was sent already' do
+        it 'does not allow to send closing mail'
+        # is currently included in scenario 'send reservation_closing mail to active sellers with reservation'
+      end
+
+      scenario 'send reservation_closed mail to active sellers with reservation' do
+        click_on 'Bearbeitungsabschlussmail verschicken'
+        expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+        expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
+        open_email active_seller_with_reservation.email
+        expect(current_email.subject).to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt'
+        expect(current_email.body).to have_link('Zum geschützten Bereich',
+                                                href: login_seller_url(active_seller_with_reservation.token))
+      end
+
+      scenario 'closed mail contains attachments with labels as pdf'
+
+      context 'when reservation end was not reached yet' do
+        it 'does not allow to send closing mail'
+      end
+
+      context 'when closed mail was sent already' do
+        it 'does not allow to send closing mail'
+        # is currently included in scenario 'send reservation_closed mail to active sellers with reservation'
       end
     end
   end

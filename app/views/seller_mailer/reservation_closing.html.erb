@@ -1,0 +1,19 @@
+<p>Sehr geehrte(r) Flohmarkt Verkäufer/in,</p>
+
+<p>Die Vorbereitungen für den folgenden Flohmarkt sind bald abgeschlossen:</p>
+
+<p>Flohmarkt: <%= @event.name %><br/>
+Termin: <%= l(@event.shopping_start.to_date, format: :long) %></p>
+
+<p>Denken Sie bitte daran, Ihre Artikel bis zum <%= l(@event.reservation_end, format: :long) %> komplett einzugeben. Danach sind keine weiteren Artikel mehr erzeugbar.</p>
+
+<p>Sollten Sie bis dahin zwar Ihre Artikel eingegeben, aber dafür noch keine Etiketten erzeugt haben, wird dies automatisch durchgeführt.</p>
+
+<p>Sie erreichen über den folgenden Link Ihren gesicherten Bereich und können dort die Bearbeitung Ihrer Artikel, sowie das Erzeugen und Drucken der Etiketten aufrufen:</p>
+
+<p><a href="<%= @login_url %>"><%= @login_url %></a></p>
+
+<p>Sollten Sie nicht mehr am Flohmarkt teilnehmen können, geben Sie bitte Ihre Reservierung wieder frei und überlassen anderen Ihren Platz! Die Freigabe können Sie ebenfalls unter dem oben angegebenen Link.</p>
+
+<p>Viele Grüße,<br/>
+Ihr Flohmarkt-Team<p>

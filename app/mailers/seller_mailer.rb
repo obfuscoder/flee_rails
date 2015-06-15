@@ -23,6 +23,20 @@ class SellerMailer < ActionMailer::Base
     mail to: seller.email
   end
 
+  def reservation_closing(seller, event)
+    @seller = seller
+    @event = event
+    @login_url = login_seller_url(@seller.token)
+    mail to: seller.email
+  end
+
+  def reservation_closed(seller, event)
+    @seller = seller
+    @event = event
+    @login_url = login_seller_url(@seller.token)
+    mail to: seller.email
+  end
+
   def custom(seller, subject, body)
     mail to: seller.email, subject: subject, body: body
   end

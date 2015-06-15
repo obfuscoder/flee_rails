@@ -1,0 +1,19 @@
+Sehr geehrte(r) Flohmarkt Verkäufer/in,
+
+Die Vorbereitungen für den folgenden Flohmarkt sind abgeschlossen:
+
+Flohmarkt: <%= @event.name %>
+Termin: <%= l(@event.shopping_start.to_date, format: :long) %>
+
+Die Bearbeitung Ihrer Artikel ist damit nicht mehr möglich. Für alle noch in Bearbeitung befindlichen Artikel wurden ebenfalls Etiketten erzeugt.
+
+Im Anhang finden Sie die erzeugten Etiketten. Sie können sich die Etiketten auch jederzeit innerhalb Ihres geschützten Bereichs erzeugen:
+
+[Zum geschützten Bereich](<%= @login_url %>)
+
+Geben Sie bitte Ihre Artikel am <%= l(@event.handover_start.to_date, format: :long) %> zwischen <%= l(@event.handover_start, format: :time) %> und <%= l(@event.handover_end, format: :time) %> bei uns ab.
+
+Der Abholzeitraum ist am <%= l(@event.pickup_start.to_date, format: :long) %> zwischen <%= l(@event.pickup_start, format: :time) %> und <%= l(@event.pickup_end, format: :time) %>
+
+Viele Grüße,
+Ihr Flohmarkt-Team

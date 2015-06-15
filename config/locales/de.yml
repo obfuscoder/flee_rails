@@ -181,6 +181,10 @@ de:
     messages:
       invitation:
         success: Es wurde(n) %{count} Einladung(en) verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
+      reservation_closing:
+        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
+      reservation_closed:
+        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
   activerecord:
     models:
       category: Kategorie
@@ -272,6 +276,10 @@ de:
       subject: Verkäuferplatz beim Flohmarkt freigeworden
     invitation:
       subject: Reservierung zum Flohmarkt startet in Kürze
+    reservation_closing:
+      subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
+    reservation_closed:
+      subject: Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt
   terms:
     title: Teilnahmebedingungen
     content: |
@@ -530,4 +538,5 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
+      time: ! '%H:%M Uhr'
     pm: nachmittags

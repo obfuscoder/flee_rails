@@ -47,6 +47,7 @@ end
 
 gem 'haml-rails'
 gem 'rails-observers'
+gem 'maildown'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'awesome_print'
