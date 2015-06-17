@@ -1,7 +1,7 @@
 class SellersController < ApplicationController
   def show
     @seller = current_seller
-    @events = Event.without_reservation_for @seller
+    @events = Event.within_reservation_time.without_reservation_for @seller
   end
 
   def new

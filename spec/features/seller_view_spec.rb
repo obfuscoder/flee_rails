@@ -33,13 +33,17 @@ RSpec.feature 'Seller view area' do
     end
 
     context 'when reservation period is not yet reached' do
-      scenario 'reservation start is shown'
-      scenario 'reservation is not possible'
+      let(:event) { FactoryGirl.create :event_with_ongoing_reservation, reservation_start: 1.hour.from_now }
+      scenario 'reservation is not possible' do
+        expect(page).not_to have_link 'einen Verkäuferplatz reservieren', href: event_reservation_path(event)
+      end
     end
 
     context 'when reservation period has passed' do
-      scenario 'reservation end is shown'
-      scenario 'reservation is not possible'
+      let(:event) { FactoryGirl.create :event_with_ongoing_reservation, reservation_end: 1.hour.ago }
+      scenario 'reservation is not possible' do
+        expect(page).not_to have_link 'einen Verkäuferplatz reservieren', href: event_reservation_path(event)
+      end
     end
 
     context 'with reservation limit reached' do
@@ -48,7 +52,6 @@ RSpec.feature 'Seller view area' do
 
       scenario 'cannot make a reservation' do
         expect(page).to have_content 'Leider sind alle Plätze bereits vergeben.'
-        expect(page).not_to have_link 'einen Verkäuferplatz reservieren', href: event_reservation_path(event)
       end
 
       scenario 'can activate notification' do
