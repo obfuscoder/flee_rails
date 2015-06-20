@@ -10,3 +10,6 @@
   %li Etiketten: #{Item.with_label.count}
 %h3 Bewertungen
 gesamt: #{Review.count}
+%h3 Statistiken
+%h4 Artikel pro Kategorie
+%canvas#canvas_items_per_category{height: 300, width: 300, data: { url: admin_items_per_category_path } }

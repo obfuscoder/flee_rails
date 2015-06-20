@@ -18,7 +18,7 @@ RSpec.feature 'Registrations' do
   def open_mail_and_click_login_link
     open_email email
     expect(current_email.subject).to eq 'Registrierungsbestätigung'
-    current_email.click_on login_seller_url(seller.token)
+    current_email.click_on 'Zum geschützten Bereich'
   end
 
   scenario 'User registers and follows login link in mail' do

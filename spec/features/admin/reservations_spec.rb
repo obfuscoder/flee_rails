@@ -72,7 +72,8 @@ RSpec.feature 'admin event reservations' do
       selection.each do |seller|
         open_email seller.email
         expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
-        expect(current_email.body).to have_link login_seller_url(seller.token, goto: :reserve, event: event)
+        expect(current_email.body).to have_link 'Verkäuferplatz reservieren',
+                                                href: login_seller_url(seller.token, goto: :reserve, event: event)
       end
       expect(Notification.count).to be_zero
     end

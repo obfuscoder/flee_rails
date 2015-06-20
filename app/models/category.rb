@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
   extend ActiveModel::Translation
 
-  has_many :item, dependent: :destroy
+  has_many :items, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

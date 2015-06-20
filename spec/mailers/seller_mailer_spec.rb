@@ -28,12 +28,12 @@ RSpec.describe SellerMailer do
       its(:parts) { is_expected.to have(2).elements }
 
       describe 'text' do
-        subject { body.parts.first.to_s }
+        subject { body.parts.first.body }
         it_behaves_like 'a mail body part'
       end
 
       describe 'html' do
-        subject { body.parts.last.to_s }
+        subject { body.parts.last.body }
         it_behaves_like 'a mail body part'
       end
     end

@@ -95,7 +95,8 @@ RSpec.feature 'admin events' do
         expect(page).to have_content 'Es wurde(n) 1 Einladung(en) verschickt. Es gibt bereits 1 Reservierung(en).'
         open_email active_seller.email
         expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
-        expect(current_email.body).to have_link login_seller_url(active_seller.token, goto: :reserve, event: event)
+        expect(current_email.body).to have_link 'Verkäuferplatz reservieren',
+                                                href: login_seller_url(active_seller.token, goto: :reserve, event: event)
       end
 
       context 'when reservation phase has passed' do
@@ -121,7 +122,8 @@ RSpec.feature 'admin events' do
         expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
         open_email active_seller_with_reservation.email
         expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
-        expect(current_email.body).to have_link login_seller_url(active_seller_with_reservation.token)
+        expect(current_email.body).to have_link 'Zum geschützten Bereich',
+                                                href: login_seller_url(active_seller_with_reservation.token)
       end
 
       context 'when reservation phase has not started yet' do

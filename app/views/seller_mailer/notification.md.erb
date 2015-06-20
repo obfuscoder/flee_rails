@@ -3,11 +3,11 @@ Sehr geehrter Interessent/sehr geehrte Interessentin,
 Wir freuen uns, Ihnen mitteilen zu können, dass ein oder mehrere Verkäuferplätze für den folgenden Flohmarkt frei geworden sind.
 
 Flohmarkt: <%= @event.name %>
-Termin: von <%= @event.shopping_start %> bis <%= @event.shopping_end %>
+Termin: von <%= l(@event.shopping_start) %> bis <%= l(@event.shopping_end) %>
 
 Sie können sich über den folgenden Link einen der freigewordenen Verkäuferplätze sichern:
 
-<%= @reserve_url %>
+[Verkäuferplatz reservieren](<%= @reserve_url %>)
 
 Bitte haben Sie Verständnis, dass zum Zeitpunkt, zu dem Sie den Link aufrufen und die Reservierung durchführen wollen, gegebenenfalls kein Platz mehr frei sein kann.
 
@@ -16,7 +16,7 @@ Sie können mit Erhalt Ihrer Reservierungssnummer Ihre Artikel eingeben und Etik
 
 Ihren geschützten Bereich erreichen Sie wie immer über den folgenden Link:
 
-<%= @login_url %>
+[Zum geschützten Bereich](<%= @login_url %>)
 
 Viele Grüße,
 Ihr Flohmarkt-Team
