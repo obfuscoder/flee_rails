@@ -130,7 +130,7 @@ RSpec.describe 'sellers/show' do
         end
       end
 
-      it 'links to event statistics page' do
+      it 'links to event results page' do
         assert_select 'a[href=?]', event_path(reservation.event)
       end
     end

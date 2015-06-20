@@ -25,6 +25,12 @@ de:
         submit: Drucken
       email:
         create: Senden
+  reviews:
+    new:
+      title: Bewertung
+  events:
+    show:
+      title: Ergebnisse
   items:
     index:
       title: Artikel
@@ -185,6 +191,8 @@ de:
         success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
       reservation_closed:
         success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
+      finished:
+        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
   activerecord:
     models:
       category: Kategorie
@@ -203,8 +211,15 @@ de:
         max_sellers: maximale Anzahl Verkäufer
         max_items_per_seller: maximale Anzahl Artikel je Verkäufer
         confirmed: steht fest
-        shopping_start: Datum
+        shopping_start: Verkaufsstart
+        shopping_end: Verkaufsende
         reservation_start: Reservierungsstart
+        reservation_end: Artikeleingabeende
+        handover_start: Artikelabgabestart
+        handover_end: Artikelabgabeende
+        pickup_start: Artikelabholstart
+        pickup_end: Artikelabholende
+        kind: Typ
       item:
         seller: Verkäufer
         category: Kategorie
@@ -280,6 +295,8 @@ de:
       subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
     reservation_closed:
       subject: Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt
+    finished:
+      subject: Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns
   terms:
     title: Teilnahmebedingungen
     content: |

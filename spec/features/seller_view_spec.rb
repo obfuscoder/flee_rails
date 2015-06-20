@@ -83,11 +83,12 @@ RSpec.feature 'Seller view area' do
           click_link 'geben Sie Ihre Reservierung wieder frei', href: event_reservation_path(event)
           open_email other_seller.email
           expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
-          current_email.click_on reserve_seller_url(other_seller.token, event.id)
+          current_email.click_on login_seller_url(other_seller.token, goto: :reserve, event: event)
           expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
           expect(Notification.count).to be_zero
         end
       end
     end
   end
+  it 'is not allowed to review an event which the seller does not have a reservation for'
 end

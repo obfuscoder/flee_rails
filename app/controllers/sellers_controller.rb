@@ -25,11 +25,6 @@ class SellersController < ApplicationController
     end
   end
 
-  def reserve
-    init_session_and_seller
-    create_reservation params[:event_id]
-  end
-
   def update
     @seller = current_seller
     if @seller.update(seller_params)
@@ -55,7 +50,11 @@ class SellersController < ApplicationController
 
   def login
     init_session_and_seller
-    redirect_to seller_path
+    goto = params[:goto]
+    event = params[:event]
+    return redirect_to seller_path if goto.nil? || event.nil?
+    path_method = goto == 'show' ? 'event_path' : "event_#{goto}_path"
+    redirect_to send(path_method, event)
   end
 
   def init_session_and_seller

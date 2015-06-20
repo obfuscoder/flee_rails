@@ -11,7 +11,7 @@ class SellerMailer < ActionMailer::Base
     @seller = notification.seller
     @event = notification.event
     @login_url = login_seller_url(@seller.token)
-    @reserve_url = reserve_seller_url(@seller.token, @event.id)
+    @reserve_url = login_seller_url(@seller.token, goto: :reserve, event: @event)
     mail to: @seller.email
   end
 
@@ -19,7 +19,7 @@ class SellerMailer < ActionMailer::Base
     @seller = seller
     @event = event
     @login_url = login_seller_url(@seller.token)
-    @reserve_url = reserve_seller_url(@seller.token, @event.id)
+    @reserve_url = login_seller_url(@seller.token, goto: :reserve, event: @event)
     mail to: seller.email
   end
 
@@ -35,6 +35,14 @@ class SellerMailer < ActionMailer::Base
     @event = reservation.event
     @login_url = login_seller_url(@seller.token)
     attachments['etiketten.pdf'] = labels_pdf
+    mail to: @seller.email
+  end
+
+  def finished(reservation)
+    @seller = reservation.seller
+    @event = reservation.event
+    @results_url = login_seller_url(@seller.token, goto: :show, event: @event)
+    @review_url = login_seller_url(@seller.token, goto: :review, event: @event)
     mail to: @seller.email
   end
 

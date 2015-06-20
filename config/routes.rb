@@ -9,13 +9,15 @@ Rails.application.routes.draw do
 
   # mount RailsAdmin::Engine => '/manager', as: :rails_admin
 
-  resources :events do
+  resources :events, only: [:show] do
     resource :reservation, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
     resource :review
     resources :items, except: :show
     resources :labels, only: [:index, :create]
   end
+
+  get 'events/:event_id/reserve', to: 'reservations#create', as: :event_reserve
 
   resource :seller do
     match :resend_activation, via: [:get, :post]
@@ -26,7 +28,6 @@ Rails.application.routes.draw do
   end
 
   get 'sellers/login/:token', to: 'sellers#login', as: :login_seller
-  get 'sellers/reserve/:token/:event_id', to: 'sellers#reserve', as: :reserve_seller
 
   namespace :admin do
     get '', controller: :pages, action: :home

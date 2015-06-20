@@ -5,7 +5,7 @@ RSpec.feature 'Reservations' do
   let(:event) { FactoryGirl.create :event }
 
   scenario 'seller tries to get reservation for event' do
-    visit reserve_seller_url(seller.token, event.id)
+    visit login_seller_url(seller.token, goto: :reserve, event: event)
     expect(page).to have_content 'Die Reservierung ist nocht nicht freigeschaltet.'
   end
 end

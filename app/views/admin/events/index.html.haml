@@ -5,16 +5,16 @@
     %th= Event.human_attribute_name :name
     %th= Event.human_attribute_name :shopping_start
     %th= Event.human_attribute_name :reservation_start
-    %th= link_to t('.new'), new_admin_event_path
+    %th= link_to t('.new'), new_admin_event_path, type: :primary, icon: :file
 
 
   - @events.each_with_index do |event, index|
     %tr
       %td= index+1
       %td= event.name
-      %td= event.shopping_start
-      %td= event.reservation_start
+      %td= l(event.shopping_start)
+      %td= l(event.reservation_start)
       %td
-        = link_to t('show'), [:admin, event]
-        = link_to t('edit'), edit_admin_event_path(event)
-        = link_to t('destroy'), [:admin, event], method: :delete, data: { confirm: t('sure') }
+        = link_to t('show'), [:admin, event], type: :primary, icon: :search
+        = link_to t('edit'), edit_admin_event_path(event), type: :primary, icon: :pencil
+        = link_to t('destroy'), [:admin, event], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }

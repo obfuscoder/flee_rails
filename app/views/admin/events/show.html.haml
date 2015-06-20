@@ -1,14 +1,17 @@
 - content_for :title, t('.title')
 %dl
-  - @event.attributes.keys.each do |attribute|
+  - [:name, :details, :max_sellers, :max_items_per_seller, :shopping_start, :shopping_end,
+     :handover_start, :handover_end, :pickup_start, :pickup_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
-    %dd= @event[attribute]
-= link_to 'Bearbeiten', edit_admin_event_path(@event)
-= link_to 'Reservierungen', admin_event_reservations_path(@event)
-= link_to 'Bewertungen', admin_event_reviews_path(@event)
+    %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
+= link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
+= link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
+= link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary
 - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?
-  = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post
+  = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post, type: :primary
 - if !Message.exists?(event: @event, category: :reservation_closing) && @event.reservation_start.past? && @event.reservation_end.future?
-  = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post
+  = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post, type: :primary
 - if !Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
-  = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post
+  = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary
+- if !Message.exists?(event: @event, category: :finished) && @event.shopping_end.past?
+  = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary
