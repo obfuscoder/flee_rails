@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Category do
   subject { FactoryGirl.build(:category) }
 
-  it { should be_valid }
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
-  it { should have_many(:item).dependent(:destroy) }
+  it { is_expected.to be_valid }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
+  it { is_expected.to have_many(:items).dependent(:destroy) }
 
   describe '#to_s' do
-    its(:to_s) { should eq(subject.name) }
+    its(:to_s) { is_expected.to eq subject.name }
 
     context 'without name' do
       subject { Category.new }

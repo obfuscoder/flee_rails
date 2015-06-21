@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Event do
   subject { FactoryGirl.build :event }
 
-  it { should be_valid }
-  it { should validate_presence_of :name }
-  it { should validate_numericality_of(:max_sellers).is_greater_than(0).only_integer }
-  it { should have_many(:reservations).dependent(:destroy) }
-  it { should have_many(:notifications).dependent(:destroy) }
-  it { should have_many(:reviews).dependent(:destroy) }
+  it { is_expected.to be_valid }
+  it { is_expected.to validate_presence_of :name }
+  it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than(0).only_integer }
+  it { is_expected.to have_many(:reservations).dependent(:destroy) }
+  it { is_expected.to have_many(:notifications).dependent(:destroy) }
+  it { is_expected.to have_many(:reviews).dependent(:destroy) }
 
   describe '#to_s' do
-    its(:to_s) { should eq subject.name }
+    its(:to_s) { is_expected.to eq subject.name }
 
     context 'without name' do
       subject { Event.new }
