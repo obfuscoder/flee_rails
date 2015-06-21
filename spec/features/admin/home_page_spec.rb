@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'admin home page' do
   def create_sellers
-    FactoryGirl.create :seller
-    FactoryGirl.create :seller, active: true
+    FactoryGirl.create :seller, created_at: 1.day.ago
+    FactoryGirl.create :seller, active: true, created_at: 7.days.ago
     FactoryGirl.create :notification
   end
 
@@ -53,7 +53,15 @@ RSpec.feature 'admin home page' do
     expect(data[Time.now.strftime('%Y-%m-%d')]).to eq 1
   end
 
-  scenario 'shows graph of sellers created per day'
+  scenario 'shows graph of sellers created per day' do
+    expect(page).to have_content 'Registrierungen pro Tag'
+    visit page.find('#canvas_sellers_per_day')['data-url']
+    data = JSON.parse page.body
+    expect(data.size).to eq 29
+    expect(data[1.day.ago.strftime('%Y-%m-%d')]).to eq 1
+    expect(data[Time.now.strftime('%Y-%m-%d')]).to eq 5
+  end
+
   scenario 'shows admin menu' do
     expect(page).to have_link 'Adminbereich'
     expect(page).to have_link 'Termine'

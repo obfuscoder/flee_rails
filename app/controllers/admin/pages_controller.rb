@@ -13,17 +13,27 @@ module Admin
     end
 
     def items_per_day
-      items_hash = items_per_day_as_hash
-      days = (4.weeks.ago.to_date..Date.today).map { |date| date.strftime('%Y-%m-%d') }
-      data = days.map { |day| [day, items_hash[day] || 0] }.to_h
-      render json: data
+      render json: daily_data_for(Item)
     end
 
-    def items_per_day_as_hash
-      items = Item.where { created_at.gt 1.month.ago }
-                  .group { date(created_at) }
-                  .select { [date(created_at).as(date), count(id).as(count)] }
-      items.map { |item| [item.date, item.count] }.to_h
+    def daily_data_for(clazz)
+      daily_data(created_objects_per_day clazz)
+    end
+
+    def daily_data(items_hash)
+      days = (4.weeks.ago.to_date..Date.today).map { |date| date.strftime('%Y-%m-%d') }
+      days.map { |day| [day, items_hash[day] || 0] }.to_h
+    end
+
+    def sellers_per_day
+      render json: daily_data_for(Seller)
+    end
+
+    def created_objects_per_day(clazz)
+      result = clazz.where { created_at.gteq 4.weeks.ago }
+                    .group { date(created_at) }
+                    .select { [date(created_at).as(date), count(id).as(count)] }
+      result.map { |element| [element.date, element.count] }.to_h
     end
   end
 end
