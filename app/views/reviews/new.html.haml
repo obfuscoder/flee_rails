@@ -1,1 +1,21 @@
 - content_for :title, t('.title')
+:markdown
+  Vielen Dank, dass Sie als Verkäufer an unserem Flohmarkt teilgenommen haben.
+  Wir hoffen, dass Ihnen unser neues System gefallen hat.
+
+  Um Ihnen in Zukunft die Arbeit noch weiter zu erleichtern, sind wir an Ihrem persönlichen Urteil interessiert.
+  Bitte nehmen Sie sich ein paar Minuten Zeit und helfen uns, das System für Sie noch mehr zu verbessern,
+  indem Sie uns bewerten und uns mitteilen, was Ihnen gut gefallen hat,
+  aber besonders, was Sie persönlich für verbesserungswürdig halten.
+
+  Bewerten Sie bitte die folgenden Punkte entsprechend dem **Schulnotensystem** (1=sehr gut bis 6=ungenügend).
+  Wenn Sie einen Punkt nicht beantworten wollen/können, lassen Sie ihn einfach leer.
+= simple_form_for @review, url: event_review_path(@event) do |f|
+  = f.error_notification
+  - rating_sections.each do |section|
+    = f.input section, options_for_inline_radios.merge(collection: 1..6)
+  = f.input :source, options_for_inline_radios.merge(collection: source_collection)
+  = f.input :recommend, options_for_inline_radios
+  = f.input :to_improve
+  .form-actions
+    = f.button :submit

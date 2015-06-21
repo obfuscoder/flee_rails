@@ -90,5 +90,4 @@ RSpec.feature 'Seller view area' do
       end
     end
   end
-  it 'is not allowed to review an event which the seller does not have a reservation for'
 end

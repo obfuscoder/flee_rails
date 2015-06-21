@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613154138) do
+ActiveRecord::Schema.define(version: 20150621113752) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -109,6 +109,22 @@ ActiveRecord::Schema.define(version: 20150613154138) do
     t.integer  "seller_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "registration"
+    t.integer  "items"
+    t.integer  "print"
+    t.integer  "reservation"
+    t.integer  "mailing"
+    t.integer  "content"
+    t.integer  "design"
+    t.integer  "support"
+    t.integer  "handover"
+    t.integer  "payoff"
+    t.integer  "sale"
+    t.integer  "organization"
+    t.integer  "total"
+    t.string   "source"
+    t.boolean  "recommend"
+    t.text     "to_improve"
   end
 
   add_index "reviews", ["event_id"], name: "index_reviews_on_event_id"

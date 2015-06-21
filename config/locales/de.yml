@@ -25,9 +25,22 @@ de:
         submit: Drucken
       email:
         create: Senden
+      review:
+        create: Bewertung abschließen
   reviews:
     new:
       title: Bewertung
+      error: &review_errors
+        no_reservation: Bewertung des Flohmarkts nicht möglich. Sie haben keine Reservierung.
+        event_ongoing: Bewertung des Flohmarkts nicht möglich. Der Flohmarkt ist noch nicht abgeschlossen.
+        already_reviewed: Bewertung des Flohmarkts nicht möglich. Sie haben bereits Ihre Bewertung abgegeben.
+    show:
+      title: Bewertungen
+      error: *review_errors
+    create:
+      success: |
+        Vielen Dank für Ihre Bewertung. Wir werden Sie zu Herzen nehmen und hoffen,
+        Sie bald wieder beim nächsten Flohmarkt als Verkäufer begrüßen zu können.
   events:
     show:
       title: Ergebnisse
@@ -257,6 +270,23 @@ de:
         without_reservation: Ohne Reservierung für
         notification: auf Warteliste
         notification_event: für Termin
+      review:
+        registration: Anmeldung / Registrierung
+        items: Verwaltung der Artikel
+        print: Erzeugen und Ausdrucken der Etiketten
+        reservation: Verfahren zur Vergabe der Verkäuferplätze
+        mailing: Informationen per Mail
+        content: Inhalten und Erklärungen auf der Webseite
+        design: Aussehen der Webseite
+        support: Unterstützung bei Problemen
+        handover: Abwicklung bei Annahme und Rückgabe der Artikel
+        payoff: Abrechnung
+        sale: Verkauf
+        organization: Organisation
+        total: Gesamtnote
+        source: Wie sind Sie auf uns aufmerksam geworden?
+        recommend: Würden Sie unser Abrechnungssystem weiterempfehlen?
+        to_improve: Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?
     errors:
       models:
         reservation:
