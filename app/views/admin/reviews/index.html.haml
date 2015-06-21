@@ -1,1 +1,29 @@
 - content_for :title, t('.title')
+Anzahl: #{@reviews.count}
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %td
+      - @reviews.map(&:seller).each do |seller|
+        %th= link_to seller.id, admin_seller_path(seller)
+      %th &Oslash;
+    - rating_sections.each do |section|
+      %tr
+        %th= Review.human_attribute_name section
+        - @reviews.each do |review|
+          %td{class: class_for_rating(review[section])}= review[section]
+        - average = rating_average(section)
+        %th{class: class_for_rating(average.try(:round))}= number_with_precision(average, precision: 1)
+%h4 Weiterempfehlen
+%ul
+  - recommends(@reviews).each do |recommend|
+    %li #{recommend[:count]}x #{recommend[:name]} (#{number_to_percentage(recommend[:percentage])})
+%h4 Quellen
+%ul
+  - sources(@reviews).each do |source|
+    %li #{source[:count]}x #{source[:name]} (#{number_to_percentage(source[:percentage])})
+%h4 Bemwerkungen
+- @reviews.select(&:to_improve).each do |review|
+  %blockquote
+    %p= review.to_improve
+    %footer= review.seller.name
