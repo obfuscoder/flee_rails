@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', controller: :pages, action: :home
     get 'items_per_category', controller: :pages, action: :items_per_category
+    get 'items_per_day', controller: :pages, action: :items_per_day
     resources :events do
       resources :reviews, :reservations
       post 'messages/:action', to: 'messages#:action', as: :messages

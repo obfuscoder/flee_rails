@@ -11,7 +11,16 @@ $ ->
         alpha = 1 - i/steps
         i += 1
         base = 'rgba(20,80,255,'
-        console.log alpha
         [ value: value, label: key, color: base + alpha + ')', highlight: base + alpha*0.8 + ')' ]
-      console.log data
       chart = new Chart($('#canvas_items_per_category').get(0).getContext('2d')).Pie(data)
+  if $('#canvas_items_per_day[data-url]').length
+    $.get $('#canvas_items_per_day').attr('data-url'), (json) ->
+      values = $.map json, (value) -> value
+      data =
+        labels: Object.keys(json)
+        datasets: [
+          label: 'hae'
+          fillColor: 'rgba(20,80,255,1)'
+          data: values
+      ]
+      chart = new Chart($('#canvas_items_per_day').get(0).getContext('2d')).Bar(data)
