@@ -22,11 +22,11 @@ RSpec.feature 'admin event reviews' do
     end
     expect(page).to have_content '2,0'
     expect(page).to have_content '2,3'
-    expect(page).to have_content '1x nein'
-    expect(page).to have_content '1x ja'
-    expect(page).to have_content '1x keine Angabe'
-    expect(page).to have_content '1x Internet'
-    expect(page).to have_content '1x Bekannte/Familie'
+    expect(page).to have_content '1x nein (33%)'
+    expect(page).to have_content '1x ja (33%)'
+    expect(page).to have_content '1x keine Angabe (33%)'
+    expect(page).to have_content '1x Internet (33%)'
+    expect(page).to have_content '1x Bekannte/Familie (33%)'
     reviews.select(&:to_improve).each do |review|
       expect(page).to have_content review.to_improve
       expect(page).to have_content review.seller.to_s

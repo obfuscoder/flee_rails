@@ -50,20 +50,16 @@ module ReviewsHelper
   }
 
   def recommends(reviews)
-    data = reviews.map(&:recommend)
-    hash = data.inject(Hash.new(0)) do |h, e|
-      h[e] += 1
-      h
-    end
-    hash.map { |k, v| { count: v, name: NAMES_FOR_BOOLS[k], percentage: v.to_f / data.size * 100 } }
+    data_hash(reviews, :recommend) { |k| NAMES_FOR_BOOLS[k] }
   end
 
   def sources(reviews)
-    data = reviews.map(&:source)
-    hash = data.inject(Hash.new(0)) do |h, e|
-      h[e] += 1
-      h
-    end
-    hash.map { |k, v| { count: v, name: SOURCES[k.try(:to_sym)], percentage: v.to_f / data.size * 100 } }
+    data_hash(reviews, :source) { |k| SOURCES[k.try(:to_sym)] }
+  end
+
+  def data_hash(reviews, attribute)
+    data = reviews.map(&attribute)
+    hash = data.each_with_object(Hash.new(0)) { |e, h| h[e] += 1 }
+    hash.map { |k, v| { count: v, name: block_given? ? yield(k) : k, percentage: v.to_f / data.size } }
   end
 end

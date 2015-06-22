@@ -15,7 +15,7 @@ createBarChart = (canvas_selector) ->
         ]
       new Chart($(canvas_selector).get(0).getContext('2d')).Bar(data)
 
-$ ->
+ready = ->
   if $('#canvas_items_per_category[data-url]').length
     $.get $('#canvas_items_per_category').attr('data-url'), (data) ->
       steps = Object.keys(data).length
@@ -28,3 +28,5 @@ $ ->
       chart = new Chart($('#canvas_items_per_category').get(0).getContext('2d')).Pie(data)
   createBarChart '#canvas_items_per_day'
   createBarChart '#canvas_sellers_per_day'
+
+$(document).on('ready page:load', ready)
