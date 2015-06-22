@@ -48,6 +48,8 @@ GEM
       json
     awesome_print (1.6.1)
     barby (0.6.2)
+    bootstrap-multiselect-rails (0.9.9)
+      rails (>= 4.0.0)
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
@@ -257,6 +259,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   barby
+  bootstrap-multiselect-rails
   bootstrap-sass
   capybara
   capybara-email

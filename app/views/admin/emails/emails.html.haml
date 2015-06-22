@@ -3,8 +3,8 @@
   = f.error_notification
   .form-inputs
     = f.input :subject
-    = f.input :body
-    = f.input :sellers, collection: @sellers, input_html: { multiple: true }
+    = f.input :body, input_html: { rows: 10 }
+    = f.input :sellers, collection: @sellers, input_html: { multiple: true, size: 10 }
     = f.input :active, as: :radio_buttons
     = f.input :with_items, as: :radio_buttons
     = f.input :reservation, as: :radio_buttons
