@@ -24,15 +24,6 @@ class ReviewsController < ApplicationController
     @event = Event.find params[:event_id]
   end
 
-  def only_with_reservation
-    redirect_to seller_path, alert: t('.error.no_reservation') if
-      current_seller.reservations.where(event: @event).empty?
-  end
-
-  def only_after_event_passed
-    redirect_to seller_path, alert: t('.error.event_ongoing') unless @event.shopping_end.past?
-  end
-
   def only_without_review
     redirect_to seller_path,
                 alert: t('.error.already_reviewed') unless current_seller.reviews.where(event: @event).empty?

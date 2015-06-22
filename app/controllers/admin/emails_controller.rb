@@ -27,19 +27,19 @@ module Admin
 
     def build_selection_map
       {
-          all: Seller.with_mailing.map(&:id),
-          active: Seller.with_mailing.active.map(&:id),
-          inactive: Seller.with_mailing.where(active: false).map(&:id),
-          events: build_event_map
+        all: Seller.with_mailing.map(&:id),
+        active: Seller.with_mailing.active.map(&:id),
+        inactive: Seller.with_mailing.where(active: false).map(&:id),
+        events: build_event_map
       }
     end
 
     def build_event_map
       Event.all.each_with_object({}) do |event, h|
         h[event.id] = {
-            reservation: event.reservations.map(&:seller_id),
-            notification: event.notifications.map(&:seller_id),
-            items: event.reservations.select { |reservation| reservation.items.any? }.map(&:seller_id)
+          reservation: event.reservations.map(&:seller_id),
+          notification: event.notifications.map(&:seller_id),
+          items: event.reservations.select { |reservation| reservation.items.any? }.map(&:seller_id)
         }
       end
     end

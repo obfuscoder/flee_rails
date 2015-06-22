@@ -10,7 +10,7 @@
           %strong= reservation.event.name
           am #{l(reservation.event.shopping_start.to_date, format: :long)}<br/>
           - if reservation.event.shopping_end.past?
-            Der Flohmarkt ist beendet. Sie können sich #{ link_to 'hier', reservation.event } die Ergebnisse des Flohmarkts anschauen.
+            Der Flohmarkt ist beendet. Sie können sich #{ link_to 'die Ergebnisse', reservation.event } des Flohmarkts anschauen.
             - unless reservation.event.reviewed_by? @seller
               Wir würden uns auch freuen, wenn Sie den #{ link_to 'Flohmarkt bewerten', new_event_review_path(reservation.event) } würden.
           - else

@@ -45,4 +45,13 @@ class ApplicationController < ActionController::Base
     fail UnauthorizedError unless @current_seller
     @current_seller
   end
+
+  def only_with_reservation
+    redirect_to seller_path, alert: t('.error.no_reservation') if
+        current_seller.reservations.where(event: @event).empty?
+  end
+
+  def only_after_event_passed
+    redirect_to seller_path, alert: t('.error.event_ongoing') unless @event.shopping_end.past?
+  end
 end
