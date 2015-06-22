@@ -65,6 +65,8 @@ GEM
       mail
     chart-js-rails (0.0.9)
       railties (> 3.1)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -271,6 +273,7 @@ DEPENDENCIES
   capybara
   capybara-email
   chart-js-rails
+  codeclimate-test-reporter
   coffee-rails
   factory_girl_rails
   haml-rails

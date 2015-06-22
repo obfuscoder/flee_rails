@@ -38,6 +38,7 @@ group :test do
   gem 'pdf-inspector'
   gem 'timecop'
   gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :test, :development do
