@@ -17,10 +17,10 @@
         =link_to reservation.event.name, admin_event_path(reservation.event)
         \- Verkäufernummer:
         %strong= reservation.number
-        = link_to 'Artikel auflisten', admin_reservation_items_path(reservation)
+        = link_to 'Artikel auflisten', admin_reservation_items_path(reservation), type: :primary, icon: :list
 %h3 Artikel
 %ul
   %li Gesamt: #{@seller.reservations.joins(:items).count}
   %li Etiketten: #{@seller.reservations.joins(:items).merge(Item.with_label).count}
 %p
-  = link_to 'Bearbeiten', edit_admin_seller_path(@seller)
+  = link_to 'Bearbeiten', edit_admin_seller_path(@seller), type: :primary, icon: :pencil

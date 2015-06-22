@@ -6,7 +6,7 @@
     %th= Seller.human_attribute_name :email
     %th= Seller.human_attribute_name :item_count
     %th= Seller.human_attribute_name :active
-    %th= link_to t('.new'), new_admin_seller_path
+    %th= link_to t('.new'), new_admin_seller_path, type: :primary, icon: :file
 
 
   - @sellers.each_with_index do |seller, index|
@@ -17,6 +17,6 @@
       %td= seller.reservations.joins(:items).count
       %td= seller.active
       %td
-        = link_to t('show'), [:admin, seller]
-        = link_to t('edit'), edit_admin_seller_path(seller)
-        = link_to t('destroy'), [:admin, seller], method: :delete, data: { confirm: t('sure') }
+        = link_to t('show'), [:admin, seller], type: :primary, icon: :search
+        = link_to t('edit'), edit_admin_seller_path(seller), type: :primary, icon: :pencil
+        = link_to t('destroy'), [:admin, seller], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }

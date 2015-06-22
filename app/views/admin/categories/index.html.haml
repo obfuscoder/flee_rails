@@ -3,7 +3,7 @@
   %tr
     %th= t('position')
     %th= Category.human_attribute_name :name
-    %th= link_to t('.new'), new_admin_category_path
+    %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
 
   - @categories.each_with_index do |category, index|
@@ -11,5 +11,5 @@
       %td= index+1
       %td= category.name
       %td
-        = link_to t('edit'), edit_admin_category_path(category)
-        = link_to t('destroy'), [:admin, category], method: :delete, data: { confirm: t('sure') }
+        = link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil
+        = link_to t('destroy'), [:admin, category], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }
