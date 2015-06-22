@@ -37,6 +37,7 @@ group :test do
   gem 'launchy'
   gem 'pdf-inspector'
   gem 'timecop'
+  gem 'simplecov', require: false
 end
 
 group :test, :development do
