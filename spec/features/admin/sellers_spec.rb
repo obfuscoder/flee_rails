@@ -1,10 +1,11 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin sellers' do
+  include_context 'login'
   let!(:sellers) { FactoryGirl.create_list :seller, 3 }
   let(:seller) { sellers.first }
   background do
-    visit admin_path
     click_on 'Verkäufer'
   end
 

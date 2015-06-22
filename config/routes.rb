@@ -46,5 +46,8 @@ Rails.application.routes.draw do
     get 'emails', controller: :emails
     post 'emails', controller: :emails, action: :create
     get 'password', controller: :pages, action: :password
+
+    get 'login', controller: :sessions, action: :new
+    post 'login', controller: :sessions, action: :create
   end
 end

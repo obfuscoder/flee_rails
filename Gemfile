@@ -61,3 +61,4 @@ gem 'validates_email_format_of'
 gem 'squeel' # database query DSL
 gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
+gem 'sorcery'

@@ -1,11 +1,14 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin emails' do
+  include_context 'login'
+
   let!(:sellers) { FactoryGirl.create_list :seller, 10 }
   let(:selection) {}
+
   background do
     selection
-    visit admin_path
     click_on 'Mails'
   end
 

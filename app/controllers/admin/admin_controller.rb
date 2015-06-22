@@ -1,5 +1,6 @@
 module Admin
   class AdminController < ApplicationController
+    before_filter :require_login
     before_filter do
       @menu = {
         admin_path => 'Adminbereich',
@@ -9,6 +10,12 @@ module Admin
         admin_emails_path => 'Mails',
         admin_password_path => 'Passwort'
       }
+    end
+
+    private
+
+    def not_authenticated
+      redirect_to admin_login_path, alert: t('admin.unauthorized')
     end
   end
 end

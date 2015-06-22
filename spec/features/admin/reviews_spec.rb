@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin event reviews' do
+  include_context 'login'
   let!(:event) { FactoryGirl.create :event }
   let!(:reviews) do
     [:good_review, :bad_review, :incomplete_review].map do |review|
@@ -8,7 +10,6 @@ RSpec.feature 'admin event reviews' do
     end
   end
   background do
-    visit admin_path
     click_on 'Termine'
     click_on 'Anzeigen'
     click_on 'Bewertungen'

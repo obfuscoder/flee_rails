@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621113752) do
+ActiveRecord::Schema.define(version: 20150622211831) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -147,5 +147,15 @@ ActiveRecord::Schema.define(version: 20150621113752) do
 
   add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",            null: false
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

@@ -1,9 +1,10 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin events' do
+  include_context 'login'
   let!(:events) { FactoryGirl.create_list :event_with_ongoing_reservation, 3 }
   background do
-    visit admin_path
     click_on 'Termine'
   end
 

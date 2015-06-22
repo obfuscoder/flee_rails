@@ -1,11 +1,12 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin event reservations' do
+  include_context 'login'
   let(:event) { FactoryGirl.create :event_with_ongoing_reservation, max_sellers: 5 }
   let!(:sellers) { FactoryGirl.create_list :seller, 4, active: true }
   let!(:reservations) { FactoryGirl.create_list :reservation, 3, event: event }
   background do
-    visit admin_path
     click_on 'Termine'
     click_on 'Anzeigen'
     click_on 'Reservierungen'

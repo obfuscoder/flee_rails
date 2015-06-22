@@ -1,10 +1,12 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin categories' do
+  include_context 'login'
   let!(:categories) { FactoryGirl.create_list :category, 3 }
   let(:category) { categories.first }
+
   background do
-    visit admin_path
     click_on 'Kategorien'
   end
 

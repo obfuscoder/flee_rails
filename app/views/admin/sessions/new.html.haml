@@ -1,0 +1,8 @@
+- content_for :title, t('.title')
+= simple_form_for @user, url: admin_login_path do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :email
+    = f.input :password
+  .form-actions
+    = f.button :submit

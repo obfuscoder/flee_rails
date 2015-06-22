@@ -27,6 +27,8 @@ de:
         create: Senden
       review:
         create: Bewertung abschließen
+      user:
+        create: Anmelden
   reviews:
     new:
       title: Bewertung
@@ -112,6 +114,12 @@ de:
         Sie wurden auf der Warteliste eingetragen.
         Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
   admin:
+    unauthorized: Bitte melden Sie sich an.
+    sessions:
+      new:
+        title: Anmeldung
+      create:
+        failure: Anmeldung fehlgeschlagen
     pages:
       home:
         title: Adminbereich
@@ -291,6 +299,9 @@ de:
         source: Wie sind Sie auf uns aufmerksam geworden?
         recommend: Würden Sie unser Abrechnungssystem weiterempfehlen?
         to_improve: Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?
+      user:
+        email: eMail-Adresse
+        password: Passwort
     errors:
       models:
         reservation:

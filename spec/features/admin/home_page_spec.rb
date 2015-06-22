@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'features/admin/login'
 
 RSpec.feature 'admin home page' do
   def create_sellers
@@ -17,8 +18,9 @@ RSpec.feature 'admin home page' do
   background do
     create_sellers
     create_reviews
-    visit admin_path
   end
+
+  include_context 'login'
 
   scenario 'shows summary of sellers' do
     expect(page).to have_content 'gesamt: 7'
@@ -69,5 +71,4 @@ RSpec.feature 'admin home page' do
     expect(page).to have_link 'Mails'
     expect(page).to have_link 'Passwort'
   end
-  scenario 'asks for user credentials'
 end
