@@ -52,6 +52,7 @@ gem 'chart-js-rails'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'bootstrap-multiselect-rails'
+gem 'underscore-rails'
 gem 'awesome_print'
 gem 'redcarpet' # markdown
 gem 'validates_email_format_of'

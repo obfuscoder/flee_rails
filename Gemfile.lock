@@ -248,6 +248,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.8.3)
     validates_email_format_of (1.6.2)
       i18n
     xpath (2.0.0)
@@ -290,4 +291,5 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier
+  underscore-rails
   validates_email_format_of

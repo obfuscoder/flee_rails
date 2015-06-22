@@ -15,15 +15,6 @@ module ReviewsHelper
     %w(registration items print reservation mailing content design support handover payoff sale organization total)
   end
 
-  def options_for_inline_radios
-    {
-      as: :radio_buttons,
-      collection_wrapper_tag: :div,
-      item_wrapper_tag: nil,
-      item_label_class: 'radio-inline'
-    }
-  end
-
   def rating_average(section)
     values = @reviews.map(&section.to_sym).compact
     values.sum.to_f / values.count unless values.empty?

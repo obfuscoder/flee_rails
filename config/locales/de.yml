@@ -264,7 +264,8 @@ de:
         body: Inhalt
         sellers: Verkäufer
         active: aktiv
-        with_items: Mit Artikeln
+        items: Mit Artikeln
+        items_event: für Termin
         reservation: Reservierung
         reservation_event: für Termin
         without_reservation: Ohne Reservierung für

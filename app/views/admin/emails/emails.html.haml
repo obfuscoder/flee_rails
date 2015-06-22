@@ -4,12 +4,15 @@
   .form-inputs
     = f.input :subject
     = f.input :body, input_html: { rows: 10 }
-    = f.input :sellers, collection: @sellers, input_html: { multiple: true, size: 10 }
-    = f.input :active, as: :radio_buttons
-    = f.input :with_items, as: :radio_buttons
-    = f.input :reservation, as: :radio_buttons
-    = f.input :reservation_event, collection: @events
-    = f.input :notification, as: :radio_buttons
-    = f.input :notification_event, collection: @events
+    = f.input :sellers, collection: @sellers, include_hidden: false, input_html: { multiple: true }
+    = f.input :active, options_for_inline_radios_with_three_state.merge(input_html: { data: { update: true } })
+    = f.input :items, options_for_inline_radios_with_three_state.merge(input_html: { data: { ref: 'email_items_event', update: true } })
+    = f.input :items_event, collection: @events, disabled: true, include_blank: false, input_html: { data: { update: true } }
+    = f.input :reservation, options_for_inline_radios_with_three_state.merge(input_html: { data: { ref: 'email_reservation_event', update: true } })
+    = f.input :reservation_event, collection: @events, disabled: true, include_blank: false, input_html: { data: { update: true } }
+    = f.input :notification, options_for_inline_radios_with_three_state.merge(input_html: { data: { ref: 'email_notification_event', update: true } })
+    = f.input :notification_event, collection: @events, disabled: true, include_blank: false, input_html: { data: { update: true } }
   .form-actions
     = f.button :submit
+%script
+  sellers = #{@json.html_safe}

@@ -32,4 +32,17 @@ module ApplicationHelper
     ops ||= {}
     ops
   end
+
+  def options_for_inline_radios
+    {
+      as: :radio_buttons,
+      collection_wrapper_tag: :div,
+      item_wrapper_tag: nil,
+      item_label_class: 'radio-inline'
+    }
+  end
+
+  def options_for_inline_radios_with_three_state
+    options_for_inline_radios.merge collection: { 'Ja' => true, 'Nein' => false, 'egal' => nil }
+  end
 end
