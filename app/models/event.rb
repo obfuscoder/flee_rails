@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }
   scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
   scope :without_reservation_for, ->(seller) { where { id << seller.reservations.map(&:event_id) } }
+  scope :current_or_upcoming, -> { where { shopping_end >= Time.now } }
 
   def self.with_available_reservations
     joins { reservations.outer }.group(:id).having { count(reservations.id) < max_sellers }
@@ -23,6 +24,10 @@ class Event < ActiveRecord::Base
 
   def reviewed_by?(seller)
     reviews.any? { |review| review.seller == seller }
+  end
+
+  def reservations_left
+    [max_sellers - reservations.count, 0].max
   end
 
   def to_s

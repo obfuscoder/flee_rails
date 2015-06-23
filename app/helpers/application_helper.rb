@@ -45,4 +45,9 @@ module ApplicationHelper
   def options_for_inline_radios_with_three_state
     options_for_inline_radios.merge collection: { 'Ja' => true, 'Nein' => false, 'egal' => nil }
   end
+
+  def markdown(text)
+    @markdown ||= Redcarpet::Markdown.new Redcarpet::Render::HTML
+    @markdown.render text
+  end
 end

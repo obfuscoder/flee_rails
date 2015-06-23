@@ -1,7 +1,7 @@
 - content_for :title, t('.title')
 
 :markdown
-  Sie können sich hier als Interessent für den Verkauf von Ware auf kommenden Kommissions- und Tischflohmärkten
+  Sie können sich hier als Interessent für den Verkauf von Ware auf kommenden Kommissionsflohmärkten
   registrieren. Die erfassten Daten dienen in erster Linie dazu,
   um Sie hinsichtlich des weiteren Ablaufs des kommenden Flohmarkts zu kontaktieren und informieren.
   In der Regel findet dies per eMail statt. Auch die Zugangsinformationen zum geschützten Bereich erhalten
@@ -24,9 +24,9 @@
           %span.sr-only Close
         %h4.modal-title#terms-label= t('terms.title')
       .modal-body
-        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('terms.content')).html_safe
+        = markdown(Settings.terms).html_safe
       .modal-footer
-        %button.btn.btn-primary(data-dismiss="modal") Close
+        %button.btn.btn-primary(data-dismiss="modal") Schließen
 #privacy.modal.fade(tabindex="-1" role="dialog" aria-labelledby="privacy-label" aria-hidden="true")
   .modal-dialog.modal-lg
     .modal-content
@@ -37,6 +37,6 @@
           %span.sr-only Close
         %h4.modal-title#privacy-label= t('privacy.title')
       .modal-body
-        = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new).render(t('privacy.content')).html_safe
+        = markdown(t('privacy.content')).html_safe
       .modal-footer
-        %button.btn.btn-primary(data-dismiss="modal") Close
+        %button.btn.btn-primary(data-dismiss="modal") Schließen

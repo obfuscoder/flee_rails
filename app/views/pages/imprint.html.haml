@@ -1,10 +1,12 @@
 - content_for :title, t('.title')
 
 %p Angaben gemäß § 5 TMG:
-%p= image_tag "imprint-address.png"
+%p
+  - Settings.imprint.address.each do |line|
+    = line
+    %br
 %h3 Kontakt:
-%p= image_tag "imprint-contact.png"
-
+= Settings.imprint.contact
 :markdown
   ### Haftungsausschluss:
 
@@ -43,7 +45,6 @@
 
   - [Ruby on Rails](http://rubyonrails.org/) ([MIT](http://opensource.org/licenses/mit-license.php))
   - [Komponenten gehostet von RubyGems](http://rubygems.org/) ([MIT](http://opensource.org/licenses/mit-license.php), [BSD](http://opensource.org/licenses/BSD-2-Clause), [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html))
-  - [CanvasJS](http://canvasjs.com/) ([Creative Commons Attribution-NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/deed.en_US))
   - [Twitter Bootstrap](http://getbootstrap.com/) ([MIT](http://opensource.org/licenses/mit-license.php))
 
   ### Datenschutzerklärung:
@@ -65,4 +66,4 @@
 
   <small>*Quelle: http://www.e-recht24.de*</small>
 
-  Copyright 2013-2014 Kai Lehmann
+  Copyright 2013-#{Time.now.year} Kai Lehmann

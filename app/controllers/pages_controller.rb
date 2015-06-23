@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    @events = Event.all
+    @events = Event.current_or_upcoming.order(:shopping_start)
   end
 
   def contact

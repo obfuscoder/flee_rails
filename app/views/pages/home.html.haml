@@ -1,6 +1,7 @@
 %p
-  = image_tag "kitaregenbogen.jpg"
-  = image_tag "archenoahkita.jpg"
+  - [Settings.home.logo].flatten.each do |logo|
+    = image_tag logo
+= markdown(Settings.home.intro).html_safe if Settings.home.intro.present?
 %p Auf diesen Seiten können Sie sich für unsere kommenden Flohmärkte als Verkäufer registrieren. Sie werden dann zeitnah per Mail über den weiteren Ablauf informiert.
 %p Die Anzahl der Verkäufer ist in der Regel begrenzt. Die Reservierung findet ab einem bestimmten Datum vor Beginn des Flohmarkts statt und wird hier auf den Webseiten sowie per eMail an alle registrierten Interessenten rechtzeitig angekündigt. Nur registrierte Verkäufer können eine Reservierung online durchführen. Genaue Informationen darüber erhalten Sie mit der Registrierung.
 %p= link_to "Zur Registrierung", new_seller_path, icon: :user, type: :primary
@@ -14,12 +15,10 @@
     - @events.each do |event|
       %li
         %h4= event.name
+        %p= l(event.shopping_start)
         %p= event.details
-        %p
-          Plätze:
-          = event.max_sellers
+        %p= "Freie Plätze: #{event.reservations_left}"
 %p
-  %small Hier noch ein paar Impressionen unseres Flohmarkts in der Festhalle Königsbach
-= image_tag "flohmarkt.jpg", width: 300, style: "margin: 5px"
-= image_tag "flohmarkt2.jpg", width: 300, style: "margin: 5px"
-= image_tag "kinderbetreuung.jpg", width: 300, style: "margin: 5px"
+  %small Hier noch ein paar Impressionen unseres Flohmarkts
+- [Settings.home.image].flatten.each do |image|
+  = image_tag image, width: 300, style: "margin: 5px"
