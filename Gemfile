@@ -62,3 +62,4 @@ gem 'squeel' # database query DSL
 gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
 gem 'sorcery'
+gem 'rails_config'
