@@ -338,6 +338,8 @@ de:
           attributes:
             old_password:
               incorrect: nicht korrekt
+            password:
+              no_change: muss sich vom aktuellen Passwort unterscheiden
   pages:
     imprint:
       title: Impressum

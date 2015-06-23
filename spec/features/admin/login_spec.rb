@@ -52,6 +52,20 @@ RSpec.feature 'admin login' do
           expect(page).to have_content 'nicht korrekt'
         end
       end
+
+      context 'when using old password as new password' do
+        let(:new_password) { old_password }
+        it 'can not change password' do
+          expect(page).to have_content 'muss sich vom aktuellen Passwort unterscheiden'
+        end
+      end
+
+      context 'when using old password as new password' do
+        let(:new_password) { old_password }
+        it 'can not change password' do
+          expect(page).to have_content 'muss sich vom aktuellen Passwort unterscheiden'
+        end
+      end
     end
   end
 
