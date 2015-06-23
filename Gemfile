@@ -63,3 +63,5 @@ gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
 gem 'sorcery'
 gem 'rails_config'
+gem 'capistrano-rails'
+gem 'capistrano-rvm'
