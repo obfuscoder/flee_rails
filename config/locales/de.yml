@@ -120,6 +120,8 @@ de:
         title: Anmeldung
       create:
         failure: Anmeldung fehlgeschlagen
+      destroy:
+        success: Erfolgreich abgemeldet
     pages:
       home:
         title: Adminbereich

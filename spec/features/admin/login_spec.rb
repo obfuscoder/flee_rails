@@ -9,10 +9,11 @@ RSpec.feature 'admin login' do
       expect(current_path).to eq admin_path
     end
 
-    xit 'can logout again' do
+    it 'can logout again' do
       click_on 'Abmelden'
       expect(page).to have_content 'Erfolgreich abgemeldet'
-      expect(current_path).to eq home_path
+      expect(current_path).to eq root_path
+      expect(page).not_to have_content 'Abmelden'
     end
   end
 

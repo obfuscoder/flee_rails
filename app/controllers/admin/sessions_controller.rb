@@ -14,6 +14,11 @@ module Admin
       end
     end
 
+    def destroy
+      logout
+      redirect_to root_path, notice: t('.success')
+    end
+
     private
 
     def user_params
