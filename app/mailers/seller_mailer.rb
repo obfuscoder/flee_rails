@@ -1,5 +1,5 @@
 class SellerMailer < ActionMailer::Base
-  default from: 'info@flohmarkt-koenigsbach.de'
+  default from: Settings.mail.from
 
   def registration(seller)
     @seller = seller

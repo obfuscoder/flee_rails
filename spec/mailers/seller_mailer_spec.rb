@@ -16,7 +16,7 @@ RSpec.describe SellerMailer do
     let(:seller) { FactoryGirl.build :seller }
     subject(:mail) { SellerMailer.registration seller }
 
-    its(:from) { is_expected.to eq ['info@flohmarkt-koenigsbach.de'] }
+    its(:from) { is_expected.to eq ['info@flohmarkthelfer.de'] }
     its(:class) { is_expected.to eq ActionMailer::MessageDelivery }
     its(:to) { is_expected.to eq [seller.email] }
     its(:subject) { is_expected.not_to match(/translation missing/) }
