@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :old_password, :password, :password_confirmation, on: :update
   validate :old_password_correct, on: :update
   validate :password_differs_from_old_password, on: :update
+  validate :password_strength, on: :update
 
   private
 
@@ -17,5 +18,16 @@ class User < ActiveRecord::Base
 
   def password_differs_from_old_password
     errors.add(:password, :no_change) if password == old_password
+  end
+
+  def password_strength
+    errors.add(:password, :weak) unless password_strong?(password)
+  end
+
+  def password_strong?(password)
+    password.size >= 5 &&
+      password.match(/[[:digit:]]/) &&
+      password.match(/[[:lower:]]/) &&
+      password.match(/[[:upper:]]/)
   end
 end

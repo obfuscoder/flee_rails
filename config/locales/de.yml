@@ -340,6 +340,9 @@ de:
               incorrect: nicht korrekt
             password:
               no_change: muss sich vom aktuellen Passwort unterscheiden
+              weak: |
+                muss mindestens 5 Zeichen lang sein und mindestens einen Großbuchstaben,
+                einen Kleinbuchstaben und eine Ziffer enthalten.
   pages:
     imprint:
       title: Impressum

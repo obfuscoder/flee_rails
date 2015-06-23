@@ -18,7 +18,7 @@ RSpec.feature 'admin login' do
 
     describe 'change password' do
       let(:old_password) { 'password' }
-      let(:new_password) { 'newpassword' }
+      let(:new_password) { 'N3wP4ssword' }
       let(:password_repeat) { new_password }
       before do
         click_on 'Passwort ändern'
@@ -60,10 +60,10 @@ RSpec.feature 'admin login' do
         end
       end
 
-      context 'when using old password as new password' do
-        let(:new_password) { old_password }
+      context 'when using weak password' do
+        let(:new_password) { 'weakpassword' }
         it 'can not change password' do
-          expect(page).to have_content 'muss sich vom aktuellen Passwort unterscheiden'
+          expect(page).to have_content 'muss mindestens 5 Zeichen lang sein und mindestens'
         end
       end
     end
