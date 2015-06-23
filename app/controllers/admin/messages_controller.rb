@@ -1,42 +1,42 @@
 module Admin
   class MessagesController < AdminController
+    before_filter { @event = Event.find params[:event_id] }
+
     def invitation
-      event = Event.find params[:event_id]
-      sellers = Seller.active.with_mailing.without_reservation_for event
+      sellers = Seller.active.with_mailing.without_reservation_for @event
       sellers.each do |seller|
-        SellerMailer.invitation(seller, event).deliver_later
+        SellerMailer.invitation(seller, @event).deliver_later
       end
-      event.messages.create! category: :invitation
-      redirect_to admin_event_path(event),
-                  notice: t('.success', count: sellers.count, reservation_count: event.reservations.size)
+      @event.messages.create! category: :invitation
+      redirect_to admin_event_path(@event),
+                  notice: t('.success', count: sellers.count, reservation_count: @event.reservations.size)
     end
 
     def reservation_closing
-      event = Event.find params[:event_id]
-      event.reservations.each do |reservation|
-        SellerMailer.reservation_closing(reservation).deliver_later
-      end
-      event.messages.create! category: :reservation_closing
-      redirect_to admin_event_path(event), notice: t('.success', count: event.reservations.count)
+      send_mails_and_redirect
     end
 
     def reservation_closed
-      event = Event.find params[:event_id]
-      event.reservations.each do |reservation|
-        pdf = create_label_document(reservation.items)
-        SellerMailer.reservation_closed(reservation, pdf).deliver_later
-      end
-      event.messages.create! category: :reservation_closed
-      redirect_to admin_event_path(event), notice: t('.success', count: event.reservations.count)
+      send_mails_and_redirect { |reservation| create_label_document(reservation.items) }
     end
 
     def finished
-      event = Event.find params[:event_id]
-      event.reservations.each do |reservation|
-        SellerMailer.finished(reservation).deliver_later
+      send_mails_and_redirect
+    end
+
+    private
+
+    def send_mails_and_redirect
+      action = params[:action]
+      @event.reservations.each do |reservation|
+        if block_given?
+          SellerMailer.send(action, reservation, yield(reservation)).deliver_later
+        else
+          SellerMailer.send(action, reservation).deliver_later
+        end
       end
-      event.messages.create! category: :finished
-      redirect_to admin_event_path(event), notice: t('.success', count: event.reservations.count)
+      @event.messages.create! category: action
+      redirect_to admin_event_path(@event), notice: t('.success', count: @event.reservations.count)
     end
   end
 end
