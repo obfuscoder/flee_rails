@@ -5,24 +5,22 @@ gem 'sqlite3'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer',  platforms: :ruby
-
 gem 'jquery-rails'
 gem 'turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 
-gem 'spring', group: :development
+group :development do
+  gem 'spring'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -63,5 +61,3 @@ gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
 gem 'sorcery'
 gem 'rails_config'
-gem 'capistrano-rails'
-gem 'capistrano-rvm'
