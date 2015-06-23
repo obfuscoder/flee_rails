@@ -29,6 +29,7 @@ de:
         create: Bewertung abschließen
       user:
         create: Anmelden
+        update: Änderungen speichern
   reviews:
     new:
       title: Bewertung
@@ -122,6 +123,11 @@ de:
         failure: Anmeldung fehlgeschlagen
       destroy:
         success: Erfolgreich abgemeldet
+    users:
+      edit:
+        title: Passwort ändern
+      update:
+        success: Passwort wurde geändert
     pages:
       home:
         title: Adminbereich
@@ -303,7 +309,9 @@ de:
         to_improve: Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?
       user:
         email: eMail-Adresse
-        password: Passwort
+        old_password: aktuelles Passwort
+        password: neues Passwort
+        password_confirmation: Passwortwiederholung
     errors:
       models:
         reservation:
@@ -326,6 +334,10 @@ de:
                 Beispiele: 07232/1234567, +49 7232 / 1234567, 072321234567, 07232/1234-567
             zip_code:
               invalid: Die %{attribute} muss aus 5 Ziffern bestehen.
+        user:
+          attributes:
+            old_password:
+              incorrect: nicht korrekt
   pages:
     imprint:
       title: Impressum
@@ -513,7 +525,7 @@ de:
     messages:
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
-      confirmation: stimmt nicht mit der Bestätigung überein
+      confirmation: stimmt nicht überein
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein

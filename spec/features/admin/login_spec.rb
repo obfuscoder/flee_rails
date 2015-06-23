@@ -15,6 +15,44 @@ RSpec.feature 'admin login' do
       expect(current_path).to eq root_path
       expect(page).not_to have_content 'Abmelden'
     end
+
+    describe 'change password' do
+      let(:old_password) { 'password' }
+      let(:new_password) { 'newpassword' }
+      let(:password_repeat) { new_password }
+      before do
+        click_on 'Passwort ändern'
+        fill_in 'aktuelles Passwort', with: old_password
+        fill_in 'neues Passwort', with: new_password
+        fill_in 'Passwortwiederholung', with: password_repeat
+        click_on 'Änderungen speichern'
+      end
+
+      it 'can change password' do
+        expect(page).to have_content 'Passwort wurde geändert'
+      end
+
+      context 'when not repeating the password' do
+        let(:password_repeat) { 'differentpassword' }
+        it 'can not change password' do
+          expect(page).to have_content 'stimmt nicht überein'
+        end
+      end
+
+      context 'when not providing old password' do
+        let(:old_password) { '' }
+        it 'can not change password' do
+          expect(page).to have_content 'muss ausgefüllt werden'
+        end
+      end
+
+      context 'when providing incorrect old password' do
+        let(:old_password) { 'wrongpassword' }
+        it 'can not change password' do
+          expect(page).to have_content 'nicht korrekt'
+        end
+      end
+    end
   end
 
   context 'when using incorrect credentials' do
