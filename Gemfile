@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
 gem 'rails'
-gem 'sqlite3'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'mysql2'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
@@ -37,6 +37,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rubocop'
+  gem 'sqlite3'
 end
 
 gem 'haml-rails'
