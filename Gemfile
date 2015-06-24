@@ -8,6 +8,7 @@ gem 'coffee-rails'
 gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 
@@ -15,15 +16,8 @@ group :development do
   gem 'spring'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-gem 'unicorn'
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 group :test do
   gem 'rspec-rails'
