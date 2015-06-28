@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150622211831) do
     t.integer  "category_id"
     t.string   "description"
     t.string   "size"
-    t.decimal  "price"
+    t.decimal  "price",          precision: 5, scale: 1
     t.integer  "reservation_id"
     t.integer  "number"
     t.string   "code"
@@ -149,11 +149,11 @@ ActiveRecord::Schema.define(version: 20150622211831) do
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true
 
   create_table "users", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email",            null: false
     t.string   "crypted_password"
     t.string   "salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

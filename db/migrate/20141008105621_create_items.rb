@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration
       t.references :category, index: true
       t.string :description
       t.string :size
-      t.decimal :price
+      t.decimal :price, precision: 5, scale: 1
 
       t.references :reservation, index: true
       t.integer :number
