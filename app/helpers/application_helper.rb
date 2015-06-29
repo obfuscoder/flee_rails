@@ -50,4 +50,8 @@ module ApplicationHelper
     @markdown ||= Redcarpet::Markdown.new Redcarpet::Render::HTML
     @markdown.render text
   end
+
+  def brand_settings
+    Settings.brands[request.host] || Settings.brands.default
+  end
 end

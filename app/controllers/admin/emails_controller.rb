@@ -46,7 +46,7 @@ module Admin
 
     def send_mails(selection)
       selection.each do |seller|
-        SellerMailer.custom(seller, @email.subject, @email.body).deliver_later
+        SellerMailer.custom(seller, @email.subject, @email.body, from: brand_settings.mail.from).deliver_later
       end
     end
 

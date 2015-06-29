@@ -1,6 +1,10 @@
 require 'label_document'
 
 class ApplicationController < ActionController::Base
+  before_filter :connect_to_database
+
+  include ApplicationHelper
+
   protect_from_forgery with: :exception
 
   class UnauthorizedError < StandardError; end
@@ -65,8 +69,16 @@ class ApplicationController < ActionController::Base
   def notify_for_available_reservations(event)
     return unless event.reservations.count < event.max_sellers
     Notification.where(event: event).each do |notification|
-      SellerMailer.notification(notification, host: request.host).deliver_later
+      SellerMailer.notification(notification, host: request.host, from: brand_settings.mail.from).deliver_later
       notification.destroy
     end
+  end
+
+  def connect_to_database
+    brand = Settings.hosts.try(:[], request.host)
+    return unless brand
+    database = Settings.brands[brand].database
+    return unless database
+    ActiveRecord::Base.establish_connection(database.to_hash)
   end
 end

@@ -24,7 +24,7 @@
           %span.sr-only Close
         %h4.modal-title#terms-label= t('terms.title')
       .modal-body
-        = markdown(Settings.terms).html_safe
+        = markdown(brand_settings.terms).html_safe
       .modal-footer
         %button.btn.btn-primary(data-dismiss="modal") Schließen
 #privacy.modal.fade(tabindex="-1" role="dialog" aria-labelledby="privacy-label" aria-hidden="true")

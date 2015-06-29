@@ -14,7 +14,7 @@ end
 RSpec.describe SellerMailer do
   describe '#registration' do
     let(:seller) { FactoryGirl.build :seller }
-    subject(:mail) { SellerMailer.registration seller, host: 'www.example.com' }
+    subject(:mail) { SellerMailer.registration seller, host: 'www.example.com', from: 'info@flohmarkthelfer.de' }
 
     its(:from) { is_expected.to eq ['info@flohmarkthelfer.de'] }
     its(:class) { is_expected.to eq ActionMailer::MessageDelivery }

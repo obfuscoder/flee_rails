@@ -82,7 +82,7 @@ class SellersController < ApplicationController
   end
 
   def send_registration_mail(seller)
-    SellerMailer.registration(seller, host: request.host).deliver_later
+    SellerMailer.registration(seller, host: request.host, from: brand_settings.mail.from).deliver_later
   end
 
   def resend_activation_for(email)
