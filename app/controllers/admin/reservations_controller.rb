@@ -20,7 +20,7 @@ module Admin
     end
 
     def destroy
-      Reservation.destroy_all event_id: params[:event_id], id: params[:id]
+      destroy_reservations(Reservation.where(event_id: params[:event_id], id: params[:id]))
       redirect_to admin_event_reservations_path, notice: t('.success')
     end
   end

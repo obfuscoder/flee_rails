@@ -5,7 +5,8 @@ RSpec.feature 'admin event reservations' do
   include_context 'login'
   let(:event) { FactoryGirl.create :event_with_ongoing_reservation, max_sellers: 5 }
   let!(:sellers) { FactoryGirl.create_list :seller, 4, active: true }
-  let!(:reservations) { FactoryGirl.create_list :reservation, 3, event: event }
+  let(:number_of_reservations) { 3 }
+  let!(:reservations) { FactoryGirl.create_list :reservation, number_of_reservations, event: event }
   background do
     click_on 'Termine'
     click_on 'Anzeigen'
@@ -77,6 +78,14 @@ RSpec.feature 'admin event reservations' do
                                                 href: login_seller_url(seller.token, goto: :reserve, event: event)
       end
       expect(Notification.count).to be_zero
+    end
+
+    context 'with more reservations than max sellers' do
+      let(:number_of_reservations) { 10 }
+      scenario 'freeing a reservation does not notify sellers on notification list' do
+        click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
+        expect(Notification.count).not_to be_zero
+      end
     end
   end
 end

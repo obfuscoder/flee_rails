@@ -202,8 +202,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-observers (0.1.2)
-      activemodel (~> 4.0)
     rails_config (0.4.2)
       activesupport (>= 3.0)
     railties (4.2.2)
@@ -337,7 +335,6 @@ DEPENDENCIES
   prawn
   pry-rails
   rails
-  rails-observers
   rails_config
   redcarpet
   rspec-collection_matchers

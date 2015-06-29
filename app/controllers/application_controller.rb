@@ -54,4 +54,19 @@ class ApplicationController < ActionController::Base
   def only_after_event_passed
     redirect_to seller_path, alert: t('.error.event_ongoing') unless @event.shopping_end.past?
   end
+
+  def destroy_reservations(reservations)
+    reservations.each do |reservation|
+      reservation.destroy
+      notify_for_available_reservations(reservation.event)
+    end
+  end
+
+  def notify_for_available_reservations(event)
+    return unless event.reservations.count < event.max_sellers
+    Notification.where(event: event).each do |notification|
+      SellerMailer.notification(notification, host: request.host).deliver_later
+      notification.destroy
+    end
+  end
 end

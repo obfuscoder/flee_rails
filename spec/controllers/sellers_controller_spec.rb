@@ -107,7 +107,7 @@ RSpec.describe SellersController do
 
       it 'sends registration email' do
         mail = double('mail')
-        expect(SellerMailer).to receive(:registration).with(seller).and_return mail
+        expect(SellerMailer).to receive(:registration).with(seller, hash_including(host: request.host)).and_return mail
         expect(mail).to receive(:deliver_later).with no_args
         post_it
       end

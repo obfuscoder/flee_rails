@@ -4,7 +4,7 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
-    Reservation.destroy_all(event_id: params[:event_id], seller: current_seller)
+    destroy_reservations(Reservation.where(event_id: params[:event_id], seller: current_seller))
     redirect_to seller_path, notice: t('.success')
   end
 end

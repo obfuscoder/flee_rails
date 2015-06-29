@@ -41,7 +41,6 @@ group :test, :development do
 end
 
 gem 'haml-rails'
-gem 'rails-observers'
 gem 'maildown'
 gem 'chart-js-rails'
 gem 'simple_form'
