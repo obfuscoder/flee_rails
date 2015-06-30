@@ -1,7 +1,6 @@
 %p
-  - if brand_settings.home.try(:logo).present?
-    - [brand_settings.home.logo].flatten.each do |logo|
-      = image_tag logo
+  - logos.each do |logo|
+    = image_tag logo
 = markdown(brand_settings.home.intro).html_safe if brand_settings.home.try(:intro).present?
 %p Auf diesen Seiten können Sie sich für unsere kommenden Flohmärkte als Verkäufer registrieren. Sie werden dann zeitnah per Mail über den weiteren Ablauf informiert.
 %p Die Anzahl der Verkäufer ist in der Regel begrenzt. Die Reservierung findet ab einem bestimmten Datum vor Beginn des Flohmarkts statt und wird hier auf den Webseiten sowie per eMail an alle registrierten Interessenten rechtzeitig angekündigt. Nur registrierte Verkäufer können eine Reservierung online durchführen. Genaue Informationen darüber erhalten Sie mit der Registrierung.
