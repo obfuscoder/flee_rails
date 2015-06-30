@@ -45,9 +45,9 @@ brands:
       outro: |
         <small>Hier noch ein paar Impressionen unseres Flohmarkts in der Festhalle Königsbach</small>
 
-        <img src="/assets/koenigsbach/images/flohmarkt.jpg" width="300">
-        <img src="/assets/koenigsbach/images/flohmarkt2.jpg" width="300">
-        <img src="/assets/koenigsbach/images/kinderbetreuung.jpg" width="300">
+        ![](koenigsbach/images/flohmarkt.jpg)
+        ![](koenigsbach/images/flohmarkt2.jpg)
+        ![](koenigsbach/images/kinderbetreuung.jpg)
     contact: hilfe@flohmarkt-koenigsbach.de
     imprint:
       address:
@@ -123,11 +123,11 @@ brands:
       logo:
         - ersingen/logo/kita-ersingen.png
       outro: |
-        ![](assets/ersingen/images/flohmarkt-ersingen.jpg)
+        ![](ersingen/images/flohmarkt-ersingen.jpg)
 
         Mit freundlicher Empfehlung
 
-        ![](assets/ersingen/images/raibaersingen.jpg)
+        ![](ersingen/images/raibaersingen.jpg)
     contact: hilfe@flohmarkt-ersingen.de
     imprint:
       address:

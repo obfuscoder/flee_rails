@@ -1,5 +1,5 @@
 module PagesHelper
   def logos
-    Dir["app/assets/images/#{brand_key}/logo/*"].map { |path| "#{brand_key}/logo/#{File.basename(path)}" }
+    [brand_settings.home.try(:logo)].compact.flatten
   end
 end
