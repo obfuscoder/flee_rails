@@ -75,9 +75,7 @@ class ApplicationController < ActionController::Base
   end
 
   def connect_to_database
-    brand = Settings.hosts.try(:[], request.host)
-    return unless brand
-    database = Settings.brands[brand].database
+    database = brand_settings.database
     return unless database
     ActiveRecord::Base.establish_connection(database.to_hash)
   end

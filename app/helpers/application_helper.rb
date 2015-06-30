@@ -52,6 +52,7 @@ module ApplicationHelper
   end
 
   def brand_settings
-    Settings.brands[request.host] || Settings.brands.default
+    brand = Settings.hosts.try(:[], request.host)
+    brand && Settings.brands[brand] || Settings.brands.default
   end
 end

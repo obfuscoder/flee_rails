@@ -22,7 +22,7 @@
           %span(aria-hidden="true")
             &times;
           %span.sr-only Close
-        %h4.modal-title#terms-label= t('terms.title')
+        %h2.modal-title#terms-label= t('terms.title')
       .modal-body
         = markdown(brand_settings.terms).html_safe
       .modal-footer
@@ -35,7 +35,7 @@
           %span(aria-hidden="true")
             &times;
           %span.sr-only Close
-        %h4.modal-title#privacy-label= t('privacy.title')
+        %h2.modal-title#privacy-label= t('privacy.title')
       .modal-body
         = markdown(t('privacy.content')).html_safe
       .modal-footer
