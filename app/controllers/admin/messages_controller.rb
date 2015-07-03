@@ -26,18 +26,22 @@ module Admin
 
     private
 
-    def send_mails_and_redirect
+    def send_mails_and_redirect(&block)
       action = params[:action]
-      @event.reservations.each do |reservation|
-        if block_given?
-          SellerMailer.send(action, reservation, yield(reservation),
-                            host: request.host, from: brand_settings.mail.from).deliver_later
-        else
-          SellerMailer.send(action, reservation, host: request.host, from: brand_settings.mail.from).deliver_later
-        end
-      end
+      options = { host: request.host, from: brand_settings.mail.from }
+      send_mails_to_reservations(action, @event.reservations, options, &block)
       @event.messages.create! category: action
       redirect_to admin_event_path(@event), notice: t('.success', count: @event.reservations.count)
+    end
+
+    def send_mails_to_reservations(type, reservations, options)
+      reservations.each do |reservation|
+        if block_given?
+          SellerMailer.send(type, reservation, yield(reservation), options).deliver_later
+        else
+          SellerMailer.send(type, reservation, options).deliver_later
+        end
+      end
     end
   end
 end

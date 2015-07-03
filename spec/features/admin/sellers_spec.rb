@@ -58,6 +58,7 @@ RSpec.feature 'admin sellers' do
   feature 'show seller' do
     let!(:reservation) { FactoryGirl.create :reservation, seller: seller }
     let!(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
+    let!(:other_items) { FactoryGirl.create_list :item, 2 }
     background do
       find("a[href='#{admin_seller_path(seller)}']", text: 'Anzeigen').click
     end
@@ -81,6 +82,7 @@ RSpec.feature 'admin sellers' do
       end
 
       scenario 'lists all items' do
+        expect(page).to have_link 'Bearbeiten', count: items.count
         items.each do |item|
           expect(page).to have_content item.description
           expect(page).to have_content item.category.name

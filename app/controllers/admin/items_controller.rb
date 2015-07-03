@@ -5,7 +5,7 @@ module Admin
     end
 
     def index
-      @items = Item.all
+      @items = @reservation.items
     end
 
     def new
