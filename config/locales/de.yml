@@ -168,6 +168,8 @@ de:
         title: Verkäufer
         new: Neuer Verkäufer
         items: Artikel
+        delete:
+          confirm: Wollen Sie wirklich den Verkäufer %{seller} löschen?
       new:
         title: Verkäufer anlegen
       edit:
