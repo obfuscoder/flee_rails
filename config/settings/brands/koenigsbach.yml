@@ -82,6 +82,7 @@ brands:
       from: Flohmarkt Königsbach <info@flohmarkt-koenigsbach.de>
     price_precision: 0.1
     commission_rate: 0.2
+    seller_fee: 2.0
 hosts:
   koenigsbach.flohmarkthelfer.de: koenigsbach
   flohmarkt-koenigsbach.de: koenigsbach

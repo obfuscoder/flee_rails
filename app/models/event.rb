@@ -5,9 +5,10 @@ class Event < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate
+  validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate, :seller_fee
   validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
   validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
+  validates :seller_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 10 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
   validates :max_items_per_seller, numericality: { greater_than: 0, only_integer: true }
 
@@ -31,6 +32,11 @@ class Event < ActiveRecord::Base
 
   def reservations_left
     [max_sellers - reservations.count, 0].max
+  end
+
+  def seller_fee=(number)
+    number.gsub!(',', '.') if number.is_a? String
+    self[:seller_fee] = number.try(:to_d)
   end
 
   def to_s

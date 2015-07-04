@@ -81,6 +81,7 @@ brands:
       from: Flohmarkt Friedensgemeinde Weiherfeld-Dammerstock <friedensgemeinde@flohmarkthelfer.de>
     price_precision: 0.5
     commission_rate: 0.25
+    seller_fee: 2.0
 hosts:
   dammerstock.flohmarkthelfer.de: dammerstock
   friedensgemeinde.flohmarkthelfer.de: dammerstock

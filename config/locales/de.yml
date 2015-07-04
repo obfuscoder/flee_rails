@@ -265,6 +265,7 @@ de:
         kind: Typ
         price_precision: Basis für Preisangaben
         commission_rate: Umsatzanteil für Kommission
+        seller_fee: Teilnahmegebühr
       item:
         seller: Verkäufer
         category: Kategorie

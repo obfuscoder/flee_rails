@@ -82,6 +82,7 @@ brands:
       from: Flohmarkt Ersingen <info@flohmarkt-ersingen.de>
     price_precision: 0.1
     commission_rate: 0.2
+    seller_fee: 2.0
 hosts:
   ersingen.test.flohmarkthelfer.de: ersingen
   ersingen.flohmarkthelfer.de: ersingen

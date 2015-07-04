@@ -32,6 +32,11 @@ RSpec.feature 'admin events' do
     expect(find_field('Basis für Preisangaben').value).to eq '0.1'
   end
 
+  scenario 'seller fee prefilled with brand setting' do
+    click_on 'Neuer Termin'
+    expect(find_field('Teilnahmegebühr').value).to eq '2.0'
+  end
+
   scenario 'commission rate defaults to brand setting when creating event' do
     click_on 'Neuer Termin'
     expect(find_field('Umsatzanteil für Kommission').value).to eq '0.2'
@@ -73,6 +78,7 @@ RSpec.feature 'admin events' do
       expect(page).to have_content event.max_sellers
       expect(page).to have_content event.max_items_per_seller
       expect(page).to have_content '20%' # commission rate
+      expect(page).to have_content '2,00 €' # seller fee
     end
 
     scenario 'links to event edit' do
