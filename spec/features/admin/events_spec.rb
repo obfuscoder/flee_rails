@@ -27,6 +27,11 @@ RSpec.feature 'admin events' do
     expect(page).to have_content 'Der Termin wurde erfolgreich hinzugefügt.'
   end
 
+  scenario 'price precision defaults to brand setting when creating event' do
+    click_on 'Neuer Termin'
+    expect(find_field('Basis für Preisangaben').value).to eq '0.1'
+  end
+
   scenario 'delete event' do
     event = events.first
     click_link 'Löschen', href: admin_event_path(event)

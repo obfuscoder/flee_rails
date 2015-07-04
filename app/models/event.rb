@@ -6,7 +6,9 @@ class Event < ActiveRecord::Base
   has_many :messages, dependent: :destroy
 
   validates_presence_of :name
+  validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
+  validates :max_items_per_seller, numericality: { greater_than: 0, only_integer: true }
 
   scope :reservation_started, -> { where { reservation_start <= Time.now } }
   scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }

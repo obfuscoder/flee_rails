@@ -254,6 +254,7 @@ de:
         pickup_start: Artikelabholstart
         pickup_end: Artikelabholende
         kind: Typ
+        price_precision: Basis für Preisangaben
       item:
         seller: Verkäufer
         category: Kategorie
@@ -345,6 +346,10 @@ de:
               weak: |
                 muss mindestens 5 Zeichen lang sein und mindestens einen Großbuchstaben,
                 einen Kleinbuchstaben und eine Ziffer enthalten.
+        item:
+          attributes:
+            price:
+              precision: muss ein Vielfaches von %{precision} sein
   pages:
     imprint:
       title: Impressum

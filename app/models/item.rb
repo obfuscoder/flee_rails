@@ -2,11 +2,14 @@ class Item < ActiveRecord::Base
   belongs_to :category
   belongs_to :reservation
 
+  include ActionView::Helpers::NumberHelper
+
   validates_presence_of :category, :description, :price, :reservation
   validates_uniqueness_of :code, allow_nil: true
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
                      allow_nil: true
+  validate :price_divisable_by_precision
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
@@ -19,6 +22,11 @@ class Item < ActiveRecord::Base
     self.number = reservation.items.with_label.count + 1
     code = format('%02d%03d%03d', reservation.event.id, reservation.number, number)
     self.code = append_checksum(code)
+  end
+
+  def price=(number)
+    number.gsub!(',', '.') if number.is_a? String
+    self[:price] = number.try(:to_d)
   end
 
   private
@@ -35,5 +43,11 @@ class Item < ActiveRecord::Base
 
   def digit_sum(value)
     value.to_s.chars.map(&:to_i).reduce(:+)
+  end
+
+  def price_divisable_by_precision
+    return if reservation.nil? || reservation.event.nil? || price.nil?
+    precision = reservation.event.price_precision
+    errors.add :price, :precision, precision: number_to_currency(precision) if price.remainder(precision).nonzero?
   end
 end

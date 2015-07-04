@@ -42,6 +42,20 @@ RSpec.feature 'Viewing and editing items' do
       expect(page).to have_content "Sie können noch #{reservation.event.max_items_per_seller - 1} Artikel anlegen."
     end
 
+    context 'when event price precision is 50 cent' do
+      before do
+        reservation.event.update price_precision: 0.5
+      end
+      scenario 'create new item' do
+        click_on 'Artikel hinzufügen'
+        select category.name, from: 'Kategorie'
+        fill_in 'Beschreibung', with: 'blaue Jeans'
+        fill_in 'Preis', with: '1,90'
+        click_on 'Speichern'
+        expect(page).to have_content 'muss ein Vielfaches von 0,50 € sein'
+      end
+    end
+
     context 'when items have been created already' do
       let(:item1) { FactoryGirl.create :item, reservation: reservation }
       let(:item2) { FactoryGirl.create :item, reservation: reservation }
