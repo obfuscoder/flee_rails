@@ -5,8 +5,9 @@ class Event < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  validates_presence_of :name
+  validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate
   validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
+  validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
   validates :max_items_per_seller, numericality: { greater_than: 0, only_integer: true }
 

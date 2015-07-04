@@ -5,7 +5,7 @@ task :migrations do
   Dir.glob 'config/settings/brands/*.local.yml' do |file_path|
     settings = YAML.load Pathname.new(file_path).read
     settings['brands'].each do |brand, brand_settings|
-      next if brand_settings["database"].nil? || brand_settings["database"].nil?
+      next if brand_settings['database'].nil? || brand_settings['database'].nil?
       puts "Migrating database for #{brand}"
       Bundler.with_clean_env do
         ENV['DB_NAME'] = brand_settings['database']['database']

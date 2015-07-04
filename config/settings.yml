@@ -36,3 +36,4 @@ brands:
     mail:
       from: Flohmarkthelfer <info@flohmarkthelfer.de>
     price_precision: 0.1
+    commission_rate: 0.2

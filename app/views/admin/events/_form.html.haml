@@ -5,7 +5,8 @@
     = f.input :details
     = f.input :max_sellers
     = f.input :max_items_per_seller
-    = f.input :price_precision
+    = f.input :price_precision, hint: t('.price_precision.hint')
+    = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :shopping_start
     = f.input :shopping_end
     = f.input :reservation_start

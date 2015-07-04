@@ -4,6 +4,8 @@
      :shopping_start, :shopping_end, :handover_start, :handover_end, :pickup_start, :pickup_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
+  %dt= Event.human_attribute_name :commission_rate
+  %dd= number_to_percentage @event.commission_rate*100, precision: 0
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
 = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary

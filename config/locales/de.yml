@@ -148,6 +148,15 @@ de:
       destroy:
         success: Termin gelöscht.
         failure: Termin konnte nicht gelöscht werden.
+      form:
+        price_precision:
+          hint: |
+            Alle Preise dürfen nur ein Vielfaches dieses Werts in € sein.
+            Ebenso werden in der Abrechnung alle Auszahlungsbeträge auf diesen Wert abgerundet.
+        commission_rate:
+          hint: |
+            Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
+            Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes..
     reservations:
       index:
         title: Reservierungen
@@ -255,6 +264,7 @@ de:
         pickup_end: Artikelabholende
         kind: Typ
         price_precision: Basis für Preisangaben
+        commission_rate: Umsatzanteil für Kommission
       item:
         seller: Verkäufer
         category: Kategorie

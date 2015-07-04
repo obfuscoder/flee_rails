@@ -1,4 +1,4 @@
-class AddActiveToSellers < ActiveRecord::Migration
+class AddActiveToSeller < ActiveRecord::Migration
   def change
     add_column :sellers, :active, :boolean
   end

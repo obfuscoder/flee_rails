@@ -76,11 +76,12 @@ brands:
 
       ### Verkaufserlös
 
-      Als Unkostenbeitrag behalten wir **20%** des Erlöses ein, der nach Abzug der Kosten den
+      Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten den
       Kindergärten Regenbogen und Arche Noah zu gleichen Teilen gespendet wird.
     mail:
       from: Flohmarkt Königsbach <info@flohmarkt-koenigsbach.de>
     price_precision: 0.1
+    commission_rate: 0.2
 hosts:
   koenigsbach.flohmarkthelfer.de: koenigsbach
   flohmarkt-koenigsbach.de: koenigsbach

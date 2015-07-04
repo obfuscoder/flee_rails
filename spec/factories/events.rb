@@ -12,6 +12,7 @@ FactoryGirl.define do
     pickup_start { shopping_end + 2.hours }
     pickup_end { pickup_start + 2.hours }
     price_precision 0.1
+    commission_rate 0.2
   end
 
   factory :event_with_ongoing_reservation, parent: :event do
