@@ -6,7 +6,9 @@ set :repo_url, 'https://github.com/obfuscoder/flee_rails.git'
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/secrets.yml',
-                                                 'config/settings/brands/*.local.yml')
+                                                 'config/settings/brands/koenigsbach.local.yml',
+                                                 'config/settings/brands/ersingen.local.yml',
+                                                 'config/settings/brands/dammerstock.local.yml')
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/cache')
 
