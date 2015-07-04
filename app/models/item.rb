@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
                      allow_nil: true
-  validate :price_divisable_by_precision
+  validate :price_divisible_by_precision
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
@@ -45,7 +45,7 @@ class Item < ActiveRecord::Base
     value.to_s.chars.map(&:to_i).reduce(:+)
   end
 
-  def price_divisable_by_precision
+  def price_divisible_by_precision
     return if reservation.nil? || reservation.event.nil? || price.nil?
     precision = reservation.event.price_precision
     errors.add :price, :precision, precision: number_to_currency(precision) if price.remainder(precision).nonzero?
