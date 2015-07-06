@@ -6,7 +6,7 @@
     %th= Seller.human_attribute_name :city
     %th= Seller.human_attribute_name :email
     %th= Seller.human_attribute_name :item_count
-    %th= link_to t('.new'), new_admin_event_reservation_path
+    %th= link_to t('.new'), new_admin_event_reservation_path, type: :primary, icon: :file
   - @reservations.each do |reservation|
     %tr
       %td= reservation.number
@@ -14,4 +14,7 @@
       %td= reservation.seller.city
       %td= reservation.seller.email
       %td= reservation.seller.reservations.joins(:items).count
-      %td= link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete, data: { confirm: t('sure') }
+      %td= link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
+                                                                        type: :warning,
+                                                                        icon: :trash,
+                                                                        data: { confirm: t('sure') }
