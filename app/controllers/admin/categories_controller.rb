@@ -45,7 +45,7 @@ module Admin
     private
 
     def category_params
-      params.require(:category).permit :name
+      params.require(:category).permit :name, :donation_enforced
     end
   end
 end

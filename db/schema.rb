@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706084124) do
+ActiveRecord::Schema.define(version: 20150706102438) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.boolean  "donation_enforced"
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true

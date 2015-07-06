@@ -10,7 +10,7 @@
   %dd= number_to_currency @event.seller_fee
   - if brand_settings.donation_of_unsold_items_enabled
     %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
-    %dd= t(@event.donation_of_unsold_items_enabled?)
+    %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
 
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary

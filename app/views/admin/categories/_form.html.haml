@@ -2,5 +2,6 @@
   = f.error_notification
   .form-inputs
     = f.input :name
+    = f.input :donation_enforced if brand_settings.donation_of_unsold_items_enabled
   .form-actions
     = f.button :submit

@@ -21,8 +21,21 @@ RSpec.feature 'admin categories' do
   scenario 'new category' do
     click_on 'Neue Kategorie'
     fill_in 'Name', with: 'Hosenkleid'
+    expect(page).not_to have_field 'Spendenzwang'
     click_on 'Kategorie erstellen'
     expect(page).to have_content 'Die Kategorie wurde erfolgreich hinzugefügt.'
+  end
+
+  context 'when donation option is enabled' do
+    before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+    scenario 'new category allows enabling donation enforcement and is shown in overview' do
+      click_on 'Neue Kategorie'
+      fill_in 'Name', with: 'Hosenkleid'
+      check 'Spendenzwang'
+      click_on 'Kategorie erstellen'
+      expect(page).to have_content 'Spendenzwang'
+      expect(page).to have_content 'ja'
+    end
   end
 
   scenario 'delete category' do

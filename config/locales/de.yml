@@ -250,6 +250,7 @@ de:
     attributes:
       category:
         name: Name
+        donation_enforced: Spendenzwang
       event:
         name: Name
         details: Details
