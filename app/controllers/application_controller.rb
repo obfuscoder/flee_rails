@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       item.create_code
       item.save!
     end
-    LabelDocument.new(label_decorators(items)).render
+    LabelDocument.new(label_decorators(items), with_donation: true).render
   end
 
   def label_decorators(items)
@@ -39,7 +39,8 @@ class ApplicationController < ActionController::Base
         number: "#{item.reservation.number} - #{item.number}",
         price: view_context.number_to_currency(item.price),
         details: "#{item.category}\n#{item.description}" + (item.size ? "\nGröße: #{item.size}" : ''),
-        code: item.code
+        code: item.code,
+        donation: item.donation
       }
     end
   end

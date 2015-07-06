@@ -38,6 +38,16 @@ RSpec.feature 'labels generation' do
       end
     end
 
+    context 'when donation option is enabled' do
+      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+      context 'when item is being donated' do
+        let(:preparations) { items.first.update donation: true }
+        it 'contains donation label' do
+          expect(strings_from_rendered_pdf).to include 'S'
+        end
+      end
+    end
+
     context 'when selecting a few of the items' do
       let(:selected_items) { items.take 3 }
       let(:unselected_items) { items - selected_items }

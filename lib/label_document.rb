@@ -6,9 +6,10 @@ class LabelDocument < Prawn::Document
   COLS = 3
   ROWS = 6
 
-  def initialize(labels)
+  def initialize(labels, options = {})
     super page_size: 'A4'
     @labels = labels
+    @with_donation = options.extract!(:with_donation).values.first
   end
 
   def render
@@ -17,6 +18,7 @@ class LabelDocument < Prawn::Document
     @labels.each do |label|
       label_cell(cell, label)
       cell = next_cell(cell)
+      start_new_page if cell == [0, 0]
     end
     super
   end
@@ -66,7 +68,20 @@ class LabelDocument < Prawn::Document
   end
 
   def details_cell(label)
-    boxed_text(label[:details], bounds.top - header_line_height, bounds.left, small_line_height * 3, bounds.width)
+    top = bounds.top - header_line_height
+    height = small_line_height * 3
+    if @with_donation && label[:donation]
+      donation_cell(height, top)
+      boxed_text(label[:details], top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
+    else
+      boxed_text(label[:details], top, bounds.left, height, bounds.width)
+    end
+  end
+
+  def donation_cell(height, top)
+    font 'Helvetica', style: :bold, size: 30 do
+      boxed_text('S', top, bounds.left, height, bounds.width / 5)
+    end
   end
 
   def boxed_text(text, top, left, height, width)
@@ -97,20 +112,12 @@ class LabelDocument < Prawn::Document
 
   def next_cell(cell)
     col, row = cell
-    col += 1
-    if col == COLS
-      col = 0
-      row = next_row(row)
-    end
+    col = (col + 1) % COLS
+    row = next_row(row) if col == 0
     [col, row]
   end
 
   def next_row(row)
-    row += 1
-    if row == ROWS
-      row = 0
-      start_new_page
-    end
-    row
+    (row + 1) % ROWS
   end
 end
