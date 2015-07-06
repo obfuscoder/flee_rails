@@ -6,7 +6,8 @@
     %th= Item.human_attribute_name :description
     %th= Item.human_attribute_name :size
     %th= Item.human_attribute_name :price
-    %th= link_to 'Artikel hinzufügen', new_admin_reservation_item_path(@reservation), type: :primary, icon: :file
+    %th= Item.human_attribute_name :code
+    %th
   - @items.each_with_index do |item, index|
     %tr
       %td= index+1
@@ -14,9 +15,5 @@
       %td= item.description
       %td= item.size
       %td= item.price
-      %td
-        - if item.code.nil?
-          = link_to t('edit'), edit_admin_reservation_item_path(@reservation, item), type: :primary, icon: :pencil
-        - else
-          #{item.code}
-        = link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }
+      %td= item.code
+      %td= link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }

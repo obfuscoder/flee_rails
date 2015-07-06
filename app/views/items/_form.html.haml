@@ -1,9 +1,10 @@
 = simple_form_for([@event, @item]) do |f|
   = f.error_notification
   .form-inputs
-    = f.association :category, collection: Category.order(:name)
+    = f.association :category, collection: Category.order(:name).map { |c| [ c.name, c.id, data: { donation_enforced: c.donation_enforced? } ] }, include_blank: false , hint: t('.donation.hint')
     = f.input :description
     = f.input :size
     = f.input :price
+    = f.input :donation if brand_settings.donation_of_unsold_items_enabled
   .form-actions
     = f.button :submit

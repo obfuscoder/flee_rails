@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
+    @item = Item.new donation: brand_settings.donation_of_unsold_items_enabled
   end
 
   def edit
@@ -51,6 +51,13 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:category_id, :description, :size, :price)
+    enforce_donation params.require(:item).permit(:category_id, :description, :size, :price, :donation)
+  end
+
+  def enforce_donation(parameters)
+    return parameters unless brand_settings.donation_of_unsold_items_enabled
+    category = Category.find parameters['category_id']
+    parameters['donation'] = '1' if category.donation_enforced
+    parameters
   end
 end
