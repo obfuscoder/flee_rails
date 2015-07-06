@@ -7,7 +7,8 @@ module Admin
     def new
       @event = Event.new price_precision: brand_settings.price_precision,
                          commission_rate: brand_settings.commission_rate,
-                         seller_fee: brand_settings.seller_fee
+                         seller_fee: brand_settings.seller_fee,
+                         donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled
     end
 
     def create
@@ -49,6 +50,7 @@ module Admin
     def event_params
       params.require(:event).permit :name, :details, :max_sellers, :max_items_per_seller,
                                     :price_precision, :commission_rate, :seller_fee,
+                                    :donation_of_unsold_items_enabled,
                                     :shopping_start, :shopping_end,
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,

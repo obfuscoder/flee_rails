@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704200745) do
+ActiveRecord::Schema.define(version: 20150706084124) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -50,9 +50,10 @@ ActiveRecord::Schema.define(version: 20150704200745) do
     t.datetime "pickup_start"
     t.datetime "pickup_end"
     t.integer  "kind"
-    t.decimal  "price_precision",      precision: 3, scale: 2
-    t.decimal  "commission_rate",      precision: 3, scale: 2
-    t.decimal  "seller_fee",           precision: 3, scale: 2
+    t.decimal  "price_precision",                  precision: 3, scale: 2
+    t.decimal  "commission_rate",                  precision: 3, scale: 2
+    t.decimal  "seller_fee",                       precision: 3, scale: 2
+    t.boolean  "donation_of_unsold_items_enabled"
   end
 
   create_table "items", force: :cascade do |t|

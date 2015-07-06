@@ -82,6 +82,8 @@ brands:
     price_precision: 0.5
     commission_rate: 0.25
     seller_fee: 2.0
+    donation_of_unsold_items_enabled: true
 hosts:
+  dammerstock.localhost: dammerstock
   dammerstock.flohmarkthelfer.de: dammerstock
   friedensgemeinde.flohmarkthelfer.de: dammerstock

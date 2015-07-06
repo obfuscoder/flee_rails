@@ -1,4 +1,6 @@
 de:
+  "true": ja
+  "false": nein
   email_not_found: Es konnte kein Nutzer mit dieser eMail-Adresse gefunden werden. Bitte überprüfen Sie Ihre Eingabe oder registrieren Sie sich neu.
   attributes:
     created_at: Erstellt
@@ -266,6 +268,7 @@ de:
         price_precision: Basis für Preisangaben
         commission_rate: Umsatzanteil für Kommission
         seller_fee: Teilnahmegebühr
+        donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
       item:
         seller: Verkäufer
         category: Kategorie

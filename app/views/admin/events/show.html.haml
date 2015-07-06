@@ -8,6 +8,10 @@
   %dd= number_to_percentage @event.commission_rate*100, precision: 0
   %dt= Event.human_attribute_name :seller_fee
   %dd= number_to_currency @event.seller_fee
+  - if brand_settings.donation_of_unsold_items_enabled
+    %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
+    %dd= t(@event.donation_of_unsold_items_enabled?)
+
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
 = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary

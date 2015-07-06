@@ -37,6 +37,24 @@ RSpec.feature 'admin events' do
     expect(find_field('Teilnahmegebühr').value).to eq '2.0'
   end
 
+  describe 'donation option' do
+    context 'when disabled' do
+      scenario 'donation option is not available when creating event' do
+        click_on 'Neuer Termin'
+        expect(page).not_to have_field 'Spenden nicht verkaufter Artikel aktiviert'
+      end
+    end
+
+    context 'when enabled' do
+      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+
+      scenario 'donation option is preselected when creating event' do
+        click_on 'Neuer Termin'
+        expect(find_field('Spenden nicht verkaufter Artikel aktiviert')).to be_checked
+      end
+    end
+  end
+
   scenario 'commission rate defaults to brand setting when creating event' do
     click_on 'Neuer Termin'
     expect(find_field('Umsatzanteil für Kommission').value).to eq '0.2'
@@ -79,6 +97,14 @@ RSpec.feature 'admin events' do
       expect(page).to have_content event.max_items_per_seller
       expect(page).to have_content '20%' # commission rate
       expect(page).to have_content '2,00 €' # seller fee
+    end
+
+    context 'when donation option is enabled' do
+      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+      it 'shows donation option' do
+        click_on_event
+        expect(page).to have_content 'Spenden nicht verkaufter Artikel aktiviert'
+      end
     end
 
     scenario 'links to event edit' do

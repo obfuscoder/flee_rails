@@ -7,6 +7,7 @@
     = f.input :max_items_per_seller
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :commission_rate, hint: t('.commission_rate.hint')
+    = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled
     = f.input :seller_fee
     = f.input :shopping_start
     = f.input :shopping_end
