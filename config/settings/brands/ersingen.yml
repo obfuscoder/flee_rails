@@ -84,6 +84,7 @@ brands:
     commission_rate: 0.2
     seller_fee: 2.0
     donation_of_unsold_items_enabled: false
+    prefix: 0
 hosts:
   ersingen.localhost: ersingen
   ersingen.test.flohmarkthelfer.de: ersingen

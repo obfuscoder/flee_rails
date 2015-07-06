@@ -84,6 +84,7 @@ brands:
     commission_rate: 0.2
     seller_fee: 2.0
     donation_of_unsold_items_enabled: false
+    prefix:
 hosts:
   koenigsbach.localhost: koenigsbach
   koenigsbach.flohmarkthelfer.de: koenigsbach

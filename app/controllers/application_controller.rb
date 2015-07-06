@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def create_label_document(items)
     items.without_label.each do |item|
-      item.create_code
+      item.create_code prefix: brand_settings.prefix
       item.save!
     end
     LabelDocument.new(label_decorators(items), with_donation: true).render

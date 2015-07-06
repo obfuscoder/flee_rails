@@ -24,4 +24,17 @@ RSpec.describe Item do
       end
     end
   end
+
+  describe '#create_code' do
+    let(:options) { {} }
+    before { subject.create_code options }
+
+    its(:code) { is_expected.to eq '010010012' }
+    its(:number) { is_expected.to eq 1 }
+
+    context 'with prefix option' do
+      let(:options) { { prefix: 'ABC' } }
+      its(:code) { is_expected.to eq 'ABC010010012' }
+    end
+  end
 end

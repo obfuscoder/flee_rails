@@ -13,10 +13,8 @@ RSpec.describe ItemsController do
   end
 
   context 'with code' do
-    before do
-      item.create_code
-      item.save
-    end
+    let(:item) { FactoryGirl.create :item_with_code }
+
     it 'does not allow editing item with label' do
       expect(get :edit, event_id: event.id, id: item.id).to redirect_to event_items_path(event)
     end
