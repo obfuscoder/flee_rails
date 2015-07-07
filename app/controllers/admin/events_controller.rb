@@ -8,7 +8,15 @@ module Admin
       @event = Event.new price_precision: brand_settings.price_precision,
                          commission_rate: brand_settings.commission_rate,
                          seller_fee: brand_settings.seller_fee,
-                         donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled
+                         donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled,
+                         shopping_start: 1.month.from_now,
+                         shopping_end: 1.month.from_now + 2.hours,
+                         reservation_start: 2.weeks.from_now,
+                         reservation_end: 1.month.from_now - 2.days,
+                         handover_start: 1.month.from_now - 1.day,
+                         handover_end: 1.month.from_now - 1.day + 2.hours,
+                         pickup_start: 1.month.from_now + 4.hours,
+                         pickup_end: 1.month.from_now + 6.hours
     end
 
     def create

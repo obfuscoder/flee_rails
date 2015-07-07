@@ -9,14 +9,14 @@
     = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled
     = f.input :seller_fee
-    = f.input :shopping_start
-    = f.input :shopping_end
-    = f.input :reservation_start
-    = f.input :reservation_end
-    = f.input :handover_start
-    = f.input :handover_end
-    = f.input :pickup_start
-    = f.input :pickup_end
+    = f.input :shopping_start, as: :string, input_html: { value: l(@event.shopping_start, format: :short) }
+    = f.input :shopping_end, as: :string, input_html: { value: l(@event.shopping_end, format: :short) }
+    = f.input :reservation_start, as: :string, input_html: { value: l(@event.reservation_start, format: :short) }
+    = f.input :reservation_end, as: :string, input_html: { value: l(@event.reservation_end, format: :short) }
+    = f.input :handover_start, as: :string, input_html: { value: l(@event.handover_start, format: :short) }
+    = f.input :handover_end, as: :string, input_html: { value: l(@event.handover_end, format: :short) }
+    = f.input :pickup_start, as: :string, input_html: { value: l(@event.pickup_start, format: :short) }
+    = f.input :pickup_end, as: :string, input_html: { value: l(@event.pickup_end, format: :short) }
 
   .form-actions
     = f.button :submit

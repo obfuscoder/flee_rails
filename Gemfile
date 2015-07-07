@@ -46,6 +46,8 @@ gem 'chart-js-rails'
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'bootstrap-multiselect-rails'
+gem 'bootstrap3-datetimepicker-rails'
+gem 'momentjs-rails'
 gem 'underscore-rails'
 gem 'awesome_print'
 gem 'redcarpet' # markdown

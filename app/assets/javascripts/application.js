@@ -16,6 +16,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-multiselect
+//= require moment
+//= require moment/de
+//= require bootstrap-datetimepicker
 //= require underscore
 //= require Chart
 //= require_tree .

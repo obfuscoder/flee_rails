@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-multiselect";
+@import 'bootstrap-datetimepicker';
+@import 'events';
 
 .required abbr {
   color: red;

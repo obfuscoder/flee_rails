@@ -488,6 +488,8 @@ de:
     - :month
     - :year
   datetime:
+    formats:
+      default: ! '%d.%m.%Y'
     distance_in_words:
       about_x_hours:
         one: etwa eine Stunde
@@ -623,6 +625,6 @@ de:
     formats:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
-      short: ! '%d. %B, %H:%M Uhr'
+      short: ! '%d.%m.%Y %H:%M'
       time: ! '%H:%M Uhr'
     pm: nachmittags
