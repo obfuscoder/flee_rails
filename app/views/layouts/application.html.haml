@@ -22,10 +22,11 @@
         .navbar-brand= brand_settings.name_html.html_safe
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            - @menu ||= { root_path => "Hauptseite",
-                          pages_contact_path => "Hilfe/Kontakt",
-                          pages_imprint_path => "Impressum",
-                          pages_privacy_path => "Datenschutz" }
+            - @menu ||= { root_path => 'Hauptseite',
+                          pages_contact_path => 'Hilfe/Kontakt',
+                          pages_imprint_path => 'Impressum',
+                          pages_privacy_path => 'Datenschutz',
+                          'http://flohmarkthelfer.de' => 'Ihr Flohmarkt' }
             = render partial: 'layouts/menu_item', collection: @menu.to_a, as: :item
           - if logged_in?
             %ul.nav.navbar-nav.navbar-right

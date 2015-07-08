@@ -1,1 +1,1 @@
-%li{class: ('active' if current_page?(item.first))}= link_to item.last, item.first
+%li{class: ('active' if current_page?(item.first))}= link_to item.last, item.first, target: (item.first.start_with?('http') ? '_blank' : nil)
