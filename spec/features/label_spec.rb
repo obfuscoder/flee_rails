@@ -52,8 +52,7 @@ RSpec.feature 'labels generation' do
       let(:selected_items) { items.take 3 }
       let(:unselected_items) { items - selected_items }
       let(:make_selection) do
-        selected_items.each { |item| find("input[type='checkbox'][value='#{item.id}']").set(true) }
-        unselected_items.each { |item| find("input[type='checkbox'][value='#{item.id}']").set(false) }
+        selected_items.each { |item| select item.to_s, from: 'Artikel' }
       end
 
       it 'generates labels of selected items' do

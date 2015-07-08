@@ -75,6 +75,7 @@ de:
   labels:
     index:
       title: Etiketten drucken
+      item: Artikel
   reservations:
     create: &create_reservation
       success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.

@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :item do
     category
     reservation
-    description 'Description'
+    sequence(:description) { |n| "Description #{n}" }
     price 1.9
 
     factory :item_with_code do

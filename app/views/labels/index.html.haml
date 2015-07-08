@@ -3,7 +3,7 @@
 = simple_form_for(:labels, url: event_labels_path(@event)) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :item, collection: @items, as: :check_boxes, checked: @items.map(&:id)
+    = f.input :item, label: t('.item'), collection: @items, include_hidden: false, selected: @items.map(&:id), input_html: { multiple: true }
   .form-actions
     = f.button :submit
 = link_to t('back'), event_items_path(@event), type: :default
