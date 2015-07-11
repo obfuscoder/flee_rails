@@ -283,6 +283,7 @@ de:
         size: Größe
         price: Preis
         donation: Spende wenn nicht verkauft
+        code: Code
       seller:
         first_name: Vorname
         last_name: Nachname
