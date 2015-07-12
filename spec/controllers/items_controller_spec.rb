@@ -34,19 +34,38 @@ RSpec.describe ItemsController do
   end
 
   describe 'GET index' do
-    let!(:items) { FactoryGirl.create_list :item, 15, reservation: reservation }
-    let(:options) { { event_id: event.id } }
-    let(:action) { get :index, options }
+    let!(:items) { FactoryGirl.create_list :item, 25, reservation: reservation }
+    let(:options) { {} }
+    let(:action) { get :index, options.merge(event_id: event.id) }
+    let(:preparations) {}
 
-    before { action }
+    before do
+      preparations
+      action
+    end
 
     describe '@items' do
       subject { assigns(:items) }
       it { is_expected.to eq items.take 10 }
 
-      context 'when on second page' do
-        let(:options) { { event_id: event.id, page: 2 } }
-        it { is_expected.to eq items.drop 10 }
+      context 'when second page is requested' do
+        let(:options) { { page: 2 } }
+        it { is_expected.to eq items.drop(10).take(10) }
+
+        it 'stores page in session' do
+          expect(session[:item_page]).to eq '2'
+        end
+      end
+
+      context 'when second page is stored in session' do
+        let(:preparations) { session[:item_page] = 2 }
+
+        it { is_expected.to eq items.drop(10).take(10) }
+
+        context 'when third page is requested' do
+          let(:options) { { page: 3 } }
+          it { is_expected.to eq items.drop 20 }
+        end
       end
     end
   end
