@@ -59,6 +59,10 @@ module ApplicationHelper
     Settings.hosts.try(:[], request.host) || 'default'
   end
 
+  def paginate(collection, params = {})
+    will_paginate collection, renderer: BootstrapPagination::Rails, params: params
+  end
+
   class MarkdownWithImageTagRenderer < Redcarpet::Render::HTML
     def image(link, _title, alt_text)
       ActionController::Base.helpers.image_tag link, alt: alt_text

@@ -21,17 +21,18 @@
 
   - @items.each_with_index do |item, index|
     %tr
-      %td= index+1
+      %td= @items.offset + index + 1
       %td= item.category
       %td= item.description
       %td= item.size
-      %td= item.price
+      %td= number_to_currency(item.price)
       %td
         - if item.code.nil?
           = link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
           = link_to t('destroy'), [@event, item], method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
+%p= paginate @items, event_id: @event.id
 - unless @items.empty?
   = link_to 'Etiketten drucken', event_labels_path(@event), type: :primary, icon: :print
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path, type: :default

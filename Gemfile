@@ -31,6 +31,7 @@ group :test do
   gem 'timecop'
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
+  gem 'fuubar'
 end
 
 group :test, :development do
@@ -55,5 +56,6 @@ gem 'validates_email_format_of'
 gem 'squeel' # database query DSL
 gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
+gem 'will_paginate-bootstrap'
 gem 'sorcery'
 gem 'rails_config'

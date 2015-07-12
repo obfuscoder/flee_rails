@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :update, :destroy]
   before_action :set_vars
+  before_action :set_item, only: [:edit, :update, :destroy]
 
   def set_vars
     @seller = current_seller
@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = @reservation.items
+    @items = @reservation.items.page params[:page]
   end
 
   def new
@@ -17,7 +17,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to event_items_path(@event), alert: t('.error.labeled') if @item.code.present?
   end
 
   def create
@@ -48,6 +47,7 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
     fail UnauthorizedError if @item.reservation.seller != current_seller
+    redirect_to event_items_path(@event.id), alert: t('.error.labeled') if @item.code.present?
   end
 
   def item_params

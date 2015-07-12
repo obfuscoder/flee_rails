@@ -61,12 +61,18 @@ de:
       title: Artikel anlegen
     edit:
       title: Artikel bearbeiten
+      error:
+        labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     create:
       success: Artikel wurde gespeichert.
     update:
       success: Artikel wurde aktualisiert.
+      error:
+        labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     destroy:
       success: Artikel wurde gelöscht.
+      error:
+        labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     form:
       donation:
         hint: |
@@ -630,3 +636,6 @@ de:
       short: ! '%d.%m.%Y %H:%M'
       time: ! '%H:%M Uhr'
     pm: nachmittags
+  will_paginate:
+    previous_label: Zurück
+    next_label: Weiter

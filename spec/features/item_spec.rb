@@ -93,21 +93,17 @@ RSpec.feature 'Viewing and editing items' do
     end
 
     context 'when items have been created already' do
-      let(:item1) { FactoryGirl.create :item, reservation: reservation }
-      let(:item2) { FactoryGirl.create :item, reservation: reservation }
-      let(:preparations) { item1 && item2 }
+      let(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
+      let(:item) { items.first }
+      let(:preparations) { items }
 
       scenario 'shows overview of all items' do
-        expect(page).to have_content item1.description
-        expect(page).to have_content item2.description
-        expect(page).to have_content item1.category.name
-        expect(page).to have_content item2.category.name
-        expect(page).to have_content item1.price
-        expect(page).to have_content item2.price
+        expect(page).to have_content item.description
+        expect(page).to have_content item.category.name
+        expect(page).to have_content '1,90 €'
       end
 
       describe 'edit item' do
-        let(:item) { item1 }
         def update_action
           click_link 'Bearbeiten', href: edit_event_item_path(reservation.event, item)
           yield if block_given?
@@ -140,14 +136,14 @@ RSpec.feature 'Viewing and editing items' do
       end
 
       scenario 'delete item' do
-        expect(page).to have_content 'Sie haben aktuell 2 Artikel angelegt.'
-        click_link 'Löschen', href: event_item_path(reservation.event, item1)
+        expect(page).to have_content 'Sie haben aktuell 5 Artikel angelegt.'
+        click_link 'Löschen', href: event_item_path(reservation.event, item)
         expect(page).to have_content 'Artikel wurde gelöscht.'
-        expect(page).to have_content 'Sie haben aktuell 1 Artikel angelegt.'
+        expect(page).to have_content 'Sie haben aktuell 4 Artikel angelegt.'
       end
 
       context 'when item limit has been reached' do
-        let(:preparations) { item1 && item2 && reservation.event.update(max_items_per_seller: 2) }
+        let(:preparations) { items && reservation.event.update(max_items_per_seller: items.count) }
         scenario 'does not allow to create additional items' do
           expect(page).not_to have_link 'Artikel hinzufügen'
           expect(page).to have_content 'Sie können keine weiteren Artikel anlegen.'
