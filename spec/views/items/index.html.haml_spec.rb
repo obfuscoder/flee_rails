@@ -4,7 +4,7 @@ RSpec.describe 'items/index' do
   let(:seller) { FactoryGirl.create :seller }
   let(:reservation) { FactoryGirl.create :reservation, seller: seller }
   before do
-    items = assign :items, FactoryGirl.create_list(:item, 50, reservation: reservation).paginate(page: 2)
+    assign :items, FactoryGirl.create_list(:item, 50, reservation: reservation).paginate(page: 2)
     assign :seller, seller
     assign :event, reservation.event
   end
