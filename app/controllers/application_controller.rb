@@ -2,6 +2,7 @@ require 'label_document'
 
 class ApplicationController < ActionController::Base
   before_filter :connect_to_database
+  before_filter :init_page_parameter
 
   include ApplicationHelper
 
@@ -79,5 +80,10 @@ class ApplicationController < ActionController::Base
     database = brand_settings.database
     return unless database
     ActiveRecord::Base.establish_connection(database.to_hash)
+  end
+
+  def init_page_parameter
+    session_param_name = "#{controller_name}_page"
+    @page = session[session_param_name] = params[:page] || session[session_param_name]
   end
 end

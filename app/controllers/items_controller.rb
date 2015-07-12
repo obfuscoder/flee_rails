@@ -9,9 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    page = params[:page] || session[:item_page]
-    session[:item_page] = page
-    @items = @reservation.items.page page
+    @items = @reservation.items.page @page
   end
 
   def new

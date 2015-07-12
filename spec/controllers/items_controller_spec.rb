@@ -53,12 +53,12 @@ RSpec.describe ItemsController do
         it { is_expected.to eq items.drop(10).take(10) }
 
         it 'stores page in session' do
-          expect(session[:item_page]).to eq '2'
+          expect(session['items_page']).to eq '2'
         end
       end
 
       context 'when second page is stored in session' do
-        let(:preparations) { session[:item_page] = 2 }
+        let(:preparations) { session['items_page'] = 2 }
 
         it { is_expected.to eq items.drop(10).take(10) }
 

@@ -20,3 +20,4 @@
         = link_to t('show'), [:admin, seller], type: :primary, icon: :search
         = link_to t('edit'), edit_admin_seller_path(seller), type: :primary, icon: :pencil
         = link_to t('destroy'), [:admin, seller], method: :delete, type: :warning, icon: :trash, data: { confirm: t('.delete.confirm', seller: seller) }
+%p= paginate @sellers

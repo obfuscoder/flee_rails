@@ -1,7 +1,7 @@
 module Admin
   class SellersController < AdminController
     def index
-      @sellers = Seller.all
+      @sellers = Seller.page @page
     end
 
     def new
