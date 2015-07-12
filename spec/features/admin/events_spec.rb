@@ -145,7 +145,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when reservation phase has passed' do
-        before { Timecop.freeze event.reservation_end + 1.hour }
+        before { Timecop.travel event.reservation_end + 1.hour }
         after { Timecop.return }
         it 'does not allow to send invitation mail' do
           click_on_event
@@ -172,7 +172,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when reservation phase has not started yet' do
-        before { Timecop.freeze event.reservation_start - 1.hour }
+        before { Timecop.travel event.reservation_start - 1.hour }
         after { Timecop.return }
         it 'does not allow to send closing mail' do
           click_on_event
@@ -181,7 +181,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when reservation phase has passed already' do
-        before { Timecop.freeze event.reservation_end + 1.hour }
+        before { Timecop.travel event.reservation_end + 1.hour }
         after { Timecop.return }
         it 'does not allow to send closing mail' do
           click_on_event
@@ -199,7 +199,7 @@ RSpec.feature 'admin events' do
 
       describe 'sending reservation_closed mail' do
         before do
-          Timecop.freeze event.reservation_end + 1.hour do
+          Timecop.travel event.reservation_end + 1.hour do
             click_on_event
             click_on 'Bearbeitungsabschlussmail verschicken'
             expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
@@ -236,7 +236,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when reservation end was not reached yet' do
-        before { Timecop.freeze event.reservation_end - 1.hour }
+        before { Timecop.travel event.reservation_end - 1.hour }
         after { Timecop.return }
         it 'does not allow to send closed mail' do
           click_on_event
@@ -261,7 +261,7 @@ RSpec.feature 'admin events' do
 
         context 'when event has passed' do
           before do
-            Timecop.freeze event.shopping_end + 1.hour
+            Timecop.travel event.shopping_end + 1.hour
             click_on_event
             click_on 'Abschlussmail verschicken'
           end

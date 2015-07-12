@@ -17,6 +17,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
+  gem 'web-console'
 end
 
 group :test do
@@ -32,6 +33,8 @@ group :test do
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
   gem 'fuubar'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :test, :development do

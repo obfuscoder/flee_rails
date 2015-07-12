@@ -50,7 +50,7 @@ RSpec.feature 'admin event reservations' do
     end
 
     context 'when reservation period has not started yet' do
-      before { Timecop.freeze event.reservation_start - 1.hour }
+      before { Timecop.travel event.reservation_start - 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'create reservations for selected sellers' do

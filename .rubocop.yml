@@ -3,6 +3,7 @@ AllCops:
     - 'db/**/*'
     - 'bin/*'
     - 'config/initializers/*'
+    - 'spec/features/screenshots.rb'
 Metrics/LineLength:
   Max: 120
 Style/Documentation:

@@ -109,7 +109,7 @@ RSpec.describe 'sellers/show' do
 
     context 'with event date passed' do
       let(:reservation) { FactoryGirl.create :reservation }
-      let(:preparations) { Timecop.freeze reservation.event.shopping_end + 1.hour }
+      let(:preparations) { Timecop.travel reservation.event.shopping_end + 1.hour }
       after { Timecop.return }
 
       it 'does not show reservation end date' do

@@ -51,14 +51,14 @@ RSpec.feature 'Event results' do
 
   context 'without reservation' do
     context 'when event has passed' do
-      before { Timecop.freeze event.shopping_end + 1.hour }
+      before { Timecop.travel event.shopping_end + 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'
     end
 
     context 'when event is ongoing' do
-      before { Timecop.freeze event.shopping_end - 1.hour }
+      before { Timecop.travel event.shopping_end - 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'
@@ -71,7 +71,7 @@ RSpec.feature 'Event results' do
       FactoryGirl.create :reservation, event: event, seller: seller
     end
     context 'when event has passed' do
-      before { Timecop.freeze event.shopping_end + 1.hour }
+      before { Timecop.travel event.shopping_end + 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'an allowed action'
@@ -84,7 +84,7 @@ RSpec.feature 'Event results' do
     end
 
     context 'when event is ongoing' do
-      before { Timecop.freeze event.shopping_end - 1.hour }
+      before { Timecop.travel event.shopping_end - 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'
