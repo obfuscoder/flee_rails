@@ -1,7 +1,7 @@
 module Admin
   class EventsController < AdminController
     def index
-      @events = Event.all
+      @events = Event.page(@page).order(column_order)
     end
 
     def new

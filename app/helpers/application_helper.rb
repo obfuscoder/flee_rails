@@ -69,19 +69,14 @@ module ApplicationHelper
     end
   end
 
-  def order_column
-    params[:sort] || 'name'
-  end
-
-  def order_direction
-    params[:dir] || 'asc'
-  end
-
-  def sort_link_to(model_class, attribute)
-    link_options = { sort: attribute, dir: order_column == attribute.to_s && order_direction == 'asc' ? 'desc' : 'asc' }
+  def sort_link_to(model_class, attribute, text = nil)
+    text ||= model_class.human_attribute_name(attribute)
+    attribute_name = attribute.to_s
+    attribute_name = "#{model_class.table_name}.#{attribute}" if controller_name != model_class.table_name
+    link_options = { sort: attribute_name, dir: @sort == attribute_name && @dir == 'asc' ? 'desc' : 'asc' }
     order_to_icon = { 'asc' => 'bottom', 'desc' => 'top' }
-    icon = order_column == attribute.to_s ? order_to_icon[order_direction] : nil
+    icon = @sort == attribute_name ? order_to_icon[@dir] : nil
     span = icon ? (tag 'span', class: "glyphicon glyphicon-triangle-#{icon}") : ''
-    link_to model_class.human_attribute_name(attribute).html_safe + span.html_safe, link_options
+    link_to text.html_safe + span.html_safe, link_options
   end
 end

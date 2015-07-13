@@ -2,16 +2,17 @@
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
-    %th= Category.human_attribute_name :name
+    %th= sort_link_to Category, :name
     %th= Category.human_attribute_name :donation_enforced
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
 
   - @categories.each_with_index do |category, index|
     %tr
-      %td= index+1
+      %td= @categories.offset + index + 1
       %td= category.name
       %td= t(category.donation_enforced?.to_s)
       %td
         = link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil
         = link_to t('destroy'), [:admin, category], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }
+%p= paginate @categories

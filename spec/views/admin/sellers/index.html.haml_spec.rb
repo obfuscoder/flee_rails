@@ -4,16 +4,13 @@ RSpec.describe 'admin/sellers/index' do
   let(:sellers) { FactoryGirl.create_list :seller, 25 }
   before do
     assign :sellers, sellers.paginate
-    render
   end
 
   it_behaves_like 'a standard view'
 
-  it 'allows to sort by email address' do
-    expect(rendered).to have_link 'eMail-Adresse', href: admin_sellers_path(sort: :email, dir: :asc)
-  end
-
-  it 'allows to sort by name' do
-    expect(rendered).to have_link 'Name', href: admin_sellers_path(sort: :name, dir: :desc)
+  it 'has column sort links' do
+    expect_any_instance_of(ApplicationHelper).to receive(:sort_link_to).with(Seller, :name)
+    expect_any_instance_of(ApplicationHelper).to receive(:sort_link_to).with(Seller, :email)
+    render
   end
 end

@@ -2,15 +2,15 @@
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
-    %th= Event.human_attribute_name :name
-    %th= Event.human_attribute_name :shopping_start
-    %th= Event.human_attribute_name :reservation_start
+    %th= sort_link_to Event, :name
+    %th= sort_link_to Event, :shopping_start
+    %th= sort_link_to Event, :reservation_start
     %th= link_to t('.new'), new_admin_event_path, type: :primary, icon: :file
 
 
   - @events.each_with_index do |event, index|
     %tr
-      %td= index+1
+      %td= @events.offset + index + 1
       %td= event.name
       %td= l(event.shopping_start)
       %td= l(event.reservation_start)
@@ -18,3 +18,4 @@
         = link_to t('show'), [:admin, event], type: :primary, icon: :search
         = link_to t('edit'), edit_admin_event_path(event), type: :primary, icon: :pencil
         = link_to t('destroy'), [:admin, event], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }
+%p= paginate @events

@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = @reservation.items.page @page
+    @items = @reservation.items.page(@page).joins(:category).order(column_order)
   end
 
   def new

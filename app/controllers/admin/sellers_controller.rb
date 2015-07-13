@@ -49,13 +49,9 @@ module Admin
     end
 
     def column_order
-      column_name = order_column
-      direction = order_direction
-      if column_name == 'name'
-        { first_name: direction, last_name: direction }
-      else
-        { column_name => direction }
-      end
+      result = super
+      result = { first_name: @dir, last_name: @dir } if result.keys.first == 'name'
+      result
     end
   end
 end

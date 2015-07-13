@@ -1,10 +1,10 @@
 - content_for :title, t('.title')
 %table.table.table-condensed.table-hover.table-striped
   %tr
-    %th= Reservation.human_attribute_name :number
-    %th= Seller.human_attribute_name :name
-    %th= Seller.human_attribute_name :city
-    %th= Seller.human_attribute_name :email
+    %th= sort_link_to Reservation, :number
+    %th= sort_link_to Seller, :name
+    %th= sort_link_to Seller, :city
+    %th= sort_link_to Seller, :email
     %th= Seller.human_attribute_name :item_count
     %th= link_to t('.new'), new_admin_event_reservation_path, type: :primary, icon: :file
   - @reservations.each do |reservation|
@@ -18,3 +18,4 @@
                                                                         type: :warning,
                                                                         icon: :trash,
                                                                         data: { confirm: t('sure') }
+%p= paginate @reservations, event_id: @event.id

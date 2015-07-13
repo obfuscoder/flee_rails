@@ -3,6 +3,7 @@ require 'label_document'
 class ApplicationController < ActionController::Base
   before_filter :connect_to_database
   before_filter :init_page_parameter
+  before_filter :init_sort_parameter
 
   include ApplicationHelper
 
@@ -83,7 +84,24 @@ class ApplicationController < ActionController::Base
   end
 
   def init_page_parameter
-    session_param_name = "#{controller_name}_page"
-    @page = session[session_param_name] = params[:page] || session[session_param_name]
+    init_query_session_parameter :page, 1
+  end
+
+  def init_sort_parameter
+    init_query_session_parameter :sort, 'id'
+    init_query_session_parameter :dir, 'asc'
+  end
+
+  def init_query_session_parameter(parameter, default = nil)
+    session_param_name = "#{controller_name}_#{parameter}"
+    session[session_param_name] = params[parameter] || session[session_param_name] || default
+    instance_variable_set "@#{parameter}", session[session_param_name]
+  end
+
+  def column_order
+    column_name = @sort
+    direction = @dir
+    return "#{column_name} #{direction}" if column_name.include? '.'
+    { column_name => direction }
   end
 end

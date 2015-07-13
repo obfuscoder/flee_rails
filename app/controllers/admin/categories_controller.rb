@@ -1,7 +1,7 @@
 module Admin
   class CategoriesController < AdminController
     def index
-      @categories = Category.all
+      @categories = Category.page(@page).order(column_order)
     end
 
     def new
