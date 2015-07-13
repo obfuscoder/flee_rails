@@ -68,4 +68,20 @@ module ApplicationHelper
       ActionController::Base.helpers.image_tag link, alt: alt_text
     end
   end
+
+  def order_column
+    params[:sort] || 'name'
+  end
+
+  def order_direction
+    params[:dir] || 'asc'
+  end
+
+  def sort_link_to(model_class, attribute)
+    link_options = { sort: attribute, dir: order_column == attribute.to_s && order_direction == 'asc' ? 'desc' : 'asc' }
+    order_to_icon = { 'asc' => 'bottom', 'desc' => 'top' }
+    icon = order_column == attribute.to_s ? order_to_icon[order_direction] : nil
+    span = icon ? (tag 'span', class: "glyphicon glyphicon-triangle-#{icon}") : ''
+    link_to model_class.human_attribute_name(attribute).html_safe + span.html_safe, link_options
+  end
 end
