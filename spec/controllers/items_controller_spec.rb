@@ -77,7 +77,7 @@ RSpec.describe ItemsController do
   end
 
   describe 'PUT update' do
-    let(:action) { post :update, event_id: event.id, id: item.id, item: { description: item.description } }
+    let(:action) { put :update, event_id: event.id, id: item.id, item: { description: item.description } }
     it_behaves_like 'obey item code'
     it_behaves_like 'obey ownership'
   end

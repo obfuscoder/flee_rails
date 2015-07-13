@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'pages/home.html.haml' do
-  let(:events) { [FactoryGirl.create(:event), FactoryGirl.create(:event)] }
+  let(:event) { FactoryGirl.create :event, confirmed: false }
+  let(:events) { [event] }
   before do
-    assign(:events, events)
+    assign :events, events
     render
   end
 
@@ -19,9 +20,25 @@ RSpec.describe 'pages/home.html.haml' do
     assert_select 'a[href=?]', resend_activation_seller_path
   end
 
-  it 'lists the events' do
-    assert_select 'ul>li>h4', events.first.name
-    assert_select 'ul>li>h4', events.last.name
+  describe 'event listing' do
+    it 'lists the events' do
+      assert_select 'ul>li>h4', event.name
+    end
+
+    context 'when event is not confirmed' do
+      it 'does only show month and year' do
+        expect(rendered).not_to have_text l(event.shopping_start)
+        expect(rendered).to have_text l(event.shopping_start, format: :unconfirmed)
+      end
+    end
+
+    context 'when event is confirmed' do
+      let(:event) { FactoryGirl.create :event, confirmed: true }
+      it 'does show reservation start' do
+        expect(rendered).to have_text l(event.shopping_start)
+        expect(rendered).to have_text 'Reservierungsstart', count: 1
+      end
+    end
   end
 
   context 'without events' do

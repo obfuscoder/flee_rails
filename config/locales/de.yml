@@ -268,7 +268,7 @@ de:
         details: Details
         max_sellers: maximale Anzahl Verkäufer
         max_items_per_seller: maximale Anzahl Artikel je Verkäufer
-        confirmed: steht fest
+        confirmed: Termin steht fest
         shopping_start: Verkaufsstart
         shopping_end: Verkaufsende
         reservation_start: Reservierungsstart
@@ -634,6 +634,7 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d.%m.%Y %H:%M'
+      unconfirmed: ! '%B %Y'
       time: ! '%H:%M Uhr'
     pm: nachmittags
   will_paginate:

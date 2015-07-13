@@ -9,6 +9,7 @@
     = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled
     = f.input :seller_fee
+    = f.input :confirmed
     = f.input :shopping_start, as: :string, input_html: { value: l(@event.shopping_start, format: :short) }
     = f.input :shopping_end, as: :string, input_html: { value: l(@event.shopping_end, format: :short) }
     = f.input :reservation_start, as: :string, input_html: { value: l(@event.reservation_start, format: :short) }
