@@ -30,7 +30,7 @@
             = render partial: 'layouts/menu_item', collection: @menu.to_a, as: :item
           - if logged_in?
             %ul.nav.navbar-nav.navbar-right
-              %li.dropdown
+              %li.dropdown#admin-info
                 %a.dropdown-toggle(data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
                   Angemeldet als #{current_user.email}
                   %span.caret

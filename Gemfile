@@ -42,6 +42,7 @@ group :test, :development do
   gem 'pry-rails'
   gem 'rubocop'
   gem 'sqlite3'
+  gem 'faker'
 end
 
 gem 'haml-rails'

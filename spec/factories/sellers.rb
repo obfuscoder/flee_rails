@@ -1,14 +1,13 @@
 FactoryGirl.define do
   factory :seller do
-    first_name 'Firstname'
-    last_name 'Lastname'
-    street 'Street'
-    zip_code '12345'
-    city 'City'
-    phone '0815/4711'
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    street { Faker::Address.street_address }
+    zip_code { Faker::Address.zip }
+    city { Faker::Address.city }
+    phone { Faker::PhoneNumber.phone_number }
     mailing true
-
-    sequence(:email) { |n| "email#{n}@example.com" }
+    email { Faker::Internet.email }
     sequence(:token) { |n| "token#{n}" }
   end
 end
