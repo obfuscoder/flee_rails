@@ -15,6 +15,6 @@ RSpec.describe 'sellers/create' do
     expect(rendered).to match(/#{@seller.zip_code}/)
     expect(rendered).to match(/#{@seller.city}/)
     expect(rendered).to match(/#{@seller.email}/)
-    expect(rendered).to match(/#{@seller.phone}/)
+    expect(rendered).to have_content @seller.phone
   end
 end

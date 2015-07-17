@@ -10,5 +10,11 @@ FactoryGirl.define do
         item.create_code
       end
     end
+
+    factory :random_item do
+      created_at { Faker::Time.between 10.days.ago, Time.now }
+      description { Faker::Lorem.words(4).join(' ') }
+      price { Faker::Number.decimal 1, 1 }
+    end
   end
 end

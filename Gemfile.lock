@@ -87,6 +87,7 @@ GEM
       railties (> 3.1)
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -184,6 +185,11 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    poltergeist (1.6.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     powerpack (0.1.1)
@@ -230,6 +236,7 @@ GEM
     rdoc (4.2.0)
     redcarpet (3.3.2)
     ref (2.0.0)
+    rmagick (2.15.2)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -338,6 +345,9 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.2)
+    websocket-driver (0.6.1)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
@@ -372,11 +382,13 @@ DEPENDENCIES
   momentjs-rails
   mysql2
   pdf-inspector
+  poltergeist
   prawn
   pry-rails
   rails
   rails_config
   redcarpet
+  rmagick
   rspec-collection_matchers
   rspec-its
   rspec-rails

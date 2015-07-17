@@ -27,7 +27,7 @@ RSpec.describe 'sellers/show' do
     expect(rendered).to match(/#{seller.zip_code}/)
     expect(rendered).to match(/#{seller.city}/)
     expect(rendered).to match(/#{seller.email}/)
-    expect(rendered).to match(/#{seller.phone}/)
+    expect(rendered).to have_content seller.phone
   end
 
   it 'links to edit_seller_path' do

@@ -6,7 +6,7 @@ RSpec.shared_examples 'a mail body part' do
   it { is_expected.to match(/#{seller.street}/) }
   it { is_expected.to match(/#{seller.zip_code}/) }
   it { is_expected.to match(/#{seller.city}/) }
-  it { is_expected.to match(/#{seller.phone}/) }
+  it { is_expected.to have_content seller.phone }
   it { is_expected.to match(/#{seller.email}/) }
   it { is_expected.to match(/#{seller.token}/) }
 end

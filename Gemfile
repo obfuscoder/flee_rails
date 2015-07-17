@@ -35,6 +35,8 @@ group :test do
   gem 'fuubar'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'poltergeist'
+  gem 'rmagick'
 end
 
 group :test, :development do

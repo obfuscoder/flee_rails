@@ -1,10 +1,13 @@
 require 'rails_helper'
 require 'features/admin/login'
+require 'rmagick'
 
 RSpec.describe 'Screenshots', js: true do
   def capture(name)
     sleep 1
-    save_screenshot "screenshots/#{name}.png"
+    file_path = "screenshots/#{name}.png"
+    save_screenshot file_path
+    puts "Captured #{file_path}"
   end
 
   def create_item(options)
@@ -19,7 +22,7 @@ RSpec.describe 'Screenshots', js: true do
 
   it 'creates screenshots' do
     admin = FactoryGirl.create :admin, email: 'admin@example.com'
-    sellers = FactoryGirl.create_list :seller, 30, active: true
+    sellers = FactoryGirl.create_list :random_seller, 30, active: true
 
     visit admin_path
     fill_in 'eMail-Adresse', with: admin.email
@@ -27,14 +30,6 @@ RSpec.describe 'Screenshots', js: true do
     capture :admin_login
 
     click_on 'Anmelden'
-    capture :admin_home
-
-    find('#admin-info > a').click
-    capture :admin_info
-
-    click_on 'Passwort ändern'
-    capture :admin_change_password
-
     click_on 'Termine'
     capture :admin_events
 
@@ -43,12 +38,13 @@ RSpec.describe 'Screenshots', js: true do
     fill_in 'Details', with: 'Einlass für Schwangere mit Mutterpass (max. 1 Begleitperson) eine halbe Stunde vorher'
     fill_in 'maximale Anzahl Verkäufer', with: 100
     fill_in 'maximale Anzahl Artikel je Verkäufer', with: 50
-    fill_in 'Reservierungsstart', with: I18n.localize(2.days.ago)
+    fill_in 'Reservierungsstart', with: I18n.localize(2.days.ago, format: :short)
     find('#event_shopping_start').click
     capture :admin_event_new
 
     click_on 'Termin erstellen'
     capture :admin_event_created
+    event = Event.last
 
     click_on 'Anzeigen'
     capture :admin_event_show
@@ -135,9 +131,9 @@ END
     click_on 'Registrieren'
     capture :registration_done
 
-    token = Seller.find_by_email(email).token
+    seller = Seller.find_by_email(email)
 
-    visit login_seller_path(token)
+    visit login_seller_path(seller.token)
     capture :seller_home
 
     click_on 'Stammdaten bearbeiten'
@@ -147,6 +143,8 @@ END
     click_on 'einen Verkäuferplatz reservieren'
     capture :seller_reservation_created
 
+    reservation = Reservation.last
+
     click_on 'Artikel bearbeiten'
     capture :seller_items
 
@@ -155,22 +153,49 @@ END
     end
     capture :seller_item_created
 
-    create_item category: 'Hose', description: 'blaue Jeans', size: 98, price: '2,50'
-    create_item category: 'Jacke', description: 'lila mit Innentaschen', size: 58, price: '1,50'
-    create_item category: 'Spielzeug', description: 'Holzklötze', size: '', price: '9,00'
-    create_item category: 'Schuhe', description: 'Gummistiefel weiß', size: 18, price: '2,50'
-    create_item category: 'Hose', description: 'grün', size: 98, price: '2,50'
-    create_item category: 'Jacke', description: 'hellblau', size: 58, price: '1,50'
-    create_item category: 'Spielzeug', description: 'Trommel', size: '', price: '9,00'
-    create_item category: 'Schuhe', description: 'Stiefel', size: 18, price: '2,50'
-    create_item category: 'Hose', description: 'Schlafhose', size: 98, price: '2,50'
-    create_item category: 'Jacke', description: 'beige', size: 58, price: '1,50'
-    create_item category: 'Spielzeug', description: 'Küche', size: '', price: '9,00'
-    create_item category: 'Schuhe', description: 'Sandalen', size: 18, price: '2,50'
+    Category.all.each do |category|
+      FactoryGirl.create_list :random_item, 3, category: category, reservation: reservation
+    end
+    visit event_items_path(event)
     capture :seller_items_created
 
     click_on 'Etiketten drucken'
-    click_on '13 ausgewählt'
+    click_on 'ausgewählt'
     capture :seller_items_print
+
+    event.update shopping_end: 1.hour.ago
+
+    visit seller_path
+    capture :seller_home_with_event_finished
+
+    click_on 'Flohmarkt bewerten'
+    within('.review_registration') { choose '2' }
+    within('.review_total') { choose '3' }
+    choose 'Zeitungsanzeige'
+    choose 'Ja'
+    fill_in 'Welche Dinge haben Ihnen nicht gefallen', with: 'Mehr Farben'
+
+    capture :seller_review
+    click_on 'Bewertung abschließen'
+
+    event.reservations.take(10).each do |reservation|
+      FactoryGirl.create :random_review, event: reservation.event, seller: reservation.seller
+    end
+
+    visit admin_path
+    fill_in 'eMail-Adresse', with: admin.email
+    fill_in 'Passwort', with: 'password'
+    click_on 'Anmelden'
+    sleep 3
+    capture :admin_home
+
+    find('#admin-info > a').click
+    capture :admin_info
+
+    click_on 'Passwort ändern'
+    capture :admin_change_password
+
+    visit admin_event_reviews_path(event)
+    capture :admin_reviews
   end
 end
