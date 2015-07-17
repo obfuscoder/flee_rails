@@ -3,7 +3,7 @@ brands:
     name: Flohmarkt Friedensgemeinde
     name_html: Flohmarkt Friedensgemeinde
     home:
-      logo:
+      logo: dammerstock/logo/friedenskirche.png
       outro: |
         <small>Hier noch ein paar Impressionen unseres Flohmarkts</small>
 
@@ -87,4 +87,6 @@ brands:
 hosts:
   dammerstock.localhost: dammerstock
   dammerstock.flohmarkthelfer.de: dammerstock
+  www.dammerstock.flohmarkthelfer.de: dammerstock
   friedensgemeinde.flohmarkthelfer.de: dammerstock
+  www.friedensgemeinde.flohmarkthelfer.de: dammerstock
