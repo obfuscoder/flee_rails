@@ -50,4 +50,6 @@ Rails.application.routes.draw do
     post 'login', controller: :sessions, action: :create
     get 'logout', controller: :sessions, action: :destroy
   end
+
+  get '/pages/my_basar', to: redirect("http://flohmarkthelfer.de")
 end
