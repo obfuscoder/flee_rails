@@ -4,10 +4,12 @@
      :shopping_start, :shopping_end, :handover_start, :handover_end, :pickup_start, :pickup_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
-  %dt= Event.human_attribute_name :commission_rate
-  %dd= number_to_percentage @event.commission_rate*100, precision: 0
-  %dt= Event.human_attribute_name :seller_fee
-  %dd= number_to_currency @event.seller_fee
+  - if @event.commission_rate.present?
+    %dt= Event.human_attribute_name :commission_rate
+    %dd= number_to_percentage @event.commission_rate*100, precision: 0
+  - if @event.seller_fee.present?
+    %dt= Event.human_attribute_name :seller_fee
+    %dd= number_to_currency @event.seller_fee
   - if brand_settings.donation_of_unsold_items_enabled
     %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
     %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
