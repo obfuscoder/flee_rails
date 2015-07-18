@@ -16,4 +16,4 @@
       %td= item.size
       %td= number_to_currency(item.price)
       %td= item.code
-      %td= link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }
+      %td= icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }

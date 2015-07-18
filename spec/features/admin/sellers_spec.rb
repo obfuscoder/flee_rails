@@ -34,13 +34,13 @@ RSpec.feature 'admin sellers' do
   end
 
   scenario 'delete seller' do
-    find("a[href='#{admin_seller_path(seller)}']", text: 'Löschen').click
+    click_link 'Löschen', href: admin_seller_path(seller)
     expect(page).to have_content 'Verkäufer gelöscht.'
   end
 
   feature 'edit seller' do
     background do
-      find("a[href='#{edit_admin_seller_path(seller)}']", text: 'Bearbeiten').click
+      click_link 'Bearbeiten', href: edit_admin_seller_path(seller)
     end
 
     scenario 'changing seller information' do
@@ -60,7 +60,7 @@ RSpec.feature 'admin sellers' do
     let!(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
     let!(:other_items) { FactoryGirl.create_list :item, 2 }
     background do
-      find("a[href='#{admin_seller_path(seller)}']", text: 'Anzeigen').click
+      click_link 'Anzeigen', href: admin_seller_path(seller)
     end
 
     scenario 'shows details about the seller' do
@@ -78,7 +78,7 @@ RSpec.feature 'admin sellers' do
       let(:preparation) {}
       background do
         preparation
-        find("a[href='#{admin_reservation_items_path(reservation)}']", text: 'Artikel').click
+        click_link 'Artikel', href: admin_reservation_items_path(reservation)
       end
 
       scenario 'lists all items' do
@@ -100,7 +100,7 @@ RSpec.feature 'admin sellers' do
       end
 
       scenario 'delete item' do
-        find("a[href='#{admin_reservation_item_path(reservation, item)}']", text: 'Löschen').click
+        click_link 'Löschen', href: admin_reservation_item_path(reservation, item)
         expect(page).not_to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
         expect(page).to have_content 'Artikel gelöscht.'
       end

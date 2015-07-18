@@ -14,8 +14,8 @@
       %td= reservation.seller.city
       %td= reservation.seller.email
       %td= reservation.seller.reservations.joins(:items).count
-      %td= link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
-                                                                        type: :warning,
-                                                                        icon: :trash,
-                                                                        data: { confirm: t('sure') }
+      %td= icon_link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
+                                                                                type: :danger,
+                                                                                icon: :trash,
+                                                                                data: { confirm: t('sure') }
 %p= paginate @reservations, event_id: @event.id

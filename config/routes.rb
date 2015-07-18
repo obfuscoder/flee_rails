@@ -52,5 +52,5 @@ Rails.application.routes.draw do
     get 'logout', controller: :sessions, action: :destroy
   end
 
-  get '/pages/my_basar', to: redirect("http://flohmarkthelfer.de")
+  get '/pages/my_basar', to: redirect('http://flohmarkthelfer.de')
 end

@@ -2,13 +2,13 @@ module Admin
   class AdminController < ApplicationController
     before_filter :require_login
     before_filter do
-      @menu = {
-        admin_path => 'Adminbereich',
-        admin_events_path => 'Termine',
-        admin_sellers_path => 'Verkäufer',
-        admin_categories_path => 'Kategorien',
-        admin_emails_path => 'Mails'
-      }
+      @menu = [
+        { link: admin_path, title: 'Adminbereich', icon: :home },
+        { link: admin_events_path, title: 'Termine', icon: :calendar },
+        { link: admin_sellers_path, title: 'Verkäufer', icon: :user },
+        { link: admin_categories_path, title: 'Kategorien', icon: :align_justify },
+        { link: admin_emails_path, title: 'Mails', icon: :envelope }
+      ]
     end
 
     private

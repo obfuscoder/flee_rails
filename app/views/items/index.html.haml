@@ -26,10 +26,10 @@
       %td= item.description
       %td= item.size
       %td= number_to_currency(item.price)
-      %td
+      %td.btn-group
         - if item.code.nil?
-          = link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
-          = link_to t('destroy'), [@event, item], method: :delete, type: :warning, icon: :trash, data: { confirm: t('.destroy.confirm') }
+          = icon_link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
+          = icon_link_to t('destroy'), [@event, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
 %p= paginate @items, event_id: @event.id

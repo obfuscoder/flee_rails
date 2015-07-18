@@ -14,8 +14,8 @@
       %td= event.name
       %td= l(event.shopping_start)
       %td= l(event.reservation_start)
-      %td
-        = link_to t('show'), [:admin, event], type: :primary, icon: :search
-        = link_to t('edit'), edit_admin_event_path(event), type: :primary, icon: :pencil
-        = link_to t('destroy'), [:admin, event], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }
+      %td.btn-group
+        = icon_link_to t('show'), [:admin, event], type: :primary, icon: :eye_open
+        = icon_link_to t('edit'), edit_admin_event_path(event), type: :success, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, event], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
 %p= paginate @events

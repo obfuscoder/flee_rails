@@ -4,6 +4,12 @@ module ApplicationHelper
     "flash bg-#{map[type.to_sym]}"
   end
 
+  def icon_link_to(name = nil, options = nil, html_options = nil, &block)
+    opts = get_opts(html_options, options)
+    opts.merge! title: name if name.present?
+    link_to '', options, html_options, &block
+  end
+
   def link_to(name = nil, options = nil, html_options = nil, &block)
     ops = get_opts(html_options, options)
     handle_type(ops)

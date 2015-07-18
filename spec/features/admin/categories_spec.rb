@@ -39,12 +39,12 @@ RSpec.feature 'admin categories' do
   end
 
   scenario 'delete category' do
-    find("a[href='#{admin_category_path(category)}']", text: 'Löschen').click
+    click_link nil, href: admin_category_path(category)
     expect(page).to have_content 'Kategorie gelöscht.'
   end
 
   scenario 'edit category' do
-    find("a[href='#{edit_admin_category_path(category)}']", text: 'Bearbeiten').click
+    click_link nil, href: edit_admin_category_path(category)
     new_name = 'Kleinkram'
     fill_in 'Name', with: new_name
     click_on 'Kategorie aktualisieren'

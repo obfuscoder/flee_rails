@@ -12,7 +12,7 @@
       %td= @categories.offset + index + 1
       %td= category.name
       %td= t(category.donation_enforced?.to_s)
-      %td
-        = link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil
-        = link_to t('destroy'), [:admin, category], method: :delete, type: :warning, icon: :trash, data: { confirm: t('sure') }
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_category_path(category), type: :success, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, category], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
 %p= paginate @categories

@@ -21,12 +21,12 @@
       .navbar-brand= brand_settings.name_html.html_safe
       .navbar-collapse.collapse.navbar-responsive-collapse
         %ul.nav.navbar-nav
-          - @menu ||= { root_path => 'Hauptseite',
-                        pages_contact_path => 'Hilfe/Kontakt',
-                        pages_imprint_path => 'Impressum',
-                        pages_privacy_path => 'Datenschutz',
-                        'http://flohmarkthelfer.de' => 'Ihr Flohmarkt' }
-          = render partial: 'layouts/menu_item', collection: @menu.to_a, as: :item
+          - @menu ||= [{ title: 'Hauptseite', link: root_path, icon: :home },
+                       { title: 'Hilfe/Kontakt', link: pages_contact_path, icon: :question_sign },
+                       { title: 'Impressum', link: pages_imprint_path, icon: :info_sign },
+                       { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
+                       { title: 'Ihr Flohmarkt', link: 'http://flohmarkthelfer.de', icon: :heart }]
+          = render partial: 'layouts/menu_item', collection: @menu, as: :item
         - if logged_in?
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown#admin-info

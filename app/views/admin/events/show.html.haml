@@ -16,12 +16,12 @@
 
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
-= link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary
+= link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart
 - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?
-  = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post, type: :primary
+  = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post, type: :primary, icon: :envelope
 - if !Message.exists?(event: @event, category: :reservation_closing) && @event.reservation_start.past? && @event.reservation_end.future?
-  = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post, type: :primary
+  = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post, type: :primary, icon: :envelope
 - if !Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
-  = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary
+  = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary, icon: :envelope
 - if !Message.exists?(event: @event, category: :finished) && @event.shopping_end.past?
-  = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary
+  = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary, icon: :envelope
