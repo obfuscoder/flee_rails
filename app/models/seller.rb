@@ -15,6 +15,7 @@ class Seller < ActiveRecord::Base
   scope :with_mailing, -> { where { mailing.eq true } }
   scope :active, -> { where { active.eq true } }
   scope :without_reservation_for, ->(event) { where { id << event.reservations.map(&:seller_id) } }
+  scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
 
   before_validation do
     email.try(:downcase!)
@@ -35,5 +36,16 @@ class Seller < ActiveRecord::Base
 
   def label_for_reservation
     "#{name}, #{city} (#{email})"
+  end
+
+  sifter :full_text_search do |needle|
+    pattern = "%#{needle}%"
+    first_name.matches(pattern) |
+      last_name.matches(pattern) |
+      street.matches(pattern) |
+      zip_code.matches(pattern) |
+      city.matches(pattern) |
+      email.matches(pattern) |
+      phone.matches(pattern)
   end
 end

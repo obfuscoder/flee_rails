@@ -1,7 +1,7 @@
 module Admin
   class SellersController < AdminController
     def index
-      @sellers = Seller.page(@page).order(column_order)
+      @sellers = Seller.search(params[:search]).page(@page).order(column_order)
     end
 
     def new
@@ -52,6 +52,10 @@ module Admin
       result = super
       result = { first_name: @dir, last_name: @dir } if result.keys.first == 'name'
       result
+    end
+
+    def searchable?
+      action_name == 'index'
     end
   end
 end

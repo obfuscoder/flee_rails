@@ -14,9 +14,16 @@ module Admin
       let(:params) { {} }
       before { get :index, params }
 
+      its(:searchable?) { is_expected.to eq true }
+
       describe '@sellers' do
         subject { assigns :sellers }
         its(:first) { is_expected.to eq seller1 }
+
+        context 'when search parameter is given' do
+          let(:params) { { search: 'bbbb' } }
+          its(:count) { is_expected.to eq 2 }
+        end
 
         context 'when sort parameter is set to email' do
           let(:params) { { sort: 'email' } }

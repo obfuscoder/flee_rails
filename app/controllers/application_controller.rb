@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :init_page_parameter
   before_filter :init_sort_parameter
 
+  helper_method :searchable?
+
   include ApplicationHelper
 
   protect_from_forgery with: :exception
@@ -103,5 +105,9 @@ class ApplicationController < ActionController::Base
     direction = @dir
     return "#{column_name} #{direction}" if column_name.include? '.'
     { column_name => direction }
+  end
+
+  def searchable?
+    false
   end
 end

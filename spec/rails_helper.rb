@@ -51,4 +51,8 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :poltergeist
 
   config.infer_spec_type_from_file_location!
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = false
+  end
 end

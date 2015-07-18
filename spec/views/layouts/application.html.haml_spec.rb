@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'layouts/application' do
+  before { allow(view).to receive(:searchable?) { false } }
   describe 'navigation bar' do
     before do
       render

@@ -29,10 +29,15 @@
                          { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
                          { title: 'Ihr Flohmarkt', link: 'http://flohmarkthelfer.de', icon: :heart }]
             = render partial: 'layouts/menu_item', collection: @menu, as: :item
+          - if searchable?
+            %form.navbar-form.navbar-left(role='search')
+              %input(type='hidden' name='page' value='1')
+              .form-group
+                %input.form-control(type='text' placeholder='Suche' name='search'){ value: params[:search] }
           - if logged_in?
             %ul.nav.navbar-nav.navbar-right
               %li.dropdown#admin-info
-                %a.dropdown-toggle(data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+                %a.dropdown-toggle(data-toggle='dropdown' role='button')
                   Angemeldet als #{current_user.email}
                   %span.caret
                 %ul.dropdown-menu

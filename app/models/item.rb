@@ -13,6 +13,7 @@ class Item < ActiveRecord::Base
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
+  scope :search, ->(needle) { needle.nil? ? all : joins(:category).where { sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) } } }
 
   def to_s
     description || super
@@ -50,5 +51,12 @@ class Item < ActiveRecord::Base
     return if reservation.nil? || reservation.event.nil? || price.nil?
     precision = reservation.event.price_precision
     errors.add :price, :precision, precision: number_to_currency(precision) if price.remainder(precision).nonzero?
+  end
+
+  sifter :full_text_search do |needle|
+    pattern = "%#{needle}%"
+    description.matches(pattern) |
+      size.matches(pattern) |
+      price.matches(pattern)
   end
 end

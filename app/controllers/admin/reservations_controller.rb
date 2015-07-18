@@ -3,8 +3,9 @@ module Admin
     before_action :set_event
 
     def index
-      @reservations = Reservation.where(event_id: params[:event_id])
-                                 .joins(:seller).includes(:seller, :event)
+      @reservations = Reservation.search(params[:search])
+                                 .where(event_id: params[:event_id])
+                                 .includes(:seller, :event)
                                  .page(@page).order(column_order)
     end
 
@@ -41,6 +42,10 @@ module Admin
         end
       end
       result
+    end
+
+    def searchable?
+      action_name == 'index'
     end
   end
 end

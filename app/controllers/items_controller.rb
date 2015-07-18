@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = @reservation.items.page(@page).joins(:category).order(column_order)
+    @items = @reservation.items.search(params[:search]).page(@page).joins(:category).order(column_order)
   end
 
   def new
@@ -59,5 +59,9 @@ class ItemsController < ApplicationController
     category = Category.find parameters['category_id']
     parameters['donation'] = '1' if category.donation_enforced
     parameters
+  end
+
+  def searchable?
+    action_name == 'index'
   end
 end
