@@ -14,30 +14,29 @@
     = javascript_include_tag 'application'
   %body
     .navbar.navbar-inverse.navbar-static-top
-      .container
-        %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        .navbar-brand= brand_settings.name_html.html_safe
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          %ul.nav.navbar-nav
-            - @menu ||= { root_path => 'Hauptseite',
-                          pages_contact_path => 'Hilfe/Kontakt',
-                          pages_imprint_path => 'Impressum',
-                          pages_privacy_path => 'Datenschutz',
-                          'http://flohmarkthelfer.de' => 'Ihr Flohmarkt' }
-            = render partial: 'layouts/menu_item', collection: @menu.to_a, as: :item
-          - if logged_in?
-            %ul.nav.navbar-nav.navbar-right
-              %li.dropdown#admin-info
-                %a.dropdown-toggle(data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
-                  Angemeldet als #{current_user.email}
-                  %span.caret
-                %ul.dropdown-menu
-                  %li= link_to 'Passwort ändern', edit_admin_user_path, icon: :cog
-                  %li.divider(role='separator')
-                  %li= link_to 'Abmelden', admin_logout_path, icon: :log_out
+      %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      .navbar-brand= brand_settings.name_html.html_safe
+      .navbar-collapse.collapse.navbar-responsive-collapse
+        %ul.nav.navbar-nav
+          - @menu ||= { root_path => 'Hauptseite',
+                        pages_contact_path => 'Hilfe/Kontakt',
+                        pages_imprint_path => 'Impressum',
+                        pages_privacy_path => 'Datenschutz',
+                        'http://flohmarkthelfer.de' => 'Ihr Flohmarkt' }
+          = render partial: 'layouts/menu_item', collection: @menu.to_a, as: :item
+        - if logged_in?
+          %ul.nav.navbar-nav.navbar-right
+            %li.dropdown#admin-info
+              %a.dropdown-toggle(data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+                Angemeldet als #{current_user.email}
+                %span.caret
+              %ul.dropdown-menu
+                %li= link_to 'Passwort ändern', edit_admin_user_path, icon: :cog
+                %li.divider(role='separator')
+                %li= link_to 'Abmelden', admin_logout_path, icon: :log_out
     .container
       - if content_for?(:title)
         %h2= yield(:title)
