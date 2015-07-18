@@ -3,7 +3,8 @@
   %tr
     %th= t('position')
     %th= sort_link_to Category, :name
-    %th= Category.human_attribute_name :donation_enforced
+    - if brand_settings.donation_of_unsold_items_enabled
+      %th= Category.human_attribute_name :donation_enforced
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
 
@@ -11,7 +12,8 @@
     %tr
       %td= @categories.offset + index + 1
       %td= category.name
-      %td= t(category.donation_enforced?.to_s)
+      - if brand_settings.donation_of_unsold_items_enabled
+        %td= t(category.donation_enforced?.to_s)
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_category_path(category), type: :success, icon: :pencil
         = icon_link_to t('destroy'), [:admin, category], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
