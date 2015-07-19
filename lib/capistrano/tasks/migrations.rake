@@ -4,7 +4,7 @@ namespace :flee do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
         with rails_env: :production do
-          execute :rake, 'migrations'
+          execute :rake, 'dumps migrations'
         end
       end
     end

@@ -29,6 +29,7 @@ task :dumps do
   for_each_database do |brand, settings|
     destination = "backup/db/brand_#{Time.now.iso8601}.sql"
     puts "Dumping database for #{brand} to #{destination}"
-    sh "mysqldump -u #{settings['username']} -p#{settings['password']} #{settings['database']} > #{destination}"
+    ENV['MYSQL_PWD'] = settings['password']
+    sh "mysqldump --single-transaction -u #{settings['username']} #{settings['database']} > #{destination}"
   end
 end
