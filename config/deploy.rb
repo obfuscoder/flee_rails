@@ -10,7 +10,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/settings/brands/ersingen.local.yml',
                                                  'config/settings/brands/dammerstock.local.yml')
 
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/cache')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/cache', 'backup')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
