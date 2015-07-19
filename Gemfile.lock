@@ -87,6 +87,7 @@ GEM
       railties (> 3.1)
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
+    chronic (0.10.2)
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -348,6 +349,8 @@ GEM
     websocket-driver (0.6.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
@@ -410,4 +413,5 @@ DEPENDENCIES
   underscore-rails
   validates_email_format_of
   web-console
+  whenever
   will_paginate-bootstrap

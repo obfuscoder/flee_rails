@@ -65,3 +65,4 @@ gem 'barby' # pdf barcodes
 gem 'will_paginate-bootstrap'
 gem 'sorcery'
 gem 'rails_config'
+gem 'whenever', require: false
