@@ -44,7 +44,7 @@
                   %li= link_to 'Passwort ändern', edit_admin_user_path, icon: :cog
                   %li.divider(role='separator')
                   %li= link_to 'Abmelden', admin_logout_path, icon: :log_out
-    .container
+    .container(role='main')
       - if content_for?(:title)
         %h2= yield(:title)
       - else
