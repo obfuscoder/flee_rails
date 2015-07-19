@@ -27,9 +27,9 @@ end
 desc 'dumps databases configured under config/settings/brands/*.local.xml'
 task :dumps do
   for_each_database do |brand, settings|
-    destination = "backup/db/brand_#{Time.now.iso8601}.sql"
+    destination = "backup/db/#{brand}_#{Time.now.iso8601}.sql.gz"
     puts "Dumping database for #{brand} to #{destination}"
     ENV['MYSQL_PWD'] = settings['password']
-    sh "mysqldump --single-transaction -u #{settings['username']} #{settings['database']} > #{destination}"
+    sh "mysqldump --single-transaction -u #{settings['username']} #{settings['database']} | gzip > #{destination}"
   end
 end
