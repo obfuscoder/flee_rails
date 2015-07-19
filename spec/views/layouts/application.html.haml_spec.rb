@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'layouts/application' do
   before { allow(view).to receive(:searchable?) { false } }
+
   describe 'navigation bar' do
     before do
       render
@@ -21,6 +22,21 @@ RSpec.describe 'layouts/application' do
 
     it 'links to privacy page' do
       assert_select '.navbar ul>li>a[href=?]', pages_privacy_path
+    end
+  end
+
+  describe 'search form' do
+    it 'is not shown' do
+      render
+      expect(rendered).not_to have_field 'Suche'
+    end
+
+    context 'when searchable' do
+      before { allow(view).to receive(:searchable?) { true } }
+      it 'is shown' do
+        render
+        expect(rendered).to have_field 'Suche'
+      end
     end
   end
 
