@@ -1,6 +1,5 @@
-set :output, 'cron_log.log'
+set :output, 'log/cron.log'
 
 every :hour do
-  command "echo 'you can use raw cron syntax too'"
   rake 'dumps'
 end
