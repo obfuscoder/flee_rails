@@ -44,6 +44,8 @@ RSpec.describe ItemsController do
       action
     end
 
+    its(:searchable?) { is_expected.to eq true }
+
     describe '@items' do
       subject { assigns(:items) }
       it { is_expected.to eq items.take 10 }
