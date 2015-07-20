@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
   end
 
   def shopping_start
-    shopping_period.try(:from)
+    self[:shopping_start] || shopping_period.try(:from)
   end
 
   def shopping_start=(value)
@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
   end
 
   def shopping_end
-    shopping_period.try(:to)
+    self[:shopping_end] || shopping_period.try(:to)
   end
 
   def shopping_end=(value)
