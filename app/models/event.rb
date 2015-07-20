@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_one :shopping_period
 
   validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate, :seller_fee
   validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
@@ -41,5 +42,14 @@ class Event < ActiveRecord::Base
 
   def to_s
     name || super
+  end
+
+  def shopping_start
+    shopping_period.try(:from)
+  end
+
+  def shopping_start=(value)
+    build_shopping_period if shopping_period.nil?
+    shopping_period.from = value
   end
 end

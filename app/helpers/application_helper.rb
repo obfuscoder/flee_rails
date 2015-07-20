@@ -99,4 +99,12 @@ module ApplicationHelper
       l(event.shopping_start, format: :month_year)
     end
   end
+
+  # overwrite localize to allow nil objects
+  def localize(object, options = nil)
+    return '' if object.nil?
+    super
+  end
+  alias :l :localize
+
 end
