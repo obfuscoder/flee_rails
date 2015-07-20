@@ -86,4 +86,9 @@ RSpec.describe Event do
     subject(:shopping_start) { event.shopping_start }
     it { is_expected.to be_a Time }
   end
+
+  describe '#shopping_end' do
+    subject(:shopping_end) { event.shopping_end }
+    it { is_expected.to be_a Time }
+  end
 end

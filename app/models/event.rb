@@ -52,4 +52,13 @@ class Event < ActiveRecord::Base
     build_shopping_period if shopping_period.nil?
     shopping_period.from = value
   end
+
+  def shopping_end
+    shopping_period.try(:to)
+  end
+
+  def shopping_end=(value)
+    build_shopping_period if shopping_period.nil?
+    shopping_period.to = value
+  end
 end
