@@ -8,7 +8,7 @@
       %li
         %p
           %strong= reservation.event.name
-          am #{l(reservation.event.shopping_start.to_date, format: :long)}<br/>
+          (#{shopping_time(reservation.event)})<br/>
           - if reservation.event.shopping_end.past?
             Der Flohmarkt ist beendet. Sie können sich #{ link_to 'die Ergebnisse', reservation.event } des Flohmarkts anschauen.
             - unless reservation.event.reviewed_by? @seller
@@ -29,7 +29,7 @@
       %li
         %p
           %strong= event.name
-          am #{l(event.shopping_start.to_date, format: :long)} <br/>
+          (#{shopping_time(event)})<br/>
           - if event.max_sellers <= event.reservations.count
             Leider sind alle Plätze bereits vergeben.
             - if @seller.notifications.any? { |notification| notification.event == event }

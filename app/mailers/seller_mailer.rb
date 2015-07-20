@@ -1,4 +1,6 @@
 class SellerMailer < ActionMailer::Base
+  helper :application
+
   def registration(seller, options)
     @seller = seller
     @login_url = login_seller_url @seller.token, host: options[:host]

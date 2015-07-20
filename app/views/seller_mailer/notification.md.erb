@@ -3,7 +3,7 @@ Sehr geehrter Interessent/sehr geehrte Interessentin,
 Wir freuen uns, Ihnen mitteilen zu können, dass ein oder mehrere Verkäuferplätze für den folgenden Flohmarkt frei geworden sind.
 
 Flohmarkt: <%= @event.name %>  
-Termin: von <%= l(@event.shopping_start) %> bis <%= l(@event.shopping_end) %>
+Termin: <%= shopping_time(@event) %>
 
 Sie können sich über den folgenden Link einen der freigewordenen Verkäuferplätze sichern:
 

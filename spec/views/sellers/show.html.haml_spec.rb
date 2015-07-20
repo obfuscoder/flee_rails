@@ -69,7 +69,7 @@ RSpec.describe 'sellers/show' do
     end
 
     it 'shows event date' do
-      expect(rendered).to match(/#{l(reservation.event.shopping_start.to_date, format: :long)}/)
+      expect(rendered).to have_content shopping_time(reservation.event)
     end
 
     it 'shows reservation number' do
