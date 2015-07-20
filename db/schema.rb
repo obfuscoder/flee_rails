@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720104915) do
+ActiveRecord::Schema.define(version: 20150720112348) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -157,14 +157,14 @@ ActiveRecord::Schema.define(version: 20150720104915) do
   create_table "time_periods", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "type"
+    t.string   "kind"
     t.integer  "event_id"
     t.datetime "from"
     t.datetime "to"
   end
 
   add_index "time_periods", ["event_id"], name: "index_time_periods_on_event_id"
-  add_index "time_periods", ["type"], name: "index_time_periods_on_type"
+  add_index "time_periods", ["kind"], name: "index_time_periods_on_kind"
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at"
