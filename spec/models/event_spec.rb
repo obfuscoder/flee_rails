@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Event do
-  subject { FactoryGirl.build :event }
+  subject(:event) { FactoryGirl.build :event }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of :name }
@@ -80,5 +80,10 @@ RSpec.describe Event do
         expect(subject.reviewed_by? seller).to be false
       end
     end
+  end
+
+  describe '#shopping_start' do
+    subject(:shopping_start) { event.shopping_start }
+    it { is_expected.to be_a Time }
   end
 end

@@ -88,9 +88,13 @@ module ApplicationHelper
 
   def shopping_time(event)
     if event.confirmed?
-      "#{l(event.shopping_start, format: :date)} von " \
-      "#{l(event.shopping_start, format: :time)} bis " \
-      "#{l(event.shopping_end, format: :time)}"
+      if event.shopping_start.to_date == event.shopping_end.to_date
+        "#{l(event.shopping_start, format: :date)} von " \
+        "#{l(event.shopping_start, format: :time)} bis " \
+        "#{l(event.shopping_end, format: :time)}"
+      else
+        "#{l(event.shopping_start)} bis #{l(event.shopping_end)}"
+      end
     else
       l(event.shopping_start, format: :month_year)
     end

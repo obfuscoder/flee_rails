@@ -12,6 +12,11 @@ RSpec.describe ApplicationHelper do
 
     it { is_expected.to eq 'Samstag, 10. Februar 2007 von 15:30 Uhr bis 17:30 Uhr' }
 
+    context 'when shopping end is on a different day' do
+      let(:shopping_end) { shopping_start + 1.day + 2.hours }
+      it { is_expected.to eq 'Samstag, 10. Februar 2007, 15:30 Uhr bis Sonntag, 11. Februar 2007, 17:30 Uhr' }
+    end
+
     context 'when event not confirmed' do
       let(:confirmed) { false }
       it { is_expected.to eq 'Februar 2007' }
