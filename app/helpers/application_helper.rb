@@ -85,4 +85,14 @@ module ApplicationHelper
     span = icon ? (tag 'span', class: "glyphicon glyphicon-triangle-#{icon}") : ''
     link_to text.html_safe + span.html_safe, link_options
   end
+
+  def shopping_time(event)
+    if event.confirmed?
+      "#{l(event.shopping_start, format: :date)} von " \
+      "#{l(event.shopping_start, format: :time)} bis " \
+      "#{l(event.shopping_end, format: :time)}"
+    else
+      l(event.shopping_start, format: :month_year)
+    end
+  end
 end

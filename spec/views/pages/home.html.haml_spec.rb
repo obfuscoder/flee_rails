@@ -26,16 +26,14 @@ RSpec.describe 'pages/home.html.haml' do
     end
 
     context 'when event is not confirmed' do
-      it 'does only show month and year' do
-        expect(rendered).not_to have_text l(event.shopping_start)
-        expect(rendered).to have_text l(event.shopping_start, format: :unconfirmed)
+      it 'does not show reservation start' do
+        expect(rendered).not_to have_text 'Reservierungsstart', count: 1
       end
     end
 
     context 'when event is confirmed' do
       let(:event) { FactoryGirl.create :event, confirmed: true }
       it 'does show reservation start' do
-        expect(rendered).to have_text l(event.shopping_start)
         expect(rendered).to have_text 'Reservierungsstart', count: 1
       end
     end

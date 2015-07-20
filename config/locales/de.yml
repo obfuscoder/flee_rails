@@ -634,7 +634,8 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d.%m.%Y %H:%M'
-      unconfirmed: ! '%B %Y'
+      month_year: ! '%B %Y'
+      date: ! '%A, %d. %B %Y'
       time: ! '%H:%M Uhr'
     pm: nachmittags
   will_paginate:

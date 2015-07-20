@@ -18,11 +18,12 @@
     - @events.each do |event|
       %li
         %h4= event.name
-        %p= l(event.shopping_start, format: event.confirmed? ? :default : :unconfirmed)
-        %p= event.details
+        %p
+          %strong= shopping_time(event)
         - if event.confirmed?
+          %p= event.details
           %dl
             %dt= Event.human_attribute_name :reservation_start
             %dd= l(event.reservation_start)
-        %p= "Freie Plätze: #{event.reservations_left}"
+          %p Freie Plätze: #{event.reservations_left}
 .hidden-xs= markdown(brand_settings.home.outro).html_safe if brand_settings.home.try(:outro).present?
