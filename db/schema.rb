@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720112348) do
+ActiveRecord::Schema.define(version: 20150720130625) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 20150720112348) do
     t.integer  "max_sellers"
     t.integer  "max_items_per_seller"
     t.boolean  "confirmed"
-    t.datetime "shopping_start"
-    t.datetime "shopping_end"
     t.datetime "reservation_start"
     t.datetime "reservation_end"
     t.datetime "handover_start"
@@ -159,8 +157,8 @@ ActiveRecord::Schema.define(version: 20150720112348) do
     t.datetime "updated_at", null: false
     t.string   "kind"
     t.integer  "event_id"
-    t.datetime "from"
-    t.datetime "to"
+    t.datetime "min"
+    t.datetime "max"
   end
 
   add_index "time_periods", ["event_id"], name: "index_time_periods_on_event_id"

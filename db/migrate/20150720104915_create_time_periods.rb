@@ -4,8 +4,8 @@ class CreateTimePeriods < ActiveRecord::Migration
       t.timestamps null: false
       t.string :kind, index: true
       t.references :event, index: true
-      t.datetime :from
-      t.datetime :to
+      t.datetime :min
+      t.datetime :max
     end
   end
 end

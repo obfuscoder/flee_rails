@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }
   scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
   scope :without_reservation_for, ->(seller) { where { id << seller.reservations.map(&:event_id) } }
-  scope :current_or_upcoming, -> { joins(:shopping_period).where { shopping_period.to >= Time.now } }
+  scope :current_or_upcoming, -> { joins(:shopping_period).where { shopping_period.max >= Time.now } }
 
   def self.with_available_reservations
     joins { reservations.outer }.group(:id).having { count(reservations.id) < max_sellers }
@@ -46,20 +46,20 @@ class Event < ActiveRecord::Base
   end
 
   def shopping_start
-    self[:shopping_start] || shopping_period.try(:from)
+    shopping_period.try(:min)
   end
 
   def shopping_start=(value)
     build_shopping_period if shopping_period.nil?
-    shopping_period.from = value
+    shopping_period.min = value
   end
 
   def shopping_end
-    self[:shopping_end] || shopping_period.try(:to)
+    shopping_period.try(:max)
   end
 
   def shopping_end=(value)
     build_shopping_period if shopping_period.nil?
-    shopping_period.to = value
+    shopping_period.max = value
   end
 end
