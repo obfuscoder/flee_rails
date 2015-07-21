@@ -1,24 +1,31 @@
 FactoryGirl.define do
   factory :base_event, class: :event do
+    transient do
+      shopping_time { 1.week.from_now }
+    end
+
     sequence(:name) { |n| "Event #{n}" }
     max_sellers 1
-    shopping_period
-    reservation_start 1.day.from_now
-    reservation_end { shopping_start - 1.day }
+    reservation_start { 1.day.from_now }
+    reservation_end { shopping_time - 1.day }
     seller_fee 2
+
+    after :build do |event, _evaluator|
+      event.shopping_periods << build(:shopping_period, event: event)
+    end
 
     factory :event do
       max_items_per_seller 5
       handover_start { reservation_end + 1.hour }
       handover_end { handover_start + 2.hours }
-      pickup_start { shopping_end + 2.hours }
+      pickup_start { shopping_time + 1.day }
       pickup_end { pickup_start + 2.hours }
       price_precision 0.1
       commission_rate 0.2
 
       factory :event_with_ongoing_reservation do
-        reservation_start 1.day.ago
-        reservation_end 1.day.from_now
+        reservation_start { 1.day.ago }
+        reservation_end { 1.day.from_now }
 
         factory :full_event do
           after :create do |event|
