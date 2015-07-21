@@ -2,8 +2,7 @@ FactoryGirl.define do
   factory :base_event, class: :event do
     sequence(:name) { |n| "Event #{n}" }
     max_sellers 1
-    shopping_start 1.week.from_now
-    shopping_end { shopping_start + 2.hours }
+    shopping_period
     reservation_start 1.day.from_now
     reservation_end { shopping_start - 1.day }
     seller_fee 2
