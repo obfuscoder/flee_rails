@@ -13,7 +13,12 @@ class Item < ActiveRecord::Base
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
-  scope :search, ->(needle) { needle.nil? ? all : joins(:category).where { sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) } } }
+
+  def self.search(needle)
+    needle.nil? ? all : joins(:category).where do
+      sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) }
+    end
+  end
 
   def to_s
     description || super

@@ -87,24 +87,20 @@ module ApplicationHelper
   end
 
   def shopping_time(event)
+    min = event.shopping_start
+    max = event.shopping_end
     if event.confirmed?
-      if event.shopping_start.to_date == event.shopping_end.to_date
-        "#{l(event.shopping_start, format: :date)} von " \
-        "#{l(event.shopping_start, format: :time)} bis " \
-        "#{l(event.shopping_end, format: :time)}"
-      else
-        "#{l(event.shopping_start)} bis #{l(event.shopping_end)}"
-      end
+      exact_period(min, max)
     else
-      l(event.shopping_start, format: :month_year)
+      l(min, format: :month_year)
     end
   end
 
-  # overwrite localize to allow nil objects
-  def localize(object, options = nil)
-    return '' if object.nil?
-    super
+  def exact_period(min, max)
+    if min.to_date == max.to_date
+      "#{l(min, format: :date)} von #{l(min, format: :time)} bis #{l(max, format: :time)}"
+    else
+      "#{l(min)} bis #{l(max)}"
+    end
   end
-  alias :l :localize
-
 end

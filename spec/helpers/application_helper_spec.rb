@@ -22,17 +22,4 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to eq 'Februar 2007' }
     end
   end
-
-  %w(localize l).each do |method|
-    describe "##{method}" do
-      let(:args) { Time.zone.local 2007, 2, 10, 15, 30 }
-      subject { helper.send method, args }
-      it { is_expected.to eq 'Samstag, 10. Februar 2007, 15:30 Uhr' }
-
-      context 'when object is nil' do
-        let(:args) { nil }
-        it { is_expected.to eq '' }
-      end
-    end
-  end
 end

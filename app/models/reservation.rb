@@ -3,8 +3,6 @@ class Reservation < ActiveRecord::Base
   belongs_to :event
   has_many :items, dependent: :destroy
 
-  scope :search, ->(needle) { needle.nil? ? all : joins(:seller).where { { seller => sift(:full_text_search, needle) } } }
-
   validates_presence_of :seller, :event, :number
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
   validates :seller_id, uniqueness: { scope: :event_id }
@@ -13,6 +11,10 @@ class Reservation < ActiveRecord::Base
   validate :capacity_available, on: :create
 
   before_validation :create_number
+
+  def self.search(needle)
+    needle.nil? ? all : joins(:seller).where { { seller => sift(:full_text_search, needle) } }
+  end
 
   def to_s
     "#{event.name} - #{number}"
