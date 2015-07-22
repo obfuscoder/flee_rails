@@ -7,7 +7,7 @@ gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'mysql2'
+gem 'mysql2', group: :production
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
@@ -45,6 +45,7 @@ group :test, :development do
   gem 'rubocop'
   gem 'sqlite3'
   gem 'faker'
+  gem 'awesome_print'
 end
 
 gem 'haml-rails'
@@ -56,7 +57,6 @@ gem 'bootstrap-multiselect-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'momentjs-rails'
 gem 'underscore-rails'
-gem 'awesome_print'
 gem 'redcarpet' # markdown
 gem 'validates_email_format_of'
 gem 'squeel' # database query DSL
@@ -65,4 +65,4 @@ gem 'barby' # pdf barcodes
 gem 'will_paginate-bootstrap'
 gem 'sorcery'
 gem 'rails_config'
-gem 'whenever', require: false
+gem 'whenever', require: false # cron
