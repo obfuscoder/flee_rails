@@ -51,14 +51,14 @@ RSpec.feature 'Reviews' do
 
   context 'without reservation' do
     context 'when event has passed' do
-      before { Timecop.travel event.shopping_end + 1.hour }
+      before { Timecop.travel event.shopping_periods.first.max + 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'review is not allowed'
     end
 
     context 'when event is ongoing' do
-      before { Timecop.travel event.shopping_end - 1.hour }
+      before { Timecop.travel event.shopping_periods.first.max - 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'review is not allowed'
@@ -71,7 +71,7 @@ RSpec.feature 'Reviews' do
       FactoryGirl.create :reservation, event: event, seller: seller
     end
     context 'when event has passed' do
-      before { Timecop.travel event.shopping_end + 1.hour }
+      before { Timecop.travel event.shopping_periods.first.max + 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'review is allowed'
@@ -97,7 +97,7 @@ RSpec.feature 'Reviews' do
     end
 
     context 'when event is ongoing' do
-      before { Timecop.travel event.shopping_end - 1.hour }
+      before { Timecop.travel event.shopping_periods.first.max - 1.hour }
       after { Timecop.return }
 
       it_behaves_like 'review is not allowed'

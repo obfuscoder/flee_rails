@@ -269,8 +269,7 @@ de:
         max_sellers: maximale Anzahl Verkäufer
         max_items_per_seller: maximale Anzahl Artikel je Verkäufer
         confirmed: Termin steht fest
-        shopping_start: Verkaufsstart
-        shopping_end: Verkaufsende
+        shopping_time: Verkauf
         reservation_start: Reservierungsstart
         reservation_end: Artikeleingabeende
         handover_start: Artikelabgabestart
@@ -344,6 +343,9 @@ de:
         old_password: aktuelles Passwort
         password: neues Passwort
         password_confirmation: Passwortwiederholung
+      time_period:
+        min: Verkaufsstart
+        max: Verkaufsende
     errors:
       models:
         reservation:

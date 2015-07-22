@@ -4,7 +4,9 @@ class Event < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :shopping_periods, -> { where kind: :shopping }, class_name: 'TimePeriod'
+  has_many :shopping_periods, -> { where kind: :shopping }, class_name: 'TimePeriod', dependent: :destroy
+
+  accepts_nested_attributes_for :shopping_periods
 
   validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate, :seller_fee
   validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
@@ -44,23 +46,7 @@ class Event < ActiveRecord::Base
     name || super
   end
 
-  def shopping_start
-    shopping_periods.first.try(:min)
-  end
-
-  def shopping_start=(value)
-    shopping_period.min = value
-  end
-
-  def shopping_end
-    shopping_periods.first.try(:max)
-  end
-
-  def shopping_end=(value)
-    shopping_period.max = value
-  end
-
-  def shopping_period
-    shopping_periods.first || shopping_periods.build
+  def past?
+    shopping_periods.first.max.past?
   end
 end

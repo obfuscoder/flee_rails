@@ -261,7 +261,7 @@ RSpec.feature 'admin events' do
 
         context 'when event has passed' do
           before do
-            Timecop.travel event.shopping_end + 1.hour
+            Timecop.travel event.shopping_periods.first.max + 1.hour
             click_on_event
             click_on 'Abschlussmail verschicken'
           end

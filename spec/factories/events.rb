@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :base_event, class: :event do
     transient do
       shopping_time { 1.week.from_now }
+      shopping_start { shopping_time }
+      shopping_end { shopping_start + 2.hours }
     end
 
     sequence(:name) { |n| "Event #{n}" }
@@ -10,8 +12,9 @@ FactoryGirl.define do
     reservation_end { shopping_time - 1.day }
     seller_fee 2
 
-    after :build do |event, _evaluator|
-      event.shopping_periods << build(:shopping_period, event: event)
+    after :build do |event, evaluator|
+      event.shopping_periods << build(:shopping_period, event: event,
+                                      min: evaluator.shopping_start, max: evaluator.shopping_end)
     end
 
     factory :event do

@@ -1,7 +1,9 @@
 - content_for :title, t('.title')
 %dl
+  %dt= Event.human_attribute_name :shopping_time
+  %dd= shopping_time @event
   - [:name, :details, :max_sellers, :max_items_per_seller, :reservation_start, :reservation_end,
-     :shopping_start, :shopping_end, :handover_start, :handover_end, :pickup_start, :pickup_end].each do |attribute|
+     :handover_start, :handover_end, :pickup_start, :pickup_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
   - if @event.commission_rate.present?
@@ -23,5 +25,5 @@
   = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post, type: :primary, icon: :envelope
 - if !Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
   = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary, icon: :envelope
-- if !Message.exists?(event: @event, category: :finished) && @event.shopping_end.past?
+- if !Message.exists?(event: @event, category: :finished) && @event.past?
   = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary, icon: :envelope

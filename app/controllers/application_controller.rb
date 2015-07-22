@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def only_after_event_passed
-    redirect_to seller_path, alert: t('.error.event_ongoing') unless @event.shopping_end.past?
+    redirect_to seller_path, alert: t('.error.event_ongoing') unless @event.past?
   end
 
   def destroy_reservations(reservations)

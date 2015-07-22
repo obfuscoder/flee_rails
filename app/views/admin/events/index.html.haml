@@ -3,7 +3,7 @@
   %tr
     %th= t('position')
     %th= sort_link_to Event, :name
-    %th= sort_link_to Event, :shopping_start
+    %th= sort_link_to Event, :shopping_time
     %th= sort_link_to Event, :reservation_start
     %th= link_to t('.new'), new_admin_event_path, type: :primary, icon: :file
 
@@ -12,7 +12,7 @@
     %tr
       %td= @events.offset + index + 1
       %td= event.name
-      %td= l(event.shopping_start)
+      %td= shopping_time event
       %td= l(event.reservation_start)
       %td.btn-group
         = icon_link_to t('show'), [:admin, event], type: :primary, icon: :eye_open

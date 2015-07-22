@@ -82,13 +82,13 @@ RSpec.describe Event do
     end
   end
 
-  describe '#shopping_start' do
-    subject(:shopping_start) { event.shopping_start }
-    it { is_expected.to be_a Time }
-  end
+  describe '#past?' do
+    subject { event.past? }
+    it { is_expected.to eq false }
 
-  describe '#shopping_end' do
-    subject(:shopping_end) { event.shopping_end }
-    it { is_expected.to be_a Time }
+    context 'when shopping time is in the past' do
+      let(:event) { FactoryGirl.build :event, shopping_time: 1.day.ago }
+      it { is_expected.to eq true }
+    end
   end
 end

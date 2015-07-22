@@ -1,4 +1,4 @@
-= simple_form_for([:admin, @event]) do |f|
+= simple_form_for [:admin, @event] do |f|
   = f.error_notification
   .form-inputs
     = f.input :name
@@ -6,14 +6,15 @@
     = f.input :max_sellers
     = f.input :max_items_per_seller
     = f.input :confirmed
-    = f.input :shopping_start, as: :string, input_html: { value: l(@event.shopping_start, format: :short) }
-    = f.input :shopping_end, as: :string, input_html: { value: l(@event.shopping_end, format: :short) }
-    = f.input :reservation_start, as: :string, input_html: { value: l(@event.reservation_start, format: :short) }
-    = f.input :reservation_end, as: :string, input_html: { value: l(@event.reservation_end, format: :short) }
-    = f.input :handover_start, as: :string, input_html: { value: l(@event.handover_start, format: :short) }
-    = f.input :handover_end, as: :string, input_html: { value: l(@event.handover_end, format: :short) }
-    = f.input :pickup_start, as: :string, input_html: { value: l(@event.pickup_start, format: :short) }
-    = f.input :pickup_end, as: :string, input_html: { value: l(@event.pickup_end, format: :short) }
+    = f.simple_fields_for :shopping_periods do |s|
+      = s.input :min, as: :string, input_html: { value: l(s.object.min, format: :short) }
+      = s.input :max, as: :string, input_html: { value: l(s.object.max, format: :short) }
+    = f.input :reservation_start, as: :string, input_html: { value: l(f.object.reservation_start, format: :short) }
+    = f.input :reservation_end, as: :string, input_html: { value: l(f.object.reservation_end, format: :short) }
+    = f.input :handover_start, as: :string, input_html: { value: l(f.object.handover_start, format: :short) }
+    = f.input :handover_end, as: :string, input_html: { value: l(f.object.handover_end, format: :short) }
+    = f.input :pickup_start, as: :string, input_html: { value: l(f.object.pickup_start, format: :short) }
+    = f.input :pickup_end, as: :string, input_html: { value: l(f.object.pickup_end, format: :short) }
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled

@@ -168,7 +168,7 @@ END
     click_on 'ausgewählt'
     capture :seller_items_print, selector: 'div[role="main"]'
 
-    event.update shopping_end: 1.hour.ago
+    event.shopping_periods.first.update max: 1.hour.ago
 
     visit seller_path
     capture :seller_home_with_event_finished, selector: 'div[role="main"]'

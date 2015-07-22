@@ -87,8 +87,8 @@ module ApplicationHelper
   end
 
   def shopping_time(event)
-    min = event.shopping_start
-    max = event.shopping_end
+    min = event.shopping_periods.first.min
+    max = event.shopping_periods.first.max
     if event.confirmed?
       exact_period(min, max)
     else
