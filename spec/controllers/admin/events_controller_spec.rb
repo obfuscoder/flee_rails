@@ -35,7 +35,7 @@ module Admin
 
       context 'when updating shopping times' do
         let(:shopping_times) { { id: event.shopping_periods.first.id, min: 1.day.ago, max: 8.hours.ago } }
-        let(:event_params) { { shopping_periods_attributes: [ shopping_times ] } }
+        let(:event_params) { { shopping_periods_attributes: [shopping_times] } }
         it 'persists shopping times' do
           event.reload
           expect(event.shopping_periods.first.min.to_i).to eq shopping_times[:min].to_i

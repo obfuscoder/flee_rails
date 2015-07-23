@@ -13,11 +13,12 @@ module Admin
                          reservation_start: date - 2.weeks, reservation_end: date - 2.days,
                          handover_start: date - 1.day, handover_end: date - 1.day + 2.hours,
                          pickup_start: date + 4.hours, pickup_end: date + 6.hours,
-                         shopping_periods_attributes: [ min: date, max: date + 2.hours ]
+                         shopping_periods_attributes: [min: date, max: date + 2.hours]
     end
 
     def create
-      if @event = Event.create(event_params)
+      @event = Event.create(event_params)
+      if @event
         redirect_to admin_events_path, notice: t('.success')
       else
         render :new
@@ -58,7 +59,7 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
-                                    shopping_periods_attributes: [ :id, :min, :max ]
+                                    shopping_periods_attributes: [:id, :min, :max]
     end
   end
 end

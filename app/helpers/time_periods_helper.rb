@@ -9,11 +9,16 @@ module TimePeriodsHelper
 
   def exact_periods(periods)
     return exact_period periods.first if periods.length == 1
-    "#{exact_period(periods.first)} und #{time_period(periods.second)}"
+    day_periods = periods.group_by { |period| period.min.to_date }
+    strings = day_periods.map do |date, time_periods|
+      times = time_periods.map { |period| time_period period }.join ' und '
+      "#{l(date, format: :week_date)} #{times} Uhr"
+    end
+    strings.join ' und '
   end
 
   def time_period(period)
-    "von #{time(period.min)} bis #{time(period.max)}"
+    "#{time(period.min)} - #{time(period.max)}"
   end
 
   def time(time)
@@ -22,9 +27,9 @@ module TimePeriodsHelper
 
   def exact_period(period)
     if period.min.to_date == period.max.to_date
-      "#{l(period.min, format: :date)} #{time_period(period)}"
+      "#{l(period.min, format: :date)} #{time_period(period)} Uhr"
     else
-      "#{l(period.min)} bis #{l(period.max)}"
+      "#{l(period.min)} Uhr bis #{l(period.max)} Uhr"
     end
   end
 end

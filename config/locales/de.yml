@@ -479,6 +479,7 @@ de:
       default: ! '%d.%m.%Y'
       long: ! '%e. %B %Y'
       short: ! '%e. %b'
+      week_date: ! '%a, %d.%m.%Y'
     month_names:
     -
     - Januar
@@ -633,12 +634,13 @@ de:
   time:
     am: vormittags
     formats:
-      default: ! '%A, %d. %B %Y, %H:%M Uhr'
-      long: ! '%A, %d. %B %Y, %H:%M Uhr'
+      default: ! '%a, %d. %B %Y, %H:%M'
+      long: ! '%a, %d. %B %Y, %H:%M'
       short: ! '%d.%m.%Y %H:%M'
       month_year: ! '%B %Y'
-      date: ! '%A, %d. %B %Y'
-      time: ! '%H:%M Uhr'
+      date: ! '%a, %d. %B %Y'
+      week_date: ! '%a, %d.%m.%Y'
+      time: ! '%H:%M'
     pm: nachmittags
   will_paginate:
     previous_label: Zurück

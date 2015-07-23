@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     after :build do |event, evaluator|
       event.shopping_periods << build(:shopping_period, event: event,
-                                      min: evaluator.shopping_start, max: evaluator.shopping_end)
+                                                        min: evaluator.shopping_start, max: evaluator.shopping_end)
     end
 
     factory :event do
