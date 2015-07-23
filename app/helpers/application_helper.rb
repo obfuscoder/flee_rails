@@ -57,6 +57,12 @@ module ApplicationHelper
     @markdown.render text
   end
 
+  class MarkdownWithImageTagRenderer < Redcarpet::Render::HTML
+    def image(link, _title, alt_text)
+      ActionController::Base.helpers.image_tag link, alt: alt_text
+    end
+  end
+
   def brand_settings
     Settings.brands[brand_key]
   end
@@ -69,12 +75,6 @@ module ApplicationHelper
     will_paginate collection, renderer: BootstrapPagination::Rails, params: params
   end
 
-  class MarkdownWithImageTagRenderer < Redcarpet::Render::HTML
-    def image(link, _title, alt_text)
-      ActionController::Base.helpers.image_tag link, alt: alt_text
-    end
-  end
-
   def sort_link_to(model_class, attribute, text = nil)
     text ||= model_class.human_attribute_name(attribute)
     attribute_name = attribute.to_s
@@ -84,23 +84,5 @@ module ApplicationHelper
     icon = @sort == attribute_name ? order_to_icon[@dir] : nil
     span = icon ? (tag 'span', class: "glyphicon glyphicon-triangle-#{icon}") : ''
     link_to text.html_safe + span.html_safe, link_options
-  end
-
-  def shopping_time(event)
-    min = event.shopping_periods.first.min
-    max = event.shopping_periods.first.max
-    if event.confirmed?
-      exact_period(min, max)
-    else
-      l(min, format: :month_year)
-    end
-  end
-
-  def exact_period(min, max)
-    if min.to_date == max.to_date
-      "#{l(min, format: :date)} von #{l(min, format: :time)} bis #{l(max, format: :time)}"
-    else
-      "#{l(min)} bis #{l(max)}"
-    end
   end
 end

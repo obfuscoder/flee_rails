@@ -1,5 +1,5 @@
 class SellerMailer < ActionMailer::Base
-  helper :application
+  helper :events
 
   def registration(seller, options)
     @seller = seller

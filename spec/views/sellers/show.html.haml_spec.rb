@@ -69,7 +69,7 @@ RSpec.describe 'sellers/show' do
     end
 
     it 'shows event date' do
-      expect(rendered).to have_content shopping_time(reservation.event)
+      expect(rendered).to have_content view.shopping_time(reservation.event)
     end
 
     it 'shows reservation number' do
