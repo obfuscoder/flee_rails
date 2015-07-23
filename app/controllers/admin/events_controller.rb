@@ -5,7 +5,7 @@ module Admin
     end
 
     def new
-      date = 1.month.from_now
+      date = 1.month.from_now.at_midday
       @event = Event.new price_precision: brand_settings.price_precision,
                          commission_rate: brand_settings.commission_rate,
                          seller_fee: brand_settings.seller_fee,

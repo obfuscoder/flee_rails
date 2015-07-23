@@ -39,6 +39,7 @@ RSpec.describe 'Screenshots', js: true do
     fill_in 'Details', with: 'Einlass für Schwangere mit Mutterpass (max. 1 Begleitperson) eine halbe Stunde vorher'
     fill_in 'maximale Anzahl Verkäufer', with: 100
     fill_in 'maximale Anzahl Artikel je Verkäufer', with: 50
+    check 'Termin steht fest'
     fill_in 'Reservierungsstart', with: I18n.localize(2.days.ago, format: :short)
     find('#event_shopping_periods_attributes_0_min').click
     capture :admin_event_new, selector: 'div[role="main"]'
