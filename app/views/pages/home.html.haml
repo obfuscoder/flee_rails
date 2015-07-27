@@ -22,8 +22,13 @@
           %strong= shopping_time event
         - if event.confirmed?
           %p= event.details
-          %dl
+          %dl.dl-horizontal
             %dt= Event.human_attribute_name :reservation_start
             %dd= l(event.reservation_start)
-          %p Freie Plätze: #{event.reservations_left}
+            %dt= Event.human_attribute_name :handover_periods
+            %dd= handover_time event
+            %dt= Event.human_attribute_name :pickup_periods
+            %dd= pickup_time event
+            %dt Freie Plätze
+            %dd= event.reservations_left
 .hidden-xs= markdown(brand_settings.home.outro).html_safe if brand_settings.home.try(:outro).present?
