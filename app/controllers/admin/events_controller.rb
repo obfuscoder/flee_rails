@@ -11,9 +11,9 @@ module Admin
                          seller_fee: brand_settings.seller_fee,
                          donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled,
                          reservation_start: date - 2.weeks, reservation_end: date - 2.days,
-                         handover_start: date - 1.day, handover_end: date - 1.day + 2.hours,
                          pickup_start: date + 4.hours, pickup_end: date + 6.hours,
-                         shopping_periods_attributes: [min: date, max: date + 2.hours]
+                         shopping_periods_attributes: [min: date, max: date + 2.hours],
+                         handover_periods_attributes: [min: date - 1.day, max: date - 1.day + 2.hours]
     end
 
     def create
@@ -59,7 +59,8 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
-                                    shopping_periods_attributes: [:id, :min, :max, :_destroy]
+                                    shopping_periods_attributes: [:id, :min, :max, :_destroy],
+                                    handover_periods_attributes: [:id, :min, :max, :_destroy]
     end
   end
 end

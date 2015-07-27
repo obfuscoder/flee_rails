@@ -1,0 +1,6 @@
+%div{id: attribute}
+  %strong= Event.human_attribute_name attribute
+  = f.simple_fields_for attribute do |s|
+    = render 'time_period_fields', f: s
+  .links
+    = link_to_add_association 'Weiteren Termin hinzufügen', f, attribute, partial: 'time_period_fields'

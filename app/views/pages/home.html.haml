@@ -19,7 +19,7 @@
       %li
         %h4= event.name
         %p
-          %strong= shopping_time(event)
+          %strong= shopping_time event
         - if event.confirmed?
           %p= event.details
           %dl

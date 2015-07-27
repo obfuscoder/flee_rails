@@ -269,11 +269,10 @@ de:
         max_sellers: maximale Anzahl Verkäufer
         max_items_per_seller: maximale Anzahl Artikel je Verkäufer
         confirmed: Termin steht fest
-        shopping_time: Verkauf
+        shopping_periods: Verkauf
         reservation_start: Reservierungsstart
         reservation_end: Artikeleingabeende
-        handover_start: Artikelabgabestart
-        handover_end: Artikelabgabeende
+        handover_periods: Artikelabgabe
         pickup_start: Artikelabholstart
         pickup_end: Artikelabholende
         kind: Typ
