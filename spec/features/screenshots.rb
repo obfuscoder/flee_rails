@@ -41,7 +41,7 @@ RSpec.describe 'Screenshots', js: true do
     fill_in 'maximale Anzahl Artikel je Verkäufer', with: 50
     check 'Termin steht fest'
     fill_in 'Reservierungsstart', with: I18n.localize(2.days.ago, format: :short)
-    find('#event_shopping_periods_attributes_0_min').click
+    find('#event_shopping_periods_attributes_0_min ~ .input-group-addon').click
     capture :admin_event_new, selector: 'div[role="main"]'
 
     click_on 'Termin erstellen'

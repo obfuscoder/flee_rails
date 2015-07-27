@@ -1,7 +1,7 @@
 module Admin
   class EventsController < AdminController
     def index
-      @events = Event.page(@page).order(column_order)
+      @events = Event.page(@page).joins(:shopping_periods).order(column_order).distinct
     end
 
     def new

@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :shopping_periods, -> { where kind: :shopping }, class_name: 'TimePeriod', dependent: :destroy
+  has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
 
   accepts_nested_attributes_for :shopping_periods, allow_destroy: true, reject_if: :all_blank
 

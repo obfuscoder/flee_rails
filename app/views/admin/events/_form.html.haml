@@ -6,19 +6,18 @@
     = f.input :max_sellers
     = f.input :max_items_per_seller
     = f.input :confirmed
-    #shopping_periods.form-inline
+    #shopping_periods
       %strong Verkaufstermin(e)
       = f.simple_fields_for :shopping_periods do |s|
         = render 'shopping_period_fields', f: s
       .links
-        = link_to_add_association f, :shopping_periods, class: 'btn btn-primary' do
-          = enhance_name_with_icon '', icon: :plus
-    = f.input :reservation_start, as: :string, input_html: { value: l(f.object.reservation_start, format: :short) }
-    = f.input :reservation_end, as: :string, input_html: { value: l(f.object.reservation_end, format: :short) }
-    = f.input :handover_start, as: :string, input_html: { value: l(f.object.handover_start, format: :short) }
-    = f.input :handover_end, as: :string, input_html: { value: l(f.object.handover_end, format: :short) }
-    = f.input :pickup_start, as: :string, input_html: { value: l(f.object.pickup_start, format: :short) }
-    = f.input :pickup_end, as: :string, input_html: { value: l(f.object.pickup_end, format: :short) }
+        = link_to_add_association 'Weiteren Termin hinzufügen', f, :shopping_periods
+    = f.input :reservation_start, as: :date_time_picker, input_html: { value: l(f.object.reservation_start, format: :short) }
+    = f.input :reservation_end, as: :date_time_picker, input_html: { value: l(f.object.reservation_end, format: :short) }
+    = f.input :handover_start, as: :date_time_picker, input_html: { value: l(f.object.handover_start, format: :short) }
+    = f.input :handover_end, as: :date_time_picker, input_html: { value: l(f.object.handover_end, format: :short) }
+    = f.input :pickup_start, as: :date_time_picker, input_html: { value: l(f.object.pickup_start, format: :short) }
+    = f.input :pickup_end, as: :date_time_picker, input_html: { value: l(f.object.pickup_end, format: :short) }
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled

@@ -3,7 +3,7 @@
   %tr
     %th= t('position')
     %th= sort_link_to Event, :name
-    %th= sort_link_to Event, :shopping_time
+    %th= sort_link_to TimePeriod, :min, Event.human_attribute_name(:shopping_time)
     %th= sort_link_to Event, :reservation_start
     %th= link_to t('.new'), new_admin_event_path, type: :primary, icon: :file
 

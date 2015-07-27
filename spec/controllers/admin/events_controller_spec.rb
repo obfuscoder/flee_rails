@@ -35,7 +35,7 @@ module Admin
 
       context 'when updating shopping times' do
         let(:shopping_time1) { FactoryGirl.attributes_for :shopping_period }
-        let(:shopping_time2) { FactoryGirl.attributes_for :shopping_period, min: 1.day.from_now }
+        let(:shopping_time2) { FactoryGirl.attributes_for :shopping_period, min: 2.weeks.from_now }
         let(:event_params) { { shopping_periods_attributes: [shopping_time1, shopping_time2] } }
         it 'persists shopping times' do
           event.reload

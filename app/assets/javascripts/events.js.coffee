@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load cocoon:after-insert', ->
-  $('#shopping_periods .nested-fields input.string, #event_reservation_start, #event_reservation_end, #event_handover_start, #event_handover_end, #event_pickup_start, #event_pickup_end').datetimepicker({
+  $('.form_datetime').datetimepicker({
     locale: 'de',
     stepping: 5,
     showTodayButton: true,

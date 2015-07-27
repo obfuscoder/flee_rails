@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    @events = Event.current_or_upcoming.includes(:shopping_periods).order('time_periods.min')
+    @events = Event.current_or_upcoming.joins(:shopping_periods).order('time_periods.min').distinct
   end
 
   def contact
