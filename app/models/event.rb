@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :shopping_periods, -> { where kind: :shopping }, class_name: 'TimePeriod', dependent: :destroy
 
-  accepts_nested_attributes_for :shopping_periods
+  accepts_nested_attributes_for :shopping_periods, allow_destroy: true, reject_if: :all_blank
 
   validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate, :seller_fee
   validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }

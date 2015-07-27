@@ -59,7 +59,7 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
-                                    shopping_periods_attributes: [:id, :min, :max]
+                                    shopping_periods_attributes: [:id, :min, :max, :_destroy]
     end
   end
 end

@@ -1,0 +1,5 @@
+.nested-fields
+  = f.input :min, as: :string, input_html: { value: f.object.min ? l(f.object.min, format: :short) : '' }
+  = f.input :max, as: :string, input_html: { value: f.object.max ? l(f.object.max, format: :short) : '' }
+  = link_to_remove_association f, class: 'btn btn-warning' do
+    = enhance_name_with_icon '', icon: :minus

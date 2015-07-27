@@ -34,12 +34,24 @@ module Admin
       end
 
       context 'when updating shopping times' do
-        let(:shopping_times) { { id: event.shopping_periods.first.id, min: 1.day.ago, max: 8.hours.ago } }
-        let(:event_params) { { shopping_periods_attributes: [shopping_times] } }
+        let(:shopping_time1) { FactoryGirl.attributes_for :shopping_period }
+        let(:shopping_time2) { FactoryGirl.attributes_for :shopping_period, min: 1.day.from_now }
+        let(:event_params) { { shopping_periods_attributes: [shopping_time1, shopping_time2] } }
         it 'persists shopping times' do
           event.reload
-          expect(event.shopping_periods.first.min.to_i).to eq shopping_times[:min].to_i
-          expect(event.shopping_periods.first.max.to_i).to eq shopping_times[:max].to_i
+          expect(event.shopping_periods.first.min.to_i).to eq shopping_time1[:min].to_i
+          expect(event.shopping_periods.first.max.to_i).to eq shopping_time1[:max].to_i
+          expect(event.shopping_periods.last.min.to_i).to eq shopping_time2[:min].to_i
+          expect(event.shopping_periods.last.max.to_i).to eq shopping_time2[:max].to_i
+        end
+
+        context 'when removing a shopping period' do
+          before { expect(event.shopping_periods).not_to be_empty }
+          let(:event_params) { { shopping_periods_attributes: [id: event.shopping_periods.first.id, _destroy: true] } }
+
+          it 'removes shopping period' do
+            expect(event.reload.shopping_periods).to be_empty
+          end
         end
       end
     end

@@ -344,8 +344,8 @@ de:
         password: neues Passwort
         password_confirmation: Passwortwiederholung
       time_period:
-        min: Verkaufsstart
-        max: Verkaufsende
+        min: von
+        max: bis
     errors:
       models:
         reservation:

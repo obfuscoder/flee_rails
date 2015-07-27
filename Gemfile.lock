@@ -89,6 +89,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     cliver (0.3.2)
+    cocoon (1.2.6)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -372,6 +373,7 @@ DEPENDENCIES
   capybara
   capybara-email
   chart-js-rails
+  cocoon
   codeclimate-test-reporter
   coffee-rails
   database_cleaner

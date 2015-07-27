@@ -20,5 +20,6 @@
 //= require moment/de
 //= require bootstrap-datetimepicker
 //= require underscore
+//= require cocoon
 //= require Chart
 //= require_tree .
