@@ -4,7 +4,7 @@ FactoryGirl.define do
     seller
 
     factory :ongoing_reservation_for_commission_event do
-      event factory: :event_with_ongoing_reservation, kind: 'commission'
+      event factory: :event_with_ongoing_reservation, kind: 'commissioned'
     end
 
     factory :ongoing_reservation_for_direct_event do

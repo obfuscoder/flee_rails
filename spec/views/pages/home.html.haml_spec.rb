@@ -36,6 +36,17 @@ RSpec.describe 'pages/home.html.haml' do
       it 'does show reservation start' do
         expect(rendered).to have_text 'Reservierungsstart', count: 1
       end
+
+      it 'does show handover time' do
+        expect(rendered).to have_text 'Artikelabgabe', count: 1
+      end
+
+      context 'when event kind is direct' do
+        let(:event) { FactoryGirl.create :event, confirmed: true, kind: :direct }
+        it 'does not show handover time' do
+          expect(rendered).not_to have_text 'Artikelabgabe', count: 1
+        end
+      end
     end
   end
 

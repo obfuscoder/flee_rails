@@ -9,6 +9,7 @@ module Admin
       @event = Event.new price_precision: brand_settings.price_precision,
                          commission_rate: brand_settings.commission_rate,
                          seller_fee: brand_settings.seller_fee,
+                         kind: :commissioned,
                          donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled,
                          reservation_start: date - 2.weeks, reservation_end: date - 2.days,
                          shopping_periods_attributes: [min: date, max: date + 2.hours],
@@ -53,7 +54,7 @@ module Admin
     private
 
     def event_params
-      params.require(:event).permit :name, :details, :max_sellers, :max_items_per_seller, :confirmed,
+      params.require(:event).permit :name, :details, :max_sellers, :kind, :max_items_per_seller, :confirmed,
                                     :price_precision, :commission_rate, :seller_fee,
                                     :donation_of_unsold_items_enabled,
                                     :reservation_start, :reservation_end,

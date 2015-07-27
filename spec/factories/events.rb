@@ -18,6 +18,7 @@ FactoryGirl.define do
     end
 
     factory :event do
+      kind :commissioned
       max_items_per_seller 5
       price_precision 0.1
       commission_rate 0.2
@@ -39,7 +40,7 @@ FactoryGirl.define do
     end
 
     factory :direct_event do
-      kind 'direct'
+      kind :direct
     end
   end
 end

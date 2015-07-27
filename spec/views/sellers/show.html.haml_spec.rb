@@ -77,7 +77,6 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with reservation phase ongoing' do
-      let(:reservation) { FactoryGirl.create :ongoing_reservation }
 
       it 'allows deletion of reservation' do
         assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation), 'delete'
@@ -91,7 +90,7 @@ RSpec.describe 'sellers/show' do
         assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
       end
 
-      context 'with event kind commission' do
+      context 'with event kind commissioned' do
         let(:reservation) { FactoryGirl.create :ongoing_reservation_for_commission_event }
 
         it 'shows date until labels need to be created' do
@@ -108,7 +107,6 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with event date passed' do
-      let(:reservation) { FactoryGirl.create :reservation }
       let(:preparations) { Timecop.travel reservation.event.shopping_periods.first.max + 1.hour }
       after { Timecop.return }
 
@@ -136,6 +134,9 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with reservation phase passed and event upcoming' do
+      let(:preparations) { Timecop.travel reservation.event.reservation_end + 1.hour }
+      after { Timecop.return }
+
       it 'does not show reservation end date' do
         expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
       end

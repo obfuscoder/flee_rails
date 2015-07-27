@@ -3,6 +3,8 @@
   - [:name, :details, :max_sellers, :max_items_per_seller, :reservation_start, :reservation_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
+  %dt= Event.human_attribute_name :kind
+  %dd= t(@event.kind)
   %dt= Event.human_attribute_name :handover_periods
   %dd= handover_time @event
   %dt= Event.human_attribute_name :shopping_periods

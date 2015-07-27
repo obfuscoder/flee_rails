@@ -51,11 +51,13 @@ RSpec.describe Event do
   end
 
   describe '#kind' do
-    context 'when commission' do
-      before { subject.commission! }
+    its(:commissioned?) { is_expected.to be true }
 
-      its(:kind) { is_expected.to eq 'commission' }
-      its(:commission?) { is_expected.to be true }
+    context 'when commissioned' do
+      before { subject.commissioned! }
+
+      its(:kind) { is_expected.to eq 'commissioned' }
+      its(:commissioned?) { is_expected.to be true }
     end
 
     context 'when direct' do

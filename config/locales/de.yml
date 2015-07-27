@@ -1,4 +1,6 @@
 de:
+  commissioned: Kommissionsbasis
+  direct: Tischbasis
   "true": ja
   "false": nein
   email_not_found: Es konnte kein Nutzer mit dieser eMail-Adresse gefunden werden. Bitte überprüfen Sie Ihre Eingabe oder registrieren Sie sich neu.
