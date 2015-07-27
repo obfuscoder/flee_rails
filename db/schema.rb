@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720130625) do
+ActiveRecord::Schema.define(version: 20150727145914) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 20150720130625) do
     t.boolean  "confirmed"
     t.datetime "reservation_start"
     t.datetime "reservation_end"
-    t.datetime "handover_start"
-    t.datetime "handover_end"
     t.datetime "pickup_start"
     t.datetime "pickup_end"
     t.integer  "kind"
