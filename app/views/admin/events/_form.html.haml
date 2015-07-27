@@ -6,12 +6,11 @@
     = f.input :max_sellers
     = f.input :max_items_per_seller
     = f.input :confirmed
-    = render 'periods', attribute: :shopping_periods, f: f
     = f.input :reservation_start, as: :date_time_picker, input_html: { value: l(f.object.reservation_start, format: :short) }
     = f.input :reservation_end, as: :date_time_picker, input_html: { value: l(f.object.reservation_end, format: :short) }
     = render 'periods', attribute: :handover_periods, f: f
-    = f.input :pickup_start, as: :date_time_picker, input_html: { value: l(f.object.pickup_start, format: :short) }
-    = f.input :pickup_end, as: :date_time_picker, input_html: { value: l(f.object.pickup_end, format: :short) }
+    = render 'periods', attribute: :shopping_periods, f: f
+    = render 'periods', attribute: :pickup_periods, f: f
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :commission_rate, hint: t('.commission_rate.hint')
     = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled

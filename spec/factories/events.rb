@@ -19,8 +19,6 @@ FactoryGirl.define do
 
     factory :event do
       max_items_per_seller 5
-      pickup_start { shopping_time + 1.day }
-      pickup_end { pickup_start + 2.hours }
       price_precision 0.1
       commission_rate 0.2
 
@@ -34,8 +32,9 @@ FactoryGirl.define do
           end
         end
       end
-      after :build do |event|
+      after :build do |event, evaluator|
         event.handover_periods << build(:handover_period, event: event, min: event.reservation_end + 1.hour)
+        event.pickup_periods << build(:pickup_period, event: event, min: evaluator.shopping_time + 1.day)
       end
     end
 

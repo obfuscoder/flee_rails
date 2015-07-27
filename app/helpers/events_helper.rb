@@ -6,6 +6,10 @@ module EventsHelper
   end
 
   def handover_time(event)
-    period event.handover_periods
+    period event.handover_periods, exact: true
+  end
+
+  def pickup_time(event)
+    period event.pickup_periods, exact: true
   end
 end

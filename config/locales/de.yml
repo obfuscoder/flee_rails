@@ -273,8 +273,7 @@ de:
         reservation_start: Reservierungsstart
         reservation_end: Artikeleingabeende
         handover_periods: Artikelabgabe
-        pickup_start: Artikelabholstart
-        pickup_end: Artikelabholende
+        pickup_periods: Artikelabholung
         kind: Typ
         price_precision: Basis für Preisangaben
         commission_rate: Umsatzanteil für Kommission

@@ -9,5 +9,9 @@ FactoryGirl.define do
     factory :handover_period do
       kind :handover
     end
+
+    factory :pickup_period do
+      kind :pickup
+    end
   end
 end

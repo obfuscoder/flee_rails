@@ -15,7 +15,9 @@ Geben Sie bitte Ihre Artikel zu folgenden Zeiten bei uns ab:
 
 <%= handover_time(@event) %>
 
-Der Abholzeitraum ist am <%= l(@event.pickup_start.to_date, format: :long) %> zwischen <%= l(@event.pickup_start, format: :time) %> und <%= l(@event.pickup_end, format: :time) %>
+Der Abholzeitraum ist:
+ 
+<%= pickup_time(@event) %>
 
 Viele Grüße,  
 Ihr Flohmarkt-Team

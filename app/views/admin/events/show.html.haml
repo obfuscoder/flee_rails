@@ -1,13 +1,14 @@
 - content_for :title, t('.title')
 %dl
-  - [:name, :details, :max_sellers, :max_items_per_seller, :reservation_start, :reservation_end,
-     :pickup_start, :pickup_end].each do |attribute|
+  - [:name, :details, :max_sellers, :max_items_per_seller, :reservation_start, :reservation_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
-  %dt= Event.human_attribute_name :shopping_periods
-  %dd= shopping_time @event
   %dt= Event.human_attribute_name :handover_periods
   %dd= handover_time @event
+  %dt= Event.human_attribute_name :shopping_periods
+  %dd= shopping_time @event
+  %dt= Event.human_attribute_name :pickup_periods
+  %dd= pickup_time @event
   - if @event.commission_rate.present?
     %dt= Event.human_attribute_name :commission_rate
     %dd= number_to_percentage @event.commission_rate*100, precision: 0

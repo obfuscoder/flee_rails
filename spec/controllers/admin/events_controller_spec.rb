@@ -37,7 +37,7 @@ module Admin
         object.attributes.map.each_with_object({}) { |(k, v), h| h[k.to_sym] = v if %w(id min max).include? k }
       end
 
-      %w(shopping handover).each do |kind|
+      %w(shopping handover pickup).each do |kind|
         context "when updating #{kind} times" do
           let(:association) { "#{kind}_periods" }
           let(:attrib_name) { "#{kind}_periods_attributes" }
