@@ -6,6 +6,7 @@ A rails application to manage commission based bazars
 [![Code Climate](https://codeclimate.com/github/obfuscoder/flee_rails/badges/gpa.svg)](https://codeclimate.com/github/obfuscoder/flee_rails)
 [![Test Coverage](https://codeclimate.com/github/obfuscoder/flee_rails/badges/coverage.svg)](https://codeclimate.com/github/obfuscoder/flee_rails/coverage)
 [![security](https://hakiri.io/github/obfuscoder/flee_rails/master.svg)](https://hakiri.io/github/obfuscoder/flee_rails/master)
+[![Dependency Status](https://gemnasium.com/obfuscoder/flee_rails.svg)](https://gemnasium.com/obfuscoder/flee_rails)
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
