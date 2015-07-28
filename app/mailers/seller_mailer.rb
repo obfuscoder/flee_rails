@@ -1,6 +1,8 @@
 class SellerMailer < ActionMailer::Base
   helper :events
 
+  include MarkdownHelper
+
   def registration(seller, options)
     @seller = seller
     @login_url = login_seller_url @seller.token, host: options[:host]
@@ -47,6 +49,10 @@ class SellerMailer < ActionMailer::Base
   end
 
   def custom(seller, subject, body, options)
-    mail to: seller.email, subject: subject, body: body, from: options[:from]
+    body.gsub! '{{login_link}}', login_seller_url(seller.token, host: options[:host])
+    mail to: seller.email, subject: subject, from: options[:from] do |format|
+      format.text { render plain: body }
+      format.html { render html: markdown(body).html_safe }
+    end
   end
 end

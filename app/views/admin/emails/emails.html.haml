@@ -3,7 +3,7 @@
   = f.error_notification
   .form-inputs
     = f.input :subject
-    = f.input :body, input_html: { rows: 10 }
+    = f.input :body, input_html: { rows: 10 }, hint: markdown(t('.body.hint')).html_safe
     = f.input :sellers, collection: @sellers, include_hidden: false, input_html: { multiple: true }
     = f.input :active, options_for_inline_radios_with_three_state.merge(input_html: { data: { update: true } })
     = f.input :items, options_for_inline_radios_with_three_state.merge(input_html: { data: { ref: 'email_items_event', update: true } })

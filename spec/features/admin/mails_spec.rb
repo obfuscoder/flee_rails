@@ -33,7 +33,7 @@ RSpec.feature 'admin emails' do
       selection.each do |seller|
         open_email seller.email
         expect(current_email.subject).to eq subject
-        expect(current_email.body).to eq body
+        expect(current_email.body).to include body
       end
     end
   end

@@ -241,6 +241,14 @@ de:
     emails:
       emails:
         title: eMails
+        body:
+          hint: |
+            Der Inhalt wird als Text- und als HTML-Mail verschickt. Als Formattierung wird die
+            [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
+            Als Einsprunglink in den gesicherten Bereich für Verkäufer bitte **<code>{{login_link}}</code>** benutzen.
+            Damit daraus ein anklickbarer Link wird, bitte folgende Syntax verwenden:
+
+            <code>[Text des Loginlinks]\({{login_link}})</code>
       create:
         success: '%{count} Mails wurden versendet.'
     messages:
