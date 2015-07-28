@@ -77,7 +77,6 @@ RSpec.describe 'sellers/show' do
     end
 
     context 'with reservation phase ongoing' do
-
       it 'allows deletion of reservation' do
         assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation), 'delete'
       end
