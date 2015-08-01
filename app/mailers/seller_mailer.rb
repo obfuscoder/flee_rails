@@ -49,7 +49,8 @@ class SellerMailer < ActionMailer::Base
   end
 
   def custom(seller, subject, body, options)
-    body.gsub! '{{login_link}}', login_seller_url(seller.token, host: options[:host])
+    binding.to_s
+    body = body.gsub '{{login_link}}', login_seller_url(seller.token, host: options[:host])
     mail to: seller.email, subject: subject, from: options[:from] do |format|
       format.text { render plain: body }
       format.html { render html: markdown(body).html_safe }
