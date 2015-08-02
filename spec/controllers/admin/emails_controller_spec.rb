@@ -42,9 +42,9 @@ module Admin
 
       describe '@json' do
         subject { assigns :json }
-        it do
-          is_expected.to eq '{"all":[1,2],"active":[1],"inactive":[2],"events":{"1":{"reservation":[1],' \
-                            '"notification":[2],"items":[1]}}}'
+        it 'is a json string containing ids to sellers' do
+          is_expected.to eq '{"all":[1,2],"active":[1],"inactive":[2],'\
+                            '"events":{"1":{"reservation":[1],"notification":[2],"items":[1]}}}'
         end
       end
     end

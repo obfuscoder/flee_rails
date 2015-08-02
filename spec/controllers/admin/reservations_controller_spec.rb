@@ -52,5 +52,32 @@ module Admin
         end
       end
     end
+
+    describe 'POST create' do
+      let(:action) { post :create, event_id: event.id, reservation: { seller_id: [seller1.id, seller2.id] } }
+      let(:reservation) { FactoryGirl.create :reservation }
+
+      before do
+        creator = double
+        expect(creator).to receive(:create).with(instance_of(Event), instance_of(Seller),
+                                                 hash_including(context: :admin),
+                                                 hash_including(host: 'test.host')).twice.and_return reservation
+        expect(Reservations::CreateReservation).to receive(:new).and_return creator
+        action
+      end
+
+      it { is_expected.to redirect_to admin_event_reservations_path }
+      it 'notifies about the reservations' do
+        expect(flash[:notice]).to be_present
+      end
+
+      context 'when reservations were not persisted' do
+        let(:reservation) { FactoryGirl.build :reservation }
+        it { is_expected.to redirect_to admin_event_reservations_path }
+        it 'notifies about the reservations count' do
+          expect(flash[:notice]).to be_present
+        end
+      end
+    end
   end
 end

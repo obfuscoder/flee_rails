@@ -15,9 +15,10 @@ module Admin
 
     def create
       seller_ids = params[:reservation][:seller_id].select { |seller_id| !seller_id.empty? }
+      creator = Reservations::CreateReservation.new
       reservations = seller_ids.each do |seller_id|
-        reservation = @event.reservations.build seller: Seller.find(seller_id)
-        reservation.save! context: :admin
+        creator.create @event, Seller.find(seller_id), { context: :admin },
+                       host: request.host, from: brand_settings.mail.from
       end
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end

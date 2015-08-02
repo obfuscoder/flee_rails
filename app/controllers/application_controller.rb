@@ -19,16 +19,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def create_reservation(event_id)
-    event = Event.find event_id
-    reservation = Reservation.create event: event, seller: current_seller
-    if reservation.persisted?
-      redirect_to seller_path, notice: t('.success', number: reservation.number)
-    else
-      redirect_to seller_path, alert: t('.failure', reason: reservation.errors.messages.values.join(','))
-    end
-  end
-
   def create_label_document(items)
     items.without_label.each do |item|
       item.create_code prefix: brand_settings.prefix

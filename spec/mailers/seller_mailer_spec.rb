@@ -45,17 +45,28 @@ RSpec.describe SellerMailer do
     it_behaves_like 'a mail'
   end
 
+  describe '#reservation' do
+    let(:reservation) { FactoryGirl.build :reservation }
+    let(:seller) { reservation.seller }
+    let(:expected_contents) { [login_seller_url(seller.token, host: host), reservation.number] }
+    subject(:mail) { SellerMailer.reservation reservation, host: host, from: from }
+
+    it_behaves_like 'a mail'
+  end
+
   describe '#custom' do
     let(:seller) { FactoryGirl.build :seller }
     let(:topic) { 'topic' }
     let(:content) { 'body' }
     let(:expected_contents) { [content] }
     subject(:mail) { SellerMailer.custom seller, topic, content, host: host, from: from }
+
     it_behaves_like 'a mail'
 
     context 'when body contains a login link placeholder' do
       let(:content) { '{{login_link}}' }
       let(:expected_contents) { [login_seller_url(seller.token, host: host)] }
+
       it_behaves_like 'a mail'
     end
   end

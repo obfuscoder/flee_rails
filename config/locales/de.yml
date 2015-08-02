@@ -401,6 +401,8 @@ de:
       subject: Verkäuferplatz beim Flohmarkt freigeworden
     invitation:
       subject: Reservierung zum Flohmarkt startet in Kürze
+    reservation:
+      subject: Reservierungsbestätigung
     reservation_closing:
       subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
     reservation_closed:

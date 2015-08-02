@@ -17,6 +17,14 @@ class SellerMailer < ActionMailer::Base
     mail to: @seller.email, from: options[:from]
   end
 
+  def reservation(reservation, options)
+    @seller = reservation.seller
+    @event = reservation.event
+    @reservation = reservation
+    @login_url = login_seller_url @seller.token, host: options[:host]
+    mail to: @seller.email, from: options[:from]
+  end
+
   def invitation(seller, event, options)
     @seller = seller
     @event = event
