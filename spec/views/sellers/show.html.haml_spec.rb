@@ -21,12 +21,12 @@ RSpec.describe 'sellers/show' do
   end
 
   it 'shows seller information' do
-    expect(rendered).to match(/#{seller.first_name}/)
-    expect(rendered).to match(/#{seller.last_name}/)
-    expect(rendered).to match(/#{seller.street}/)
-    expect(rendered).to match(/#{seller.zip_code}/)
-    expect(rendered).to match(/#{seller.city}/)
-    expect(rendered).to match(/#{seller.email}/)
+    expect(rendered).to have_content seller.first_name
+    expect(rendered).to have_content seller.last_name
+    expect(rendered).to have_content seller.street
+    expect(rendered).to have_content seller.zip_code
+    expect(rendered).to have_content seller.city
+    expect(rendered).to have_content seller.email
     expect(rendered).to have_content seller.phone
   end
 
