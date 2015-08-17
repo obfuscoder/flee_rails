@@ -14,7 +14,7 @@ RSpec.describe 'api/events/show' do
 
   subject(:json) { JSON.parse rendered, symbolize_names: true }
 
-  it { is_expected.to include :id, :name, :date }
+  it { is_expected.to include :id, :name }
   it { is_expected.to include :price_precision, :commission_rate, :seller_fee, :donation_of_unsold_items_enabled }
   it { is_expected.to include :categories }
 
