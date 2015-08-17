@@ -1,7 +1,8 @@
 module MarkdownHelper
   def markdown(text)
+    return if text.nil?
     @markdown ||= Redcarpet::Markdown.new MarkdownWithImageTagRenderer
-    @markdown.render text
+    @markdown.render(text).html_safe
   end
 
   class MarkdownWithImageTagRenderer < Redcarpet::Render::HTML

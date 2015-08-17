@@ -21,7 +21,7 @@
         %p
           %strong= shopping_time event
         - if event.confirmed?
-          %p= event.details
+          %p= markdown event.details
           %dl.dl-horizontal
             %dt= Event.human_attribute_name :reservation_start
             %dd= l(event.reservation_start)

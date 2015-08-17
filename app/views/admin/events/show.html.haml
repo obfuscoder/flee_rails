@@ -1,5 +1,12 @@
 - content_for :title, t('.title')
 %dl
+  %dt= Event.human_attribute_name :name
+  %dd= @event.name
+  %dt= Event.human_attribute_name :details
+  %dd= markdown @event.details
+  - [:max_sellers, :max_items_per_seller, :reservation_start, :reservation_end].each do |attribute|
+    %dt= Event.human_attribute_name attribute
+    %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]
   - [:name, :details, :max_sellers, :max_items_per_seller, :reservation_start, :reservation_end].each do |attribute|
     %dt= Event.human_attribute_name attribute
     %dd= ([Date, DateTime, Time, ActiveSupport::TimeWithZone].include? @event[attribute].class) ? l(@event[attribute]) : @event[attribute]

@@ -45,7 +45,7 @@ de:
       title: Bewertungen
       error: *review_errors
     create:
-      success: |
+      success:
         Vielen Dank für Ihre Bewertung. Wir werden Sie zu Herzen nehmen und hoffen,
         Sie bald wieder beim nächsten Flohmarkt als Verkäufer begrüßen zu können.
   events:
@@ -77,9 +77,8 @@ de:
         labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     form:
       donation:
-        hint: |
-          Bitte beachten Sie dass ein Artikel dieser Kategorie gespendet werden muss,
-          sollte er nicht verkauft werden.
+        hint:
+          Bitte beachten Sie dass ein Artikel dieser Kategorie gespendet werden muss, sollte er nicht verkauft werden.
   labels:
     index:
       title: Etiketten drucken
@@ -87,8 +86,7 @@ de:
   reservations:
     create: &create_reservation
       success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
-      failure: |
-        Die Reservierung konnte nicht durchgeführt werden. Grund: %{reason}
+      failure: "Die Reservierung konnte nicht durchgeführt werden. Grund: %{reason}"
     destroy:
       success: Ihre Reservierung wurde freigegeben.
   sellers:
@@ -98,7 +96,7 @@ de:
       title: Registrierung erfolgreich
     show:
       title: Verkäuferbereich
-      confirm_delete_reservation: |
+      confirm_delete_reservation: >
         Sind Sie sicher, dass Sie die Reservierung freigeben möchten?
         Sie können damit nicht mehr als Verkäufer an diesem Flohmarkt teilnehmen.
         Alle Ihre für diesen Flohmarkt eingegebenen Artikel werden gelöscht.
@@ -106,7 +104,7 @@ de:
       title: Stammdaten bearbeiten
       delete:
         text: Ich möchte mich abmelden und meine Daten löschen
-        confirm: |
+        confirm: >
           Sind Sie sicher, dass Sie Ihre Daten löschen wollen?
           Sie verlieren damit unwiderruflich alle Artikel und Reservierungen.
     update:
@@ -127,7 +125,7 @@ de:
     reserve: *create_reservation
   notifications:
     create:
-      success: |
+      success: >
         Sie wurden auf der Warteliste eingetragen.
         Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
   admin:
@@ -165,14 +163,16 @@ de:
         success: Termin gelöscht.
         failure: Termin konnte nicht gelöscht werden.
       form:
+        details:
+          hint: Als Formattierung wird die [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
         price_precision:
-          hint: |
+          hint: >
             Alle Preise dürfen nur ein Vielfaches dieses Werts in € sein.
             Ebenso werden in der Abrechnung alle Auszahlungsbeträge auf diesen Wert abgerundet.
         commission_rate:
-          hint: |
+          hint: >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
-            Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes..
+            Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes.
     reservations:
       index:
         title: Reservierungen
@@ -242,7 +242,7 @@ de:
       emails:
         title: eMails
         body:
-          hint: |
+          hint: >
             Der Inhalt wird als Text- und als HTML-Mail verschickt. Als Formattierung wird die
             [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
             Als Einsprunglink in den gesicherten Bereich für Verkäufer bitte **<code>{{login_link}}</code>** benutzen.
@@ -360,7 +360,7 @@ de:
         reservation:
           attributes:
             base:
-              too_early: |
+              too_early: >
                 Die Reservierung ist nocht nicht freigeschaltet.
                 Bitte haben Sie Verständnis dafür, dass wir allen Interessenten die gleiche Chance geben wollen,
                 indem wir alle vorab per Mail über den Reservierungsbeginn informieren, und jeder die Zeit hat,
@@ -368,11 +368,11 @@ de:
         seller:
           attributes:
             email:
-              invalid_email_address: |
+              invalid_email_address: >
                 Bitte geben Sie eine gültige %{attribute} ein. Nur mit korrekter %{attribute} ist eine Aktivierung
                 Ihres Zugangs möglich.
             phone:
-              invalid: |
+              invalid: >
                 Bitte geben Sie eine vollständige %{attribute} mit Vorwahl ein.
                 Beispiele: 07232/1234567, +49 7232 / 1234567, 072321234567, 07232/1234-567
             zip_code:
@@ -383,7 +383,7 @@ de:
               incorrect: nicht korrekt
             password:
               no_change: muss sich vom aktuellen Passwort unterscheiden
-              weak: |
+              weak: >
                 muss mindestens 5 Zeichen lang sein und mindestens einen Großbuchstaben,
                 einen Kleinbuchstaben und eine Ziffer enthalten.
         item:
@@ -414,7 +414,7 @@ de:
     title: Teilnahmebedingungen
   privacy:
     title: Datenschutzerklärung
-    content: |
+    content: >
       ### Erhebung, Verarbeitung und Nutzung personenbezogener Daten
 
       Der Schutz Ihrer Daten liegt uns am Herzen. Um unsere Homepage zu besuchen, müssen Sie keine Daten angeben.
