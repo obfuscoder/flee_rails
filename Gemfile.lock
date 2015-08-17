@@ -141,6 +141,9 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    jbuilder (2.3.1)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -384,6 +387,7 @@ DEPENDENCIES
   faker
   fuubar
   haml-rails
+  jbuilder
   jquery-rails
   launchy
   maildown

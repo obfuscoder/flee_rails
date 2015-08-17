@@ -52,5 +52,9 @@ Rails.application.routes.draw do
     get 'logout', controller: :sessions, action: :destroy
   end
 
+  namespace :api, defaults: { format: 'json' } do
+    resources :events, only: [:show]
+  end
+
   get '/pages/my_basar', to: redirect('http://flohmarkthelfer.de')
 end

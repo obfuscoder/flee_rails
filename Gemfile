@@ -66,4 +66,5 @@ gem 'barby' # pdf barcodes
 gem 'will_paginate-bootstrap'
 gem 'sorcery'
 gem 'config'
+gem 'jbuilder'
 gem 'whenever', require: false # cron

@@ -32,7 +32,7 @@ class Item < ActiveRecord::Base
   end
 
   def price=(number)
-    number.gsub!(',', '.') if number.is_a? String
+    number.tr!(',', '.') if number.is_a? String
     self[:price] = number.try(:to_d)
   end
 

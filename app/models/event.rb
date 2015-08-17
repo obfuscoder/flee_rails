@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
   end
 
   def seller_fee=(number)
-    number.gsub!(',', '.') if number.is_a? String
+    number.tr!(',', '.') if number.is_a? String
     self[:seller_fee] = number.try(:to_d)
   end
 
