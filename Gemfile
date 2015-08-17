@@ -65,5 +65,5 @@ gem 'prawn' # pdf generation
 gem 'barby' # pdf barcodes
 gem 'will_paginate-bootstrap'
 gem 'sorcery'
-gem 'rails_config'
+gem 'config'
 gem 'whenever', require: false # cron

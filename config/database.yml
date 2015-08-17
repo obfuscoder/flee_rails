@@ -25,7 +25,6 @@ production:
   encoding: utf8
   database: flohmarkthelfer
   username: flohmarkthelfer
-  password: <%= ENV['DB_PASS'] %>
-  host: 127.0.0.1
+  password: flohmarkthelfer
+  host: localhost
   port: 3306
-  secure_auth: false
