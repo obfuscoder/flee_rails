@@ -6,8 +6,13 @@ module Api
       @categories = Category.all
     end
 
+    private
+
     def init_event
-      @event = Event.find params[:id]
+      authenticate_or_request_with_http_token do |token, _options|
+        @event = Event.find_by_token(token)
+        @event.present?
+      end
     end
   end
 end

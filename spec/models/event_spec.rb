@@ -93,4 +93,9 @@ RSpec.describe Event do
       it { is_expected.to eq true }
     end
   end
+
+  describe '#token' do
+    before { subject.save }
+    its(:token) { is_expected.not_to be_nil }
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727182744) do
+ActiveRecord::Schema.define(version: 20150817102827) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20150727182744) do
     t.decimal  "commission_rate",                  precision: 3, scale: 2
     t.decimal  "seller_fee",                       precision: 3, scale: 2
     t.boolean  "donation_of_unsold_items_enabled"
+    t.string   "token"
   end
+
+  add_index "events", ["token"], name: "index_events_on_token", unique: true
 
   create_table "items", force: :cascade do |t|
     t.datetime "created_at"
@@ -169,5 +172,4 @@ ActiveRecord::Schema.define(version: 20150727182744) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-
 end

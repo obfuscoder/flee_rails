@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/events/show' do
-  before { assign :event, FactoryGirl.build(:event, id: 1) }
+  let(:event) { FactoryGirl.create :event }
+  before { assign :event, event }
   it_behaves_like 'a standard view'
 
   context 'with direct event' do
-    before { assign :event, FactoryGirl.build(:direct_event, id: 1) }
+    let(:Event) { FactoryGirl.create :direct_event }
     it_behaves_like 'a standard view'
+  end
+
+  it 'shows token' do
+    render
+    expect(rendered).to have_content event.token
   end
 end

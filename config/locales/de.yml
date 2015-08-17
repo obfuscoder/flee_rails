@@ -289,6 +289,7 @@ de:
         commission_rate: Umsatzanteil für Kommission
         seller_fee: Teilnahmegebühr
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
+        token: Token
       item:
         seller: Verkäufer
         category: Kategorie
