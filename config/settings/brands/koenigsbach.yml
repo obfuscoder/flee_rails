@@ -89,7 +89,7 @@ brands:
     price_precision: 0.1
     commission_rate: 0.2
     seller_fee: 2.0
-    donation_of_unsold_items_enabled: false
+    donation_of_unsold_items_enabled: true
     prefix:
 hosts:
   koenigsbach.localhost: koenigsbach
