@@ -33,6 +33,26 @@ RSpec.describe ItemsController do
     end
   end
 
+  describe 'GET new' do
+    before do
+      preparations
+      get :new, event_id: event.id
+    end
+
+    describe '@item' do
+      subject { assigns :item }
+
+      [false, true].each do |donation_default|
+        context "when donation default setting is #{donation_default}" do
+          let(:preparations) do
+            allow(Settings.brands.default).to receive(:donation_of_unsold_items_default).and_return(donation_default)
+          end
+          its(:donation) { is_expected.to eq donation_default }
+        end
+      end
+    end
+  end
+
   describe 'GET index' do
     let!(:items) { FactoryGirl.create_list :item, 25, reservation: reservation }
     let(:options) { {} }

@@ -83,6 +83,7 @@ brands:
     commission_rate: 0.25
     seller_fee: 2.0
     donation_of_unsold_items_enabled: true
+    donation_of_unsold_items_default: true
     prefix: 1
 hosts:
   dammerstock.localhost: dammerstock

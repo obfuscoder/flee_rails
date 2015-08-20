@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new donation: brand_settings.donation_of_unsold_items_enabled
+    @item = Item.new donation: brand_settings.donation_of_unsold_items_default
   end
 
   def edit
