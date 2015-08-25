@@ -32,11 +32,11 @@ RSpec.describe 'api/events/show' do
 
     describe 'first' do
       subject(:reservation) { reservations.first }
-      it { is_expected.to include :number, :seller, :items }
+      it { is_expected.to include :id, :number, :seller, :items }
 
       describe 'seller' do
         subject(:seller) { reservation[:seller] }
-        it { is_expected.to include :first_name, :last_name, :street, :zip_code, :city, :phone, :email }
+        it { is_expected.to include :id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email }
       end
 
       describe 'items' do
@@ -45,7 +45,7 @@ RSpec.describe 'api/events/show' do
 
         describe 'first' do
           subject(:item) { items.first }
-          it { is_expected.to include :category_id, :description, :number, :code, :sold, :donation, :size, :price }
+          it { is_expected.to include :id, :category_id, :description, :number, :code, :sold, :donation, :size, :price }
         end
       end
     end
