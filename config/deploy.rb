@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'flee_rails'
-set :repo_url, 'https://github.com/obfuscoder/flee_rails.git'
+set :repo_url, 'https://github.com/obfuscoder/flee_rails'
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/secrets.yml',
