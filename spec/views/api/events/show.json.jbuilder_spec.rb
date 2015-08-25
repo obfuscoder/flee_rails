@@ -26,27 +26,33 @@ RSpec.describe 'api/events/show' do
     end
   end
 
+  describe 'sellers' do
+    subject(:sellers) { json[:sellers] }
+    it { is_expected.to have(2).items }
+    it 'have id and name' do
+      sellers.each do |seller|
+        expect(seller).to include :id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email
+      end
+    end
+  end
+
   describe 'reservations' do
     subject(:reservations) { json[:reservations] }
     it { is_expected.to have(2).items }
 
-    describe 'first' do
-      subject(:reservation) { reservations.first }
-      it { is_expected.to include :id, :number, :seller, :items }
+    it 'have necessary attributes' do
+      reservations.each { |reservation| expect(reservation).to include :id, :number, :seller_id }
+    end
+  end
 
-      describe 'seller' do
-        subject(:seller) { reservation[:seller] }
-        it { is_expected.to include :id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email }
-      end
+  describe 'items' do
+    subject(:items) { json[:items] }
+    it { is_expected.to have(5).items }
 
-      describe 'items' do
-        subject(:items) { reservation[:items] }
-        it { is_expected.to have(3).items }
-
-        describe 'first' do
-          subject(:item) { items.first }
-          it { is_expected.to include :id, :category_id, :description, :number, :code, :sold, :donation, :size, :price }
-        end
+    it 'have necessary attributes' do
+      items.each do |item|
+        expect(item).to include :id, :category_id, :reservation_id, :description,
+                                :number, :code, :sold, :donation, :size, :price
       end
     end
   end
