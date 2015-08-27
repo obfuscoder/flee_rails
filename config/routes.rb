@@ -53,7 +53,11 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: 'json' } do
-    resource :event, only: [:show]
+    resource :event, only: [:show] do
+      member do
+        post :transactions
+      end
+    end
   end
 
   get '/pages/my_basar', to: redirect('http://flohmarkthelfer.de')
