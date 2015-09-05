@@ -24,6 +24,11 @@ class Item < ActiveRecord::Base
     description || super
   end
 
+  def delete_code
+    self.number = self.code = nil
+    save!
+  end
+
   def create_code(options = {})
     prefix = options.extract!(:prefix).values.first || ''
     self.number = reservation.items.with_label.count + 1

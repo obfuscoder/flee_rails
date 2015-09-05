@@ -19,5 +19,16 @@ module Admin
         redirect_to admin_reservation_items_path(@reservation), alert: t('.failure')
       end
     end
+
+    def delete_code
+      item = Item.find params[:id]
+      item.delete_code
+      redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
+    end
+
+    def delete_all_codes
+      @reservation.items.each(&:delete_code)
+      redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
+    end
   end
 end

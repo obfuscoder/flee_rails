@@ -42,7 +42,14 @@ Rails.application.routes.draw do
     resources :sellers
     resources :categories
     resources :reservations do
-      resources :items
+      resources :items do
+        member do
+          delete :code, action: :delete_code
+        end
+        collection do
+          delete :codes, action: :delete_all_codes
+        end
+      end
     end
     get 'emails', controller: :emails
     post 'emails', controller: :emails, action: :create

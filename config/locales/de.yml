@@ -12,6 +12,7 @@ de:
   show: Anzeigen
   edit: Bearbeiten
   destroy: Löschen
+  delete_code: Etikett freigeben
   sure: Sind Sie sicher?
   back: Zurück
   position: '#'
@@ -212,6 +213,13 @@ de:
         title: Artikel
         destroy:
           confirm: Sind Sie sicher, dass Sie diesen Artikel löschen wollen?
+        delete_code:
+          confirm: Wollen Sie wirklich das Etikett freigeben?
+        delete_all_codes:
+          confirm: |
+            Wenn Etiketten freigegeben werden, könnten diese Nummern für den Verkäufer wieder bei anderen Artikeln
+            verwendet werden. Bitte vergewissern Sie sich, dass der Verkäufer keine der bereits erzeugten Etiketten
+            verwendet. Wollen Sie wirklich alle Etikett freigeben?
       new:
         title: Artikel anlegen
       edit:
@@ -222,6 +230,10 @@ de:
         success: Artikel wurde aktualisiert.
       destroy:
         success: Artikel gelöscht.
+      delete_code:
+        success: Das Etikett wurde freigegeben.
+      delete_all_codes:
+        success: Alle Etiketten wurden freigegeben.
     categories:
       index:
         title: Kategorien

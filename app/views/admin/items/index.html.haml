@@ -17,3 +17,6 @@
       %td= number_to_currency(item.price)
       %td= item.code
       %td= icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+      - if item.number.present?
+        %td= icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
+= link_to 'Alle Etiketten freigeben', codes_admin_reservation_items_path(@reservation), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_all_codes.confirm') }
