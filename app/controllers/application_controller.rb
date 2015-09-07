@@ -1,5 +1,3 @@
-require 'label_document'
-
 class ApplicationController < ActionController::Base
   before_filter :connect_to_database
   before_filter :init_page_parameter

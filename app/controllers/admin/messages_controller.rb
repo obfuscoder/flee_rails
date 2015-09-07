@@ -21,7 +21,7 @@ module Admin
     end
 
     def finished
-      send_mails_and_redirect
+      send_mails_and_redirect { |reservation| create_receipt_document(reservation) }
     end
 
     private
@@ -42,6 +42,10 @@ module Admin
           SellerMailer.send(type, reservation, options).deliver_later
         end
       end
+    end
+
+    def create_receipt_document(reservation)
+      ReceiptDocument.new(Receipt.new(reservation)).render
     end
   end
 end

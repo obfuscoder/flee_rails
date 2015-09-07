@@ -48,11 +48,12 @@ class SellerMailer < ActionMailer::Base
     mail to: @seller.email, from: options[:from]
   end
 
-  def finished(reservation, options)
+  def finished(reservation, receipt_pdf, options)
     @seller = reservation.seller
     @event = reservation.event
     @results_url = login_seller_url @seller.token, goto: :show, event: @event, host: options[:host]
     @review_url = login_seller_url @seller.token, goto: :review, event: @event, host: options[:host]
+    attachments['rechnung.pdf'] = receipt_pdf
     mail to: @seller.email, from: options[:from]
   end
 

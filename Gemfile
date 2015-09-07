@@ -62,6 +62,7 @@ gem 'redcarpet' # markdown
 gem 'validates_email_format_of'
 gem 'squeel' # database query DSL
 gem 'prawn' # pdf generation
+gem 'prawn-table'
 gem 'barby' # pdf barcodes
 gem 'will_paginate-bootstrap'
 gem 'sorcery'

@@ -205,6 +205,7 @@ GEM
     prawn (2.0.2)
       pdf-core (~> 0.6.0)
       ttfunk (~> 1.4.0)
+    prawn-table (0.2.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -396,6 +397,7 @@ DEPENDENCIES
   pdf-inspector
   poltergeist
   prawn
+  prawn-table
   pry-rails
   rails
   redcarpet

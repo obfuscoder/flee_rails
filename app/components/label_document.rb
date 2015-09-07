@@ -1,5 +1,6 @@
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
+
 Prawn::Font::AFM.hide_m17n_warning = true
 
 class LabelDocument < Prawn::Document
