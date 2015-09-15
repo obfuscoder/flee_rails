@@ -38,7 +38,6 @@ RSpec.shared_examples 'a mail with attachment' do
   end
 end
 
-
 RSpec.shared_examples 'a mail' do
   it_behaves_like 'a mail with headers'
 
@@ -75,7 +74,7 @@ RSpec.describe SellerMailer do
     let(:reservation) { FactoryGirl.build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: host), reservation.number] }
-    let(:receipt) { "RECEIPT" }
+    let(:receipt) { 'RECEIPT' }
     subject(:mail) { SellerMailer.finished reservation, receipt, host: host, from: from }
 
     it_behaves_like 'a mail with attachment'

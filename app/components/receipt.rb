@@ -9,6 +9,8 @@ class Receipt
     @commission_cut = commission_cut_sum - sold_items_sum
   end
 
+  attr_reader :reservation, :commission_cut, :payout
+
   def seller
     @reservation.seller
   end
@@ -21,27 +23,15 @@ class Receipt
     Time.now.strftime '%d. %m. %Y'
   end
 
-  def reservation
-    @reservation
-  end
-
   def sold_items
     @sold_items ||= @reservation.items.where.not(sold: nil)
   end
 
   def sold_items_sum
-    @sold_items_sum ||= sold_items.map(&:price).inject(:+)
-  end
-
-  def commission_cut
-    @commission_cut
+    @sold_items_sum ||= sold_items.map(&:price).inject(:+) || 0
   end
 
   def seller_fee
     - @reservation.event.seller_fee
-  end
-
-  def payout
-    @payout
   end
 end
