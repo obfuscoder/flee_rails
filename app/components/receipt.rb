@@ -11,6 +11,10 @@ class Receipt
 
   attr_reader :reservation, :commission_cut, :payout
 
+  def donation_enabled?
+    event.donation_of_unsold_items_enabled ? true : false
+  end
+
   def seller
     @reservation.seller
   end
@@ -25,6 +29,14 @@ class Receipt
 
   def sold_items
     @sold_items ||= @reservation.items.where.not(sold: nil)
+  end
+
+  def returned_items
+    @returned_items ||= @reservation.items.where(sold: nil).where(donation: [nil, false])
+  end
+
+  def donated_items
+    @donated_items ||= @reservation.items.where(sold: nil).where(donation: true)
   end
 
   def sold_items_sum
