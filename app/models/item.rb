@@ -31,7 +31,12 @@ class Item < ActiveRecord::Base
 
   def create_code(options = {})
     prefix = options.extract!(:prefix).values.first || ''
-    self.number = reservation.items.with_label.count + 1
+    self.number = reservation.items.with_label.order(:number).last.try(:number)
+    if self.number.present?
+      self.number += 1
+    else
+      self.number = 1
+    end
     code = format('%s%02d%03d%03d', prefix, reservation.event.id, reservation.number, number)
     self.code = append_checksum(code)
   end

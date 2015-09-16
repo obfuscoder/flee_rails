@@ -27,10 +27,21 @@ RSpec.describe Item do
 
   describe '#create_code' do
     let(:options) { {} }
-    before { subject.create_code options }
+    let(:preparations) {}
+    let(:reservation) { FactoryGirl.create :reservation }
+    subject { FactoryGirl.build :item, reservation: reservation }
+    before do
+      preparations
+      subject.create_code options
+    end
 
     its(:code) { is_expected.to eq '010010012' }
     its(:number) { is_expected.to eq 1 }
+
+    context 'when other item is numbered already' do
+      let(:preparations) { FactoryGirl.create :item, reservation: reservation, number: 4, code: 'abcd1234' }
+      its(:number) { is_expected.to eq 5 }
+    end
 
     context 'with prefix option' do
       let(:options) { { prefix: 'ABC' } }
