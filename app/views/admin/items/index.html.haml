@@ -7,6 +7,8 @@
     %th= Item.human_attribute_name :size
     %th= Item.human_attribute_name :price
     %th= Item.human_attribute_name :code
+    - if @reservation.event.donation_of_unsold_items_enabled
+      %th= Item.human_attribute_name :donation
     %th
   - @items.each_with_index do |item, index|
     %tr
@@ -16,6 +18,8 @@
       %td= item.size
       %td= number_to_currency(item.price)
       %td= item.code
+      - if @reservation.event.donation_of_unsold_items_enabled
+        %td= t((item.donation ? true:false).to_s)
       %td= icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
       - if item.number.present?
         %td= icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }

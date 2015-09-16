@@ -32,7 +32,7 @@ class Item < ActiveRecord::Base
   def create_code(options = {})
     prefix = options.extract!(:prefix).values.first || ''
     self.number = reservation.items.with_label.order(:number).last.try(:number)
-    if self.number.present?
+    if number.present?
       self.number += 1
     else
       self.number = 1

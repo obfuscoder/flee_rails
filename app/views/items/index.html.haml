@@ -1,8 +1,5 @@
 - content_for :title, t('.title')
-%p
-  Hier können Sie Ihre Artikel verwalten.
-  Sie können beliebig viele Artikel eingeben, auch ohne eine Reservierung zu haben.
-  Sobald Sie eine Reservierung haben, können Sie Etiketten für ausgewählte Artikel erzeugen.
+%p  Hier können Sie Ihre Artikel verwalten.
 %p
   Sie haben aktuell #{@items.count} Artikel angelegt.
   - if @event.max_items_per_seller <= @items.count
@@ -17,6 +14,8 @@
     %th= sort_link_to Item, :description
     %th= sort_link_to Item, :size
     %th= sort_link_to Item, :price
+    - if @event.donation_of_unsold_items_enabled
+      %th= sort_link_to Item, :donation
     %th Aktionen
 
   - @items.each_with_index do |item, index|
@@ -26,6 +25,8 @@
       %td= item.description
       %td= item.size
       %td= number_to_currency(item.price)
+      - if @event.donation_of_unsold_items_enabled
+        %td= t((item.donation ? true:false).to_s)
       %td.btn-group
         - if item.code.nil?
           = icon_link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
