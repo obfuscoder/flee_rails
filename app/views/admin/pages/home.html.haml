@@ -1,4 +1,5 @@
 - content_for :title, t('.title')
+=link_to 'Download Kassensystem', Settings.client.download_url, type: :primary, icon: :download_alt
 %h3 Verkäufer
 %ul
   %li gesamt: #{Seller.count}
