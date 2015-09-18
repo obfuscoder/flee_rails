@@ -282,6 +282,7 @@ RSpec.feature 'admin events' do
               expect(current_path).to eq new_event_review_path(event)
             end
             it 'links to event summary' do
+              skip 'needs to be implemented first'
               mail.click_on 'Zu den Flohmarktergebnissen'
               expect(current_path).to eq event_path(event)
             end
