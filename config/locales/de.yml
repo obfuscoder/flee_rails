@@ -377,6 +377,10 @@ de:
                 Bitte haben Sie Verständnis dafür, dass wir allen Interessenten die gleiche Chance geben wollen,
                 indem wir alle vorab per Mail über den Reservierungsbeginn informieren, und jeder die Zeit hat,
                 sich auf diesen Termin vorzubereiten.
+              limit_reached: >
+                Alle Reservierungsnummern sind bereits vergeben.
+            number:
+              taken: Sie haben bereits eine Reservierungsnummer.
         seller:
           attributes:
             email:
