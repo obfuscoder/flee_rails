@@ -220,6 +220,9 @@ de:
             Wenn Etiketten freigegeben werden, könnten diese Nummern für den Verkäufer wieder bei anderen Artikeln
             verwendet werden. Bitte vergewissern Sie sich, dass der Verkäufer keine der bereits erzeugten Etiketten
             verwendet. Wollen Sie wirklich alle Etikett freigeben?
+      labels:
+        title: Etiketten drucken
+        item: Artikel
       new:
         title: Artikel anlegen
       edit:

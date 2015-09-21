@@ -29,7 +29,13 @@ RSpec.describe 'admin/items/index' do
 
     it { is_expected.to have_link 'Alle Etiketten freigeben', href: codes_admin_reservation_items_path(reservation) }
 
+    it { is_expected.to have_link 'Artikel hinzufügen', href: new_admin_reservation_item_path(reservation) }
+
+    it { is_expected.to have_link 'Bearbeiten', href: edit_admin_reservation_item_path(reservation, item) }
+
     it { is_expected.not_to have_text 'Spende wenn nicht verkauft' }
+
+    it { is_expected.to have_link 'Etiketten drucken', href: labels_admin_reservation_items_path(reservation) }
 
     context 'when donation is enabled for event' do
       let(:event) { FactoryGirl.create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }

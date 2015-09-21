@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   get 'pages/privacy'
   get 'pages/deleted'
 
-  # mount RailsAdmin::Engine => '/manager', as: :rails_admin
-
   resources :events, only: [:show] do
     resource :reservation, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
@@ -48,6 +46,8 @@ Rails.application.routes.draw do
         end
         collection do
           delete :codes, action: :delete_all_codes
+          get :labels, action: :labels
+          post :labels, action: :create_labels
         end
       end
     end

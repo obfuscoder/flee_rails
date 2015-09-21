@@ -1,0 +1,8 @@
+- content_for :title, t('.title')
+%p Bitte wählen Sie die Artikel aus, für die Sie Etiketten drucken wollen.
+= simple_form_for :labels, path: labels_admin_reservation_items_path(@reservation) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :item, label: t('.item'), collection: @items, include_hidden: false, selected: @items.map(&:id), input_html: { multiple: true }
+  .form-actions
+    = f.button :submit

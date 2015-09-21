@@ -9,7 +9,7 @@
     %th= Item.human_attribute_name :code
     - if @reservation.event.donation_of_unsold_items_enabled
       %th= Item.human_attribute_name :donation
-    %th
+    %th= icon_link_to 'Artikel hinzufügen', new_admin_reservation_item_path(@reservation), type: :primary, icon: :file
   - @items.each_with_index do |item, index|
     %tr
       %td= index+1
@@ -20,7 +20,12 @@
       %td= item.code
       - if @reservation.event.donation_of_unsold_items_enabled
         %td= t((item.donation ? true:false).to_s)
-      %td= icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
-      - if item.number.present?
-        %td= icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
+      %td.btn-group
+        - if item.code.nil?
+          = icon_link_to t('edit'), edit_admin_reservation_item_path(@reservation, item), type: :primary, icon: :pencil
+        = icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+        - if item.number.present?
+          = icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
 = link_to 'Alle Etiketten freigeben', codes_admin_reservation_items_path(@reservation), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_all_codes.confirm') }
+- unless @items.empty?
+  = link_to 'Etiketten drucken', labels_admin_reservation_items_path(@reservation), type: :primary, icon: :print
