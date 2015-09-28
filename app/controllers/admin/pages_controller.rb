@@ -30,9 +30,9 @@ module Admin
     end
 
     def created_objects_per_day(clazz)
-      result = clazz.where { created_at.gteq 4.weeks.ago }
-                    .group { date(created_at) }
-                    .select { [date(created_at).as(date), count(id).as(count)] }
+      result = clazz.where { created_at.gteq 4.weeks.ago }.group { date(created_at) }.select do
+        [date(created_at).as(date), count(id).as(count)]
+      end
       result.map { |element| [element.date, element.count] }.to_h
     end
   end
