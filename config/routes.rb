@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'pages/contact'
   get 'pages/imprint'
   get 'pages/privacy'
+  get 'pages/terms'
   get 'pages/deleted'
 
   resources :events, only: [:show] do

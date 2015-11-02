@@ -23,6 +23,10 @@ RSpec.describe 'layouts/application' do
     it 'links to privacy page' do
       assert_select '.navbar ul>li>a[href=?]', pages_privacy_path
     end
+
+    it 'links to terms page' do
+      assert_select '.navbar ul>li>a[href=?]', pages_terms_path
+    end
   end
 
   describe 'search form' do

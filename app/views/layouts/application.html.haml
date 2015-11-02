@@ -27,6 +27,7 @@
                          { title: 'Hilfe/Kontakt', link: pages_contact_path, icon: :question_sign },
                          { title: 'Impressum', link: pages_imprint_path, icon: :info_sign },
                          { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
+                         { title: 'Teilnahmebedingungen', link: pages_terms_path, icon: :certificate },
                          { title: 'Ihr Flohmarkt', link: 'http://flohmarkthelfer.de', icon: :heart }]
             = render partial: 'layouts/menu_item', collection: @menu, as: :item
           - if searchable?
