@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
                      allow_nil: true
+  validates :price, numericality: { greater_than: 0 }
   validate :price_divisible_by_precision
 
   scope :without_label, -> { where { code.eq nil } }
@@ -43,7 +44,7 @@ class Item < ActiveRecord::Base
 
   def price=(number)
     number.tr!(',', '.') if number.is_a? String
-    self[:price] = number.try(:to_d)
+    self[:price] = number
   end
 
   private
