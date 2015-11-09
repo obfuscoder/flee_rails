@@ -8,7 +8,7 @@ RSpec.describe Item do
   it { is_expected.to validate_presence_of(:description) }
   it { is_expected.to validate_presence_of(:price) }
   it { is_expected.to validate_numericality_of(:price).is_greater_than(0) }
-  it { is_expected.to validate_numericality_of(:number).is_greater_than(0).only_integer }
+  it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:reservation_id) }
   it { is_expected.to validate_uniqueness_of(:code) }
   it { is_expected.to belong_to(:category) }

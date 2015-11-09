@@ -6,7 +6,7 @@ RSpec.describe Reservation do
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:seller) }
   it { is_expected.to validate_presence_of(:event) }
-  it { is_expected.to validate_numericality_of(:number).is_greater_than(0).only_integer }
+  it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:event_id) }
   it { is_expected.to validate_uniqueness_of(:seller_id).scoped_to(:event_id) }
   it { is_expected.to have_many(:items).dependent(:destroy) }
