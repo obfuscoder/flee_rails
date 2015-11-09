@@ -3,12 +3,12 @@ require 'rails_helper'
 module Admin
   RSpec.describe SellersController do
     include Sorcery::TestHelpers::Rails::Controller
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     before { login_user user }
 
-    let!(:seller1) { FactoryGirl.create :seller, first_name: 'AAAAA', last_name: 'BBBB', email: 'zzz@bbb.de' }
-    let!(:seller2) { FactoryGirl.create :seller, first_name: 'ZZZZZ', last_name: 'EEEE', email: 'bbb@bbb.de' }
-    let!(:seller3) { FactoryGirl.create :seller, first_name: 'BBBBB', last_name: 'BBBB', email: 'aaa@bbb.de' }
+    let!(:seller1) { create :seller, first_name: 'AAAAA', last_name: 'BBBB', email: 'zzz@bbb.de' }
+    let!(:seller2) { create :seller, first_name: 'ZZZZZ', last_name: 'EEEE', email: 'bbb@bbb.de' }
+    let!(:seller3) { create :seller, first_name: 'BBBBB', last_name: 'BBBB', email: 'aaa@bbb.de' }
 
     describe 'GET index' do
       let(:params) { {} }

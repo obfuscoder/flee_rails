@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'labels/index' do
   before do
-    items = assign(:items, [FactoryGirl.build(:item)])
+    items = assign(:items, [build(:item)])
     @event = items.first.reservation.event
   end
 

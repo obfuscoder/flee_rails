@@ -3,15 +3,15 @@ require 'rails_helper'
 module Admin
   RSpec.describe ReservationsController do
     include Sorcery::TestHelpers::Rails::Controller
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     before { login_user user }
 
-    let(:seller1) { FactoryGirl.create :seller, first_name: 'AAAAA', last_name: 'BBBB', email: 'zzz@bbb.de' }
-    let(:seller2) { FactoryGirl.create :seller, first_name: 'ZZZZZ', last_name: 'EEEE', email: 'bbb@bbb.de' }
-    let(:seller3) { FactoryGirl.create :seller, first_name: 'BBBBB', last_name: 'BBBB', email: 'aaa@bbb.de' }
+    let(:seller1) { create :seller, first_name: 'AAAAA', last_name: 'BBBB', email: 'zzz@bbb.de' }
+    let(:seller2) { create :seller, first_name: 'ZZZZZ', last_name: 'EEEE', email: 'bbb@bbb.de' }
+    let(:seller3) { create :seller, first_name: 'BBBBB', last_name: 'BBBB', email: 'aaa@bbb.de' }
     let(:sellers) { [seller1, seller2, seller3] }
-    let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
-    let!(:reservations) { sellers.map { |seller| FactoryGirl.create :reservation, event: event, seller: seller } }
+    let(:event) { create :event_with_ongoing_reservation }
+    let!(:reservations) { sellers.map { |seller| create :reservation, event: event, seller: seller } }
 
     describe 'GET index' do
       let(:index_params) { { event_id: event.id }.merge params }
@@ -55,7 +55,7 @@ module Admin
 
     describe 'POST create' do
       let(:action) { post :create, event_id: event.id, reservation: { seller_id: [seller1.id, seller2.id] } }
-      let(:reservation) { FactoryGirl.create :reservation }
+      let(:reservation) { create :reservation }
 
       before do
         creator = double
@@ -72,7 +72,7 @@ module Admin
       end
 
       context 'when reservations were not persisted' do
-        let(:reservation) { FactoryGirl.build :reservation }
+        let(:reservation) { build :reservation }
         it { is_expected.to redirect_to admin_event_reservations_path }
         it 'notifies about the reservations count' do
           expect(flash[:notice]).to be_present

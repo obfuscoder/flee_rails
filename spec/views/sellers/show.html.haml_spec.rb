@@ -3,9 +3,7 @@ require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
   let!(:seller) do
-    assign :seller, FactoryGirl.create(:seller,
-                                       reservations: reservation ? [reservation] : [],
-                                       reviews: review ? [review] : [])
+    assign :seller, create(:seller, reservations: reservation ? [reservation] : [], reviews: review ? [review] : [])
   end
   let!(:events) { assign :events, event ? [event] : [] }
   let(:reservation) {}
@@ -35,12 +33,12 @@ RSpec.describe 'sellers/show' do
   end
 
   context 'with event' do
-    let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
+    let(:event) { create :event_with_ongoing_reservation }
     it 'links to reservation' do
       assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post'
     end
     context 'when event is full' do
-      let(:event) { FactoryGirl.create :full_event }
+      let(:event) { create :full_event }
       it 'does not link to reservation' do
         assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post', 0
       end
@@ -50,8 +48,8 @@ RSpec.describe 'sellers/show' do
         end
       end
       context 'when seller is notified already' do
-        let(:notification) { FactoryGirl.build :notification, seller: seller }
-        let(:event) { FactoryGirl.create :full_event, notifications: [notification] }
+        let(:notification) { build :notification, seller: seller }
+        let(:event) { create :full_event, notifications: [notification] }
         it 'does not link to notification' do
           assert_select 'a[href=?][data-method=?]', event_notification_path(event), 'post', 0
         end
@@ -60,7 +58,7 @@ RSpec.describe 'sellers/show' do
   end
 
   context 'with reservation' do
-    let(:reservation) { FactoryGirl.create :reservation }
+    let(:reservation) { create :reservation }
 
     it_behaves_like 'a standard view'
 
@@ -90,14 +88,14 @@ RSpec.describe 'sellers/show' do
       end
 
       context 'with event kind commissioned' do
-        let(:reservation) { FactoryGirl.create :ongoing_reservation_for_commission_event }
+        let(:reservation) { create :ongoing_reservation_for_commission_event }
 
         it 'shows date until labels need to be created' do
           expect(rendered).to match(/#{l(reservation.event.reservation_end, format: :long)}/)
         end
       end
       context 'with event kind direct' do
-        let(:reservation) { FactoryGirl.create :ongoing_reservation_for_direct_event }
+        let(:reservation) { create :ongoing_reservation_for_direct_event }
 
         it 'does not show reservation end date' do
           expect(rendered).not_to match(/#{l(reservation.event.reservation_end, format: :long)}/)
@@ -120,7 +118,7 @@ RSpec.describe 'sellers/show' do
       end
 
       context 'with review' do
-        let(:review) { FactoryGirl.create :review, event: reservation.event }
+        let(:review) { create :review, event: reservation.event }
 
         it 'does not link to new event review page' do
           assert_select 'a[href=?]', new_event_review_path(reservation.event), 0

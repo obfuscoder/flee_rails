@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Reviews' do
-  let!(:seller) { FactoryGirl.create :seller }
-  let!(:event) { FactoryGirl.create :event }
+  let!(:seller) { create :seller }
+  let!(:event) { create :event }
 
   def visit_review_link
     visit login_seller_url(seller.token, goto: :review, event: event)
@@ -68,7 +68,7 @@ RSpec.feature 'Reviews' do
   context 'with reservation' do
     before do
       event.reservation_start = 1.hour.ago
-      FactoryGirl.create :reservation, event: event, seller: seller
+      create :reservation, event: event, seller: seller
     end
     context 'when event has passed' do
       before { Timecop.travel event.shopping_periods.first.max + 1.hour }
@@ -90,7 +90,7 @@ RSpec.feature 'Reviews' do
       end
 
       context 'when review was done already' do
-        before { FactoryGirl.create :review, event: event, seller: seller }
+        before { create :review, event: event, seller: seller }
 
         it_behaves_like 'review is not allowed'
       end

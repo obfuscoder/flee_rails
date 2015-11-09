@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Event results' do
-  let!(:seller) { FactoryGirl.create :seller }
-  let!(:event) { FactoryGirl.create :event }
+  let!(:seller) { create :seller }
+  let!(:event) { create :event }
 
   def visit_results_link
     visit login_seller_url(seller.token, goto: :show, event: event)
@@ -69,7 +69,7 @@ RSpec.feature 'Event results' do
   context 'with reservation' do
     before do
       event.reservation_start = 1.hour.ago
-      FactoryGirl.create :reservation, event: event, seller: seller
+      create :reservation, event: event, seller: seller
     end
     context 'when event has passed' do
       before { Timecop.travel event.shopping_periods.first.max + 1.hour }

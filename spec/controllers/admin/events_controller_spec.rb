@@ -3,10 +3,10 @@ require 'rails_helper'
 module Admin
   RSpec.describe EventsController do
     include Sorcery::TestHelpers::Rails::Controller
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     before { login_user user }
 
-    let(:event) { FactoryGirl.create :event, confirmed: false }
+    let(:event) { create :event, confirmed: false }
 
     describe 'GET new' do
       before { get :new }
@@ -42,7 +42,7 @@ module Admin
           let(:association) { "#{kind}_periods" }
           let(:attrib_name) { "#{kind}_periods_attributes" }
           let(:period1) { to_attributes event.send(association).first }
-          let(:period2) { FactoryGirl.attributes_for "#{kind}_period", min: 2.weeks.from_now + 30.minutes }
+          let(:period2) { attributes_for "#{kind}_period", min: 2.weeks.from_now + 30.minutes }
           let(:event_params) { { attrib_name => [period1, period2] } }
 
           it "persists #{kind} times" do

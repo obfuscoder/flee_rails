@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/sellers/index' do
-  let(:sellers) { FactoryGirl.create_list :seller, 25 }
+  let(:sellers) { create_list :seller, 25 }
   before do
     assign :sellers, sellers.paginate
   end

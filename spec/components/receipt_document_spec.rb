@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ReceiptDocument do
-  let(:event) { FactoryGirl.create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
-  let(:reservation) { FactoryGirl.create :reservation, event: event }
-  let!(:sold_items) { FactoryGirl.create_list :item_with_code, 21, reservation: reservation, sold: Time.now }
-  let!(:returned_items) { FactoryGirl.create_list :item_with_code, 12, reservation: reservation }
-  let!(:donated_items) { FactoryGirl.create_list :item_with_code, 5, reservation: reservation, donation: true }
+  let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+  let(:reservation) { create :reservation, event: event }
+  let!(:sold_items) { create_list :item_with_code, 21, reservation: reservation, sold: Time.now }
+  let!(:returned_items) { create_list :item_with_code, 12, reservation: reservation }
+  let!(:donated_items) { create_list :item_with_code, 5, reservation: reservation, donation: true }
   let(:receipt) { Receipt.new reservation.reload }
   subject(:document) { ReceiptDocument.new receipt }
   describe '#render' do

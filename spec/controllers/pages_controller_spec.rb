@@ -9,7 +9,7 @@ RSpec.describe PagesController do
     end
 
     context 'with events' do
-      let(:event) { FactoryGirl.create(:event) }
+      let(:event) { create(:event) }
       let(:preparations) { event }
 
       it 'assigns all events as @events' do

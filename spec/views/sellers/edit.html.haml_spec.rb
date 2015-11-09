@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/edit' do
-  let(:seller) { FactoryGirl.create(:seller) }
+  let(:seller) { create(:seller) }
   before do
     assign(:seller, seller)
     render
@@ -19,14 +19,14 @@ RSpec.describe 'sellers/edit' do
   end
 
   context 'when seller has disabled emails' do
-    let(:seller) { FactoryGirl.create(:seller, mailing: false) }
+    let(:seller) { create(:seller, mailing: false) }
     it 'links to enable mailing' do
       assert_select 'a[href=?][data-method=post]', mailing_seller_path
     end
   end
 
   context 'when seller has enabled emails' do
-    let(:seller) { FactoryGirl.create(:seller, mailing: true) }
+    let(:seller) { create(:seller, mailing: true) }
     it 'links to disable mailing' do
       assert_select 'a[href=?][data-method=delete]', mailing_seller_path
     end

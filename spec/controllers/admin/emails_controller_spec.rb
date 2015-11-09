@@ -3,16 +3,16 @@ require 'rails_helper'
 module Admin
   RSpec.describe EmailsController do
     include Sorcery::TestHelpers::Rails::Controller
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     before { login_user user }
 
     describe 'GET emails' do
-      let!(:active_seller) { FactoryGirl.create :seller, active: true }
-      let!(:inactive_seller) { FactoryGirl.create :seller, active: false }
-      let!(:event) { FactoryGirl.create :event_with_ongoing_reservation }
-      let!(:reservation) { FactoryGirl.create :reservation, event: event, seller: active_seller }
-      let!(:item) { FactoryGirl.create :item, reservation: reservation }
-      let!(:notification) { FactoryGirl.create :notification, event: event, seller: inactive_seller }
+      let!(:active_seller) { create :seller, active: true }
+      let!(:inactive_seller) { create :seller, active: false }
+      let!(:event) { create :event_with_ongoing_reservation }
+      let!(:reservation) { create :reservation, event: event, seller: active_seller }
+      let!(:item) { create :item, reservation: reservation }
+      let!(:notification) { create :notification, event: event, seller: inactive_seller }
       before do
         expect(Seller).to receive(:with_mailing).at_least(:once).and_call_original
         expect(Event).to receive(:all).at_least(:once).and_call_original
@@ -53,7 +53,7 @@ module Admin
       let(:subject) { 'subject' }
       let(:body) { 'body' }
       let(:from) { Settings.brands.default.mail.from }
-      let(:seller) { FactoryGirl.create :seller }
+      let(:seller) { create :seller }
       let(:params) { { email: { subject: subject, body: body, sellers: [seller.id] } } }
       before do
         allow(SellerMailer).to receive(:custom).and_return(double deliver_later: true)

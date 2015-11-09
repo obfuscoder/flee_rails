@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Viewing and editing items' do
-  let(:reservation) { FactoryGirl.create :reservation }
+  let(:reservation) { create :reservation }
   let(:seller) { reservation.seller }
-  let!(:category) { FactoryGirl.create :category }
+  let!(:category) { create :category }
   let(:preparations) {}
   background do
     preparations
@@ -11,7 +11,7 @@ RSpec.feature 'Viewing and editing items' do
   end
 
   context 'when 1 item has been created' do
-    let(:preparations) { FactoryGirl.create :item, reservation: reservation }
+    let(:preparations) { create :item, reservation: reservation }
 
     scenario 'shows number of items for reservation on seller page' do
       expect(page).to have_content 'Sie haben bisher 1 Artikel angelegt.'
@@ -83,7 +83,7 @@ RSpec.feature 'Viewing and editing items' do
         end
 
         context 'when donation is enforced' do
-          let!(:category) { FactoryGirl.create :category_with_enforced_donation }
+          let!(:category) { create :category_with_enforced_donation }
           it 'does not allow to disable donation option' do
             create_item do
               uncheck 'Spende wenn nicht verkauft'
@@ -103,7 +103,7 @@ RSpec.feature 'Viewing and editing items' do
     end
 
     context 'when items have been created already' do
-      let(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
+      let(:items) { create_list :item, 5, reservation: reservation }
       let(:item) { items.first }
       let(:preparations) { items }
 
@@ -133,7 +133,7 @@ RSpec.feature 'Viewing and editing items' do
         context 'when donation option is enabled' do
           before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
           context 'when donation is enforced' do
-            let!(:category) { FactoryGirl.create :category_with_enforced_donation }
+            let!(:category) { create :category_with_enforced_donation }
             it 'does not allow to disable donation option' do
               update_action do
                 select category.name, from: 'Kategorie'
@@ -161,7 +161,7 @@ RSpec.feature 'Viewing and editing items' do
       end
 
       context 'when labels have been created already' do
-        let(:item) { FactoryGirl.create :item_with_code, reservation: reservation }
+        let(:item) { create :item_with_code, reservation: reservation }
         let(:preparations) { item }
 
         it 'does not show edit/delete link to items with generated labels' do

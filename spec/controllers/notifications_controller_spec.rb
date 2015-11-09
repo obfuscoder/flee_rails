@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe NotificationsController do
   describe 'POST create' do
     context 'with seller signed in' do
-      let(:seller) { FactoryGirl.create :seller }
+      let(:seller) { create :seller }
       before do
         session[:seller_id] = seller.id
       end
       context 'with valid event' do
-        let!(:event) { FactoryGirl.create :event }
+        let!(:event) { create :event }
         context 'with already existing notification' do
           let!(:notification) { Notification.create event: event, seller: seller }
           it 'does not create another notification' do
@@ -38,7 +38,7 @@ RSpec.describe NotificationsController do
     end
 
     context 'with out seller signed in' do
-      let!(:event) { FactoryGirl.create :event }
+      let!(:event) { create :event }
       before { session[:seller_id] = nil }
       it 'shows unauthorized error' do
         expect(post :create, event_id: event.id).to have_http_status :unauthorized
@@ -47,13 +47,13 @@ RSpec.describe NotificationsController do
   end
 
   describe 'DELETE destroy' do
-    let(:seller) { FactoryGirl.create :seller }
+    let(:seller) { create :seller }
 
     before do
       session[:seller_id] = seller.id
     end
 
-    let!(:event) { FactoryGirl.create :event }
+    let!(:event) { create :event }
     let(:delete_action) { delete :destroy, event_id: event.id }
     let!(:notification) { Notification.create event: event, seller: seller }
 

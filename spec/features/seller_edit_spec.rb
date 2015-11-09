@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Seller edit area' do
-  let(:seller) { FactoryGirl.create :seller }
+  let(:seller) { create :seller }
   background do
     visit login_seller_path(seller.token)
   end

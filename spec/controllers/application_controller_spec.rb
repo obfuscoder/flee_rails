@@ -8,7 +8,7 @@ RSpec.describe ApplicationController do
       end
     end
 
-    let!(:items) { FactoryGirl.create_list :item, 5 }
+    let!(:items) { create_list :item, 5 }
     let(:preparations) {}
     before do
       preparations

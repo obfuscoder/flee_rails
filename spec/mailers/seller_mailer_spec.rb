@@ -51,7 +51,7 @@ RSpec.describe SellerMailer do
   let(:from) { 'info@flohmarkthelfer.de' }
   let(:host) { 'www.example.com' }
   describe '#registration' do
-    let(:seller) { FactoryGirl.build :seller }
+    let(:seller) { build :seller }
     let(:expected_contents) do
       [seller.first_name, seller.street, seller.zip_code, seller.city,
        seller.phone, seller.email, login_seller_url(seller.token, host: host)]
@@ -62,7 +62,7 @@ RSpec.describe SellerMailer do
   end
 
   describe '#reservation' do
-    let(:reservation) { FactoryGirl.build :reservation }
+    let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: host), reservation.number] }
     subject(:mail) { SellerMailer.reservation reservation, host: host, from: from }
@@ -71,7 +71,7 @@ RSpec.describe SellerMailer do
   end
 
   describe '#finished' do
-    let(:reservation) { FactoryGirl.build :reservation }
+    let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: host), reservation.number] }
     let(:receipt) { 'RECEIPT' }
@@ -83,7 +83,7 @@ RSpec.describe SellerMailer do
   end
 
   describe '#custom' do
-    let(:seller) { FactoryGirl.build :seller }
+    let(:seller) { build :seller }
     let(:topic) { 'topic' }
     let(:content) { 'body' }
     let(:expected_contents) { [content] }

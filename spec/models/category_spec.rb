@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Category do
-  subject { FactoryGirl.build(:category) }
+  subject { build(:category) }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:name) }

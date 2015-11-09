@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/events/show' do
-  let(:event) { FactoryGirl.create :event }
+  let(:event) { create :event }
   before { assign :event, event }
   it_behaves_like 'a standard view'
 
   context 'with direct event' do
-    let(:Event) { FactoryGirl.create :direct_event }
+    let(:Event) { create :direct_event }
     it_behaves_like 'a standard view'
   end
 

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/items/index' do
-  let(:event) { FactoryGirl.create :event_with_ongoing_reservation }
-  let(:reservation) { FactoryGirl.create :reservation, event: event }
-  let(:item) { FactoryGirl.create :item, reservation: reservation }
-  let(:item_with_code) { FactoryGirl.create :item_with_code, reservation: reservation }
+  let(:event) { create :event_with_ongoing_reservation }
+  let(:reservation) { create :reservation, event: event }
+  let(:item) { create :item, reservation: reservation }
+  let(:item_with_code) { create :item_with_code, reservation: reservation }
   before do
     assign :reservation, reservation
     assign :items, [item, item_with_code]
@@ -38,7 +38,7 @@ RSpec.describe 'admin/items/index' do
     it { is_expected.to have_link 'Etiketten drucken', href: labels_admin_reservation_items_path(reservation) }
 
     context 'when donation is enabled for event' do
-      let(:event) { FactoryGirl.create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+      let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
       it { is_expected.to have_text 'Spende wenn nicht verkauft' }
     end
   end

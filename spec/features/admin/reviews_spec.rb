@@ -3,10 +3,10 @@ require 'features/admin/login'
 
 RSpec.feature 'admin event reviews' do
   include_context 'login'
-  let!(:event) { FactoryGirl.create :event }
+  let!(:event) { create :event }
   let!(:reviews) do
     [:good_review, :bad_review, :incomplete_review].map do |review|
-      FactoryGirl.create review, event: event
+      create review, event: event
     end
   end
   background do

@@ -21,8 +21,8 @@ RSpec.describe 'Screenshots', js: true do
   end
 
   it 'creates screenshots' do
-    admin = FactoryGirl.create :admin, email: 'admin@example.com'
-    sellers = FactoryGirl.create_list :random_seller, 30, active: true
+    admin = create :admin, email: 'admin@example.com'
+    sellers = create_list :random_seller, 30, active: true
 
     visit admin_path
     fill_in 'eMail-Adresse', with: admin.email
@@ -74,7 +74,7 @@ RSpec.describe 'Screenshots', js: true do
 
     click_on 'Änderungen speichern'
 
-    %w(Hose Jacke Puzzle Schuhe Fahhrad Autositz).each { |name| FactoryGirl.create :category, name: name }
+    %w(Hose Jacke Puzzle Schuhe Fahhrad Autositz).each { |name| create :category, name: name }
     click_on 'Kategorien'
     capture :admin_categories_menu, selector: 'div.navbar'
     capture :admin_categories, selector: 'div[role="main"]'
@@ -160,7 +160,7 @@ END
     capture :seller_item_created, selector: 'div[role="main"]'
 
     Category.all.each do |category|
-      FactoryGirl.create_list :random_item, 3, category: category, reservation: reservation
+      create_list :random_item, 3, category: category, reservation: reservation
     end
     visit event_items_path(event)
     capture :seller_items_created, selector: 'div[role="main"]'
@@ -185,7 +185,7 @@ END
     click_on 'Bewertung abschließen'
 
     event.reservations.take(10).each do |reservation|
-      FactoryGirl.create :random_review, event: reservation.event, seller: reservation.seller
+      create :random_review, event: reservation.event, seller: reservation.seller
     end
 
     visit admin_path

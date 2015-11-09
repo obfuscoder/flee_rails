@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ItemsController do
-  let(:seller) { FactoryGirl.create :seller }
-  let(:reservation) { FactoryGirl.create :reservation, seller: seller }
+  let(:seller) { create :seller }
+  let(:reservation) { create :reservation, seller: seller }
   let(:event) { reservation.event }
-  let(:item) { FactoryGirl.create :item, reservation: reservation }
-  let(:item_with_code) { FactoryGirl.create :item_with_code, reservation: reservation }
-  let(:other_item) { FactoryGirl.create :item }
+  let(:item) { create :item, reservation: reservation }
+  let(:item_with_code) { create :item_with_code, reservation: reservation }
+  let(:other_item) { create :item }
 
   before { session[:seller_id] = seller.id }
 
@@ -54,7 +54,7 @@ RSpec.describe ItemsController do
   end
 
   describe 'GET index' do
-    let!(:items) { FactoryGirl.create_list :item, 25, reservation: reservation }
+    let!(:items) { create_list :item, 25, reservation: reservation }
     let(:options) { {} }
     let(:action) { get :index, options.merge(event_id: event.id) }
     let(:preparations) {}

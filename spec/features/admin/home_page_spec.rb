@@ -3,16 +3,16 @@ require 'features/admin/login'
 
 RSpec.feature 'admin home page' do
   def create_sellers
-    FactoryGirl.create :seller, created_at: 1.day.ago
-    FactoryGirl.create :seller, active: true, created_at: 7.days.ago
-    FactoryGirl.create :notification
+    create :seller, created_at: 1.day.ago
+    create :seller, active: true, created_at: 7.days.ago
+    create :notification
   end
 
-  let!(:item) { FactoryGirl.create :item, created_at: 1.day.ago }
-  let!(:item_with_code) { FactoryGirl.create :item_with_code }
+  let!(:item) { create :item, created_at: 1.day.ago }
+  let!(:item_with_code) { create :item_with_code }
 
   def create_reviews
-    FactoryGirl.create_list :review, 2
+    create_list :review, 2
   end
 
   background do

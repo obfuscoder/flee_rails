@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'validates_email_format_of/rspec_matcher'
 
 RSpec.describe Seller do
-  subject { FactoryGirl.build(:seller) }
+  subject { build(:seller) }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:first_name) }
@@ -89,8 +89,8 @@ RSpec.describe Seller do
   end
 
   describe '#token' do
-    let(:another_seller) { FactoryGirl.create(:seller) }
-    let(:yet_another_seller) { FactoryGirl.create(:seller) }
+    let(:another_seller) { create(:seller) }
+    let(:yet_another_seller) { create(:seller) }
 
     it 'is a unique random string' do
       subject.save

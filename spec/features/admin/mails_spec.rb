@@ -4,7 +4,7 @@ require 'features/admin/login'
 RSpec.feature 'admin emails' do
   include_context 'login'
 
-  let!(:sellers) { FactoryGirl.create_list :seller, 10 }
+  let!(:sellers) { create_list :seller, 10 }
   let(:selection) {}
 
   background do

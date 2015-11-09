@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Reservation do
-  subject { FactoryGirl.build(:reservation) }
+  subject { build(:reservation) }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:seller) }

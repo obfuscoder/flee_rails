@@ -1,5 +1,5 @@
 RSpec.shared_context 'login' do
-  let(:admin) { FactoryGirl.create :admin }
+  let(:admin) { create :admin }
   let(:password) { 'password' }
 
   before do

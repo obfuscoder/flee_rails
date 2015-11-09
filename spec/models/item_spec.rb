@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Item do
-  subject { FactoryGirl.build(:item) }
+  subject { build(:item) }
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:reservation) }
   it { is_expected.to validate_presence_of(:category) }
@@ -29,8 +29,8 @@ RSpec.describe Item do
   describe '#create_code' do
     let(:options) { {} }
     let(:preparations) {}
-    let(:reservation) { FactoryGirl.create :reservation }
-    subject { FactoryGirl.build :item, reservation: reservation }
+    let(:reservation) { create :reservation }
+    subject { build :item, reservation: reservation }
     before do
       preparations
       subject.create_code options
@@ -40,7 +40,7 @@ RSpec.describe Item do
     its(:number) { is_expected.to eq 1 }
 
     context 'when other item is numbered already' do
-      let(:preparations) { FactoryGirl.create :item, reservation: reservation, number: 4, code: 'abcd1234' }
+      let(:preparations) { create :item, reservation: reservation, number: 4, code: 'abcd1234' }
       its(:number) { is_expected.to eq 5 }
     end
 

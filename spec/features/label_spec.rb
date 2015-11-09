@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'labels generation' do
-  let(:seller) { FactoryGirl.create :seller }
-  let!(:category) { FactoryGirl.create :category }
+  let(:seller) { create :seller }
+  let!(:category) { create :category }
   let(:preparations) {}
   let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
 
@@ -20,8 +20,8 @@ RSpec.feature 'labels generation' do
   end
 
   context 'with items' do
-    let(:reservation) { FactoryGirl.create :reservation, seller: seller }
-    let(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
+    let(:reservation) { create :reservation, seller: seller }
+    let(:items) { create_list :item, 5, reservation: reservation }
     let(:preparations) { items }
     let(:make_selection) {}
     before do

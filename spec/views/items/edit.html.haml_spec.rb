@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'items/edit' do
   before do
-    @item = assign(:item, FactoryGirl.create(:item))
+    @item = assign(:item, create(:item))
     @event = assign(:event, @item.reservation.event)
   end
 

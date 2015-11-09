@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Review do
-  subject { FactoryGirl.build(:review) }
+  subject { build(:review) }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:seller) }

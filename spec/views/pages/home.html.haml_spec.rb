@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'pages/home.html.haml' do
-  let(:event) { FactoryGirl.create :event, confirmed: false }
+  let(:event) { create :event, confirmed: false }
   let(:events) { [event] }
   before do
     assign :events, events
@@ -32,7 +32,7 @@ RSpec.describe 'pages/home.html.haml' do
     end
 
     context 'when event is confirmed' do
-      let(:event) { FactoryGirl.create :event, confirmed: true }
+      let(:event) { create :event, confirmed: true }
       it 'does show reservation start' do
         expect(rendered).to have_text 'Reservierungsstart', count: 1
       end
@@ -42,7 +42,7 @@ RSpec.describe 'pages/home.html.haml' do
       end
 
       context 'when event kind is direct' do
-        let(:event) { FactoryGirl.create :event, confirmed: true, kind: :direct }
+        let(:event) { create :event, confirmed: true, kind: :direct }
         it 'does not show handover time' do
           expect(rendered).not_to have_text 'Artikelabgabe', count: 1
         end

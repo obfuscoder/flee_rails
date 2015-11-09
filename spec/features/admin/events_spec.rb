@@ -3,7 +3,7 @@ require 'features/admin/login'
 
 RSpec.feature 'admin events' do
   include_context 'login'
-  let!(:events) { FactoryGirl.create_list :event_with_ongoing_reservation, 3 }
+  let!(:events) { create_list :event_with_ongoing_reservation, 3 }
   background do
     click_on 'Termine'
   end
@@ -126,12 +126,12 @@ RSpec.feature 'admin events' do
     end
 
     feature 'sending mailings' do
-      let!(:inactive_seller) { FactoryGirl.create :seller }
-      let!(:active_seller) { FactoryGirl.create :seller, active: true }
-      let!(:active_seller_with_reservation) { FactoryGirl.create :seller, active: true }
-      let!(:seller_without_mailing) { FactoryGirl.create :seller, active: true, mailing: false }
-      let!(:reservation) { FactoryGirl.create :reservation, event: event, seller: active_seller_with_reservation }
-      let!(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
+      let!(:inactive_seller) { create :seller }
+      let!(:active_seller) { create :seller, active: true }
+      let!(:active_seller_with_reservation) { create :seller, active: true }
+      let!(:seller_without_mailing) { create :seller, active: true, mailing: false }
+      let!(:reservation) { create :reservation, event: event, seller: active_seller_with_reservation }
+      let!(:items) { create_list :item, 5, reservation: reservation }
 
       scenario 'send invitation to active sellers without reservation' do
         click_on_event
@@ -154,7 +154,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when invitation mail was sent already' do
-        let!(:message) { FactoryGirl.create :invitation_message, event: event }
+        let!(:message) { create :invitation_message, event: event }
         it 'does not allow to send invitation mail' do
           click_on_event
           expect(page).not_to have_link 'Reservierungseinladung verschicken'
@@ -190,7 +190,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when closing mail was sent already' do
-        let!(:message) { FactoryGirl.create :reservation_closing_message, event: event }
+        let!(:message) { create :reservation_closing_message, event: event }
         it 'does not allow to send closing mail' do
           click_on_event
           expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
@@ -245,7 +245,7 @@ RSpec.feature 'admin events' do
       end
 
       context 'when closed mail was sent already' do
-        let!(:message) { FactoryGirl.create :reservation_closed_message, event: event }
+        let!(:message) { create :reservation_closed_message, event: event }
         it 'does not allow to send closed mail' do
           click_on_event
           expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'

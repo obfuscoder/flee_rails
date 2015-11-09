@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe ReservationsController do
   describe 'GET create' do
-    let(:event) { FactoryGirl.create :event }
-    let(:seller) { FactoryGirl.build :seller }
+    let(:event) { create :event }
+    let(:seller) { build :seller }
     let(:action) { get :create, event_id: event.id }
-    let(:reservation) { FactoryGirl.create :reservation }
+    let(:reservation) { create :reservation }
     let(:from) { Settings.brands.default.mail.from }
     let(:creator) { double }
     let(:options) { { host: 'test.host', from: from } }
@@ -23,7 +23,7 @@ describe ReservationsController do
     end
 
     context 'when reservation was not persisted' do
-      let(:reservation) { FactoryGirl.build :reservation }
+      let(:reservation) { build :reservation }
       it { is_expected.to redirect_to seller_path }
       it 'alerts about the failed reservation' do
         expect(flash[:alert]).to be_present

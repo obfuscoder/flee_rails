@@ -3,7 +3,7 @@ require 'features/admin/login'
 
 RSpec.feature 'admin sellers' do
   include_context 'login'
-  let!(:sellers) { FactoryGirl.create_list :seller, 3 }
+  let!(:sellers) { create_list :seller, 3 }
   let(:seller) { sellers.first }
   background do
     click_on 'Verkäufer'
@@ -56,9 +56,9 @@ RSpec.feature 'admin sellers' do
   end
 
   feature 'show seller' do
-    let!(:reservation) { FactoryGirl.create :reservation, seller: seller }
-    let!(:items) { FactoryGirl.create_list :item, 5, reservation: reservation }
-    let!(:other_items) { FactoryGirl.create_list :item, 2 }
+    let!(:reservation) { create :reservation, seller: seller }
+    let!(:items) { create_list :item, 5, reservation: reservation }
+    let!(:other_items) { create_list :item, 2 }
     background do
       click_link 'Anzeigen', href: admin_seller_path(seller)
     end
@@ -91,7 +91,7 @@ RSpec.feature 'admin sellers' do
       end
 
       context 'when label for item exists' do
-        let(:item_with_code) { FactoryGirl.create :item_with_code, reservation: reservation }
+        let(:item_with_code) { create :item_with_code, reservation: reservation }
         let(:preparation) { item_with_code }
 
         it 'shows code' do

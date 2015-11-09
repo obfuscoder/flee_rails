@@ -3,8 +3,8 @@ require 'rails_helper'
 module Api
   RSpec.describe EventsController do
     describe 'GET show' do
-      let!(:event) { FactoryGirl.create :event }
-      let!(:categories) { FactoryGirl.create_list :category, 5 }
+      let!(:event) { create :event }
+      let!(:categories) { create_list :category, 5 }
       before do
         prerequisites
         get :show, format: :json
@@ -42,9 +42,9 @@ module Api
     end
 
     describe 'POST transactions' do
-      let!(:event) { FactoryGirl.create :event_with_ongoing_reservation }
-      let!(:reservation) { FactoryGirl.create :reservation, event: event }
-      let!(:items) { FactoryGirl.create_list :item, 10, reservation: reservation }
+      let!(:event) { create :event_with_ongoing_reservation }
+      let!(:reservation) { create :reservation, event: event }
+      let!(:items) { create_list :item, 10, reservation: reservation }
       let(:transactions) do
         [
           { id: 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',

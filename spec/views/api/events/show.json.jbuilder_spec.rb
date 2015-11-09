@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'api/events/show' do
   before do
-    event = FactoryGirl.create :event_with_ongoing_reservation
-    reservations = FactoryGirl.create_list :reservation, 2, event: event
-    FactoryGirl.create_list :item, 3, reservation: reservations.first
-    FactoryGirl.create_list :item, 2, reservation: reservations.second
+    event = create :event_with_ongoing_reservation
+    reservations = create_list :reservation, 2, event: event
+    create_list :item, 3, reservation: reservations.first
+    create_list :item, 2, reservation: reservations.second
 
     assign :event, event.reload
     assign :categories, Category.all

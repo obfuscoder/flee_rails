@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Event do
-  subject(:event) { FactoryGirl.build :event }
+  subject(:event) { build :event }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of :name }
@@ -23,27 +23,22 @@ RSpec.describe Event do
   end
 
   describe '#reservable' do
-    let!(:seller) { FactoryGirl.create :seller }
+    let!(:seller) { create :seller }
 
     let!(:event_with_ongoing_reservation) do
-      FactoryGirl.create :event_with_ongoing_reservation,
-                         name: 'reservable_event'
+      create :event_with_ongoing_reservation, name: 'reservable_event'
     end
     let!(:event_with_wrong_reservation_time) do
-      FactoryGirl.create :event, name: 'wrong_time',
-                                 reservation_start: 1.day.from_now,
-                                 reservation_end: 2.days.from_now
+      create :event, name: 'wrong_time', reservation_start: 1.day.from_now, reservation_end: 2.days.from_now
     end
-    let!(:event_with_full_reservations) { FactoryGirl.create :full_event, name: 'full' }
-    let!(:reservation_for_full_event) { FactoryGirl.create :reservation, event: event_with_full_reservations }
+    let!(:event_with_full_reservations) { create :full_event, name: 'full' }
+    let!(:reservation_for_full_event) { create :reservation, event: event_with_full_reservations }
 
     let!(:event_with_reservation_for_seller) do
-      FactoryGirl.create :event, name: 'already_reserved',
-                                 max_sellers: 2,
-                                 reservation_start: 1.day.ago,
-                                 reservation_end: 1.day.from_now
+      create :event, name: 'already_reserved', max_sellers: 2,
+                     reservation_start: 1.day.ago, reservation_end: 1.day.from_now
     end
-    let!(:reservation) { FactoryGirl.create :reservation, event: event_with_reservation_for_seller, seller: seller }
+    let!(:reservation) { create :reservation, event: event_with_reservation_for_seller, seller: seller }
     it 'lists only reservable events' do
       expect(Event.reservable_by(seller).length).to eq 1
       expect(Event.reservable_by(seller)).to include event_with_ongoing_reservation
@@ -69,9 +64,9 @@ RSpec.describe Event do
   end
 
   describe '#reviewed_by?' do
-    let(:seller) { FactoryGirl.build :seller }
+    let(:seller) { build :seller }
     context 'when reviewed by seller' do
-      before { subject.reviews << FactoryGirl.build(:review, event: subject, seller: seller) }
+      before { subject.reviews << build(:review, event: subject, seller: seller) }
       it 'is reviewed by seller' do
         expect(subject.reviewed_by? seller).to be true
       end
@@ -89,7 +84,7 @@ RSpec.describe Event do
     it { is_expected.to eq false }
 
     context 'when shopping time is in the past' do
-      let(:event) { FactoryGirl.build :event, shopping_time: 1.day.ago }
+      let(:event) { build :event, shopping_time: 1.day.ago }
       it { is_expected.to eq true }
     end
   end

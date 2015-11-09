@@ -5,7 +5,7 @@ RSpec.describe EventsHelper do
     describe "##{kind}_time" do
       let(:min) { Time.zone.local(2007, 2, 10, 15, 30) }
       let(:max) { min + 2.hours }
-      let(:event) { FactoryGirl.build :event, confirmed: true }
+      let(:event) { build :event, confirmed: true }
       subject { helper.send("#{kind}_time", event) }
       it 'calls time periods helper method' do
         parameter = event.send "#{kind}_periods"

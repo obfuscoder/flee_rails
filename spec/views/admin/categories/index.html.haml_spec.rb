@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/categories/index' do
-  let(:categories) { FactoryGirl.create_list :category, 5 }
+  let(:categories) { create_list :category, 5 }
   before { assign :categories, categories.paginate }
 
   it_behaves_like 'a standard view'

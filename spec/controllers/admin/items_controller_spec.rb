@@ -3,11 +3,11 @@ require 'rails_helper'
 module Admin
   RSpec.describe ItemsController do
     include Sorcery::TestHelpers::Rails::Controller
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { create :user }
     before { login_user user }
 
-    let!(:reservation) { FactoryGirl.create :reservation }
-    let!(:item) { FactoryGirl.create :item_with_code, reservation: reservation }
+    let!(:reservation) { create :reservation }
+    let!(:item) { create :item_with_code, reservation: reservation }
 
     describe 'DELETE delete_code' do
       before { delete :delete_code, reservation_id: reservation.id, id: item.id }
@@ -19,7 +19,7 @@ module Admin
     end
 
     describe 'DELETE delete_all_codes' do
-      let!(:another_item) { FactoryGirl.create :item_with_code, reservation: reservation }
+      let!(:another_item) { create :item_with_code, reservation: reservation }
       before { delete :delete_all_codes, reservation_id: reservation.id }
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
       it 'frees all item numbers and codes' do
@@ -46,7 +46,7 @@ module Admin
     end
 
     describe 'POST create' do
-      let(:new_item) { FactoryGirl.build(:item, reservation: reservation) }
+      let(:new_item) { build(:item, reservation: reservation) }
       before { post :create, reservation_id: reservation.id, item: new_item.attributes }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }

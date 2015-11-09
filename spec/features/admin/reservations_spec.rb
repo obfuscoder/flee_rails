@@ -3,10 +3,10 @@ require 'features/admin/login'
 
 RSpec.feature 'admin event reservations' do
   include_context 'login'
-  let(:event) { FactoryGirl.create :event_with_ongoing_reservation, max_sellers: 5 }
-  let!(:sellers) { FactoryGirl.create_list :seller, 4, active: true }
+  let(:event) { create :event_with_ongoing_reservation, max_sellers: 5 }
+  let!(:sellers) { create_list :seller, 4, active: true }
   let(:number_of_reservations) { 3 }
-  let!(:reservations) { FactoryGirl.create_list :reservation, number_of_reservations, event: event }
+  let!(:reservations) { create_list :reservation, number_of_reservations, event: event }
   background do
     click_on 'Termine'
     click_on 'Anzeigen'
@@ -67,7 +67,7 @@ RSpec.feature 'admin event reservations' do
 
   context 'with sellers on notification list' do
     let(:selection) { sellers.take(2) }
-    let!(:notifications) { selection.map { |seller| FactoryGirl.create :notification, event: event, seller: seller } }
+    let!(:notifications) { selection.map { |seller| create :notification, event: event, seller: seller } }
 
     scenario 'freeing a reservation notifies sellers on notification list' do
       click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'sellers/create' do
   before(:each) do
-    @seller = assign(:seller, FactoryGirl.create(:seller))
+    @seller = assign(:seller, create(:seller))
   end
 
   it_behaves_like 'a standard view'

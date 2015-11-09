@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/events/index' do
   before do
-    assign :events, [FactoryGirl.create(:event)].paginate
+    assign :events, [create(:event)].paginate
   end
   it_behaves_like 'a standard view'
 end

@@ -21,7 +21,7 @@ RSpec.describe SellersController do
   describe 'POST create' do
     context 'with valid params' do
       def call_post
-        post :create, seller: FactoryGirl.build(:seller).attributes.merge(accept_terms: '1')
+        post :create, seller: build(:seller).attributes.merge(accept_terms: '1')
       end
 
       before do
@@ -62,7 +62,7 @@ RSpec.describe SellersController do
           mail
         end
         expect(mail).to receive(:deliver_later).with no_args
-        post :create, seller: FactoryGirl.attributes_for(:seller)
+        post :create, seller: attributes_for(:seller)
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe SellersController do
       post :resend_activation, seller: { email: email }
     end
     context 'with known email' do
-      let(:seller) { FactoryGirl.create :seller }
+      let(:seller) { create :seller }
       let(:email) { seller.email }
 
       it 'renders activation_resent template' do
@@ -155,7 +155,7 @@ RSpec.describe SellersController do
   end
 
   describe 'GET login' do
-    let(:seller) { FactoryGirl.create :seller }
+    let(:seller) { create :seller }
 
     subject { get :login, token: token }
 
@@ -179,7 +179,7 @@ RSpec.describe SellersController do
   end
 
   describe 'GET show' do
-    let(:seller) { FactoryGirl.create :seller }
+    let(:seller) { create :seller }
     subject { get :show }
 
     context 'without valid seller session' do
