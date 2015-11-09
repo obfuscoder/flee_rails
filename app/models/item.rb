@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
                      allow_nil: true
   validates :price, numericality: { greater_than: 0 }
   validate :price_divisible_by_precision
+  validate :max_number_of_items_for_category
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
@@ -67,6 +68,13 @@ class Item < ActiveRecord::Base
     return if reservation.nil? || reservation.event.nil? || price.nil?
     precision = reservation.event.price_precision
     errors.add :price, :precision, precision: number_to_currency(precision) if price.remainder(precision).nonzero?
+  end
+
+  def max_number_of_items_for_category
+    return unless reservation.present? && category.present? && category.max_items_per_seller.present?
+    items_with_category = reservation.items.where(category: category).where.not(id: id)
+    return if items_with_category.count < category.max_items_per_seller
+    errors.add :category, :limit, limit: category.max_items_per_seller
   end
 
   sifter :full_text_search do |needle|

@@ -6,7 +6,7 @@ itemEditCategorySelected = ->
   selector = 'form.edit_item #item_category_id option:selected, form.new_item #item_category_id option:selected'
   donation_enforced = $(selector).attr('data-donation-enforced') == 'true'
   $('#item_donation').prop('disabled', donation_enforced)
-  hint = $('.item_category .help-block')
+  hint = $('.item_category p.help-block')
   hint.addClass('alert alert-warning')
   if donation_enforced
     $('#item_donation').prop('checked', true)

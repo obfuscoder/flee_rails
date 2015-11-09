@@ -4,6 +4,7 @@ class Category < ActiveRecord::Base
   has_many :items, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
+  validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 
   scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
 

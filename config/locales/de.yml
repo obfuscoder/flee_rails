@@ -288,6 +288,7 @@ de:
       category:
         name: Name
         donation_enforced: Spendenzwang
+        max_items_per_seller: max. Anzahl
       event:
         name: Name
         details: Details
@@ -409,6 +410,8 @@ de:
           attributes:
             price:
               precision: muss ein Vielfaches von %{precision} sein
+            category:
+              limit: Aus Platzgründen ist die Anzahl der Artikel dieser Kategorie pro Verkäufer auf %{limit} beschränkt.
   pages:
     imprint:
       title: Impressum

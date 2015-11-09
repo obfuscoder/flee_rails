@@ -29,7 +29,7 @@ module Admin
         expect(event.reload).to be_confirmed
       end
 
-      it 'redirects to sellers path' do
+      it 'redirects to index path' do
         expect(response).to redirect_to admin_events_path
       end
 

@@ -49,4 +49,31 @@ RSpec.describe Item do
       its(:code) { is_expected.to eq 'ABC010010012' }
     end
   end
+
+  describe '#max_items_for_category' do
+    let(:category) { create :category, max_items_per_seller: 1 }
+    let(:reservation) { create :reservation }
+
+    context 'when limit is not yet reached' do
+      it 'allows to create items for the category' do
+        expect { create :item, category: category, reservation: reservation }.not_to raise_error
+      end
+    end
+
+    context 'when limit has been reached' do
+      let!(:existing_item) { create :item, category: category, reservation: reservation }
+      it 'does not allow to create additional items for the category' do
+        expect { create :item, category: category, reservation: reservation }.to raise_error ActiveRecord::RecordInvalid
+      end
+
+      it 'does not allow to change existing item to the category' do
+        item = create :item, reservation: reservation
+        expect { item.update! category: category }.to raise_error ActiveRecord::RecordInvalid
+      end
+
+      it 'allows updating existing item for that category' do
+        expect { existing_item.update! description: 'xxxxx' }.not_to raise_error
+      end
+    end
+  end
 end
