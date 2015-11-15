@@ -1,21 +1,21 @@
 brands:
   rueppurr:
-    name: Kinder-SHM
-    name_html: Kinder-SHM
+    name: Kinder-Secondhand-Markt
+    name_html: Kinder-Secondhand-Markt
     home:
       logo:
       intro: XXXXXXXXXXX
-      outro: XXXXXXXXXXX
+      outro: |
+        Hier unser [Flyer für unseren 41. Kinder-Secondhand-Markt](rueppurr/flyer2016.pdf).
+        Sie können hier auch [unseren Lageplan](rueppurr/plan.pdf) sehen.
     contact: kinder-shm@flohmarkthelfer.de
     imprint:
       address:
-        - XXXXXXXXXXX
+        - Babette Herrmann
+        - Reinhold-Schneider-Str. 58
+        - 76199 Karlsruhe
       contact: kinder-shm@flohmarkthelfer.de
     terms: |
-      **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung für die kommende
-      Jahreszeit bis Größe 176, Umstandsmode, Schuhe, Kinderwägen, Buggys, Autositze, Rutschautos, Kettcars,
-      Fahrräder, Spielsachen etc.
-
       ### WICHTIG!
 
       Die Ware muss...
@@ -24,35 +24,32 @@ brands:
       2. einzeln mit dem entsprechenden Etikett ausgezeichnet sein.
          **Der Barcode und die Zahl darunter müssen vollständig lesbar und sauber sein.**
          **Es werden nur Etiketten akzeptiert, die mit unserem System erzeugt wurden.**
-      3. in einem **Karton/Wäschekorb** angeliefert werden, der mit der **Teilnehmernummer gut sichtbar**
+      3. in einem stabilen **Karton** angeliefert werden, der mit der **Teilnehmernummer gut sichtbar**
          gekennzeichnet ist.
       4. in einem **einwandfreien Zustand** sein
 
-      Es dürfen pro Anbieter eine begrenzte Anzahl von Artikeln in Kommission gegeben werden.
+      ### Artikel:
 
-      Bitte sorgen Sie dafür, dass Ihre Etiketten gut befestigt sind, da wir für Verlust oder Vertauschen
-      derselben nicht haften können.
+      **In Kommission genommen werden** gut erhaltene, saubere Baby- und Kinderbekleidung bis
+      Größe 164 (Keine Erwachsenenkleidung), Spiele und Bücher, Sportartikel (Rollschuhe,
+      Schlittschuhe, Roller, Fahrräder), Schuhe, Fahrradsitze + -helme, Autositze (mit der gültigen
+      Norm ECE R 44/03 oder 44/04). Babyausstattungen, Kinderwagen.
 
-      Falsch ausgezeichnete Ware oder solche mit abgefallenen Etiketten kann von uns leider nicht verkauft werden.
-      Wir legen Wert auf einwandfreie (nicht verschmutzte) Ware und behalten uns vor, Teile auszusortieren.
+      **Nicht verkauft** werden sperrige, große Babymöbel, Töpfchen, zusammengefasste Hosen,
+      Kleider und Pullis. Außerdem sortieren wir fleckige, kaputte/ unvollständige und schlecht
+      riechende Artikel aus.
 
-      Für die abgegebene Ware kann (bei Beschädigung und Diebstahl) **keine Haftung** übernommen werden.
-      Kleiderbügel werden nicht zurück gegeben.
+      Pro Anbieter darf eine **begrenzte Anzahl** von Artikeln in Kommission gegeben werden. Es
+      werden nur Preise akzeptiert, die auf 50 Cent gerundet sind.
 
-      **Wir runden alle Verkäuferauszahlungsbeträge ab** auf volle 50 Cent. D.h. aus 10,88 € werden 10,50 €.
+      Bitte sorgen Sie dafür, dass Ihre Etiketten **gut an den Artikeln befestigt** sind, da wir für Verlust
+      oder Vertauschen derselben nicht haften können. Falsch ausgezeichnete Ware oder solche mit
+      abgefallenen Etiketten kann von uns leider nicht verkauft werden. Schuhe müssen paarweise
+      zusammengebunden werden- nicht nur mit den Schnürsenkeln, Spiele sollten vollständig und
+      gesichert sein. Bitte das Etikett wegen Verletzungsgefahr nicht mit Tacker oder Nadeln
+      befestigen!
 
-      Es werden nur Preise akzeptiert, die auf 50 Cent gerundet sind.
-
-      Die Teilnehmer müssen die nicht verkaufte Ware, sowie den Erlös der verkauften Teile **sofort kontrollieren**.
-
-      **Nicht zurücksortiert** und damit als **Spende** betrachtet werden: Schuhe und Accessoires, wie z.B.
-      Gürtel, Unterwäsche, Bodies, Strumpfhosen, Socken, Mützen, Schals, Handschuhe, Badekleidung.
-
-      Sollte Ihre nicht verkaufte Ware und der Erlös bis zum Ende des für den Flohmarkt festgelegten Abholzeitraums
-      **nicht abgeholt** sein, betrachten beides als **Spende**.
-      Gerne können Sie uns dies auch vorab per E-Mail mitteilen.
-
-      ### Drucken der Etiketten
+      ### Drucken der Etiketten:
 
       Wir arbeiten beim Verkauf mit Scannern und akzeptieren daher nur Waren mit unseren Etiketten,
       welche Sie nach Artikeleingabe erzeugen und ausdrucken können.
@@ -66,12 +63,30 @@ brands:
 
       Sollten Sie keine Möglichkeit haben, die Etiketten selbst zu drucken, kontaktieren Sie uns bitte.
 
-      ### Verkaufserlös
+      ### Sonstiges:
 
-      Als Unkostenbeitrag behalten wir 25% des Erlöses ein, der nach Abzug der Kosten für gemeinnützige bzw.
-      soziale Zwecke gespendet wird (siehe Aushang).
+      Wir runden alle **Verkäuferauszahlungsbeträge** auf volle 50 Cent ab. D.h. aus 10,88 € werden 10,50 €.
+
+      **Nicht zurücksortiert** und damit als Spende betrachtet werden: Schuhe, Accessoires, wie z.B.
+      Gürtel, Unterwäsche, Bodies, Strumpfhosen, Socken, Mützen, Schals, Handschuhe,
+      Badekleidung und Plüschtiere.
+
+      Prüfen Sie bitte Ihre **restliche Ware** nach Erhalt. Bitte eventuell falsch einsortierte oder fehlende
+      Ware sofort bei uns reklamieren. Ware ohne Kennzeichnung (vergessene oder abgelöste
+      Etiketten) liegt am Abholtermin aus. Nicht abgeholte Ware wird zum Ende des festgelegten
+      Abholzeitraums den Spenden zugeteilt.
+
+      ### Haftung:
+
+      Das Secondhand-Markt-Team haftet nicht bei Diebstahl, Verlust oder Beschädigung der zur
+      Verfügung gestellten Ware. Berücksichtigen Sie dies bei wertvollen Artikeln.
+
+      ### Verkaufserlös:
+
+      Als Unkostenbeitrag behalten wir 25% des Erlöses ein, der damit erzielte Gewinn geht zu 100%
+      an soziale Projekte und Organisationen mit Schwerpunkt Kinder und Familie.
     mail:
-      from: Kinder-SHM Rüppurr <kinder-shm@flohmarkthelfer.de>
+      from: Kinder-Secondhand-Markt Rüppurr <kinder-shm@flohmarkthelfer.de>
     price_precision: 0.5
     commission_rate: 0.25
     seller_fee: 2.0
