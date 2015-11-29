@@ -12,7 +12,11 @@ Rails.application.routes.draw do
     resource :reservation, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
     resource :review
-    resources :items, except: :show
+    resources :items, except: :show do
+      member do
+        delete :code, action: :delete_code
+      end
+    end
     resources :labels, only: [:index, :create]
   end
 

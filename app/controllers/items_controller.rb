@@ -1,12 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_vars
-  before_action :set_item, only: [:edit, :update, :destroy]
-
-  def set_vars
-    @seller = current_seller
-    @event = Event.find params[:event_id]
-    @reservation = Reservation.find_by_event_id_and_seller_id @event.id, @seller.id
-  end
+  before_action :set_item, only: [:edit, :update, :destroy, :delete_code]
+  before_action :forbid_when_labeled, only: [:edit, :update, :destroy]
 
   def index
     @items = @reservation.items.search(params[:search]).page(@page).joins(:category).order(column_order)
@@ -42,11 +37,25 @@ class ItemsController < ApplicationController
     redirect_to event_items_path(@event), notice: t('.success')
   end
 
+  def delete_code
+    @item.delete_code
+    redirect_to event_items_path(@event), notice: t('.success')
+  end
+
   private
+
+  def set_vars
+    @seller = current_seller
+    @event = Event.find params[:event_id]
+    @reservation = Reservation.find_by_event_id_and_seller_id @event.id, @seller.id
+  end
 
   def set_item
     @item = Item.find(params[:id])
     fail UnauthorizedError if @item.reservation.seller != current_seller
+  end
+
+  def forbid_when_labeled
     redirect_to event_items_path(@event.id), alert: t('.error.labeled') if @item.code.present?
   end
 

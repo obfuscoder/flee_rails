@@ -60,6 +60,11 @@ de:
       title: Artikel
       destroy:
         confirm: Sind Sie sicher, dass Sie diesen Artikel löschen wollen?
+      delete_code:
+        confirm:
+          Wollen Sie das Etikett wieder freigeben?
+          Bitte beachten Sie, dass Sie das bereits gedruckte Etikett dieses Artikels
+          nicht verwenden dürfen und vernichten sollten.
     new:
       title: Artikel anlegen
     edit:
@@ -74,6 +79,12 @@ de:
         labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     destroy:
       success: Artikel wurde gelöscht.
+      error:
+        labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
+    delete_code:
+      success:
+        Etikett wurde freigegeben. Sie können den Artikel wieder bearbeiten.
+        Denken Sie bitte daran, das bereits gedruckte Etikett zu vernichten.
       error:
         labeled: Für diesen Artikel wurde bereits ein Etikett erzeugt.
     form:

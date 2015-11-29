@@ -20,6 +20,13 @@ class Reservation < ActiveRecord::Base
     "#{event.name} - #{number}"
   end
 
+  def increase_item_counter
+    self.item_counter = 0 if item_counter.nil?
+    self.item_counter += 1
+    save!
+    self.item_counter
+  end
+
   private
 
   def create_number

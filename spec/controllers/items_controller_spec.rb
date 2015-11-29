@@ -109,4 +109,20 @@ RSpec.describe ItemsController do
     it_behaves_like 'obey item code'
     it_behaves_like 'obey ownership'
   end
+
+  describe 'DELETE code' do
+    let(:preparations) { item.create_code }
+    let(:action) { delete :delete_code, event_id: event.id, id: item.id }
+    it_behaves_like 'obey ownership'
+
+    it 'deletes item code' do
+      preparations
+      expect(item.number).not_to be_nil
+      expect(item.code).not_to be_nil
+      action
+      item.reload
+      expect(item.number).to be_nil
+      expect(item.code).to be_nil
+    end
+  end
 end

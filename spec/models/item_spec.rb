@@ -39,14 +39,24 @@ RSpec.describe Item do
     its(:code) { is_expected.to eq '010010012' }
     its(:number) { is_expected.to eq 1 }
 
-    context 'when other item is numbered already' do
-      let(:preparations) { create :item, reservation: reservation, number: 4, code: 'abcd1234' }
-      its(:number) { is_expected.to eq 5 }
+    context 'when label for other item was created already' do
+      let(:preparations) { create :item_with_code, reservation: reservation }
+      its(:number) { is_expected.to eq 2 }
     end
 
     context 'with prefix option' do
       let(:options) { { prefix: 'ABC' } }
       its(:code) { is_expected.to eq 'ABC010010012' }
+    end
+
+    context 'when code was deleted before' do
+      let(:preparations) do
+        subject.create_code
+        subject.delete_code
+      end
+
+      its(:number) { is_expected.to eq 2 }
+      its(:code) { is_expected.to eq '010010024' }
     end
   end
 

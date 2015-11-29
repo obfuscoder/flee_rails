@@ -33,12 +33,7 @@ class Item < ActiveRecord::Base
 
   def create_code(options = {})
     prefix = options.extract!(:prefix).values.first || ''
-    self.number = reservation.items.with_label.order(:number).last.try(:number)
-    if number.present?
-      self.number += 1
-    else
-      self.number = 1
-    end
+    create_number
     code = format('%s%02d%03d%03d', prefix, reservation.event.id, reservation.number, number)
     self.code = append_checksum(code)
   end
@@ -75,6 +70,10 @@ class Item < ActiveRecord::Base
     items_with_category = reservation.items.where(category: category).where.not(id: id)
     return if items_with_category.count < category.max_items_per_seller
     errors.add :category, :limit, limit: category.max_items_per_seller
+  end
+
+  def create_number
+    self.number = reservation.reload.increase_item_counter
   end
 
   sifter :full_text_search do |needle|

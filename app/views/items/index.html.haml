@@ -33,6 +33,7 @@
           = icon_link_to t('destroy'), [@event, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
+          %span= icon_link_to t('delete_code'), code_event_item_path(@event, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
 %p= paginate @items, event_id: @event.id
 - unless @items.empty?
   = link_to 'Etiketten drucken', event_labels_path(@event), type: :primary, icon: :print
