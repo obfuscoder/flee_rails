@@ -73,7 +73,7 @@ class Item < ActiveRecord::Base
   end
 
   def create_number
-    self.number = reservation.reload.increase_item_counter
+    self.number = reservation.reload.increase_label_counter
   end
 
   sifter :full_text_search do |needle|

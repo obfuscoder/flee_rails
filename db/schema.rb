@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129183723) do
+ActiveRecord::Schema.define(version: 20151129200529) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20151129183723) do
     t.integer  "seller_id"
     t.integer  "event_id"
     t.integer  "number"
-    t.integer  "item_counter"
+    t.integer  "label_counter"
   end
 
   add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true
