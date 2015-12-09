@@ -1,10 +1,10 @@
 - content_for :title, t('.title')
 %p Von hier aus können Sie Ihre Stammdaten und Artikel verwalten. Sollten Sie keine weitere eMail-Benachrichtigung erhalten oder Ihre Daten löschen wollen, können Sie dies in der Stammdatenbearbeitung durchführen.
 %h3 Reservierungen
-- if @seller.reservations.any?
+- if @seller.reservations.recent.any?
   %p Sie haben die folgenden Reservierungen:
   %ul
-    - @seller.reservations.each do |reservation|
+    - @seller.reservations.recent.each do |reservation|
       %li
         %p
           %strong= reservation.event.name

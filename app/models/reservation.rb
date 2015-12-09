@@ -12,6 +12,12 @@ class Reservation < ActiveRecord::Base
 
   before_validation :create_number
 
+  def self.recent
+    joins { event.shopping_periods }.where { event.shopping_periods.max >= 4.weeks.ago }.order do
+      event.shopping_periods.max.desc
+    end
+  end
+
   def self.search(needle)
     needle.nil? ? all : joins(:seller).where { { seller => sift(:full_text_search, needle) } }
   end

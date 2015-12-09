@@ -13,4 +13,35 @@ RSpec.describe Reservation do
   it { is_expected.to belong_to(:event) }
   it { is_expected.to belong_to(:seller) }
   its(:to_s) { is_expected.to eq("#{subject.event.name} - #{subject.number}") }
+
+  describe '#recent' do
+    let!(:old_reservation) do
+      reservation = nil
+      Timecop.travel 6.weeks.ago do
+        reservation = create :reservation
+      end
+      reservation
+    end
+    let!(:recent_reservation) do
+      reservation = nil
+      Timecop.travel 2.weeks.ago do
+        reservation = create :reservation
+      end
+      reservation
+    end
+    let!(:ongoing_reservation) { create :reservation }
+
+    subject { Reservation.recent }
+
+    it 'returns reservations for events not older than 4 weeks' do
+      expect(subject).to include ongoing_reservation
+      expect(subject).to include recent_reservation
+      expect(subject).not_to include old_reservation
+    end
+
+    it 'orders events based on shopping_periods in descending order' do
+      expect(subject.first).to eq ongoing_reservation
+      expect(subject.last).to eq recent_reservation
+    end
+  end
 end
