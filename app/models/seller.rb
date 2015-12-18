@@ -17,6 +17,8 @@ class Seller < ActiveRecord::Base
   scope :without_reservation_for, ->(event) { where { id << event.reservations.map(&:seller_id) } }
   scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
 
+  include Statistics
+
   before_validation do
     email.try(:downcase!)
   end

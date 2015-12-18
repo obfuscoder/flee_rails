@@ -17,23 +17,15 @@ module Admin
     end
 
     def daily_data_for(clazz)
-      daily_data(created_objects_per_day clazz)
+      daily_data(clazz.per_day 30)
     end
 
     def daily_data(items_hash)
-      days = (4.weeks.ago.to_date..Date.today).map { |date| date.strftime('%Y-%m-%d') }
-      days.map { |day| [day, items_hash[day] || 0] }.to_h
+      (29.days.ago.to_date..Date.today).map { |day| [day.strftime('%Y-%m-%d'), items_hash[day] || 0] }.to_h
     end
 
     def sellers_per_day
       render json: daily_data_for(Seller)
-    end
-
-    def created_objects_per_day(clazz)
-      result = clazz.where { created_at.gteq 4.weeks.ago }.group { date(created_at) }.select do
-        [date(created_at).as(date), count(id).as(count)]
-      end
-      result.map { |element| [element.date, element.count] }.to_h
     end
   end
 end

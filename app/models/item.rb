@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :reservation
 
   include ActionView::Helpers::NumberHelper
+  include Statistics
 
   validates_presence_of :category, :description, :price, :reservation
   validates_uniqueness_of :code, allow_nil: true
