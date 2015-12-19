@@ -93,4 +93,17 @@ RSpec.describe Event do
     before { subject.save }
     its(:token) { is_expected.not_to be_nil }
   end
+
+  describe '#top_sellers' do
+    let(:event) { create :event_with_ongoing_reservation }
+    let!(:reservation1) { create :reservation, event: event }
+    let!(:reservation2) { create :reservation, event: event }
+    subject { event.top_sellers }
+    before do
+      create_list :sold_item, 5, reservation: reservation1
+      create_list :sold_item, 3, reservation: reservation2
+    end
+
+    it { is_expected.to include reservation1.number => 5, reservation2.number => 3 }
+  end
 end

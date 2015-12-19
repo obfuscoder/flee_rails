@@ -32,6 +32,13 @@ class Event < ActiveRecord::Base
     without_reservation_for(seller).within_reservation_time.with_available_reservations
   end
 
+  def top_sellers
+    result = reservations.joins(:items).merge(Item.sold).group { reservations.number }.select do
+      [reservations.number, count(items.id).as(count)]
+    end
+    result.each_with_object({}) { |e, h| h[e.number] = e.count }
+  end
+
   def reviewed_by?(seller)
     reviews.any? { |review| review.seller == seller }
   end
@@ -50,7 +57,7 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    shopping_periods.first.max.past?
+    shopping_periods.last.max.past?
   end
 
   before_save do

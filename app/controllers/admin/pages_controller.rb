@@ -21,7 +21,9 @@ module Admin
     end
 
     def daily_data(items_hash)
-      (29.days.ago.to_date..Date.today).map { |day| [day.strftime('%Y-%m-%d'), items_hash[day] || 0] }.to_h
+      (29.days.ago.to_date..Date.today).map { |day| day.strftime '%Y-%m-%d' }.each_with_object({}) do |day, hash|
+        hash[day] = items_hash[day] || 0
+      end
     end
 
     def sellers_per_day

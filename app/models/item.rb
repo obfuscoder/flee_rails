@@ -16,6 +16,7 @@ class Item < ActiveRecord::Base
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }
+  scope :sold, -> { where { sold.not_eq nil } }
 
   def self.search(needle)
     needle.nil? ? all : joins(:category).where do

@@ -9,6 +9,10 @@ FactoryGirl.define do
       after :build do |item, _evaluator|
         item.create_code
       end
+
+      factory :sold_item do
+        sold Time.now
+      end
     end
 
     factory :random_item do

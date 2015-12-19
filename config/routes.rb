@@ -18,6 +18,9 @@ Rails.application.routes.draw do
       end
     end
     resources :labels, only: [:index, :create]
+    member do
+      get :top_sellers
+    end
   end
 
   get 'events/:event_id/reserve', to: 'reservations#create', as: :event_reserve

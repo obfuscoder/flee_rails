@@ -4,6 +4,10 @@ class EventsController < ApplicationController
   def show
   end
 
+  def top_sellers
+    render json: @event.top_sellers
+  end
+
   private
 
   def init_event
