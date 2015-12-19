@@ -7,7 +7,7 @@ FactoryGirl.define do
     end
 
     sequence(:name) { |n| "Event #{n}" }
-    max_sellers 1
+    max_sellers 10
     reservation_start { 1.day.from_now }
     reservation_end { shopping_time - 1.day }
     seller_fee 2
@@ -28,6 +28,7 @@ FactoryGirl.define do
         reservation_end { 1.day.from_now }
 
         factory :full_event do
+          max_sellers 1
           after :create do |event|
             create :reservation, event: event
           end

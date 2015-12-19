@@ -51,8 +51,8 @@ RSpec.feature 'admin home page' do
     visit page.find('#canvas_items_per_day')['data-url']
     data = JSON.parse page.body
     expect(data.size).to eq 30
-    expect(data[1.day.ago.strftime('%Y-%m-%d')]).to eq 1
-    expect(data[Time.now.strftime('%Y-%m-%d')]).to eq 1
+    expect(data[-2]).to eq [1.day.ago.strftime('%Y-%m-%d'), 1]
+    expect(data.last).to eq [Time.now.strftime('%Y-%m-%d'), 1]
   end
 
   scenario 'shows graph of sellers created per day' do
@@ -60,8 +60,8 @@ RSpec.feature 'admin home page' do
     visit page.find('#canvas_sellers_per_day')['data-url']
     data = JSON.parse page.body
     expect(data.size).to eq 30
-    expect(data[1.day.ago.strftime('%Y-%m-%d')]).to eq 1
-    expect(data[Time.now.strftime('%Y-%m-%d')]).to eq 5
+    expect(data[-2]).to eq [1.day.ago.strftime('%Y-%m-%d'), 1]
+    expect(data.last).to eq [Time.now.strftime('%Y-%m-%d'), 5]
   end
 
   scenario 'shows admin menu' do

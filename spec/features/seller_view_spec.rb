@@ -22,7 +22,7 @@ RSpec.feature 'Seller view area' do
   end
 
   context 'with event' do
-    let(:event) { create :event_with_ongoing_reservation }
+    let(:event) { create :event_with_ongoing_reservation, max_sellers: 1 }
     let(:preparation) { event }
 
     scenario 'can make a reservation' do

@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
     result = reservations.joins(:items).merge(Item.sold).group { reservations.number }.select do
       [reservations.number, count(items.id).as(count)]
     end
-    result.each_with_object({}) { |e, h| h[e.number] = e.count }
+    result.order { count(items.id).desc }.map { |e| [e.number, e.count] }
   end
 
   def reviewed_by?(seller)

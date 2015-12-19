@@ -48,10 +48,7 @@ RSpec.describe NotificationsController do
 
   describe 'DELETE destroy' do
     let(:seller) { create :seller }
-
-    before do
-      session[:seller_id] = seller.id
-    end
+    before { session[:seller_id] = seller.id }
 
     let!(:event) { create :event }
     let(:delete_action) { delete :destroy, event_id: event.id }

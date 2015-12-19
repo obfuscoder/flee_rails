@@ -1,1 +1,15 @@
-- content_for :title, t('.title')
+- content_for :title, "#{t('.title')} - #{@event.name}"
+%h3= shopping_time @event
+Insgesamt wurden
+%strong= @item_count
+Artikel auf dem Flohmarkt angeboten. Hier eine Aufstellung der Artikel-Kategorien:
+Von den
+%strong= @item_count
+angebotenen Artikeln wurden
+%strong= @sold_item_count
+Artikel verkauft. Damit wurden
+%strong= number_to_percentage @sold_item_count*100 / @item_count, precision: 0
+aller Artikel verkauft.
+Die Verkäufer kamen aus den folgenden Ortschaften:
+Hier die Top10 der Verkäufer:
+%canvas#canvas_top_sellers{height: 300, width: 600, data: { url: top_sellers_event_path(@event.id) } }

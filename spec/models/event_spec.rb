@@ -104,6 +104,6 @@ RSpec.describe Event do
       create_list :sold_item, 3, reservation: reservation2
     end
 
-    it { is_expected.to include reservation1.number => 5, reservation2.number => 3 }
+    it { is_expected.to eq [[1, 5], [2, 3]] }
   end
 end
