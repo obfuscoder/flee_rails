@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :labels, only: [:index, :create]
     member do
       get :top_sellers
+      get :items_per_category
+      get :sold_items_per_category
     end
   end
 

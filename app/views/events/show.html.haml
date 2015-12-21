@@ -5,13 +5,16 @@ Insgesamt wurden
 Artikel auf dem Flohmarkt angeboten.
 - if @item_count != 0
   Hier eine Aufstellung der Artikel-Kategorien:
+  #items_per_category_for_event{ data: { url: items_per_category_event_path(@event.id) } }
   Von den
   %strong= @item_count
   angebotenen Artikeln wurden
   %strong= @sold_item_count
   Artikel verkauft. Damit wurden
   %strong= number_to_percentage(@sold_item_count*100 / @item_count, precision: 0)
-  aller Artikel verkauft.
+  aller Artikel verkauft:
+  #sold_items_per_category_for_event{ data: { url: sold_items_per_category_event_path(@event.id) } }
 Die Verkäufer kamen aus den folgenden Ortschaften:
 Hier die Top 10 der Verkäufer:
+%div
 %canvas#canvas_top_sellers{height: 300, width: 600, data: { url: top_sellers_event_path(@event.id) } }

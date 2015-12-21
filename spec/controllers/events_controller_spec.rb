@@ -61,4 +61,44 @@ RSpec.describe EventsController do
       end
     end
   end
+
+  describe 'GET items_per_category' do
+    let!(:items) { create_list :item, 3, reservation: reservation }
+    let!(:sold_items) { create_list :sold_item, 2, reservation: reservation }
+    before do
+      Timecop.travel event.shopping_periods.last.max + 1.day do
+        get :items_per_category, id: event.id
+      end
+    end
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'application/json' }
+      describe 'body' do
+        subject { JSON.parse response.body }
+        it { is_expected.to eq((items + sold_items).map { |i| [i.category.name, 1] }) }
+      end
+    end
+  end
+
+  describe 'GET sold_items_per_category' do
+    let!(:items) { create_list :item, 3, reservation: reservation }
+    let!(:sold_items) { create_list :sold_item, 2, reservation: reservation }
+    before do
+      Timecop.travel event.shopping_periods.last.max + 1.day do
+        get :sold_items_per_category, id: event.id
+      end
+    end
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'application/json' }
+      describe 'body' do
+        subject { JSON.parse response.body }
+        it { is_expected.to eq sold_items.map { |i| [i.category.name, 1] } }
+      end
+    end
+  end
 end

@@ -10,6 +10,19 @@ class EventsController < ApplicationController
     render json: @event.top_sellers.take(10)
   end
 
+  def items_per_category
+    render json: @event.reservations.joins { items }.joins { items.category }.group { [items.category.name] }
+                   .select { [items.category.name, count(items.id).as(count)] }.order { count(items.id).desc }
+                   .map { |e| [e.name, e.count] }
+  end
+
+  def sold_items_per_category
+    render json: @event.reservations.joins { items }.merge(Item.sold).joins { items.category }
+                   .group { [items.category.name] }
+                   .select { [items.category.name, count(items.id).as(count)] }.order { count(items.id).desc }
+                   .map { |e| [e.name, e.count] }
+  end
+
   private
 
   def init_event

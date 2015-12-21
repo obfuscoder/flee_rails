@@ -42,8 +42,10 @@ RSpec.feature 'admin home page' do
     visit page.find('#items_per_category')['data-url']
     data = JSON.parse page.body
     expect(data.size).to eq 2
-    expect(data[item.category.name]).to eq 1
-    expect(data[item_with_code.category.name]).to eq 1
+    expect(data[0][0]).to eq item.category.name
+    expect(data[0][1]).to eq 1
+    expect(data[1][0]).to eq item_with_code.category.name
+    expect(data[1][1]).to eq 1
   end
 
   scenario 'shows graph of items created per day' do

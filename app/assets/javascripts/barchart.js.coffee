@@ -1,56 +1,13 @@
-class @DonatChart
-  create: (element_id) ->
-    $.get $('#' + element_id).attr('data-url'), (data) ->
-      new d3pie(element_id, {
-        "size": {
-          "canvasWidth": 590,
-          "pieOuterRadius": "90%",
-          "pieInnerRadius": "50%"
-        },
-        "data": {
-          "sortOrder": "value-desc",
-          "content": $.map data, (value, key) ->
-            {
-            "label": key,
-            "value": value,
-            }
-        },
-        "labels": {
-          "outer": {
-            "pieDistance": 32
-          },
-          "inner": {
-            "format": "value",
-            "hideWhenLessThanPercentage": 3
-          },
-          "mainLabel": {
-            "fontSize": 11
-          },
-          "percentage": {
-            "color": "#ffffff",
-            "decimalPlaces": 0
-          },
-          "value": {
-            "color": "#ffffff",
-            "fontSize": 11
-          },
-          "lines": {
-            "enabled": true
-          },
-          "truncation": {
-            "enabled": true
-          }
-        },
-        "tooltips": {
-          "enabled": true,
-          "type": "placeholder",
-          "string": "{label}: {value} ({percentage}%)"
-        },
-        "effects": {
-          "pullOutSegmentOnClick": {
-            "effect": "linear",
-            "speed": 400,
-            "size": 8
-          }
-        },
-      })
+class @BarChart
+  create: (canvas_selector) ->
+    $.get $(canvas_selector).attr('data-url'), (json) ->
+      values = $.map json, (element) -> element[1]
+      labels = $.map json, (element) -> element[0]
+      data =
+        labels: labels
+        datasets: [
+          label: 'hae'
+          fillColor: 'rgba(20,80,255,1)'
+          data: values
+        ]
+      new Chart($(canvas_selector).get(0).getContext('2d')).Bar(data)
