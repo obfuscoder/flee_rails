@@ -3,16 +3,61 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  if $('#canvas_items_per_category[data-url]').length
-    $.get $('#canvas_items_per_category').attr('data-url'), (data) ->
-      steps = Object.keys(data).length
-      i = 0
-      data = $.map data, (value, key) ->
-        alpha = 1 - i/steps
-        i += 1
-        base = 'rgba(20,80,255,'
-        [ value: value, label: key, color: base + alpha + ')', highlight: base + alpha*0.8 + ')' ]
-      chart = new Chart($('#canvas_items_per_category').get(0).getContext('2d')).Pie(data)
+  if $('#items_per_category[data-url]').length
+    $.get $('#items_per_category').attr('data-url'), (data) ->
+      new d3pie("items_per_category", {
+        "size": {
+          "canvasWidth": 590,
+          "pieOuterRadius": "90%",
+          "pieInnerRadius": "50%"
+        },
+        "data": {
+          "sortOrder": "value-desc",
+          "content": $.map data, (value, key) ->
+            {
+              "label": key,
+              "value": value,
+            }
+        },
+        "labels": {
+          "outer": {
+            "pieDistance": 32
+          },
+          "inner": {
+            "format": "value"
+          },
+          "mainLabel": {
+            "fontSize": 11
+          },
+          "percentage": {
+            "color": "#ffffff",
+            "decimalPlaces": 0
+          },
+          "value": {
+            "color": "#ffffff",
+            "fontSize": 11
+          },
+          "lines": {
+            "enabled": true
+          },
+          "truncation": {
+            "enabled": true
+          }
+        },
+        "tooltips": {
+          "enabled": true,
+          "type": "placeholder",
+          "string": "{label}: {percentage}%"
+        },
+        "effects": {
+          "pullOutSegmentOnClick": {
+            "effect": "linear",
+            "speed": 400,
+            "size": 8
+          }
+        },
+      });
+
   if $('#canvas_items_per_day[data-url]').length
     new BarChart().create '#canvas_items_per_day'
   if $('#canvas_sellers_per_day[data-url]').length

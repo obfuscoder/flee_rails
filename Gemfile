@@ -51,6 +51,7 @@ end
 gem 'haml-rails'
 gem 'maildown'
 gem 'chart-js-rails'
+gem 'd3-rails'
 gem 'simple_form'
 gem 'cocoon'
 gem 'bootstrap-sass'
