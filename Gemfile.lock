@@ -105,7 +105,6 @@ GEM
     d3-rails (3.5.6)
       railties (>= 3.1)
     database_cleaner (1.5.1)
-    debug_inspector (0.0.2)
     deep_merge (1.0.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -350,10 +349,6 @@ GEM
     underscore-rails (1.8.3)
     validates_email_format_of (1.6.3)
       i18n
-    web-console (3.0.0)
-      activemodel (>= 4.2)
-      debug_inspector
-      railties (>= 4.2)
     websocket (1.2.2)
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
@@ -425,6 +420,5 @@ DEPENDENCIES
   uglifier
   underscore-rails
   validates_email_format_of
-  web-console
   whenever
   will_paginate-bootstrap
