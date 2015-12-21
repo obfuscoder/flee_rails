@@ -24,7 +24,8 @@ $(document).on 'ready page:load', ->
             "pieDistance": 32
           },
           "inner": {
-            "format": "value"
+            "format": "value",
+            "hideWhenLessThanPercentage": 3
           },
           "mainLabel": {
             "fontSize": 11
