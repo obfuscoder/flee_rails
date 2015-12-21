@@ -39,7 +39,7 @@ RSpec.feature 'admin home page' do
 
   scenario 'shows graph of items per category' do
     expect(page).to have_content 'Artikel pro Kategorie'
-    visit page.find('#canvas_items_per_category')['data-url']
+    visit page.find('#items_per_category')['data-url']
     data = JSON.parse page.body
     expect(data.size).to eq 2
     expect(data[item.category.name]).to eq 1
