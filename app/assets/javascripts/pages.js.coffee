@@ -48,7 +48,7 @@ $(document).on 'ready page:load', ->
         "tooltips": {
           "enabled": true,
           "type": "placeholder",
-          "string": "{label}: {percentage}%"
+          "string": "{label}: {value} ({percentage}%)"
         },
         "effects": {
           "pullOutSegmentOnClick": {
