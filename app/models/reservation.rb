@@ -13,7 +13,7 @@ class Reservation < ActiveRecord::Base
   before_validation :create_number
 
   def self.recent
-    joins { event.shopping_periods }.where { event.shopping_periods.max >= 4.weeks.ago }.order do
+    joins { event.shopping_periods }.where { event.shopping_periods.max >= 3.months.ago }.order do
       event.shopping_periods.max.desc
     end
   end

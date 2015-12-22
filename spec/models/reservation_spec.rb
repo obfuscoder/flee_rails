@@ -17,14 +17,14 @@ RSpec.describe Reservation do
   describe '#recent' do
     let!(:old_reservation) do
       reservation = nil
-      Timecop.travel 6.weeks.ago do
+      Timecop.travel 5.months.ago do
         reservation = create :reservation
       end
       reservation
     end
     let!(:recent_reservation) do
       reservation = nil
-      Timecop.travel 2.weeks.ago do
+      Timecop.travel 2.months.ago do
         reservation = create :reservation
       end
       reservation
