@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EventsController do
-  let(:seller) { create :seller }
+  let(:seller) { create :seller, zip_code: '04720' }
   let(:reservation) { create :reservation, seller: seller }
   let(:event) { reservation.event }
 
@@ -98,6 +98,28 @@ RSpec.describe EventsController do
       describe 'body' do
         subject { JSON.parse response.body }
         it { is_expected.to eq sold_items.map { |i| [i.category.name, 1] } }
+      end
+    end
+  end
+
+  describe 'GET sellers_per_city' do
+    let(:sellers_city1) { create_list :seller, 3, zip_code: '75203' }
+    let(:sellers_city2) { create_list :seller, 2, zip_code: '71229' }
+    let(:sellers) { sellers_city1 + sellers_city2 }
+    let!(:reservations) { sellers.map { |seller| create :reservation, event: event, seller: seller } }
+    before do
+      Timecop.travel event.shopping_periods.last.max + 1.day do
+        get :sellers_per_city, id: event.id
+      end
+    end
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'application/json' }
+      describe 'body' do
+        subject { JSON.parse response.body }
+        it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Döbeln', 1]] }
       end
     end
   end

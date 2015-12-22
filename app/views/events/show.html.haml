@@ -15,6 +15,7 @@ Artikel auf dem Flohmarkt angeboten.
   aller Artikel verkauft:
   #sold_items_per_category_for_event{ data: { url: sold_items_per_category_event_path(@event.id) } }
 Die Verkäufer kamen aus den folgenden Ortschaften:
+#sellers_per_city{ data: { url: sellers_per_city_event_path(@event.id) } }
 Hier die Top 10 der Verkäufer:
 %div
 %canvas#canvas_top_sellers{height: 300, width: 600, data: { url: top_sellers_event_path(@event.id) } }

@@ -1,0 +1,1 @@
+Rails.application.config.zip_codes = YAML.load(File.read 'config/zip_codes.yml')

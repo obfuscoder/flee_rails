@@ -16,3 +16,5 @@ $(document).on 'ready page:load cocoon:after-insert', ->
     new DonatChart().create 'items_per_category_for_event'
   if $('#sold_items_per_category_for_event[data-url]').length
     new DonatChart().create 'sold_items_per_category_for_event'
+  if $('#sellers_per_city[data-url]').length
+    new DonatChart().create 'sellers_per_city'

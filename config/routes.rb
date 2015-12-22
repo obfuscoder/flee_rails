@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :top_sellers
       get :items_per_category
       get :sold_items_per_category
+      get :sellers_per_city
     end
   end
 
