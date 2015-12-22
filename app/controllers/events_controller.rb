@@ -24,15 +24,19 @@ class EventsController < ApplicationController
   end
 
   def sellers_per_city
-    render json: @event.reservations
+    render json: map_to_cities(@event.reservations
                    .joins { seller }
                    .group { seller.zip_code }
-                   .select { [seller.zip_code, count(seller.id).as(count)] }
-                   .order { count(seller.id).desc }
-                   .map { |e| [Rails.application.config.zip_codes[e.zip_code] || e.zip_code, e.count] }
+                   .select { [seller.zip_code, count(seller.id).as(count)] })
   end
 
   private
+
+  def map_to_cities(result)
+    result.map { |e| [Rails.application.config.zip_codes[e.zip_code] || e.zip_code, e.count] }
+      .each_with_object({}) { |(z, c), h| h[z] = (h[z] || 0) + c }
+      .to_a.sort { |a, b| b.second <=> a.second }
+  end
 
   def init_event
     @event = Event.find params[:id]

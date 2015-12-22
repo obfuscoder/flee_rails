@@ -120,6 +120,13 @@ RSpec.describe EventsController do
       describe 'body' do
         subject { JSON.parse response.body }
         it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Döbeln', 1]] }
+
+        context 'when several zip codes map to same city' do
+          let(:seller1_city3) { create :seller, zip_code: '76131' }
+          let(:seller2_city3) { create :seller, zip_code: '76139' }
+          let(:sellers) { sellers_city1 + sellers_city2 << seller1_city3 << seller2_city3 }
+          it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Karlsruhe', 2], ['Döbeln', 1]] }
+        end
       end
     end
   end
