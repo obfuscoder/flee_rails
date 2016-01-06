@@ -3,8 +3,11 @@ brands:
     name: Flohmarkt KiTa Oberlinhaus
     name_html: Flohmarkt KiTa Oberlinhaus
     home:
-      logo:
-      intro:
+      logo: woessingen/logo.jpg
+      intro: |
+        Evang. Gemeindehaus<br>
+        Weinbrennerstr. 14<br>
+        75045 Walzbachtal
       outro:
     contact: kita-oberlinhaus@flohmarkthelfer.de
     imprint:
@@ -14,9 +17,10 @@ brands:
         - 75203 Königsbach
       contact: imprint@flohmarkthelfer.de
     terms: |
-      **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung
-      für die kommende Jahreszeit bis Größe 176, Umstandsmode, Schuhe, Kinderbetten, Kinderwägen, Buggys,
-      Autositze, Rutschautos, Kettcars, Fahrräder, Spielsachen etc.
+      **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung für die kommende
+      Jahreszeit bis Größe 140, Kinderschuhe bis Größe 35, Matschsachen und Gummistiefel, Spielsachen, Kinder-CDs,
+      DVDs, Bücher, Kinderfahrzeuge (Fahrräder, Dreiräder, Laufräder, Traktoren, Rutschautos, Schlitten, ...),
+      Kindersitze, Kinderwägen, Buggys, Babyzubehör etc.
 
       ### WICHTIG!
 
@@ -30,20 +34,24 @@ brands:
          **Teilnehmernummer gut sichtbar** gekennzeichnet ist (mehrteilige Kleidungsstücke bitte zusammennähen),
       4. in einem **einwandfreien und zeitgemäßen Zustand** sein
 
+      Es dürfen pro Anbieter eine begrenzte Anzahl von Artikeln in Kommission gegeben werden.
+      Bitte sorgen Sie dafür, dass Ihre Etiketten gut befestigt sind,
+      da wir für Verlust oder Vertauschen derselben **nicht haften** können.
+
       Falsch ausgezeichnete Ware oder solche mit abgefallenen Etiketten kann von uns leider nicht verkauft werden.
-      Wir legen Wert auf einwandfreie, zeitgemäße Ware und behalten uns vor, Teile auszusortieren.
+      Wir legen Wert auf **einwandfreie, zeitgemäße** Ware und behalten uns vor, Teile auszusortieren.
 
       Für die abgegebene Ware kann (bei Beschädigung und Diebstahl) **keine Haftung** übernommen werden.
-      Für die Rückgabe von Kleiderbügeln kann keine Gewähr übernommen werden.
+      Kleiderbügel werden nicht zurückgegeben.
 
-      Es entfällt pro Teilnehmer eine **Teilnahmegebühr** von **2,50 €**.
+      Es entfällt pro Teilnehmer eine **Teilnahmegebühr** von **2,00 €**.
 
-      **Wir runden alle Verkäuferauszahlungsbeträge ab** auf volle 10 Cent. D.h. aus 10,88 € wird 10,80 €.
+      **Wir runden alle Verkäuferauszahlungsbeträge ab** auf volle 50 Cent. D.h. aus 10,88 € wird 10,50 €.
 
       Nur ein Teilnehmer je Haushalt. Mehrere Anmeldungen des gleichen Haushaltes sind nicht gestattet.
       Wir behalten uns das Recht vor, Mehrfachreservierungen aus dem gleichen Haushalt wieder freizugeben.
 
-      Es werden nur Preise akzeptiert, die auf 10 Cent gerundet sind.
+      Es werden nur Preise akzeptiert, die auf 50 Cent gerundet sind.
 
       Die Teilnehmer müssen die nicht verkaufte Ware, sowie den Erlös der verkauften Teile **sofort kontrollieren**.
       Eine spätere Reklamation ist nicht zulässig.
@@ -56,11 +64,6 @@ brands:
       Wir arbeiten beim Verkauf mit Scannern und akzeptieren daher nur Waren mit unseren Etiketten,
       welche Sie nach Artikeleingabe erzeugen und drucken.
 
-      Sollten Sie keine Möglichkeit zum Drucken haben, befestigen Sie bitte Papierschilder mit der Größe von
-      min. 7x5 cm an Ihren Artikeln und beschriften diese mit der Positionsnr. oder Artikelnummer.
-      Sie bekommen bei der Annahme von uns Etikettenaufkleber um diese zu überkleben.
-      Wir behalten uns vor, für diesen Service 2,00 € zu berechnen.
-
       Handschriftliche Änderungen auf den Etiketten werden nicht akzeptiert.
       Das System kennt nur die Werte, welche online eingegeben wurden.
 
@@ -68,16 +71,20 @@ brands:
 
       Die Etiketten dürfen laminiert oder geklebt werden, sofern dies nicht die Ware beschädigt.
 
+      Sollten Sie keine Möglichkeit haben, die Etiketten selbst zu drucken, kontaktieren Sie uns bitte.
+
       ### Verkaufserlös
 
       Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten
-      gespendet wird.
+      der Kindertagesstätte Oberlinhaus gespendet wird.
+
+      #### Viel Erfolg bei dem Verkauf Ihrer Ware wünscht der gesamte Elternbeirat des Oberlinhaus !
     mail:
       from: Flohmarkt KiTa Oberlinhaus <kita-oberlinhaus@flohmarkthelfer.de>
-    price_precision: 0.1
+    price_precision: 0.5
     commission_rate: 0.2
     seller_fee: 2.0
-    donation_of_unsold_items_enabled: true
+    donation_of_unsold_items_enabled: false
     prefix: 3
 hosts:
   woessingen.localhost: woessingen
