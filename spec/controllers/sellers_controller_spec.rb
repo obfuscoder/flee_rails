@@ -170,6 +170,32 @@ RSpec.describe SellersController do
       it 'stores seller id in session' do
         expect { subject }.to change { session[:seller_id] }.to seller.id
       end
+
+      context 'when seller was not active' do
+        let(:seller) { create :seller, active: false }
+
+        it 'activates seller' do
+          expect { subject }.to change { seller.reload.active }.to true
+        end
+
+        context 'with current event' do
+          let!(:event) { create(:event) }
+          it 'does not send invitation mail to seller' do
+            expect(SellerMailer).not_to receive :invitation
+            subject
+          end
+
+          context 'when invitation has been sent already' do
+            let!(:event) do
+              create(:event).tap { |event| event.update messages: [create(:invitation_message, event: event)] }
+            end
+            it 'sends invitation mail to seller' do
+              expect(SellerMailer).to receive(:invitation) { double deliver_later: true }
+              subject
+            end
+          end
+        end
+      end
     end
 
     context 'with unknown token' do

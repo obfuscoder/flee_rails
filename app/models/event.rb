@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
   scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
   scope :without_reservation_for, ->(seller) { where { id << seller.reservations.map(&:event_id) } }
   scope :current_or_upcoming, -> { joins { shopping_periods }.where { shopping_periods.max >= Time.now } }
+  scope :with_sent, ->(category) { joins { messages }.where { messages.category == category.to_s } }
 
   def self.with_available_reservations
     joins { reservations.outer }.group(:id).having { count(reservations.id) < max_sellers }

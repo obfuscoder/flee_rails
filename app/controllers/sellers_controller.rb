@@ -61,7 +61,7 @@ class SellersController < ApplicationController
     reset_session
     seller = Seller.find_by_token params[:token]
     fail UnauthorizedError unless seller
-    seller.update(active: true)
+    activate_seller(seller)
     session[:seller_id] = seller.id
   end
 
@@ -79,6 +79,14 @@ class SellersController < ApplicationController
 
   def seller_params
     params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms
+  end
+
+  def activate_seller(seller)
+    return if seller.active
+    seller.update active: true
+    Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation).each do |event|
+      SellerMailer.invitation(seller, event, host: request.host, from: brand_settings.mail.from).deliver_later
+    end
   end
 
   def send_registration_mail(seller)
