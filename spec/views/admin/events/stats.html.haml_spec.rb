@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe 'admin/events/stats' do
   let(:event) { create :event_with_ongoing_reservation }
   let(:reservation) { create :reservation, event: event }
+  let!(:more_reservations) { create_list :reservation, 11, event: event }
   let(:items) { create_list :item, 10, reservation: reservation }
   let!(:items_with_code) { items.take(8).each(&:create_code).each(&:save!) }
+  let!(:notifications) { create_list :notification, 15, event: event }
   let!(:sold_items) { items_with_code.take(6).each { |item| item.update! sold: Time.now } }
   before { assign :event, event }
   it_behaves_like 'a standard view'
@@ -28,5 +30,8 @@ RSpec.describe 'admin/events/stats' do
     it 'lists all categories' do
       items.each { |item| is_expected.to have_content item.category.name }
     end
+
+    it { is_expected.to have_content "#{more_reservations.count + 1} / #{event.max_sellers}" }
+    it { is_expected.to have_content notifications.count }
   end
 end

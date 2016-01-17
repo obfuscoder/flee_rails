@@ -17,3 +17,7 @@
         %tr
           %td= category
           %td= item_count
+%h3 Verkäufer
+%ul
+  %li Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
+  %li Warteliste: #{@event.notifications.count}
