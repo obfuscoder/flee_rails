@@ -65,5 +65,19 @@ module Admin
         end
       end
     end
+
+    describe 'GET stats' do
+      let(:event) { create :event }
+      before { get :stats, id: event.id }
+      describe 'response' do
+        subject { response }
+        it { is_expected.to render_template :stats }
+        it { is_expected.to have_http_status :ok }
+      end
+      describe '@event' do
+        subject { assigns :event }
+        it { is_expected.to eq event }
+      end
+    end
   end
 end

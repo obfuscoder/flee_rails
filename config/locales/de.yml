@@ -167,6 +167,8 @@ de:
         title: Termin bearbeiten
       show:
         title: Termindetails
+      stats:
+        title: Terminstatistiken
       create:
         success: Der Termin wurde erfolgreich hinzugefügt.
       update:

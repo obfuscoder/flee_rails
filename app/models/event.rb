@@ -11,12 +11,16 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :name, :max_sellers, :max_items_per_seller, :price_precision, :commission_rate, :seller_fee
-  validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
-  validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
+  validates_presence_of :name, :max_sellers, :seller_fee
+  validates_presence_of :max_items_per_seller, :price_precision, :commission_rate, if: -> { kind == :commissioned }
   validates :seller_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 10 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
-  validates :max_items_per_seller, numericality: { greater_than: 0, only_integer: true }
+
+  with_options if: :commissioned? do |event|
+    event.validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
+    event.validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
+    event.validates :max_items_per_seller, numericality: { greater_than: 0, only_integer: true }
+  end
 
   scope :reservation_started, -> { where { reservation_start <= Time.now } }
   scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }
@@ -59,6 +63,18 @@ class Event < ActiveRecord::Base
 
   def past?
     shopping_periods.last.max.past?
+  end
+
+  def item_count
+    reservations.joins(:items).count
+  end
+
+  def items_with_label_count
+    reservations.joins(:items).merge(Item.with_label).count
+  end
+
+  def sold_item_count
+    reservations.joins(:items).merge(Item.sold).count
   end
 
   before_save do

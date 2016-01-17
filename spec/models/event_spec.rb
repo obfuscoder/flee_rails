@@ -106,4 +106,30 @@ RSpec.describe Event do
 
     it { is_expected.to eq [[1, 5], [2, 3]] }
   end
+
+  describe 'item counts' do
+    let(:item_count) { 5 }
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:reservation) { create :reservation, event: event }
+    let!(:items) { create_list :item, item_count, reservation: reservation }
+
+    describe '#item_count' do
+      subject { event.item_count }
+      it { is_expected.to eq item_count }
+    end
+
+    describe '#sold_item_count' do
+      let(:sold_item_count) { 3 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, reservation: reservation }
+      subject { event.sold_item_count }
+      it { is_expected.to eq sold_item_count }
+    end
+
+    describe '#items_with_label_count' do
+      let(:items_with_label_count) { 2 }
+      let!(:items_with_label) { create_list :item_with_code, items_with_label_count, reservation: reservation }
+      subject { event.items_with_label_count }
+      it { is_expected.to eq items_with_label_count }
+    end
+  end
 end

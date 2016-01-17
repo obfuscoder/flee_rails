@@ -6,12 +6,15 @@ RSpec.describe 'admin/events/show' do
   it_behaves_like 'a standard view'
 
   context 'with direct event' do
-    let(:Event) { create :direct_event }
+    let(:event) { create :direct_event }
     it_behaves_like 'a standard view'
   end
 
-  it 'shows token' do
-    render
-    expect(rendered).to have_content event.token
+  describe 'rendered' do
+    before { render }
+    subject { rendered }
+
+    it { is_expected.to have_content event.token }
+    it { is_expected.to have_link 'Statistiken', href: stats_admin_event_path(event) }
   end
 end

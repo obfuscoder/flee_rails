@@ -47,6 +47,9 @@ Rails.application.routes.draw do
     resources :events do
       resources :reviews, :reservations
       post 'messages/:action', to: 'messages#:action', as: :messages
+      member do
+        get :stats
+      end
     end
     resources :sellers
     resources :categories

@@ -43,6 +43,10 @@ module Admin
       @event = Event.find params[:id]
     end
 
+    def stats
+      @event = Event.find params[:id]
+    end
+
     def destroy
       if Event.destroy params[:id]
         redirect_to admin_events_path, notice: t('.success')

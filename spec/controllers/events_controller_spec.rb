@@ -8,8 +8,6 @@ RSpec.describe EventsController do
   before { session[:seller_id] = seller.id }
 
   describe 'GET show' do
-    let!(:items) { create_list :item, 5, reservation: reservation }
-    let!(:sold_items) { create_list :sold_item, 3, reservation: reservation }
     before do
       Timecop.travel event.shopping_periods.last.max + 1.day do
         get :show, id: event.id
@@ -25,16 +23,6 @@ RSpec.describe EventsController do
       describe 'event' do
         subject { assigns :event }
         it { is_expected.to eq event }
-      end
-
-      describe 'item_count' do
-        subject { assigns :item_count }
-        it { is_expected.to eq 8 }
-      end
-
-      describe 'sold_item_count' do
-        subject { assigns :sold_item_count }
-        it { is_expected.to eq 3 }
       end
     end
   end
