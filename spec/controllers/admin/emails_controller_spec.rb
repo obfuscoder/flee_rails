@@ -56,7 +56,7 @@ module Admin
       let(:seller) { create :seller }
       let(:params) { { email: { subject: subject, body: body, sellers: [seller.id] } } }
       before do
-        allow(SellerMailer).to receive(:custom).and_return(double deliver_later: true)
+        allow(SellerMailer).to receive(:custom).and_return(double(deliver_later: true))
         post :create, params
       end
 

@@ -68,13 +68,13 @@ RSpec.describe Event do
     context 'when reviewed by seller' do
       before { subject.reviews << build(:review, event: subject, seller: seller) }
       it 'is reviewed by seller' do
-        expect(subject.reviewed_by? seller).to be true
+        expect(subject.reviewed_by?(seller)).to be true
       end
     end
 
     context 'when not reviewed by seller' do
       it 'is not reviewed by seller' do
-        expect(subject.reviewed_by? seller).to be false
+        expect(subject.reviewed_by?(seller)).to be false
       end
     end
   end
@@ -131,5 +131,18 @@ RSpec.describe Event do
       subject { event.items_with_label_count }
       it { is_expected.to eq items_with_label_count }
     end
+  end
+
+  describe '#items_per_category' do
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:reservation) { create :reservation, event: event }
+    let(:category1) { create :category }
+    let(:category2) { create :category }
+    let!(:items1) { create_list :item, 4, reservation: reservation, category: category1 }
+    let!(:items2) { create_list :item, 3, reservation: reservation, category: category2 }
+
+    subject { event.items_per_category }
+
+    it { is_expected.to eq [[category1.name, items1.count], [category2.name, items2.count]] }
   end
 end

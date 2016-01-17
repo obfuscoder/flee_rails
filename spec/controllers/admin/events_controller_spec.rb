@@ -79,5 +79,22 @@ module Admin
         it { is_expected.to eq event }
       end
     end
+
+    describe 'GET items_per_category' do
+      before do
+        expect_any_instance_of(Event).to receive(:items_per_category).and_return([['Cat1', 3], ['Cat2', 2]])
+        get :items_per_category, id: event.id
+      end
+
+      describe 'response' do
+        subject { response }
+        it { is_expected.to have_http_status :ok }
+        its(:content_type) { is_expected.to eq 'application/json' }
+        describe 'body' do
+          subject { response.body }
+          it { is_expected.to eq '[["Cat1",3],["Cat2",2]]' }
+        end
+      end
+    end
   end
 end

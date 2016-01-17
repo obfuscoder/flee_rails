@@ -60,7 +60,7 @@ RSpec.feature 'Viewing and editing items' do
         before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
         it 'shows unchecked donation option' do
           create_item do
-            expect(find_field 'Spende wenn nicht verkauft').not_to be_checked
+            expect(find_field('Spende wenn nicht verkauft')).not_to be_checked
           end
           expect(Item.last).not_to be_donation
         end
@@ -69,7 +69,7 @@ RSpec.feature 'Viewing and editing items' do
           before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_default) { true } }
           it 'shows checked donation option' do
             create_item do
-              expect(find_field 'Spende wenn nicht verkauft').to be_checked
+              expect(find_field('Spende wenn nicht verkauft')).to be_checked
             end
             expect(Item.last).to be_donation
           end

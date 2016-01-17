@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats
+        get :items_per_category
       end
     end
     resources :sellers

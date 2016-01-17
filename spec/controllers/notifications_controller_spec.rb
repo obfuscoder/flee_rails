@@ -15,24 +15,24 @@ RSpec.describe NotificationsController do
             expect { post :create, event_id: event.id }.to_not change { Notification.count }
           end
           it 'redirects to seller view' do
-            expect(post :create, event_id: event.id).to redirect_to seller_path
+            expect(post(:create, event_id: event.id)).to redirect_to seller_path
           end
         end
         context 'with non existing notification' do
           it 'creates notification' do
-            expect(Notification.find_by event: event, seller: seller).to be_nil
+            expect(Notification.find_by(event: event, seller: seller)).to be_nil
             post :create, event_id: event.id
-            expect(Notification.find_by event: event, seller: seller).not_to be_nil
+            expect(Notification.find_by(event: event, seller: seller)).not_to be_nil
           end
           it 'redirects to seller view' do
-            expect(post :create, event_id: event.id).to redirect_to seller_path
+            expect(post(:create, event_id: event.id)).to redirect_to seller_path
           end
         end
       end
       context 'with invalid event' do
         let(:event_id) { 9999 }
         it 'redirects to seller view' do
-          expect(post :create, event_id: event_id).to redirect_to seller_path
+          expect(post(:create, event_id: event_id)).to redirect_to seller_path
         end
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe NotificationsController do
       let!(:event) { create :event }
       before { session[:seller_id] = nil }
       it 'shows unauthorized error' do
-        expect(post :create, event_id: event.id).to have_http_status :unauthorized
+        expect(post(:create, event_id: event.id)).to have_http_status :unauthorized
       end
     end
   end

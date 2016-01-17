@@ -77,6 +77,14 @@ class Event < ActiveRecord::Base
     reservations.joins(:items).merge(Item.sold).count
   end
 
+  def items_per_category
+    reservations.joins { items }.joins { items.category }
+                .group { items.category.name }
+                .select { [items.category.name, count(items.id).as(count)] }
+                .order { count(items.id).desc }
+                .map { |e| [e.name, e.count] }
+  end
+
   before_save do
     unless token
       self.token = loop do

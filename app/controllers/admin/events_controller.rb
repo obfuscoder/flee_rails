@@ -1,5 +1,11 @@
 module Admin
   class EventsController < AdminController
+    before_filter :init_event, only: [:edit, :update, :show, :stats, :items_per_category]
+
+    def init_event
+      @event = Event.find params[:id]
+    end
+
     def index
       @events = Event.page(@page).joins(:shopping_periods).order(column_order).distinct
     end
@@ -27,11 +33,9 @@ module Admin
     end
 
     def edit
-      @event = Event.find params[:id]
     end
 
     def update
-      @event = Event.find params[:id]
       if @event.update event_params
         redirect_to admin_events_path, notice: t('.success')
       else
@@ -40,11 +44,13 @@ module Admin
     end
 
     def show
-      @event = Event.find params[:id]
     end
 
     def stats
-      @event = Event.find params[:id]
+    end
+
+    def items_per_category
+      render json: @event.items_per_category
     end
 
     def destroy

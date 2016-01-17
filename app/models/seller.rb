@@ -34,7 +34,7 @@ class Seller < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  alias_method :name, :to_s
+  alias name to_s
 
   def label_for_reservation
     "#{name}, #{city} (#{email})"

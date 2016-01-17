@@ -15,5 +15,11 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_content items.count }
     it { is_expected.to have_content items_with_code.count }
     it { is_expected.to have_content sold_items.count }
+
+    {
+      items_per_category_for_event: :items_per_category_admin_event_path
+    }.each do |element, path_method|
+      it { is_expected.to have_css "##{element}[data-url='#{send(path_method, event.id)}']" }
+    end
   end
 end

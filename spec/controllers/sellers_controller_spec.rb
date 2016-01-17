@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SellersController do
   before do
-    allow(SellerMailer).to receive(:registration).and_return(double deliver_later: self)
+    allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self))
   end
 
   describe 'GET new' do
@@ -11,7 +11,7 @@ RSpec.describe SellersController do
     end
 
     it 'assigns a new Seller as @seller' do
-      expect(assigns :seller).to be_a_new Seller
+      expect(assigns(:seller)).to be_a_new Seller
     end
 
     it { expect(response).to render_template :new }
@@ -33,9 +33,9 @@ RSpec.describe SellersController do
       end
 
       it 'assigns the new instance to @seller' do
-        expect(assigns :seller).to eq Seller.last
+        expect(assigns(:seller)).to eq Seller.last
       end
-      it { expect(assigns :seller).to be_persisted }
+      it { expect(assigns(:seller)).to be_persisted }
       it { expect(response).to render_template :create }
       it { expect(response).to have_http_status :ok }
     end
@@ -220,13 +220,13 @@ RSpec.describe SellersController do
       it { is_expected.to have_http_status :ok }
       it 'assigns the seller from the session to @seller' do
         subject
-        expect(assigns :seller).to eq seller
+        expect(assigns(:seller)).to eq seller
       end
       it 'assigns the reservable events to @events' do
         events = double
         allow(Event).to receive(:without_reservation_for) { events }
         subject
-        expect(assigns :events).to eq events
+        expect(assigns(:events)).to eq events
       end
     end
   end

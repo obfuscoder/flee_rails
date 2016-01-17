@@ -6,7 +6,8 @@ module ReviewsHelper
     friends: 'Bekannte/Familie',
     other: 'Sonstiges',
     nil => 'keine Angabe'
-  }
+  }.freeze
+
   def source_collection
     SOURCES.invert.compact
   end
@@ -28,7 +29,7 @@ module ReviewsHelper
     4 => 'danger',
     5 => 'danger',
     6 => 'danger'
-  }
+  }.freeze
 
   def class_for_rating(rating)
     CLASSES_FOR_RATING[rating]
@@ -38,7 +39,7 @@ module ReviewsHelper
     nil => 'keine Angabe',
     false => 'nein',
     true => 'ja'
-  }
+  }.freeze
 
   def recommends(reviews)
     data_hash(reviews, :recommend) { |k| NAMES_FOR_BOOLS[k] }

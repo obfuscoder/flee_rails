@@ -4,3 +4,4 @@
   %li gesamt: #{@event.item_count}
   %li Etiketten: #{@event.items_with_label_count}
   %li verkauft: #{@event.sold_item_count}
+#items_per_category_for_event{ data: { url: items_per_category_admin_event_path(@event.id) } }

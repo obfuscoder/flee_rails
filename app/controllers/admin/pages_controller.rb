@@ -17,7 +17,7 @@ module Admin
     end
 
     def daily_data_for(clazz)
-      daily_data(clazz.per_day 30)
+      daily_data(clazz.per_day(30))
     end
 
     def daily_data(items_hash)
