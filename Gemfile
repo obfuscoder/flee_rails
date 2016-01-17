@@ -6,6 +6,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
+gem 'jquery-tablesorter'
 gem 'turbolinks'
 gem 'mysql2', group: :production
 

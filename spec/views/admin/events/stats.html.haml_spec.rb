@@ -21,5 +21,12 @@ RSpec.describe 'admin/events/stats' do
     }.each do |element, path_method|
       it { is_expected.to have_css "##{element}[data-url='#{send(path_method, event.id)}']" }
     end
+
+    it { is_expected.to have_link 'Tabelle anzeigen', href: '#items_per_category_table_collapser' }
+    it { is_expected.to have_css '.collapse#items_per_category_table_collapser' }
+    it { is_expected.to have_css '#items_per_category_table' }
+    it 'lists all categories' do
+      items.each { |item| is_expected.to have_content item.category.name }
+    end
   end
 end
