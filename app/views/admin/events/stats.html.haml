@@ -5,3 +5,13 @@
   %li Etiketten: #{@event.items_with_label_count}
   %li verkauft: #{@event.sold_item_count}
 #items_per_category_for_event{ data: { url: items_per_category_admin_event_path(@event.id) } }
+%a(data-toggle='collapse' href='#items_per_category_table' aria-expanded=false aria-controls='items_per_category_table') Tabelle zeigen
+.collapse#items_per_category_table
+  %table.table.table-condensed.table-hover.table-striped
+    %tr
+      %th Kategorie
+      %th Artikelanzahl
+    - @event.items_per_category.each do |category, item_count|
+      %tr
+        %td= category
+        %td= item_count
