@@ -1,22 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/events/stats' do
-  let(:event) { create :event_with_ongoing_reservation }
-  let(:reservation) { create :reservation, event: event }
-  let!(:more_reservations) { create_list :reservation, 11, event: event }
-  let(:items) { create_list :item, 10, reservation: reservation }
-  let!(:items_with_code) { items.take(8).each(&:create_code).each(&:save!) }
-  let!(:notifications) { create_list :notification, 15, event: event }
-  let!(:sold_items) { items_with_code.take(6).each { |item| item.update! sold: Time.now } }
+  let(:event) do
+    double id: 1,
+           max_sellers: 13,
+           item_count: 10,
+           items_with_label_count: 8,
+           sold_item_count: 6,
+           items_per_category: [
+             ['Cat1', 5],
+             ['Cat2', 2]
+           ],
+           reservations: double(count: 12),
+           notifications: [
+             double(seller: double(name: 'Name1')),
+             double(seller: double(name: 'Name2'))
+           ]
+  end
   before { assign :event, event }
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
     before { render }
     subject { rendered }
-    it { is_expected.to have_content items.count }
-    it { is_expected.to have_content items_with_code.count }
-    it { is_expected.to have_content sold_items.count }
+    it { is_expected.to have_content event.item_count }
+    it { is_expected.to have_content event.items_with_label_count }
+    it { is_expected.to have_content event.sold_item_count }
 
     {
       items_per_category_for_event: :items_per_category_admin_event_path
@@ -28,10 +37,20 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '.collapse#items_per_category_table_collapser' }
     it { is_expected.to have_css '#items_per_category_table' }
     it 'lists all categories' do
-      items.each { |item| is_expected.to have_content item.category.name }
+      event.items_per_category.each do |category_name, item_count|
+        is_expected.to have_content category_name
+        is_expected.to have_content item_count
+      end
     end
 
-    it { is_expected.to have_content "#{more_reservations.count + 1} / #{event.max_sellers}" }
-    it { is_expected.to have_content notifications.count }
+    it { is_expected.to have_content "#{event.reservations.count} / #{event.max_sellers}" }
+    it { is_expected.to have_content event.notifications.count }
+
+    it { is_expected.to have_link 'anzeigen', href: '#notifications_collapser' }
+    it { is_expected.to have_css '.collapse#notifications_collapser' }
+
+    it 'lists all seller names of the notifications' do
+      event.notifications.each { |notification| is_expected.to have_content notification.seller.name }
+    end
   end
 end

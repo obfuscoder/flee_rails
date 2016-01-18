@@ -20,4 +20,11 @@
 %h3 Verkäufer
 %ul
   %li Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
-  %li Warteliste: #{@event.notifications.count}
+  %li
+    Warteliste: #{@event.notifications.count}
+    %a(data-toggle='collapse' href='#notifications_collapser' aria-expanded=false aria-controls='notifications_collapser') anzeigen
+    .collapse#notifications_collapser
+      %table.table.table-condensed.table-hover.table-striped
+        - @event.notifications.each do |notification|
+          %tr
+            %td= notification.seller.name
