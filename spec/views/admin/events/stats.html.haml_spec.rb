@@ -13,8 +13,8 @@ RSpec.describe 'admin/events/stats' do
            ],
            reservations: double(count: 12),
            notifications: [
-             double(seller: double(name: 'Name1')),
-             double(seller: double(name: 'Name2'))
+             double(seller: double(name: 'Name1', city: 'city1')),
+             double(seller: double(name: 'Name2', city: 'city2'))
            ]
   end
   before { assign :event, event }
@@ -49,8 +49,12 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_link 'anzeigen', href: '#notifications_collapser' }
     it { is_expected.to have_css '.collapse#notifications_collapser' }
 
-    it 'lists all seller names of the notifications' do
+    it 'lists all seller names for the notifications' do
       event.notifications.each { |notification| is_expected.to have_content notification.seller.name }
+    end
+
+    it 'lists all seller cities for the notifications' do
+      event.notifications.each { |notification| is_expected.to have_content notification.seller.city }
     end
   end
 end
