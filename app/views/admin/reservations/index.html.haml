@@ -13,7 +13,7 @@
       %td= link_to reservation.seller.name, admin_seller_path(reservation.seller)
       %td= reservation.seller.city
       %td= reservation.seller.email
-      %td= reservation.seller.reservations.joins(:items).count
+      %td= reservation.items.count
       %td= icon_link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
                                                                                 type: :danger,
                                                                                 icon: :trash,
