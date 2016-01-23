@@ -26,15 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def label_decorators(items)
-    items.map do |item|
-      {
-        number: "#{item.reservation.number} - #{item.number}",
-        price: view_context.number_to_currency(item.price),
-        details: "#{item.category}\n#{item.description}" + (item.size ? "\nGröße: #{item.size}" : ''),
-        code: item.code,
-        donation: item.donation
-      }
-    end
+    items.map { |item| LabelDecorator.new item }
   end
 
   def current_seller
