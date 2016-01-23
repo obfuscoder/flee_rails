@@ -8,7 +8,7 @@ class LabelsController < ApplicationController
   end
 
   def index
-    @items = @reservation.items
+    @items = @reservation.items.order(:number)
   end
 
   def create
