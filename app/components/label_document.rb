@@ -43,7 +43,7 @@ class LabelDocument < Prawn::Document
   end
 
   def barcode(label)
-    barcode = Barby::Code128.new label[:code]
+    barcode = Barby::Code128.new label.code
     outputter = Barby::PrawnOutputter.new(barcode)
     barcode_height = bounds.height / 2
     horizontal_offset = (bounds.width - outputter.full_width) / 2
@@ -55,7 +55,7 @@ class LabelDocument < Prawn::Document
   def barcode_text(label, top, left, height, width)
     bounding_box [left, top], width: width, height: height do
       font 'Courier', size: 10 do
-        text label[:code], align: :center, valign: :center, overflow: :shrink_to_fit, character_spacing: 2
+        text label.code, align: :center, valign: :center, overflow: :shrink_to_fit, character_spacing: 2
       end
     end
   end
@@ -71,11 +71,11 @@ class LabelDocument < Prawn::Document
   def details_cell(label)
     top = bounds.top - header_line_height
     height = small_line_height * 3
-    if @with_donation && label[:donation]
+    if @with_donation && label.donation?
       donation_cell(height, top)
-      boxed_text(label[:details], top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
+      boxed_text(label.details, top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
     else
-      boxed_text(label[:details], top, bounds.left, height, bounds.width)
+      boxed_text(label.details, top, bounds.left, height, bounds.width)
     end
   end
 
@@ -104,11 +104,11 @@ class LabelDocument < Prawn::Document
   end
 
   def price_header_cell(label)
-    boxed_text(label[:price], bounds.top, bounds.left + bounds.width / 2, header_line_height, bounds.width / 2)
+    boxed_text(label.price, bounds.top, bounds.left + bounds.width / 2, header_line_height, bounds.width / 2)
   end
 
   def number_header_cell(label)
-    boxed_text(label[:number], bounds.top, bounds.left, header_line_height, bounds.width / 2)
+    boxed_text(label.number, bounds.top, bounds.left, header_line_height, bounds.width / 2)
   end
 
   def next_cell(cell)
