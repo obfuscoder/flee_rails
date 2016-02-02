@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       member do
         get :stats
         get :items_per_category
+        get :data
       end
     end
     resources :sellers

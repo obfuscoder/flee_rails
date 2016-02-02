@@ -11,10 +11,34 @@ RSpec.describe 'admin/events/show' do
   end
 
   describe 'rendered' do
-    before { render }
+    let(:preparation) {}
+    before do
+      preparation
+      render
+    end
     subject { rendered }
 
     it { is_expected.to have_content event.token }
     it { is_expected.to have_link 'Statistiken', href: stats_admin_event_path(event) }
+
+    it { is_expected.not_to have_link 'Bearbeitungsabschlussmail verschicken', href: admin_event_messages_path(event, :reservation_closed) }
+
+    it { is_expected.not_to have_link 'Daten herunterladen' }
+
+    context 'when reservation end has past' do
+      let(:additional_preparation) {}
+      let(:preparation) do
+        additional_preparation
+        event.update reservation_end: 1.hour.ago
+      end
+      it { is_expected.not_to have_link 'Daten herunterladen' }
+      it { is_expected.to have_link 'Bearbeitungsabschlussmail verschicken', href: admin_event_messages_path(event, :reservation_closed) }
+
+      context 'when reservation closed mail was triggered' do
+        let(:additional_preparation) { create :reservation_closed_message, event: event }
+        it { is_expected.to have_link 'Daten herunterladen', href: data_admin_event_path(event, format: :json) }
+        it { is_expected.not_to have_link 'Bearbeitungsabschlussmail verschicken', href: admin_event_messages_path(event, :reservation_closed) }
+      end
+    end
   end
 end

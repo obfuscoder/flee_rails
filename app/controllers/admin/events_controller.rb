@@ -1,6 +1,6 @@
 module Admin
   class EventsController < AdminController
-    before_filter :init_event, only: [:edit, :update, :show, :stats, :items_per_category]
+    before_filter :init_event, only: [:edit, :update, :show, :stats, :items_per_category, :data]
 
     def init_event
       @event = Event.find params[:id]
@@ -47,6 +47,18 @@ module Admin
     end
 
     def stats
+    end
+
+    def data
+      response = Jbuilder.new do |json|
+        json.call @event, :id, :name, :price_precision, :commission_rate, :seller_fee, :donation_of_unsold_items_enabled
+        json.categories Category.all, :id, :name
+        json.sellers @event.reservations.map(&:seller), :id, :first_name, :last_name, :street, :zip_code, :city, :email, :phone
+        json.reservations @event.reservations, :id, :number, :seller_id
+        json.items @event.reservations.map(&:items).flatten, :id, :category_id, :reservation_id,
+                   :description, :size, :price, :number, :code, :sold, :donation
+      end.target!
+      send_data ActiveSupport::Gzip.compress(response), filename: 'flohmarkthelfer.data'
     end
 
     def items_per_category

@@ -32,6 +32,8 @@
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
 = link_to 'Statistiken', stats_admin_event_path(@event), type: :primary, icon: :signal
+- if Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
+  = link_to 'Daten herunterladen', data_admin_event_path(@event, format: :json), type: :primary, icon: :download
 = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart
 - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?
   = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post, type: :primary, icon: :envelope

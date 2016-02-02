@@ -80,6 +80,26 @@ module Admin
       end
     end
 
+    describe 'GET data' do
+      let(:event) { create :event }
+      let!(:categories) { create_list :category, 5 }
+      before { get :data, id: event.id }
+      describe 'response' do
+        subject { response }
+        it { is_expected.to have_http_status :ok }
+        its(:content_type) { is_expected.to eq 'application/octet-stream' }
+      end
+
+      describe 'body' do
+        subject { JSON.parse ActiveSupport::Gzip.decompress(response.body), symbolize_names: true }
+        it do
+          is_expected.to include :id, :name, :price_precision, :commission_rate, :seller_fee,
+                                 :donation_of_unsold_items_enabled
+        end
+        it { is_expected.to include :categories, :sellers, :items, :reservations }
+      end
+    end
+
     describe 'GET items_per_category' do
       before do
         expect_any_instance_of(Event).to receive(:items_per_category).and_return([['Cat1', 3], ['Cat2', 2]])
