@@ -41,6 +41,10 @@ RSpec.describe 'pages/home.html.haml' do
         expect(rendered).to have_text 'Artikelabgabe', count: 1
       end
 
+      it 'shows number of left reservations and max sellers' do
+        expect(rendered).to have_text "#{event.reservations_left} von #{event.max_sellers}"
+      end
+
       context 'when event kind is direct' do
         let(:event) { create :event, confirmed: true, kind: :direct }
         it 'does not show handover time' do

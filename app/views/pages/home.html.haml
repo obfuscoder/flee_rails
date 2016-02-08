@@ -32,5 +32,5 @@
               %dt= Event.human_attribute_name :pickup_periods
               %dd= pickup_time event
             %dt Freie Plätze
-            %dd= event.reservations_left
+            %dd #{event.reservations_left} von #{event.max_sellers}
 .hidden-xs= markdown(brand_settings.home.outro).html_safe if brand_settings.home.try(:outro).present?

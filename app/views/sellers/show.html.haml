@@ -30,16 +30,19 @@
       %li
         %p
           %strong= event.name
-          (#{shopping_time(event)})<br/>
-          - if event.max_sellers <= event.reservations.count
+          (#{shopping_time(event)})
+          %br
+          #{event.reservations_left} von #{event.max_sellers} Plätzen frei
+          %br
+          - if event.reservations_left > 0
+            Sie können sich #{ link_to 'einen Verkäuferplatz reservieren', event_reservation_path(event), method: :post }.
+          - else
             Leider sind alle Plätze bereits vergeben.
             - if @seller.notifications.any? { |notification| notification.event == event }
               Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
             - else
               Sie können sich #{ link_to 'auf die Warteliste setzen lassen', event_notification_path(event), method: :post }.
               Sie erhalten eine Mail sobald ein Platz frei wird.
-          - else
-            Sie können sich #{ link_to 'einen Verkäuferplatz reservieren', event_reservation_path(event), method: :post }.
 %h3 Ihre Stammdaten
 %p
   %strong #{@seller.first_name} #{@seller.last_name}<br/>

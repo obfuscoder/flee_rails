@@ -2,10 +2,10 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) do
-    assign :seller, create(:seller, reservations: reservation ? [reservation] : [], reviews: review ? [review] : [])
-  end
-  let!(:events) { assign :events, event ? [event] : [] }
+  let!(:seller) { assign :seller, create(:seller, reservations: reservations, reviews: reviews) }
+  let(:reservations) { [reservation].compact }
+  let(:reviews) { [review].compact }
+  let!(:events) { assign :events, [event].compact }
   let(:reservation) {}
   let(:review) {}
   let(:event) {}
@@ -37,6 +37,9 @@ RSpec.describe 'sellers/show' do
     it 'links to reservation' do
       assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post'
     end
+    it 'shows number of reservations left and max sellers' do
+      expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
+    end
     context 'when event is full' do
       let(:event) { create :full_event }
       it 'does not link to reservation' do
@@ -63,7 +66,7 @@ RSpec.describe 'sellers/show' do
     it_behaves_like 'a standard view'
 
     it 'shows event name' do
-      expect(rendered).to match(/#{reservation.event.name}/)
+      expect(rendered).to have_content reservation.event.name
     end
 
     it 'shows event date' do
