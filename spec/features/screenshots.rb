@@ -145,7 +145,7 @@ END
     capture :seller_edit, selector: 'div[role="main"]'
 
     click_on 'Zurück ohne Speichern der Änderungen'
-    click_on 'einen Verkäuferplatz reservieren'
+    click_on 'Verkäuferplatz reservieren'
     capture :seller_reservation_created, selector: 'div[role="main"]'
 
     reservation = Reservation.last

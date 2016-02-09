@@ -19,11 +19,11 @@
               Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.
             Sie haben bisher #{ reservation.items.count } Artikel angelegt.
             Sie haben die Reservierungsnummer <strong>#{reservation.number}</strong>.<br/>
-            Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte
-            = link_to 'geben Sie Ihre Reservierung wieder frei.', event_reservation_path(reservation.event), method: :delete,
-              data: { confirm: t('.confirm_delete_reservation') }
+            Sollten Sie nicht mehr als Verkäufer am Flohmarkt teilnehmen können, bitte geben Sie Ihre Reservierung wieder frei.
             %br
             = link_to 'Artikel bearbeiten', event_items_path(reservation.event), type: :primary, icon: :list
+            = link_to 'Reservierung freigeben', event_reservation_path(reservation.event), method: :delete,
+              type: :danger, icon: :remove_circle, data: { confirm: t('.confirm_delete_reservation') }
 - if @events
   %p Die folgenden Flohmärkte sind aktuell in der Reservierungsphase und Sie haben noch keine Reservierung für diese:
   %ul
@@ -36,7 +36,9 @@
           #{event.reservations_left} von #{event.max_sellers} Plätzen frei
           %br
           - if event.reservations_left > 0
-            Sie können sich #{ link_to 'einen Verkäuferplatz reservieren', event_reservation_path(event), method: :post }.
+            Sie können sich einen Verkäuferplatz reservieren.
+            %br
+            = link_to 'Verkäuferplatz reservieren', event_reservation_path(event), method: :post, type: :primary, icon: :ok_circle
           - else
             Leider sind alle Plätze bereits vergeben.
             - if @seller.notifications.any? { |notification| notification.event == event }
