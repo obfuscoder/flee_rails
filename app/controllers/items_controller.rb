@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
-    fail UnauthorizedError if @item.reservation.seller != current_seller
+    raise UnauthorizedError if @item.reservation.seller != current_seller
   end
 
   def forbid_when_labeled

@@ -47,7 +47,7 @@ class ReceiptDocument < Prawn::Document
 
   def table_section(item_collection, action)
     section_headline item_collection.length, action
-    if item_collection.length > 0
+    unless item_collection.empty?
       table table_data(item_collection), table_styles do |table|
         yield table if block_given?
       end

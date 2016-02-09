@@ -60,7 +60,7 @@ class SellersController < ApplicationController
   def init_session_and_seller
     reset_session
     seller = Seller.find_by_token params[:token]
-    fail UnauthorizedError unless seller
+    raise UnauthorizedError unless seller
     activate_seller(seller)
     session[:seller_id] = seller.id
   end

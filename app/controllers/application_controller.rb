@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def current_seller
     @current_seller ||= (Seller.find session[:seller_id] if session[:seller_id])
-    fail UnauthorizedError unless @current_seller
+    raise UnauthorizedError unless @current_seller
     @current_seller
   end
 
