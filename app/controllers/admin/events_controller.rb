@@ -25,7 +25,7 @@ module Admin
 
     def create
       @event = Event.create(event_params)
-      if @event
+      if @event.valid?
         redirect_to admin_events_path, notice: t('.success')
       else
         render :new

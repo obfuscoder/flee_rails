@@ -115,4 +115,19 @@ RSpec.describe Admin::EventsController do
       end
     end
   end
+
+  describe 'POST create' do
+    let(:event) { attributes_for(:event) }
+    before { post :create, event: event }
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to redirect_to admin_events_path }
+
+      context 'when event attributes are invalid' do
+        let(:event) { attributes_for(:event).tap { |event| event['name'] = nil } }
+        it { is_expected.to render_template :new }
+      end
+    end
+  end
 end
