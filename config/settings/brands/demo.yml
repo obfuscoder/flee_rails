@@ -84,7 +84,7 @@ brands:
       Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten den
       Kindergärten Regenbogen und Arche Noah zu gleichen Teilen gespendet wird.
     mail:
-      from: Flohmarkthelefer <info@flohmarkthelfer.de>
+      from: Flohmarkthelfer Demo <demo@flohmarkthelfer.de>
     price_precision: 0.1
     commission_rate: 0.2
     seller_fee: 2.0
