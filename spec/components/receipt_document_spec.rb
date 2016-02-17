@@ -19,8 +19,5 @@ RSpec.describe ReceiptDocument do
       expect(output).to include '5 Artikel wurde(n) gespendet'
       expect(output).to include 'Reservierungsnummer: 1'
     end
-    it 'creates file' do
-      File.open('receipt.pdf', 'wb') { |file| file.write document.render }
-    end
   end
 end
