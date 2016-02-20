@@ -20,16 +20,18 @@ brands:
     contact: kita-zhf@flohmarkthelfer.de
     imprint:
       address:
-        - Fam. Lehmann
+        - Lehmann Software Lösungen GbR
         - Am Schlossgarten 14
         - 75203 Königsbach
       contact: imprint@flohmarkthelfer.de
     terms: |
-      Sie registrieren sich auf unserer Website als potenzieller Verkäufer. Erst mit der Reservierung (Infos erhalten Sie nach der Anmeldung)
-      bestellen Sie eine oder mehrere Listen.<br/>
+      Sie registrieren sich auf unserer Website als potenzieller Verkäufer.
+      Erst mit der Reservierung (Infos erhalten Sie nach der Anmeldung)
+      bestellen Sie eine oder mehrere Listen.
+
       <u>Kosten für eine Liste mit 40 Artikeln: **5,- €.**</u><br/>
       Jeder Verkäufer kann maximal 4 Listen
-      buchen. Es wird eine limitierte Anzahl von Listen vergeben. Die Gebühren werden von den
+      reservieren. Es wird eine limitierte Anzahl von Listen vergeben. Die Gebühren werden von den
       Einnahmen abgezogen und direkt einbehalten.
 
       Um Ihnen Ihre Verkäufernummer zukommen zu lassen und Sie bei spontanen
@@ -90,14 +92,14 @@ brands:
       reißfestem Faden, Geschenkband oder fester Wolle, nach Möglichkeit entweder am
       Knopfloch, Größenetikett, Label oder an der Gürtelschlaufe.<br/>
       <u>Bitte nicht tackern – keine Stecknadeln – keine Sicherheitsnadeln – keine Heftklammern!</u><br/>
-      (Es empfiehlt sich das Etikett z.B. mit Klebeband an der Befestigungsstelle zu verstärken, um das einreißen des Etikettes zu vermeiden.)
+      (Es empfiehlt sich das Etikett z.B. mit Klebeband an der Befestigungsstelle zu verstärken,
+      um das einreißen des Etikettes zu vermeiden.)
 
       <u>Befestigung</u> an Büchern, CD`s, Spielen / Puzzles usw: Wie ein Paket mit Faden
       verschnüren und daran das Etikett festbinden. Vorteil: durch das Verschnüren kann
       niemand die Schachtel öffnen und Teile können nicht verloren gehen.<br/>
-      <u>**Das Etikett bitte nicht festkleben**</u>, da der Artikel dadurch beim Entfernen an der
-      Kasse beschädigt werden könnte und der Käufer diesen evtl. nicht mehr erwerben
-      will.
+      <u>**Das Etikett bitte nicht festkleben**</u>, da der Artikel dadurch beschädigt
+      werden könnte und der Käufer diesen evtl. nicht mehr erwerben will.
 
       Bitte bieten Sie elektronisches Spielzeug in geeigneten Verpackungen an. Diese
       müssen mit <u>"funktioniert" oder "vollständig"</u> gekennzeichnet sein und auch diese
@@ -114,8 +116,8 @@ brands:
 
       **Bitte Ware nur in <u>Kunststoffbox, Wäschekorb</u> oder am besten in <u>Klappkiste(n)</u>**
       anliefern.<br/>
-      Die Box muss <u>vorn</u> und <u>hinten</u> gut leserlich mit der Verkäufernummer (Reservierungsnummer), am Besten auf
-      einem an der Box festgebundenen Karton versehen werden. Die Kiste wird für die
+      Die Box muss <u>vorn</u> und <u>hinten</u> gut leserlich mit der Verkäufernummer (Reservierungsnummer),
+      am Besten auf einem an der Box festgebundenen Karton versehen werden. Die Kiste wird für die
       Rückgabe einbehalten.<br/>
       <u>Windelkartons oder Plastiktüten sind nicht gestattet.</u>
 
