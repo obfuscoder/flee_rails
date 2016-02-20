@@ -21,8 +21,8 @@ RSpec.feature 'admin events' do
     click_on 'Neuer Termin'
     fill_in 'Name', with: 'Weihnachtsflohmarkt'
     fill_in 'Details', with: 'Kinderbetreuung, Kuchenbasar, viel Platz'
-    fill_in 'maximale Anzahl Verkäufer', with: 10
-    fill_in 'maximale Anzahl Artikel je Verkäufer', with: 25
+    fill_in 'maximale Anzahl Reservierungen', with: 10
+    fill_in 'maximale Anzahl Artikel je Reservierung', with: 25
     click_on 'Termin erstellen'
     expect(page).to have_content 'Der Termin wurde erfolgreich hinzugefügt.'
   end
@@ -75,8 +75,8 @@ RSpec.feature 'admin events' do
     scenario 'changing event information' do
       new_name = 'Herbstflohmarkt'
       fill_in 'Name', with: new_name
-      fill_in 'maximale Anzahl Verkäufer', with: 10
-      fill_in 'maximale Anzahl Artikel je Verkäufer', with: 25
+      fill_in 'maximale Anzahl Reservierungen', with: 10
+      fill_in 'maximale Anzahl Artikel je Reservierung', with: 25
       click_on 'Termin aktualisieren'
       expect(page).to have_content 'Der Termin wurde erfolgreich aktualisiert.'
       expect(page).to have_content new_name
