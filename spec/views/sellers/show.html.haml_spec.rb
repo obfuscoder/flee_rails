@@ -35,7 +35,7 @@ RSpec.describe 'sellers/show' do
   context 'with event' do
     let(:event) { create :event_with_ongoing_reservation }
     it 'links to reservation' do
-      assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post'
+      assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post'
     end
     it 'shows number of reservations left and max sellers' do
       expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
@@ -43,7 +43,7 @@ RSpec.describe 'sellers/show' do
     context 'when event is full' do
       let(:event) { create :full_event }
       it 'does not link to reservation' do
-        assert_select 'a[href=?][data-method=?]', event_reservation_path(event), 'post', 0
+        assert_select 'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
       end
       context 'when seller is not notified yet' do
         it 'links to notification' do
@@ -79,7 +79,7 @@ RSpec.describe 'sellers/show' do
 
     context 'with reservation phase ongoing' do
       it 'allows deletion of reservation' do
-        assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation), 'delete'
+        assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation.event, reservation), 'delete'
       end
 
       it 'does not link to event statistics page' do

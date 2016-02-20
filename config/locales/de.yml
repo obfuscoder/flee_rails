@@ -305,8 +305,9 @@ de:
       event:
         name: Name
         details: Details
-        max_sellers: maximale Anzahl Verkäufer
-        max_items_per_seller: maximale Anzahl Artikel je Verkäufer
+        max_sellers: maximale Anzahl Reservierungen
+        max_items_per_seller: maximale Anzahl Artikel je Reservierung
+        max_reservations_per_seller: maximale Anzahl Reservierungen pro Verkäufer
         confirmed: Termin steht fest
         shopping_periods: Verkauf
         reservation_start: Reservierungsstart
@@ -398,6 +399,8 @@ de:
                 Alle Reservierungsnummern sind bereits vergeben.
             number:
               taken: Sie haben bereits eine Reservierungsnummer.
+            event:
+              limit: Sie können nur maximal %{limit} Reservierung(en) für diesen Termin haben.
         seller:
           attributes:
             email:

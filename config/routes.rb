@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'pages/deleted'
 
   resources :events, only: [:show] do
-    resource :reservation, only: [:create, :destroy]
+    resources :reservations, only: [:create, :destroy]
     resource :notification, only: [:create, :destroy]
     resource :review
     resources :items, except: :show do

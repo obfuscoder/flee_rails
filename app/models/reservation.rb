@@ -5,10 +5,19 @@ class Reservation < ActiveRecord::Base
 
   validates_presence_of :seller, :event, :number
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
-  validates :seller_id, uniqueness: { scope: :event_id }
 
   validate :within_reservation_period, on: :create
   validate :capacity_available, on: :create
+
+  validate :max_reservations_per_seller
+
+  def max_reservations_per_seller
+    return if event.nil?
+    max_reservations = event.max_reservations_per_seller || 1
+    reservations = event.reservations.where(seller: seller).where.not(id: id)
+    return if reservations.count < max_reservations
+    errors.add :event, :limit, limit: max_reservations
+  end
 
   before_validation :create_number
 

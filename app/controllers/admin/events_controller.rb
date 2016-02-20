@@ -77,7 +77,8 @@ module Admin
     private
 
     def event_params
-      params.require(:event).permit :name, :details, :max_sellers, :kind, :max_items_per_seller, :confirmed,
+      params.require(:event).permit :name, :details, :max_sellers, :kind, :confirmed,
+                                    :max_items_per_seller, :max_reservations_per_seller,
                                     :price_precision, :commission_rate, :seller_fee,
                                     :donation_of_unsold_items_enabled,
                                     :reservation_start, :reservation_end,

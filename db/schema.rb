@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129200529) do
+ActiveRecord::Schema.define(version: 20160220131636) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20151129200529) do
     t.decimal  "seller_fee",                       precision: 3, scale: 2
     t.boolean  "donation_of_unsold_items_enabled"
     t.string   "token"
+    t.integer  "max_reservations_per_seller"
   end
 
   add_index "events", ["token"], name: "index_events_on_token", unique: true
@@ -105,7 +106,6 @@ ActiveRecord::Schema.define(version: 20151129200529) do
   end
 
   add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true
-  add_index "reservations", ["event_id", "seller_id"], name: "index_reservations_on_event_id_and_seller_id", unique: true
   add_index "reservations", ["event_id"], name: "index_reservations_on_event_id"
   add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
 

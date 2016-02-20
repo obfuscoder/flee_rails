@@ -26,23 +26,23 @@ RSpec.feature 'Seller view area' do
     let(:preparation) { event }
 
     scenario 'can make a reservation' do
-      click_link 'Verkäuferplatz reservieren', href: event_reservation_path(event)
+      click_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
       expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
       expect(page).to have_content 'Sie haben die Reservierungsnummer 1'
-      expect(page).to have_link 'Reservierung freigeben', href: event_reservation_path(event)
+      expect(page).to have_link 'Reservierung freigeben', href: event_reservation_path(event, event.reservations.first)
     end
 
     context 'when reservation period is not yet reached' do
       let(:event) { create :event_with_ongoing_reservation, reservation_start: 1.hour.from_now }
       scenario 'reservation is not possible' do
-        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservation_path(event)
+        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
       end
     end
 
     context 'when reservation period has passed' do
       let(:event) { create :event_with_ongoing_reservation, reservation_end: 1.hour.ago }
       scenario 'reservation is not possible' do
-        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservation_path(event)
+        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
       end
     end
 
@@ -66,9 +66,9 @@ RSpec.feature 'Seller view area' do
       let(:preparation) { reservation }
 
       scenario 'can free reservation' do
-        click_link 'Reservierung freigeben', href: event_reservation_path(event)
+        click_link 'Reservierung freigeben', href: event_reservation_path(event, reservation)
         expect(page).to have_content 'Ihre Reservierung wurde freigegeben.'
-        expect(page).to have_link 'Verkäuferplatz reservieren', href: event_reservation_path(event)
+        expect(page).to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
       end
 
       context 'when other sellers are on notification list' do
@@ -80,7 +80,7 @@ RSpec.feature 'Seller view area' do
         end
 
         scenario 'notifies sellers on notification list when reservation is freed' do
-          click_link 'Reservierung freigeben', href: event_reservation_path(event)
+          click_link 'Reservierung freigeben', href: event_reservation_path(event, reservation)
           open_email other_seller.email
           expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
           current_email.click_on 'Verkäuferplatz reservieren'

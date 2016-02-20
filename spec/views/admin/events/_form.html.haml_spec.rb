@@ -8,4 +8,9 @@ RSpec.describe 'admin/events/_form' do
     render
     expect(rendered).to have_field 'Termin steht fest'
   end
+
+  it 'shows confirmed option' do
+    render
+    expect(rendered).to have_field 'maximale Anzahl Reservierungen pro Verkäufer'
+  end
 end

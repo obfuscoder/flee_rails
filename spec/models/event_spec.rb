@@ -24,7 +24,6 @@ RSpec.describe Event do
 
   describe '#reservable' do
     let!(:seller) { create :seller }
-
     let!(:event_with_ongoing_reservation) do
       create :event_with_ongoing_reservation, name: 'reservable_event'
     end
@@ -33,15 +32,26 @@ RSpec.describe Event do
     end
     let!(:event_with_full_reservations) { create :full_event, name: 'full' }
     let!(:reservation_for_full_event) { create :reservation, event: event_with_full_reservations }
-
-    let!(:event_with_reservation_for_seller) do
-      create :event, name: 'already_reserved', max_sellers: 2,
-                     reservation_start: 1.day.ago, reservation_end: 1.day.from_now
-    end
-    let!(:reservation) { create :reservation, event: event_with_reservation_for_seller, seller: seller }
     it 'lists only reservable events' do
-      expect(Event.reservable_by(seller).length).to eq 1
-      expect(Event.reservable_by(seller)).to include event_with_ongoing_reservation
+      expect(Event.reservable.length).to eq 1
+      expect(Event.reservable).to include event_with_ongoing_reservation
+    end
+  end
+
+  describe '#reservable_by?' do
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:seller) { create :seller }
+    subject { event.reservable_by? seller }
+    context 'when seller has no reservation for the event' do
+      it { is_expected.to eq true }
+    end
+    context 'when seller has reservation for the event' do
+      before { create :reservation, event: event, seller: seller }
+      it { is_expected.to eq false }
+      context 'when event allows two reservations per seller' do
+        let(:event) { create :event_with_ongoing_reservation, max_reservations_per_seller: 2 }
+        it { is_expected.to eq true }
+      end
     end
   end
 

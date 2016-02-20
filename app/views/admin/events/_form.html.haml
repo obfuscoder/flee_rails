@@ -6,6 +6,7 @@
     = f.input :max_sellers
     = f.input :kind, collection: { t(:commissioned) => :commissioned, t(:direct) => :direct }, as: :radio_buttons
     = f.input :max_items_per_seller
+    = f.input :max_reservations_per_seller
     = f.input :confirmed
     = f.input :reservation_start, as: :date_time_picker, input_html: { value: l(f.object.reservation_start, format: :short) }
     = f.input :reservation_end, as: :date_time_picker, input_html: { value: l(f.object.reservation_end, format: :short) }

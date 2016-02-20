@@ -8,7 +8,6 @@ RSpec.describe Reservation do
   it { is_expected.to validate_presence_of(:event) }
   it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:event_id) }
-  it { is_expected.to validate_uniqueness_of(:seller_id).scoped_to(:event_id) }
   it { is_expected.to have_many(:items).dependent(:destroy) }
   it { is_expected.to belong_to(:event) }
   it { is_expected.to belong_to(:seller) }
@@ -42,6 +41,25 @@ RSpec.describe Reservation do
     it 'orders events based on shopping_periods in descending order' do
       expect(subject.first).to eq ongoing_reservation
       expect(subject.last).to eq recent_reservation
+    end
+  end
+
+  describe '#max_reservations_per_seller' do
+    let(:event) { create :event_with_ongoing_reservation, max_reservations_per_seller: 2 }
+    let(:seller) { create :seller }
+    let!(:reservation) { create :reservation, event: event, seller: seller }
+
+    context 'when limit is not yet reached' do
+      it 'can create another reservation for the seller and event' do
+        expect { create :reservation, event: event, seller: seller }.not_to raise_error
+      end
+    end
+
+    context 'when limit has been reached' do
+      let(:event) { create :event_with_ongoing_reservation, max_reservations_per_seller: 1 }
+      it 'does not allow to create additional reservations for the event and seller' do
+        expect { create :reservation, event: event, seller: seller }.to raise_error ActiveRecord::RecordInvalid
+      end
     end
   end
 end
