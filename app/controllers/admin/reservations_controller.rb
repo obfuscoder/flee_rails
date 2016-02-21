@@ -10,7 +10,7 @@ module Admin
     end
 
     def new
-      @sellers = Seller.active.without_reservation_for @event
+      @sellers = Seller.active.select { |seller| @event.reservable_by? seller }
     end
 
     def create
