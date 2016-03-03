@@ -115,7 +115,7 @@ RSpec.feature 'Viewing and editing items' do
 
       describe 'edit item' do
         def update_action
-          click_link 'Bearbeiten', href: edit_event_item_path(reservation.event, item)
+          click_link 'Bearbeiten', href: edit_event_reservation_item_path(reservation.event, reservation, item)
           yield if block_given?
           fill_in 'Beschreibung', with: 'blaue Jeans'
           fill_in 'Preis', with: '12,50'
@@ -147,7 +147,7 @@ RSpec.feature 'Viewing and editing items' do
 
       scenario 'delete item' do
         expect(page).to have_content 'Sie haben aktuell 5 Artikel angelegt.'
-        click_link 'Löschen', href: event_item_path(reservation.event, item)
+        click_link 'Löschen', href: event_reservation_item_path(reservation.event, reservation, item)
         expect(page).to have_content 'Artikel wurde gelöscht.'
         expect(page).to have_content 'Sie haben aktuell 4 Artikel angelegt.'
       end
@@ -165,8 +165,10 @@ RSpec.feature 'Viewing and editing items' do
         let(:preparations) { item }
 
         it 'does not show edit/delete link to items with generated labels' do
-          expect(page).not_to have_link('Bearbeiten', href: edit_event_item_path(reservation.event, item))
-          expect(page).not_to have_link('Löschen', href: event_item_path(reservation.event, item))
+          expect(page).not_to have_link('Bearbeiten',
+                                        href: edit_event_reservation_item_path(reservation.event, reservation, item))
+          expect(page).not_to have_link('Löschen',
+                                        href: event_reservation_item_path(reservation.event, reservation, item))
         end
       end
     end

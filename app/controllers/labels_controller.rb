@@ -4,7 +4,7 @@ class LabelsController < ApplicationController
   def set_vars
     @seller = current_seller
     @event = Event.find params[:event_id]
-    @reservation = Reservation.find_by_event_id_and_seller_id @event.id, @seller.id
+    @reservation = Reservation.find params[:reservation_id]
   end
 
   def index

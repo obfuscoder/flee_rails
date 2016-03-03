@@ -77,6 +77,11 @@ RSpec.describe 'sellers/show' do
       expect(rendered).to match(/#{reservation.number}/)
     end
 
+    it 'links to item index page' do
+      expect(rendered).to have_link 'Artikel bearbeiten',
+                                    href: event_reservation_items_path(reservation.event, reservation)
+    end
+
     context 'with reservation phase ongoing' do
       it 'allows deletion of reservation' do
         assert_select 'a[href=?][data-method=?]', event_reservation_path(reservation.event, reservation), 'delete'

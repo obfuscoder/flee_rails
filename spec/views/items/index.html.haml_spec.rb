@@ -9,6 +9,7 @@ RSpec.describe 'items/index' do
     assign :items, items.paginate(page: 2)
     assign :seller, seller
     assign :event, reservation.event
+    assign :reservation, reservation
     allow_any_instance_of(ApplicationHelper).to receive(:sort_link_to) { |_, cls, attribute| "#{cls}.#{attribute}" }
   end
 

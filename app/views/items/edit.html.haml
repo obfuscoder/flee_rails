@@ -1,3 +1,3 @@
 - content_for :title, t('.title')
 = render 'form'
-= link_to t('back'), event_items_path(@event), type: :default
+= link_to t('back'), event_reservation_items_path(@event, @reservation), type: :default

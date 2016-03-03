@@ -9,15 +9,16 @@ Rails.application.routes.draw do
   get 'pages/deleted'
 
   resources :events, only: [:show] do
-    resources :reservations, only: [:create, :destroy]
+    resources :reservations, only: [:create, :destroy] do
+      resources :items, except: :show do
+        member do
+          delete :code, action: :delete_code
+        end
+      end
+      resources :labels, only: [:index, :create]
+    end
     resource :notification, only: [:create, :destroy]
     resource :review
-    resources :items, except: :show do
-      member do
-        delete :code, action: :delete_code
-      end
-    end
-    resources :labels, only: [:index, :create]
     member do
       get :top_sellers
       get :items_per_category

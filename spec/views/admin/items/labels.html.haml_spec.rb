@@ -11,5 +11,4 @@ RSpec.describe 'admin/items/labels' do
   it 'works' do
     skip 'somehow the tests fail with No route matches {:action=>"labels", :controller=>"admin/items"}'
   end
-  # it_behaves_like 'a standard view'
 end

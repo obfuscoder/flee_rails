@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     @item = @reservation.items.build item_params
 
     if @item.save
-      redirect_to event_items_path(@event), notice: t('.success')
+      redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success')
     else
       render :new
     end
@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update item_params
-      redirect_to event_items_path(@event), notice: t('.success')
+      redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success')
     else
       render :edit
     end
@@ -34,12 +34,12 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to event_items_path(@event), notice: t('.success')
+    redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success')
   end
 
   def delete_code
     @item.delete_code
-    redirect_to event_items_path(@event), notice: t('.success')
+    redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success')
   end
 
   private
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   def set_vars
     @seller = current_seller
     @event = Event.find params[:event_id]
-    @reservation = Reservation.find_by_event_id_and_seller_id @event.id, @seller.id
+    @reservation = Reservation.find params[:reservation_id]
   end
 
   def set_item
@@ -56,7 +56,8 @@ class ItemsController < ApplicationController
   end
 
   def forbid_when_labeled
-    redirect_to event_items_path(@event.id), alert: t('.error.labeled') if @item.code.present?
+    redirect_to event_reservation_items_path(@event.id, @reservation.id),
+                alert: t('.error.labeled') if @item.code.present?
   end
 
   def item_params

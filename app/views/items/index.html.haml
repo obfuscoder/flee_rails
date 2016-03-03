@@ -6,7 +6,7 @@
     Sie können keine weiteren Artikel anlegen.
   - else
     Sie können noch #{@event.max_items_per_seller-@items.count} Artikel anlegen.
-= link_to 'Artikel hinzufügen', new_event_item_path(@event), type: :primary, icon: :file if @items.count < @event.max_items_per_seller
+= link_to 'Artikel hinzufügen', new_event_reservation_item_path(@event, @reservation), type: :primary, icon: :file if @items.count < @event.max_items_per_seller
 %table.table.table-condensed.table-hover.table-striped
   %tr
     %th= t('position')
@@ -29,12 +29,12 @@
         %td= t((item.donation ? true:false).to_s)
       %td.btn-group
         - if item.code.nil?
-          = icon_link_to t('edit'), edit_event_item_path(@event, item), type: :primary, icon: :pencil
-          = icon_link_to t('destroy'), [@event, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+          = icon_link_to t('edit'), edit_event_reservation_item_path(@event, @reservation, item), type: :primary, icon: :pencil
+          = icon_link_to t('destroy'), [@event, @reservation, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
-          %span= icon_link_to t('delete_code'), code_event_item_path(@event, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
-%p= paginate @items, event_id: @event.id
+          %span= icon_link_to t('delete_code'), code_event_reservation_item_path(@event, @reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
+%p= paginate @items, event_id: @event.id, reservation_id: @reservation.id
 - unless @items.empty?
-  = link_to 'Etiketten drucken', event_labels_path(@event), type: :primary, icon: :print
+  = link_to 'Etiketten drucken', event_reservation_labels_path(@event, @reservation), type: :primary, icon: :print
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path, type: :default

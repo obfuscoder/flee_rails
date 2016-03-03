@@ -1,4 +1,4 @@
-= simple_form_for([@event, @item]) do |f|
+= simple_form_for([@event, @reservation, @item]) do |f|
   = f.error_notification
   .form-inputs
     = f.association :category, collection: Category.order(:name).map { |c| [ c.name, c.id, data: { donation_enforced: c.donation_enforced? } ] }, include_blank: false , hint: t('.donation.hint')
