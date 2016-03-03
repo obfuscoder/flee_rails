@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   def set_vars
     @seller = current_seller
     @event = Event.find params[:event_id]
-    @reservation = Reservation.find params[:reservation_id]
+    @reservation = Reservation.find_by_id_and_event_id_and_seller_id params[:reservation_id], @event.id, @seller.id
   end
 
   def set_item
