@@ -1,8 +1,6 @@
-Prawn::Font::AFM.hide_m17n_warning = true
-
-class ReceiptDocument < Prawn::Document
+class ReceiptDocument < PdfDocument
   def initialize(receipt)
-    super page_size: 'A4'
+    super()
     @receipt = receipt
   end
 

@@ -1,25 +1,16 @@
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
 
-Prawn::Font::AFM.hide_m17n_warning = true
-
-class LabelDocument < Prawn::Document
+class LabelDocument < PdfDocument
   include Barcode
 
   COLS = 3
   ROWS = 6
 
   def initialize(labels, options = {})
-    super page_size: 'A4'
+    super()
     @labels = labels
     @with_donation = options.extract!(:with_donation).values.first
-    font_families.update 'freesans' => {
-      normal: 'lib/assets/ttf/FreeSans.ttf',
-      bold: 'lib/assets/ttf/FreeSansBold.ttf',
-      italic: 'lib/assets/ttf/FreeSansOblique.ttf',
-      bold_italic: 'lib/assets/ttf/FreeSansBoldOblique.ttf'
-    }
-    font 'freesans'
   end
 
   def render
