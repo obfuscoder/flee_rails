@@ -12,7 +12,7 @@ Artikel auf dem Flohmarkt angeboten.
   %strong= @event.sold_item_count
   Artikel verkauft.
   Damit wurden
-  %strong= number_to_percentage(@event.sold_item_count*100 / @event.item_count, precision: 0)
+  %strong= number_to_percentage(@event.sold_item_percentage, precision: 0)
   aller Artikel verkauft:
   #sold_items_per_category_for_event{ data: { url: sold_items_per_category_event_path(@event.id) } }
 Die Verkäufer kamen aus den folgenden Ortschaften:

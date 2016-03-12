@@ -141,6 +141,21 @@ RSpec.describe Event do
       subject { event.items_with_label_count }
       it { is_expected.to eq items_with_label_count }
     end
+
+    describe '#sold_item_percentage' do
+      let(:sold_item_count) { 5 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, reservation: reservation }
+      subject { event.sold_item_percentage }
+      it { is_expected.to eq 50 }
+    end
+
+    describe '#sold_item_sum' do
+      let(:price) { 3.50 }
+      let(:sold_item_count) { 3 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, price: price, reservation: reservation }
+      subject { event.sold_item_sum }
+      it { is_expected.to eq price * sold_item_count }
+    end
   end
 
   describe '#items_per_category' do
@@ -152,6 +167,21 @@ RSpec.describe Event do
     let!(:items2) { create_list :item, 3, reservation: reservation, category: category2 }
 
     subject { event.items_per_category }
+
+    it { is_expected.to eq [[category1.name, items1.count], [category2.name, items2.count]] }
+  end
+
+  describe '#sold_items_per_category' do
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:reservation) { create :reservation, event: event }
+    let(:category1) { create :category }
+    let(:category2) { create :category }
+    let(:category3) { create :category }
+    let!(:items1) { create_list :sold_item, 4, reservation: reservation, category: category1 }
+    let!(:items2) { create_list :sold_item, 3, reservation: reservation, category: category2 }
+    let!(:items3) { create_list :item, 2, reservation: reservation, category: category3 }
+
+    subject { event.sold_items_per_category }
 
     it { is_expected.to eq [[category1.name, items1.count], [category2.name, items2.count]] }
   end

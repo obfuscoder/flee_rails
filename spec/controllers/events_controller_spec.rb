@@ -70,9 +70,8 @@ RSpec.describe EventsController do
   end
 
   describe 'GET sold_items_per_category' do
-    let!(:items) { create_list :item, 3, reservation: reservation }
-    let!(:sold_items) { create_list :sold_item, 2, reservation: reservation }
     before do
+      expect_any_instance_of(Event).to receive(:sold_items_per_category).and_return([['Cat1', 3], ['Cat2', 2]])
       Timecop.travel event.shopping_periods.last.max + 1.day do
         get :sold_items_per_category, id: event.id
       end
@@ -83,18 +82,21 @@ RSpec.describe EventsController do
       it { is_expected.to have_http_status :ok }
       its(:content_type) { is_expected.to eq 'application/json' }
       describe 'body' do
-        subject { JSON.parse response.body }
-        it { is_expected.to eq sold_items.map { |i| [i.category.name, 1] } }
+        subject { response.body }
+        it { is_expected.to eq '[["Cat1",3],["Cat2",2]]' }
       end
     end
   end
 
   describe 'GET sellers_per_city' do
-    let(:sellers_city1) { create_list :seller, 3, zip_code: '75203' }
-    let(:sellers_city2) { create_list :seller, 2, zip_code: '71229' }
-    let(:sellers) { sellers_city1 + sellers_city2 }
-    let!(:reservations) { sellers.map { |seller| create :reservation, event: event, seller: seller } }
     before do
+      expect_any_instance_of(Event).to receive(:sellers_per_zip_code).and_return(
+        [
+          double(zip_code: '75203', count: 3),
+          double(zip_code: '71229', count: 2),
+          double(zip_code: '76131', count: 1),
+          double(zip_code: '76139', count: 1)
+        ])
       Timecop.travel event.shopping_periods.last.max + 1.day do
         get :sellers_per_city, id: event.id
       end
@@ -106,14 +108,7 @@ RSpec.describe EventsController do
       its(:content_type) { is_expected.to eq 'application/json' }
       describe 'body' do
         subject { JSON.parse response.body }
-        it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Döbeln', 1]] }
-
-        context 'when several zip codes map to same city' do
-          let(:seller1_city3) { create :seller, zip_code: '76131' }
-          let(:seller2_city3) { create :seller, zip_code: '76139' }
-          let(:sellers) { sellers_city1 + sellers_city2 << seller1_city3 << seller2_city3 }
-          it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Karlsruhe', 2], ['Döbeln', 1]] }
-        end
+        it { is_expected.to eq [['Königsbach-Stein', 3], ['Leonberg', 2], ['Karlsruhe', 2]] }
       end
     end
   end

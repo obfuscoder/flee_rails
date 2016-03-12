@@ -51,6 +51,8 @@ Rails.application.routes.draw do
       member do
         get :stats
         get :items_per_category
+        get :sold_items_per_category
+        get :sellers_per_city
         get :data
       end
     end

@@ -1,6 +1,8 @@
 module Admin
   class EventsController < AdminController
-    before_filter :init_event, only: [:edit, :update, :show, :stats, :items_per_category, :data]
+    before_filter :init_event, only: [
+      :edit, :update, :show, :stats, :items_per_category, :sold_items_per_category, :sellers_per_city, :data
+    ]
 
     def init_event
       @event = Event.find params[:id]
@@ -66,12 +68,20 @@ module Admin
       render json: @event.items_per_category
     end
 
+    def sold_items_per_category
+      render json: @event.sold_items_per_category
+    end
+
     def destroy
       if Event.destroy params[:id]
         redirect_to admin_events_path, notice: t('.success')
       else
         redirect_to admin_events_path, alert: t('.failure')
       end
+    end
+
+    def sellers_per_city
+      render json: map_to_cities(@event.sellers_per_zip_code)
     end
 
     private

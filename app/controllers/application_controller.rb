@@ -17,6 +17,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def map_to_cities(result)
+    result.map { |e| [Rails.application.config.zip_codes[e.zip_code] || e.zip_code, e.count] }
+          .each_with_object({}) { |(z, c), h| h[z] = (h[z] || 0) + c }
+          .to_a.sort { |a, b| b.second <=> a.second }
+  end
+
   def create_label_document(items)
     items.without_label.each do |item|
       item.create_code prefix: brand_settings.prefix

@@ -7,6 +7,8 @@ RSpec.describe 'admin/events/stats' do
            item_count: 10,
            items_with_label_count: 8,
            sold_item_count: 6,
+           sold_item_sum: 3.5,
+           sold_item_percentage: 60,
            items_per_category: [
              ['Cat1', 5],
              ['Cat2', 2]
@@ -26,9 +28,13 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_content event.item_count }
     it { is_expected.to have_content event.items_with_label_count }
     it { is_expected.to have_content event.sold_item_count }
+    it { is_expected.to have_content '60%' }
+    it { is_expected.to have_content '3,50 €' }
 
     {
-      items_per_category_for_event: :items_per_category_admin_event_path
+      items_per_category_for_event: :items_per_category_admin_event_path,
+      sold_items_per_category_for_event: :sold_items_per_category_admin_event_path,
+      sellers_per_city: :sellers_per_city_admin_event_path
     }.each do |element, path_method|
       it { is_expected.to have_css "##{element}[data-url='#{send(path_method, event.id)}']" }
     end

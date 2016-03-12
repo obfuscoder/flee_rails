@@ -79,12 +79,36 @@ class Event < ActiveRecord::Base
     reservations.joins(:items).merge(Item.sold).count
   end
 
+  def sold_item_sum
+    reservations.joins(:items).merge(Item.sold).sum(:price)
+  end
+
+  def sold_item_percentage
+    return 0 if item_count == 0
+    sold_item_count * 100 / item_count
+  end
+
   def items_per_category
     reservations.joins { items }.joins { items.category }
                 .group { items.category.name }
                 .select { [items.category.name, count(items.id).as(count)] }
                 .order { count(items.id).desc }
                 .map { |e| [e.name, e.count] }
+  end
+
+  def sold_items_per_category
+    reservations.joins { items }.merge(Item.sold).joins { items.category }
+                .group { items.category.name }
+                .select { [items.category.name, count(items.id).as(count)] }
+                .order { count(items.id).desc }
+                .map { |e| [e.name, e.count] }
+  end
+
+  def sellers_per_zip_code
+    reservations
+      .joins { seller }
+      .group { seller.zip_code }
+      .select { [seller.zip_code, count(seller.id).as(count)] }
   end
 
   before_save do
