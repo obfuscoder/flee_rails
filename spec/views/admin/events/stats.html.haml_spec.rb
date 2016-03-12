@@ -10,8 +10,15 @@ RSpec.describe 'admin/events/stats' do
            sold_item_sum: 3.5,
            sold_item_percentage: 60,
            items_per_category: [
-             ['Cat1', 5],
-             ['Cat2', 2]
+             ['Cat1', 7],
+             ['Cat2', 5]
+           ],
+           sold_items_per_category: [
+             ['Cat3', 3]
+           ],
+           sellers_per_city: [
+             ['Königsbach', 15],
+             ['Leonberg', 20]
            ],
            reservations: double(count: 12),
            notifications: [
@@ -46,6 +53,26 @@ RSpec.describe 'admin/events/stats' do
       event.items_per_category.each do |category_name, item_count|
         is_expected.to have_content category_name
         is_expected.to have_content item_count
+      end
+    end
+
+    it { is_expected.to have_link 'Tabelle anzeigen', href: '#sold_items_per_category_table_collapser' }
+    it { is_expected.to have_css '.collapse#sold_items_per_category_table_collapser' }
+    it { is_expected.to have_css '#sold_items_per_category_table' }
+    it 'lists all categories of sold items' do
+      event.sold_items_per_category.each do |category_name, item_count|
+        is_expected.to have_content category_name
+        is_expected.to have_content item_count
+      end
+    end
+
+    it { is_expected.to have_link 'Tabelle anzeigen', href: '#sellers_per_city_table_collapser' }
+    it { is_expected.to have_css '.collapse#sellers_per_city_table_collapser' }
+    it { is_expected.to have_css '#sellers_per_city_table' }
+    it 'lists all seller counts per city' do
+      event.sellers_per_city.each do |city, seller_count|
+        is_expected.to have_content city
+        is_expected.to have_content seller_count
       end
     end
 

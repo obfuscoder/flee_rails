@@ -20,10 +20,36 @@
   %li
     verkauft: #{@event.sold_item_count} (#{number_to_percentage(@event.sold_item_percentage, precision: 0)})
     #sold_items_per_category_for_event{ data: { url: sold_items_per_category_admin_event_path(@event.id) } }
+    %a(data-toggle='collapse' href='#sold_items_per_category_table_collapser' aria-expanded=false aria-controls='sold_items_per_category_table_collapser') Tabelle anzeigen
+    .collapse#sold_items_per_category_table_collapser
+      %table.table.table-condensed.table-hover.table-striped#sold_items_per_category_table
+        %thead
+          %tr
+            %th Kategorie
+            %th Artikelanzahl
+        %tbody
+          - @event.sold_items_per_category.each do |category, item_count|
+            %tr
+              %td= category
+              %td= item_count
   %li Umsatz: #{number_to_currency(@event.sold_item_sum)}
 %h3 Verkäufer
 %ul
-  %li Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
+  %li
+    Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
+    #sellers_per_city{ data: { url: sellers_per_city_admin_event_path(@event.id) } }
+    %a(data-toggle='collapse' href='#sellers_per_city_table_collapser' aria-expanded=false aria-controls='selles_per_city_table_collapser') Tabelle anzeigen
+    .collapse#sellers_per_city_table_collapser
+      %table.table.table-condensed.table-hover.table-striped#sellers_per_city_table
+        %thead
+          %tr
+            %th Ort
+            %th Verkäuferzahl
+        %tbody
+          - @event.sellers_per_city.each do |city, seller_count|
+            %tr
+              %td= city
+              %td= seller_count
   %li
     Warteliste: #{@event.notifications.count}
     %a(data-toggle='collapse' href='#notifications_collapser' aria-expanded=false aria-controls='notifications_collapser') anzeigen
@@ -38,4 +64,3 @@
             %tr
               %td= notification.seller.name
               %td= notification.seller.city
-#sellers_per_city{ data: { url: sellers_per_city_admin_event_path(@event.id) } }

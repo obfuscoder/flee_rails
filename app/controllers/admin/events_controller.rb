@@ -81,7 +81,7 @@ module Admin
     end
 
     def sellers_per_city
-      render json: map_to_cities(@event.sellers_per_zip_code)
+      render json: @event.sellers_per_city
     end
 
     private

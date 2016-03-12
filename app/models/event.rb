@@ -39,13 +39,6 @@ class Event < ActiveRecord::Base
     reservations.where(seller: seller).count < max_reservations_per_seller
   end
 
-  def top_sellers
-    result = reservations.joins(:items).merge(Item.sold).group { reservations.number }.select do
-      [reservations.number, count(items.id).as(count)]
-    end
-    result.order { count(items.id).desc }.map { |e| [e.number, e.count] }
-  end
-
   def reviewed_by?(seller)
     reviews.any? { |review| review.seller == seller }
   end
@@ -88,27 +81,33 @@ class Event < ActiveRecord::Base
     sold_item_count * 100 / item_count
   end
 
+  def top_sellers
+    result = reservations.joins(:items).merge(Item.sold).group { reservations.number }.select do
+      [reservations.number, count(items.id).as(count)]
+    end
+    result.order { count(items.id).desc }.map { |e| [e.number, e.count] }
+  end
+
   def items_per_category
-    reservations.joins { items }.joins { items.category }
-                .group { items.category.name }
+    reservations.joins { items }.joins { items.category }.group { items.category.name }
                 .select { [items.category.name, count(items.id).as(count)] }
-                .order { count(items.id).desc }
-                .map { |e| [e.name, e.count] }
+                .order { count(items.id).desc }.map { |e| [e.name, e.count] }
   end
 
   def sold_items_per_category
-    reservations.joins { items }.merge(Item.sold).joins { items.category }
-                .group { items.category.name }
+    reservations.joins { items }.merge(Item.sold).joins { items.category }.group { items.category.name }
                 .select { [items.category.name, count(items.id).as(count)] }
-                .order { count(items.id).desc }
-                .map { |e| [e.name, e.count] }
+                .order { count(items.id).desc }.map { |e| [e.name, e.count] }
   end
 
   def sellers_per_zip_code
-    reservations
-      .joins { seller }
-      .group { seller.zip_code }
-      .select { [seller.zip_code, count(seller.id).as(count)] }
+    reservations.joins { seller }.group { seller.zip_code }.select { [seller.zip_code, count(seller.id).as(count)] }
+  end
+
+  def sellers_per_city
+    sellers_per_zip_code.map { |e| [Rails.application.config.zip_codes[e.zip_code] || e.zip_code, e.count] }
+                        .each_with_object({}) { |(z, c), h| h[z] = (h[z] || 0) + c }
+                        .to_a.sort { |a, b| b.second <=> a.second }
   end
 
   before_save do
