@@ -13,6 +13,13 @@ class LabelDocument < Prawn::Document
     super page_size: 'A4'
     @labels = labels
     @with_donation = options.extract!(:with_donation).values.first
+    font_families.update 'freesans' => {
+      normal: 'lib/assets/ttf/FreeSans.ttf',
+      bold: 'lib/assets/ttf/FreeSansBold.ttf',
+      italic: 'lib/assets/ttf/FreeSansOblique.ttf',
+      bold_italic: 'lib/assets/ttf/FreeSansBoldOblique.ttf'
+    }
+    font 'freesans'
   end
 
   def render
@@ -55,7 +62,7 @@ class LabelDocument < Prawn::Document
   end
 
   def donation_cell(height, top)
-    font 'Helvetica', style: :bold, size: 30 do
+    font 'freesans', style: :bold, size: 30 do
       boxed_text('S', top, bounds.left, height, bounds.width / 5)
     end
   end
@@ -74,7 +81,7 @@ class LabelDocument < Prawn::Document
   end
 
   def header_cells(label)
-    font 'Helvetica', style: :bold, size: 20 do
+    font 'freesans', style: :bold, size: 20 do
       number_header_cell label
       price_header_cell label
     end
