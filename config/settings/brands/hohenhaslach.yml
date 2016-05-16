@@ -88,7 +88,7 @@ brands:
     commission_rate: 0.2
     seller_fee: 2.0
     donation_of_unsold_items_enabled: false
-    prefix: 4
+    prefix: 5
 hosts:
   hohenhaslach.localhost: hohenhaslach
   hohenhaslach.flohmarkthelfer.de: hohenhaslach

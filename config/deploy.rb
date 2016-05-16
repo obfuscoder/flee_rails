@@ -12,6 +12,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/settings/brands/rueppurr.local.yml',
                                                  'config/settings/brands/woessingen.local.yml',
                                                  'config/settings/brands/bobingen.local.yml',
+                                                 'config/settings/brands/hohenhaslach.local.yml',
                                                  'config/settings/brands/demo.local.yml')
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/cache', 'backup')
