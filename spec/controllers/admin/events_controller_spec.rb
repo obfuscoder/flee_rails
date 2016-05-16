@@ -141,7 +141,8 @@ RSpec.describe Admin::EventsController do
           double(zip_code: '71229', count: 2),
           double(zip_code: '76131', count: 1),
           double(zip_code: '76139', count: 1)
-        ])
+        ]
+      )
       get :sellers_per_city, id: event.id
     end
 

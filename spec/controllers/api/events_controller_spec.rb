@@ -47,7 +47,8 @@ module Api
       let!(:items) { create_list :item, 10, reservation: reservation }
       let(:transactions) do
         [
-          { id: 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',
+          {
+            id: 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',
             items: items.take(5).map(&:id),
             type: 'PURCHASE',
             date: '2015-08-27T10:57:29.094+02'
