@@ -19,7 +19,7 @@ task :migrations do
       ENV['DB_NAME'] = settings['database']
       ENV['DB_USER'] = settings['username']
       ENV['DB_PASS'] = settings['password']
-      sh 'rake db:migrate'
+      sh 'bundle exec rake db:migrate'
     end
   end
 end
