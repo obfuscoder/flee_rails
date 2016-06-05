@@ -1,0 +1,40 @@
+brands:
+  durlach:
+    name: Kommi-Durlach
+    name_html: Kommi-Durlach
+    home:
+      logo:
+        - durlach/images/logo_kommiflohmarkt_4c.jpg
+      intro: |
+        **Christ-König-Haus - Kanzlerstr. 5, 76227 Karlsruhe**
+
+        Sie finden uns auch auf [Facebook](https://www.facebook.com/kommidurlach/).
+      outro: |
+        [Hier unser Plakat für den kommenden Flohmarkt](assets/durlach/images/plakat_entwurf.pdf)
+
+        Laden Sie sich die [Etikett-Vorlage für Ihren Karton](assets/durlach/images/karton_etikett.pdf) herunter.
+
+        Hier finden Sie uns:
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.670190723101!2d8.465691315860358!3d48.99783349883192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479708e8d8d56691%3A0x8391688d96cd4fdc!2sKanzlerstra%C3%9Fe+5%2C+76227+Karlsruhe!5e0!3m2!1sen!2sde!4v1465115323668" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    contact: kommi-durlach@flohmarkthelfer.de
+    imprint:
+      address:
+        - Lehmann Software Lösungen GbR
+        - Am Schlossgarten 14
+        - 75203 Königsbach
+      contact: imprint@flohmarkthelfer.de
+    terms: |
+      **WIP**
+    mail:
+      from: Kommi-Durlach <kommi-durlach@flohmarkthelfer.de>
+    price_precision: 0.1
+    commission_rate: 0.2
+    seller_fee: 2.0
+    donation_of_unsold_items_enabled: false
+    prefix: 6
+hosts:
+  durlach.localhost: durlach
+  durlach.flohmarkthelfer.de: durlach
+  kommi-durlach.flohmarkthelfer.de: durlach
+  www.kommi-durlach.flohmarkthelfer.de: durlach
