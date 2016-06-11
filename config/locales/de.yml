@@ -184,7 +184,7 @@ de:
             Alle Preise dürfen nur ein Vielfaches dieses Werts in € sein.
             Ebenso werden in der Abrechnung alle Auszahlungsbeträge auf diesen Wert abgerundet.
         commission_rate:
-          hint: >
+          hint: &commission_rate_hint >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
             Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes.
     reservations:
@@ -199,6 +199,11 @@ de:
           other: '%{count} Reservierungen erfolgreich durchgeführt'
       destroy:
         success: Die Reservierung wurde gelöscht
+      edit:
+        title: Reservierung bearbeiten
+      form:
+        commission_rate:
+          hint: *commission_rate_hint
     reviews:
       index:
         title: Bewertungen
@@ -342,6 +347,8 @@ de:
         seller: Verkäufer
         event: Termin
         number: Nummer
+        commission_rate: Kommissionsanteil
+        fee: Teilnahmegebühr
       label:
         reservation: Reservierung
         item: Artikel

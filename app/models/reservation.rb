@@ -42,6 +42,14 @@ class Reservation < ActiveRecord::Base
     self.label_counter
   end
 
+  def commission_rate
+    read_attribute(:commission_rate) || event.commission_rate
+  end
+
+  def fee
+    read_attribute(:fee) || event.seller_fee
+  end
+
   private
 
   def create_number

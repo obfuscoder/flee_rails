@@ -4,7 +4,7 @@ json.categories @categories, :id, :name
 
 json.sellers @event.reservations.map(&:seller), :id, :first_name, :last_name, :street, :zip_code, :city, :email, :phone
 
-json.reservations @event.reservations, :id, :number, :seller_id
+json.reservations @event.reservations, :id, :number, :seller_id, :fee, :commission_rate
 
 json.items @event.reservations.map(&:items).flatten, :id, :category_id, :reservation_id,
            :description, :size, :price, :number, :code, :sold, :donation

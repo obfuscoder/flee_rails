@@ -6,7 +6,9 @@
     %th= sort_link_to Seller, :city
     %th= sort_link_to Seller, :email
     %th= Seller.human_attribute_name :item_count
-    %th= link_to t('.new'), new_admin_event_reservation_path, type: :primary, icon: :file
+    %th= Reservation.human_attribute_name :fee
+    %th= Reservation.human_attribute_name :commission_rate
+    %th= link_to t('.new'), new_admin_event_reservation_path(@event), type: :primary, icon: :file
   - @reservations.each do |reservation|
     %tr
       %td= reservation.number
@@ -14,8 +16,12 @@
       %td= reservation.seller.city
       %td= reservation.seller.email
       %td= reservation.items.count
-      %td= icon_link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
-                                                                                type: :danger,
-                                                                                icon: :trash,
-                                                                                data: { confirm: t('sure') }
+      %td= number_to_currency reservation.fee
+      %td= number_to_percentage reservation.commission_rate * 100, precision: 0
+      %td
+        = icon_link_to t('edit'), edit_admin_event_reservation_path(@event, reservation), type: :success, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
+                                                                            type: :danger,
+                                                                            icon: :trash,
+                                                                            data: { confirm: t('sure') }
 %p= paginate @reservations, event_id: @event.id

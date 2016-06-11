@@ -1,6 +1,7 @@
 module Admin
   class ReservationsController < AdminController
     before_action :set_event
+    before_action :set_reservation, only: [:edit, :update]
 
     def index
       @reservations = Reservation.search(params[:search])
@@ -23,6 +24,17 @@ module Admin
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end
 
+    def edit
+    end
+
+    def update
+      if @reservation.update(reservation_params)
+        redirect_to admin_event_reservations_path, notice: t('.success')
+      else
+        render :edit
+      end
+    end
+
     def destroy
       destroy_reservations(Reservation.where(event_id: params[:event_id], id: params[:id]))
       redirect_to admin_event_reservations_path, notice: t('.success')
@@ -32,6 +44,10 @@ module Admin
 
     def set_event
       @event = Event.find params[:event_id]
+    end
+
+    def set_reservation
+      @reservation = Reservation.find params[:id]
     end
 
     def column_order
@@ -47,6 +63,10 @@ module Admin
 
     def searchable?
       action_name == 'index'
+    end
+
+    def reservation_params
+      params.require(:reservation).permit :fee, :commission_rate
     end
   end
 end

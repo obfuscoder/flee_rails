@@ -79,5 +79,36 @@ module Admin
         end
       end
     end
+
+    describe 'GET edit' do
+      let(:reservation) { create :reservation }
+      let(:action) { get :edit, event_id: reservation.event.id, id: reservation.id }
+      before { action }
+      describe 'response' do
+        subject { response }
+        it { is_expected.to render_template :edit }
+        it { is_expected.to have_http_status :ok }
+      end
+      describe '@reservation' do
+        subject { assigns :reservation }
+        it { is_expected.to eq reservation }
+      end
+    end
+
+    describe 'PUT update' do
+      let(:reservation) { create :reservation }
+      let(:event) { reservation.event }
+      let(:params) { { fee: '2.5', commission_rate: '0.7' } }
+      before { put :update, event_id: event.id, id: reservation.id, reservation: params }
+
+      it 'redirects to index path' do
+        expect(response).to redirect_to admin_event_reservations_path
+      end
+
+      it 'stores fee and commission rate' do
+        expect(reservation.reload.fee).to eq 2.5
+        expect(reservation.reload.commission_rate).to eq 0.7
+      end
+    end
   end
 end

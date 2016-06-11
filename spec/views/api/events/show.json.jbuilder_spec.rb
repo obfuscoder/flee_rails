@@ -41,7 +41,9 @@ RSpec.describe 'api/events/show' do
     it { is_expected.to have(2).items }
 
     it 'have necessary attributes' do
-      reservations.each { |reservation| expect(reservation).to include :id, :number, :seller_id }
+      reservations.each do |reservation|
+        expect(reservation).to include :id, :number, :seller_id, :fee, :commission_rate
+      end
     end
   end
 
