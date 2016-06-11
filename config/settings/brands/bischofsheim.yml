@@ -1,0 +1,86 @@
+brands:
+  bischofsheim:
+    name: Vorsortierter Kinderflohmarkt in Maintal
+    name_html: Vorsortierter Kinderflohmarkt in Maintal
+    home:
+      logo:
+      intro:
+      outro:
+    contact: elternverein-bischofsheim@flohmarkthelfer.de
+    imprint:
+      address:
+        - Lehmann Software Lösungen GbR
+        - Am Schlossgarten 14
+        - 75203 Königsbach
+      contact: imprint@flohmarkthelfer.de
+    terms: |
+      **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung
+      für die kommende Jahreszeit bis Größe 176, Umstandsmode, Schuhe, Kinderbetten, Kinderwägen, Buggys,
+      Autositze, Rutschautos, Kettcars, Fahrräder, Spielsachen etc.
+
+      ### WICHTIG!
+
+      Die Ware muss ...
+
+      1. zuvor in unserem Warensystem komplett eingetragen worden sein,
+      2. einzeln mit dem entsprechenden Etikett ausgezeichnet sein.
+         **Der Barcode und die Zahl darunter muss vollständig lesbar und sauber sein.**
+         **Es werden nur Etiketten akzeptiert, die mit unserem System erzeugt wurden.**
+      3. in einem **Karton/Wäschekorb** angeliefert werden, der mit der
+         **Teilnehmernummer gut sichtbar** gekennzeichnet ist (mehrteilige Kleidungsstücke bitte zusammennähen),
+      4. in einem **einwandfreien und zeitgemäßen Zustand** sein
+
+      Falsch ausgezeichnete Ware oder solche mit abgefallenen Etiketten kann von uns leider nicht verkauft werden.
+      Wir legen Wert auf einwandfreie, zeitgemäße Ware und behalten uns vor, Teile auszusortieren.
+
+      Für die abgegebene Ware kann (bei Beschädigung und Diebstahl) **keine Haftung** übernommen werden.
+      Für die Rückgabe von Kleiderbügeln kann keine Gewähr übernommen werden.
+
+      Es entfällt pro Teilnehmer eine **Teilnahmegebühr** von **2,50 €**.
+
+      **Wir runden alle Verkäuferauszahlungsbeträge ab** auf volle 10 Cent. D.h. aus 10,88 € wird 10,80 €.
+
+      Nur ein Teilnehmer je Haushalt. Mehrere Anmeldungen des gleichen Haushaltes sind nicht gestattet.
+      Wir behalten uns das Recht vor, Mehrfachreservierungen aus dem gleichen Haushalt wieder freizugeben.
+
+      Es werden nur Preise akzeptiert, die auf 10 Cent gerundet sind.
+
+      Die Teilnehmer müssen die nicht verkaufte Ware, sowie den Erlös der verkauften Teile **sofort kontrollieren**.
+      Eine spätere Reklamation ist nicht zulässig.
+
+      Sollte Ihre nicht verkaufte Ware bis zum Ende des für den Flohmarkt festgelegten Abholzeitraums
+      **nicht abgeholt** sein, betrachten wir die Ware als **Spende**.
+
+      ### Drucken der Etiketten
+
+      Wir arbeiten beim Verkauf mit Scannern und akzeptieren daher nur Waren mit unseren Etiketten,
+      welche Sie nach Artikeleingabe erzeugen und drucken.
+
+      Sollten Sie keine Möglichkeit zum Drucken haben, befestigen Sie bitte Papierschilder mit der Größe von
+      min. 7x5 cm an Ihren Artikeln und beschriften diese mit der Positionsnr. oder Artikelnummer.
+      Sie bekommen bei der Annahme von uns Etikettenaufkleber um diese zu überkleben.
+      Wir behalten uns vor, für diesen Service 2,00 € zu berechnen.
+
+      Handschriftliche Änderungen auf den Etiketten werden nicht akzeptiert.
+      Das System kennt nur die Werte, welche online eingegeben wurden.
+
+      Bitte verwenden Sie für den Druck **kein rotes oder sehr dunkles Papier**.
+
+      Die Etiketten dürfen laminiert oder geklebt werden, sofern dies nicht die Ware beschädigt.
+
+      ### Verkaufserlös
+
+      Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten den
+      Kindergärten Regenbogen und Arche Noah zu gleichen Teilen gespendet wird.
+    mail:
+      from: Vorsortierter Kinderflohmarkt in Maintal <elternverein-bischofsheim@flohmarkthelfer.de>
+    price_precision: 0.1
+    commission_rate: 0.2
+    seller_fee: 2.0
+    donation_of_unsold_items_enabled: true
+    prefix: 7
+hosts:
+  bischofsheim.localhost: bischofsheim
+  bischofsheim.flohmarkthelfer.de: bischofsheim
+  elternverein-bischofsheim.flohmarkthelfer.de: bischofsheim
+  www.elternverein-bischofsheim.flohmarkthelfer.de: bischofsheim
