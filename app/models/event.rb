@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :name, :max_sellers, :seller_fee
   validates_presence_of :max_items_per_seller, :price_precision, :commission_rate, if: -> { kind == :commissioned }
-  validates :seller_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 10 }
+  validates :seller_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
 
   with_options if: :commissioned? do |event|
