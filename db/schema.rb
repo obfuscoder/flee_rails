@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611135246) do
+ActiveRecord::Schema.define(version: 20160615162223) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160611135246) do
     t.integer  "kind"
     t.decimal  "price_precision",                  precision: 3, scale: 2
     t.decimal  "commission_rate",                  precision: 3, scale: 2
-    t.decimal  "seller_fee",                       precision: 3, scale: 2
+    t.decimal  "seller_fee",                       precision: 4, scale: 2
     t.boolean  "donation_of_unsold_items_enabled"
     t.string   "token"
     t.integer  "max_reservations_per_seller"
