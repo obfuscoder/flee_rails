@@ -201,6 +201,8 @@ de:
         success: Die Reservierung wurde gelöscht
       edit:
         title: Reservierung bearbeiten
+      update:
+        success: Reservierung aktualisiert
       form:
         commission_rate:
           hint: *commission_rate_hint
