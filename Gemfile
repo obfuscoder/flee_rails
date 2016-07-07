@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '> 4.2'
+gem 'rails', '~> 4.2'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
@@ -24,7 +24,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
-  gem 'shoulda-matchers', '~> 3.0.1' # Issue in 3.1.0: https://github.com/thoughtbot/shoulda-matchers/issues/885
+  gem 'shoulda-matchers'
   gem 'capybara'
   gem 'capybara-email'
   gem 'launchy'
