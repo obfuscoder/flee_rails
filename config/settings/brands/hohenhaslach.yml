@@ -4,6 +4,7 @@ brands:
     name_html: Kleidermarkt Hohenhaslach
     home:
       logo:
+        - hohenhaslach/logo/hohenhaslach.jpg
       intro: |
         Gemeindehaus<br>
         Schießmauerstraße 6<br/>
@@ -21,9 +22,8 @@ brands:
       contact: imprint@flohmarkthelfer.de
     terms: |
       **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung für die kommende
-      Jahreszeit bis Größe 140, Kinderschuhe bis Größe 35, Matschsachen und Gummistiefel, Spielsachen, Kinder-CDs,
-      DVDs, Bücher, Kinderfahrzeuge (Fahrräder, Dreiräder, Laufräder, Traktoren, Rutschautos, Schlitten, ...),
-      Kindersitze, Kinderwägen, Buggys, Babyzubehör etc.
+      Jahreszeit bis Größe 176, Umstandsmode, Schuhe (**nur 2 Paar**), Kinderbetten, Kinderwagen, Buggys,
+      Autositze (nur gültige Prüfnorm ECE 44), Rutschautos, Kettcars, Fahrräder, Roller, Spielsachen etc.
 
       ### WICHTIG!
 
@@ -33,27 +33,26 @@ brands:
       2. einzeln mit dem entsprechenden Etikett ausgezeichnet sein.
          **Der Barcode und die Zahl darunter muss vollständig lesbar und sauber sein.**
          **Es werden nur Etiketten akzeptiert, die mit unserem System erzeugt wurden.**
-      3. in einem **Karton/Wäschekorb** angeliefert werden, der mit der
-         **Teilnehmernummer gut sichtbar** gekennzeichnet ist (mehrteilige Kleidungsstücke bitte zusammennähen),
-      4. in einem **einwandfreien und zeitgemäßen Zustand** sein
-
-      Es dürfen pro Anbieter eine begrenzte Anzahl von Artikeln in Kommission gegeben werden.
-      Bitte sorgen Sie dafür, dass Ihre Etiketten gut befestigt sind,
-      da wir für Verlust oder Vertauschen derselben **nicht haften** können.
+      3. in einem **Wäschekorb** angeliefert werden, der mit der
+         **Teilnehmernummer gut sichtbar** gekennzeichnet ist
+         (bitte kleben Sie außen an die kurzen Seiten des Wäschekorbes einen Zettel mit Ihrer Verkaufsnummer).
+         Mehrteilige Kleidungsstücke bitte zusammennähen.
+      4. in einem **einwandfreien und zeitgemäßen Zustand** sein,
+      5. Pro Verkaufsnummer können max. 35 Artikel abgegeben werden. Davon dürfen 2 Paar Schuhe sein.
 
       Falsch ausgezeichnete Ware oder solche mit abgefallenen Etiketten kann von uns leider nicht verkauft werden.
-      Wir legen Wert auf **einwandfreie, zeitgemäße** Ware und behalten uns vor, Teile auszusortieren.
+      Wir legen Wert auf einwandfreie, zeitgemäße Ware und behalten uns vor, Teile auszusortieren.
 
       Für die abgegebene Ware kann (bei Beschädigung und Diebstahl) **keine Haftung** übernommen werden.
-      Kleiderbügel werden nicht zurückgegeben.
+      Für die Rückgabe von Kleiderbügeln kann keine Gewähr übernommen werden.
 
-      Es entfällt pro Teilnehmer eine **Teilnahmegebühr** von **2,00 €**.
+      Es entfällt pro Teilnehmer eine **Teilnahmegebühr** von **2,50 €**, die vom Gewinn abgezogen wird.
 
       **Wir runden alle Verkäuferauszahlungsbeträge ab** auf volle 50 Cent. D.h. aus 10,88 € wird 10,50 €.
 
-      Nur ein Teilnehmer je Haushalt. Mehrere Anmeldungen des gleichen Haushaltes sind nicht gestattet.
-      Wir behalten uns das Recht vor, Mehrfachreservierungen aus dem gleichen Haushalt wieder freizugeben.
-
+      Nur ein Teilnehmer je Haushalt kann eine Verkäufernummer bis maximal zwei Verkäufernummern
+      reservieren. Mehr als zwei Anmeldungen des gleichen Haushaltes sind nicht gestattet. Wir behalten
+      uns das Recht vor, Mehrfachreservierungen aus dem gleichen Haushalt wieder freizugeben.
       Es werden nur Preise akzeptiert, die auf 50 Cent gerundet sind.
 
       Die Teilnehmer müssen die nicht verkaufte Ware, sowie den Erlös der verkauften Teile **sofort kontrollieren**.
@@ -70,18 +69,14 @@ brands:
       Handschriftliche Änderungen auf den Etiketten werden nicht akzeptiert.
       Das System kennt nur die Werte, welche online eingegeben wurden.
 
-      Bitte verwenden Sie für den Druck **kein rotes oder sehr dunkles Papier**.
+      Bitte verwenden Sie für den Druck nur **weißes Papier**.
 
       Die Etiketten dürfen laminiert oder geklebt werden, sofern dies nicht die Ware beschädigt.
 
-      Sollten Sie keine Möglichkeit haben, die Etiketten selbst zu drucken, kontaktieren Sie uns bitte.
-
       ### Verkaufserlös
 
-      Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten
-      der Kindertagesstätte Oberlinhaus gespendet wird.
-
-      #### Viel Erfolg bei dem Verkauf Ihrer Ware wünscht der gesamte Elternbeirat des Oberlinhaus !
+      Wir behalten 15% des Umsatzes ein, der nach Abzug der Kosten
+      für die Kinder- und Jugendarbeit in Hohenhaslach gespendet wird.
     mail:
       from: Kleidermarkt Hohenhaslach <hohenhaslach@flohmarkthelfer.de>
     price_precision: 0.5
