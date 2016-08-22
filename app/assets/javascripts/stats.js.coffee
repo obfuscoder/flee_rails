@@ -1,2 +1,2 @@
-$(document).on 'ready page:load', ->
+$(document).on 'turbolinks:load', ->
   $('#items_per_category_table').tablesorter theme: 'bootstrap'
