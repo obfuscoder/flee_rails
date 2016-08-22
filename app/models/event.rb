@@ -77,7 +77,7 @@ class Event < ActiveRecord::Base
   end
 
   def sold_item_percentage
-    return 0 if item_count == 0
+    return 0 if item_count.zero?
     sold_item_count * 100 / item_count
   end
 

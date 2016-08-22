@@ -89,7 +89,7 @@ class LabelDocument < PdfDocument
   def next_cell(cell)
     col, row = cell
     col = (col + 1) % COLS
-    row = next_row(row) if col == 0
+    row = next_row(row) if col.zero?
     [col, row]
   end
 
