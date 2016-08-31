@@ -1,5 +1,7 @@
 module Admin
   class ItemsController < AdminController
+    before_action :init_categories, only: [:edit, :new]
+
     before_filter do
       @reservation = Reservation.find params[:reservation_id]
     end
@@ -77,6 +79,12 @@ module Admin
       category = Category.find parameters['category_id']
       parameters['donation'] = '1' if category.donation_enforced
       parameters
+    end
+
+    private
+
+    def init_categories
+      @categories = Category.order(:name).map { |c| [ c.name, c.id, data: { donation_enforced: c.donation_enforced? } ] }
     end
   end
 end
