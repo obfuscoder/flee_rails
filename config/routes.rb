@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   get 'sellers/login/:token', to: 'sellers#login', as: :login_seller
+  post 'sellers/login/:token', to: 'sellers#reenter', as: :reenter_seller
   get 'sellers/register', to: redirect('/seller/new')
 
   namespace :admin do

@@ -57,6 +57,15 @@ class SellersController < ApplicationController
     return redirect_to seller_path if goto.nil? || event.nil?
     path_method = goto == 'show' ? 'event_path' : "event_#{goto}_path"
     redirect_to send(path_method, event)
+  rescue UnauthorizedError
+    @seller = Seller.new token: params[:token]
+    render :reenter
+  end
+
+  def reenter
+    @seller = Seller.new reenter_params
+    @seller.update active: true, mailing: true, token: params[:token]
+    login if @seller.save context: :reenter
   end
 
   def init_session_and_seller
@@ -81,6 +90,10 @@ class SellersController < ApplicationController
 
   def seller_params
     params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone, :accept_terms
+  end
+
+  def reenter_params
+    params.require(:seller).permit :first_name, :last_name, :email
   end
 
   def activate_seller(seller)

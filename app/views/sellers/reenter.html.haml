@@ -1,0 +1,11 @@
+- content_for :title, t('.title')
+%p Zum Aktualisieren Ihrer Daten füllen Sie bitte zunächst das folgende Fomular aus:
+= simple_form_for(@seller, url: reenter_seller_path) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email, hint: 'Geben Sie bitte die eMail-Adresse an, mit der Sie sich registriert und über die Sie die Mail mit dem Link zu diesem geschützten Bereich erhalten haben'
+  .form-actions
+    = f.button :submit, 'Aktualisieren'

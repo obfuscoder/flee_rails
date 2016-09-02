@@ -106,6 +106,8 @@ de:
       title: Registrierung
     create:
       title: Registrierung erfolgreich
+    reenter:
+      title: Datenaktualisierung
     show:
       title: Verkäuferbereich
       confirm_delete_reservation: >
