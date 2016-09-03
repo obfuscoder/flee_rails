@@ -1,5 +1,6 @@
 brands:
   bischofsheim:
+    items_destroyed_warning: true
     name: Vorsortierter Kinderflohmarkt in Maintal
     name_html: Vorsortierter Kinderflohmarkt in Maintal
     home:
