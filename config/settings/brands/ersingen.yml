@@ -87,7 +87,6 @@ brands:
     prefix: 0
 hosts:
   ersingen.localhost: ersingen
-  ersingen.test.flohmarkthelfer.de: ersingen
   ersingen.flohmarkthelfer.de: ersingen
   flohmarkt-ersingen.de: ersingen
   www.flohmarkt-ersingen.de: ersingen

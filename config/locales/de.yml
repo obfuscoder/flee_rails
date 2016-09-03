@@ -159,6 +159,8 @@ de:
     pages:
       home:
         title: Adminbereich
+      restore:
+        title: DB-Restore
     events:
       index:
         new: Neuer Termin
