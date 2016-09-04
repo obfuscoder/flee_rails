@@ -73,7 +73,6 @@ module Admin
       backup['items'].each do |item|
         i = Item.new id: item['id'],
                      category_id: item['category_id'],
-                     reservation_id: item['reservation_id'],
                      description: item['description'],
                      size: item['size'],
                      price: item['price'],

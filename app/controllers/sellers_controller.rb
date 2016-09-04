@@ -63,7 +63,7 @@ class SellersController < ApplicationController
   end
 
   def reenter
-    @seller = Seller.new reenter_params
+    @seller = Seller.find_by_email(reenter_params[:email]) || Seller.new(reenter_params)
     @seller.update active: true, mailing: true, token: params[:token]
     login if @seller.save context: :reenter
   end
