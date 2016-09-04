@@ -54,7 +54,9 @@ class Reservation < ActiveRecord::Base
 
   def create_number
     return if event.nil? || number.present?
-    current_max = event.reservations.maximum(:number) || 0
+
+    current_max = [event.reservations.maximum(:number) || 0, Settings.number_start.to_i].max
+
     self.number = current_max + 1
   end
 
