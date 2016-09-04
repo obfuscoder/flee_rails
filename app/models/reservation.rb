@@ -36,8 +36,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def increase_label_counter
-    self.label_counter = 0 if label_counter.nil?
-    self.label_counter += 1
+    self.label_counter = [self.label_counter.to_i, Settings.number_start.to_i].max + 1
     save!
     self.label_counter
   end
