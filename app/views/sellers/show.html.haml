@@ -1,14 +1,24 @@
 - content_for :title, t('.title')
 %p Von hier aus können Sie Ihre Stammdaten und Artikel verwalten. Sollten Sie keine weitere eMail-Benachrichtigung erhalten oder Ihre Daten löschen wollen, können Sie dies in der Stammdatenbearbeitung durchführen.
--if brand_settings.items_destroyed_warning
+- if @seller.zip_code.nil?
   %p.bg-warning
-    Durch einen Systemausfall bei unserem Internetprovider sind leider einige Daten verlorengegangen.
-    Wir haben eine Datenwiederherstellung durchgeführt, allerdings ist diese nicht aktuell.
-    <strong>Bitte überprüfen Sie unbedingt die Artikelliste Ihrer Reservierung(en).</strong>
-    Sollten Sie vorher bereits Artikel angelegt und Etiketten erzeugt haben, die hier im System nicht mehr
-    erhalten sind, müssen wir Sie leider bitten, diese Artikel noch einmal anzulegen und die Etiketten zu erzeugen.
-    <strong>Bereits erzeugte und ausgedruckte Etiketten, die hier nicht mehr im System enthalten sind, sind nicht mehr gültig.</strong>
-    Wir bedauern diese Umstände sehr.
+    <strong>Hinweis:<br/>
+    Bedingt durch einen Systemausfall am 29. August sind bis dahin eingegebene Daten vorerst nicht mehr im System.
+    Der Provider arbeitet an der Wiederherstellung der Daten, kann jedoch noch nicht sagen, wie lange es dauern wird.<br/><br/>
+    Sollten Sie bereits eine Reservierungsnummer und eine Reservierungsbestätigung per Mail für den aktuellen Flohmarkt erhalten haben,
+    diese Reservierungsnummer jetzt aber nicht mehr hier zu sehen sein,
+    möchten wir Sie bitten, auf die Mail mit der Reservierungsbestätigung und Reservierungsnummer einfach zu antworten (ohne Kommentar)
+    und diese abzuschicken oder die Mail an folgende eMail-Adresse weiterzuleiten:
+    <a href="mailto:reservierung@flohmarkthelfer.de">reservierung@flohmarkthelfer.de</a><br/><br/>
+    Sobald wir diese Mail erhalten haben, können wir Ihnen diese Reservierungsnummer wieder zuweisen.
+  %p.bg-warning
+    Sollten Sie bereits Etiketten vor dem Systemausfall ausgedruckt haben, die hier jetzt nicht mehr aufgelistet werden,
+    brauchen Sie diese nicht noch einmal zu erzeugen. Wir werden diese Artikel und Etiketten direkt beim Flohmartktermin im System wieder einlernen.<br/>
+    Sollten Sie allerdings vor dem Systemausfall Ihre Artikel zwar schon angelegt aber noch nicht gedruckt haben, so empfehlen wir,
+    bis eine Woche vor Abgabetermin auf die Datenwiederherstellung zu warten. Wenn diese erfolgt ist, können Sie Ihre Etiketten dann erzeugen.
+    Sollte Die Datenwiederherstellung bis dahin jedoch nicht abgeschlossen sein, haben Sie noch genug Zeit, diese Artikel noch einmal anzulegen und dann auszudrucken.
+    <br/><br/>
+    Wenn Sie diese Hinweise zur Kenntnis genommen und in Zukunft nicht mehr anzeigen lassen wollen, vervollständigen Sie bitte Ihre Stammdaten.
 %h3 Reservierungen
 - if @seller.reservations.recent.any?
   %p Sie haben die folgenden Reservierungen:

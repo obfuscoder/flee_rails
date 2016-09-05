@@ -1,21 +1,9 @@
 - content_for :title, t('.title')
-%p
-  Leider hatte unser Internetprovider einen Systemausfall.
-  Derzeit arbeitet der Provider noch am Restaurieren der Daten.
-  Da diese bis jetzt noch nicht wieder hergestellt wurden, müssen Sie leider nochmal Ihre Stammdaten eingeben.
-%p.bg-danger
-  <strong>Achtung:</strong> Sollten Sie bereits eine Reservierungsnummer für den aktuellen Flohmarkt erhalten haben,
-  möchten wir Sie zusätzlich bitten, auf die Mail mit der Reservierungsbestätigung und Reservierungsnummer einfach zu antworten (ohne Kommentar)
-  und diese abzuschicken oder die Mail an folgende eMail-Adresse weiterzuleiten:<br/>
-  <strong>reservierung@flohmarkthelfer.de</strong>
-
 %p.bg-warning
-  Sollten Sie außerdem schon Artikel eingegeben haben, müssen wir Ihnen leider mitteilen,
-  dass diese Artikel nicht mehr im System enthalten sind.
-  Sie müssten diese Artikel daher leider erneut anlegen und die Etiketten erzeugen.
-
-  <strong>Bereits von Ihnen erzeugte und gedruckte Etiketten sind nicht mehr gültig!</strong>
-
+  %strong
+    Leider hatte unser Internetprovider einen Systemausfall.
+    Derzeit arbeitet der Provider noch am Restaurieren der Daten.
+    Da diese bis jetzt noch nicht wieder hergestellt wurden, müssen Sie leider nochmal Ihre Stammdaten eingeben.
 %p Zum Vervollständigen Ihrer Daten füllen Sie bitte zunächst das folgende Fomular aus:
 = simple_form_for(@seller, url: reenter_seller_path) do |f|
   = f.error_notification
