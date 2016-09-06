@@ -7,7 +7,7 @@ gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
-gem 'turbolinks'
+# gem 'turbolinks' disabled as it might interfere with multi domain concept
 gem 'mysql2', group: :production
 
 # bundle exec rake doc:rails generates the API under doc/api.

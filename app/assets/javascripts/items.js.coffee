@@ -17,4 +17,4 @@ itemEditCategorySelected = ->
 
 $(document).on 'change', 'form.edit_item #item_category_id', itemEditCategorySelected
 $(document).on 'change', 'form.new_item #item_category_id', itemEditCategorySelected
-$(document).on 'turbolinks:load', itemEditCategorySelected
+$(document).on 'ready', itemEditCategorySelected

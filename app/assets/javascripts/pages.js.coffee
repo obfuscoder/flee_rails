@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on 'turbolinks:load', ->
+$(document).on 'ready', ->
   if $('#items_per_category[data-url]').length
     new DonatChart().create 'items_per_category'
   if $('#canvas_items_per_day[data-url]').length
