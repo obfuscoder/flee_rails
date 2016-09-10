@@ -64,24 +64,12 @@ module Admin
       send_data ActiveSupport::Gzip.compress(response), filename: 'flohmarkthelfer.data'
     end
 
-    def items_per_category
-      render json: @event.items_per_category
-    end
-
-    def sold_items_per_category
-      render json: @event.sold_items_per_category
-    end
-
     def destroy
       if Event.destroy params[:id]
         redirect_to admin_events_path, notice: t('.success')
       else
         redirect_to admin_events_path, alert: t('.failure')
       end
-    end
-
-    def sellers_per_city
-      render json: @event.sellers_per_city
     end
 
     private

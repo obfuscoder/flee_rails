@@ -1,9 +1,10 @@
 - content_for :title, t('.title')
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
 %h3 Artikel
 %ul
   %li
     gesamt: #{@event.item_count}
-    #items_per_category_for_event{ data: { url: items_per_category_admin_event_path(@event.id) } }
+    = pie_chart @event.items_per_category
     %a(data-toggle='collapse' href='#items_per_category_table_collapser' aria-expanded=false aria-controls='items_per_category_table_collapser') Tabelle anzeigen
     .collapse#items_per_category_table_collapser
       %table.table.table-condensed.table-hover.table-striped#items_per_category_table
@@ -19,7 +20,7 @@
   %li Etiketten: #{@event.items_with_label_count}
   %li
     verkauft: #{@event.sold_item_count} (#{number_to_percentage(@event.sold_item_percentage, precision: 0)})
-    #sold_items_per_category_for_event{ data: { url: sold_items_per_category_admin_event_path(@event.id) } }
+    = pie_chart @event.sold_items_per_category
     %a(data-toggle='collapse' href='#sold_items_per_category_table_collapser' aria-expanded=false aria-controls='sold_items_per_category_table_collapser') Tabelle anzeigen
     .collapse#sold_items_per_category_table_collapser
       %table.table.table-condensed.table-hover.table-striped#sold_items_per_category_table
@@ -37,7 +38,7 @@
 %ul
   %li
     Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
-    #sellers_per_city{ data: { url: sellers_per_city_admin_event_path(@event.id) } }
+    = pie_chart @event.sellers_per_city
     %a(data-toggle='collapse' href='#sellers_per_city_table_collapser' aria-expanded=false aria-controls='selles_per_city_table_collapser') Tabelle anzeigen
     .collapse#sellers_per_city_table_collapser
       %table.table.table-condensed.table-hover.table-striped#sellers_per_city_table
