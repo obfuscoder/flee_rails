@@ -19,4 +19,4 @@ Artikel auf dem Flohmarkt angeboten.
 Die Verkäufer kamen aus den folgenden Ortschaften:
 = pie_chart @event.sellers_per_city
 Hier die Top 10 der Verkäufer:
-= column_chart @event.top_sellers.take(10)
+= column_chart @event.top_sellers.take(10).map{|e| [" #{e.first}", e.last] } # we need to add " " to prevent resorting
