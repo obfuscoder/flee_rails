@@ -13,7 +13,8 @@
 gesamt: #{Review.count}
 %h3 Statistiken
 %h4 Artikel pro Kategorie
-%div#items_per_category{ data: { url: admin_items_per_category_path } }
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
+= pie_chart Category.joins{items}.group(:name).count
 %h4 Neue Artikel pro Tag
 %canvas#canvas_items_per_day{height: 300, width: 600, data: { url: admin_items_per_day_path } }
 %h4 Registrierungen pro Tag

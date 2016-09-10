@@ -21,6 +21,4 @@
 //= require bootstrap-datetimepicker
 //= require underscore
 //= require cocoon
-//= require Chart
-//= require d3
 //= require_tree .
