@@ -8,6 +8,12 @@ class Category < ActiveRecord::Base
 
   scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
 
+  def self.item_groups
+    joins { items }.group(:name).select { [name, count(items.id).as(count)] }
+                   .order { count(items.id).desc }
+                   .map { |e| [e.name, e.count] }
+  end
+
   def to_s
     name || super
   end

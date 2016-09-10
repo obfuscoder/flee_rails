@@ -20,13 +20,5 @@ RSpec.describe 'events/show' do
     it { is_expected.to have_content items.count + sold_items.count }
     it { is_expected.to have_content sold_items.count }
     it { is_expected.to have_content '60%' }
-    {
-      canvas_top_sellers: :top_sellers_event_path,
-      items_per_category_for_event: :items_per_category_event_path,
-      sold_items_per_category_for_event: :sold_items_per_category_event_path,
-      sellers_per_city: :sellers_per_city_event_path
-    }.each do |element, path_method|
-      it { is_expected.to have_css "##{element}[data-url='#{send(path_method, event.id)}']" }
-    end
   end
 end

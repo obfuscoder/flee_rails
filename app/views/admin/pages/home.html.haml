@@ -14,7 +14,7 @@ gesamt: #{Review.count}
 %h3 Statistiken
 %h4 Artikel pro Kategorie
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
-= pie_chart Category.joins{items}.group(:name).count
+= pie_chart Category.item_groups
 %h4 Neue Artikel pro Tag
 = column_chart @daily_items
 %h4 Registrierungen pro Tag

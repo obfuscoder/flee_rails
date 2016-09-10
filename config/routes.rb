@@ -19,12 +19,6 @@ Rails.application.routes.draw do
     end
     resource :notification, only: [:create, :destroy]
     resource :review
-    member do
-      get :top_sellers
-      get :items_per_category
-      get :sold_items_per_category
-      get :sellers_per_city
-    end
   end
 
   get 'events/:event_id/reserve', to: 'reservations#create', as: :event_reserve

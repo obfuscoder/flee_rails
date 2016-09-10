@@ -39,31 +39,14 @@ RSpec.feature 'admin home page' do
 
   scenario 'shows graph of items per category' do
     expect(page).to have_content 'Artikel pro Kategorie'
-    visit page.find('#items_per_category')['data-url']
-    data = JSON.parse page.body
-    expect(data.size).to eq 2
-    expect(data[0][0]).to eq item.category.name
-    expect(data[0][1]).to eq 1
-    expect(data[1][0]).to eq item_with_code.category.name
-    expect(data[1][1]).to eq 1
   end
 
   scenario 'shows graph of items created per day' do
     expect(page).to have_content 'Neue Artikel pro Tag'
-    visit page.find('#canvas_items_per_day')['data-url']
-    data = JSON.parse page.body
-    expect(data.size).to eq 30
-    expect(data[-2]).to eq [1.day.ago.strftime('%Y-%m-%d'), 1]
-    expect(data.last).to eq [Time.now.strftime('%Y-%m-%d'), 1]
   end
 
   scenario 'shows graph of sellers created per day' do
     expect(page).to have_content 'Registrierungen pro Tag'
-    visit page.find('#canvas_sellers_per_day')['data-url']
-    data = JSON.parse page.body
-    expect(data.size).to eq 30
-    expect(data[-2]).to eq [1.day.ago.strftime('%Y-%m-%d'), 1]
-    expect(data.last).to eq [Time.now.strftime('%Y-%m-%d'), 5]
   end
 
   scenario 'shows admin menu' do
