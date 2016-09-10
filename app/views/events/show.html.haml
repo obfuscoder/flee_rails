@@ -1,11 +1,12 @@
 - content_for :title, "#{t('.title')} - #{@event.name}"
+= javascript_include_tag "//www.google.com/jsapi", "chartkick"
 %h3= shopping_time @event
 Insgesamt wurden
 %strong= @event.item_count
 Artikel auf dem Flohmarkt angeboten.
 - if @event.item_count != 0
   Hier eine Aufstellung der Artikel-Kategorien:
-  #items_per_category_for_event{ data: { url: items_per_category_event_path(@event.id) } }
+  = pie_chart @event.items_per_category
   Von den
   %strong= @event.item_count
   angebotenen Artikeln wurden
@@ -14,9 +15,8 @@ Artikel auf dem Flohmarkt angeboten.
   Damit wurden
   %strong= number_to_percentage(@event.sold_item_percentage, precision: 0)
   aller Artikel verkauft:
-  #sold_items_per_category_for_event{ data: { url: sold_items_per_category_event_path(@event.id) } }
+  = pie_chart @event.sold_items_per_category
 Die Verkäufer kamen aus den folgenden Ortschaften:
-#sellers_per_city{ data: { url: sellers_per_city_event_path(@event.id) } }
+= pie_chart @event.sellers_per_city
 Hier die Top 10 der Verkäufer:
-%div
-%canvas#canvas_top_sellers{height: 300, width: 600, data: { url: top_sellers_event_path(@event.id) } }
+= column_chart @event.top_sellers.take(10)
