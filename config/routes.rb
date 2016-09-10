@@ -45,17 +45,11 @@ Rails.application.routes.draw do
     get '', controller: :pages, action: :home
     get 'restore', controller: :pages, action: :restore
     post 'restore', controller: :pages, action: :restore
-    get 'items_per_category', controller: :pages, action: :items_per_category
-    get 'items_per_day', controller: :pages, action: :items_per_day
-    get 'sellers_per_day', controller: :pages, action: :sellers_per_day
     resources :events do
       resources :reviews, :reservations
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats
-        get :items_per_category
-        get :sold_items_per_category
-        get :sellers_per_city
         get :data
       end
     end

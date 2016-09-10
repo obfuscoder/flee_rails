@@ -3,6 +3,8 @@ class Reservation < ActiveRecord::Base
   belongs_to :event
   has_many :items, dependent: :destroy
 
+  include Statistics
+
   validates_presence_of :seller, :event, :number
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
 

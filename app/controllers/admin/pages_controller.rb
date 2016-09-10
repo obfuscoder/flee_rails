@@ -1,19 +1,9 @@
 module Admin
   class PagesController < AdminController
     def home
-    end
-
-    def items_per_category
-      categories = Category.joins { items }
-                           .group { [id, name] }
-                           .select { [name, count(items.id).as(count)] }
-                           .order { count(items.id).desc }
-
-      render json: categories.map { |category| [category.name, category.count] }
-    end
-
-    def items_per_day
-      render json: daily_data_for(Item)
+      @daily_sellers = daily_data_for(Seller)
+      @daily_items = daily_data_for(Item)
+      @daily_reservations = daily_data_for(Reservation)
     end
 
     def daily_data_for(clazz)
@@ -24,10 +14,6 @@ module Admin
       (29.days.ago.to_date..Date.today).map { |day| day.strftime '%Y-%m-%d' }.map do |day|
         [day, items_hash[day] || 0]
       end
-    end
-
-    def sellers_per_day
-      render json: daily_data_for(Seller)
     end
 
     def restore

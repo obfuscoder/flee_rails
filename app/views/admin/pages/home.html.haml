@@ -16,6 +16,8 @@ gesamt: #{Review.count}
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
 = pie_chart Category.joins{items}.group(:name).count
 %h4 Neue Artikel pro Tag
-%canvas#canvas_items_per_day{height: 300, width: 600, data: { url: admin_items_per_day_path } }
+= column_chart @daily_items
 %h4 Registrierungen pro Tag
-%canvas#canvas_sellers_per_day{height: 300, width: 600, data: { url: admin_sellers_per_day_path } }
+= column_chart @daily_sellers
+%h4 Reservierungen pro Tag
+= column_chart @daily_reservations

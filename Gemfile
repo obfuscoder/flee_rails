@@ -53,6 +53,7 @@ gem 'maildown'
 gem 'simple_form'
 gem 'cocoon'
 gem 'chartkick' # charts / graphics
+gem 'groupdate' # for statistics grouped by date
 gem 'bootstrap-sass'
 gem 'bootstrap-multiselect-rails'
 gem 'bootstrap3-datetimepicker-rails'
