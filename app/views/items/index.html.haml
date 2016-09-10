@@ -29,11 +29,13 @@
         %td= t((item.donation ? true:false).to_s)
       %td.btn-group
         - if item.code.nil?
-          = icon_link_to t('edit'), edit_event_reservation_item_path(@event, @reservation, item), type: :primary, icon: :pencil
-          = icon_link_to t('destroy'), [@event, @reservation, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+          - unless @event.reservation_end.past?
+            = icon_link_to t('edit'), edit_event_reservation_item_path(@event, @reservation, item), type: :primary, icon: :pencil
+            = icon_link_to t('destroy'), [@event, @reservation, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - else
           Etikett erzeugt mit Nummer #{item.code}
-          %span= icon_link_to t('delete_code'), code_event_reservation_item_path(@event, @reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
+          - unless @event.reservation_end.past?
+            %span= icon_link_to t('delete_code'), code_event_reservation_item_path(@event, @reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
 %p= paginate @items, event_id: @event.id, reservation_id: @reservation.id
 - unless @items.empty?
   = link_to 'Etiketten drucken', event_reservation_labels_path(@event, @reservation), type: :primary, icon: :print
