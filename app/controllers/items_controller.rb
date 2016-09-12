@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_vars
   before_action :set_item, only: [:edit, :update, :destroy, :delete_code]
   before_action :forbid_when_labeled, only: [:edit, :update, :destroy]
-  before_action :init_categories, only: [:edit, :new]
+  before_action :init_categories, only: [:edit, :new, :update, :create]
 
   def index
     @items = @reservation.items.search(params[:search]).page(@page).joins(:category).order(column_order)
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   private
 
   def init_categories
-    @categories = Category.order(:name).map { |c| [ c.name, c.id, data: { donation_enforced: c.donation_enforced? } ] }
+    @categories = Category.order(:name).map { |c| [c.name, c.id, data: { donation_enforced: c.donation_enforced? }] }
   end
 
   def set_vars

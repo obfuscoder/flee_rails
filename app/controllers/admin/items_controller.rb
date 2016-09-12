@@ -84,7 +84,7 @@ module Admin
     private
 
     def init_categories
-      @categories = Category.order(:name).map { |c| [ c.name, c.id, data: { donation_enforced: c.donation_enforced? } ] }
+      @categories = Category.order(:name).map { |c| [c.name, c.id, data: { donation_enforced: c.donation_enforced? }] }
     end
   end
 end

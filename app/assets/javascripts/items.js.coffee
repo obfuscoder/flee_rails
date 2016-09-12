@@ -7,14 +7,11 @@ itemEditCategorySelected = ->
   selector = 'form.edit_item #item_category_id option:selected, form.new_item #item_category_id option:selected'
   donation_enforced = $(selector).attr('data-donation-enforced') == 'true'
   $('#item_donation').prop('disabled', donation_enforced)
-  hint = $('.item_category p.help-block')
-  hint.addClass('alert alert-warning')
   if donation_enforced
     $('#item_donation').prop('checked', true)
-    $(form_group).removeClass('nohint')
+    $('#donation-enforced-hint').addClass('show')
   else
-    $(form_group).addClass('nohint')
-
+    $('#donation-enforced-hint').removeClass('show')
 $(document).on 'change', 'form.edit_item #item_category_id', itemEditCategorySelected
 $(document).on 'change', 'form.new_item #item_category_id', itemEditCategorySelected
 $(document).on 'ready', itemEditCategorySelected

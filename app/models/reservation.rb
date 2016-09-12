@@ -38,9 +38,9 @@ class Reservation < ActiveRecord::Base
   end
 
   def increase_label_counter
-    self.label_counter = [self.label_counter.to_i, Settings.number_start.to_i].max + 1
+    self.label_counter = [label_counter.to_i, Settings.number_start.to_i].max + 1
     save!
-    self.label_counter
+    label_counter
   end
 
   def commission_rate

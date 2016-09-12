@@ -1,7 +1,8 @@
 = simple_form_for([@event, @reservation, @item]) do |f|
   = f.error_notification
   .form-inputs
-    = f.association :category, { collection: @categories, include_blank: false }.merge(brand_settings.donation_of_unsold_items_enabled ? { hint: t('.donation.hint') } : {})
+    = f.association :category, collection: @categories, include_blank: false
+    %p.help-block#donation-enforced-hint= t('.donation.hint') if brand_settings.donation_of_unsold_items_enabled
     = f.input :description
     = f.input :size
     = f.input :price, html5: false

@@ -1,6 +1,9 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.form-group.nohint .help-block {
+#donation-enforced-hint {
   display: none;
+}
+#donation-enforced-hint.show {
+  display: block;
 }
