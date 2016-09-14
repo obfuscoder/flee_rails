@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Reservation do
-  subject(:reservation) { build(:reservation) }
+  subject(:reservation) { build :reservation }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:seller) }
@@ -84,6 +84,39 @@ RSpec.describe Reservation do
     end
     context 'when commission rate is not set' do
       it { is_expected.to eq reservation.event.commission_rate }
+    end
+  end
+
+  describe '#increase_label_counter' do
+    let(:reservation) { create :reservation }
+    subject(:action) { reservation.increase_label_counter }
+
+    context 'when label counter is nil' do
+      it 'increases label_counter' do
+        expect { action }.to change { reservation.label_counter }.from(nil).to(1)
+      end
+
+      it 'returns label counter' do
+        expect(action).to eq 1
+      end
+    end
+
+    context 'when reservation limit is reached' do
+      before { reservation.event.update max_sellers: 0, max_reservations_per_seller: 0 }
+      it 'increases label_counter' do
+        expect { action }.not_to raise_error
+      end
+    end
+
+    context 'when label counter is 2' do
+      before { reservation.update label_counter: 2 }
+      it 'increases label_counter' do
+        expect { action }.to change { reservation.label_counter }.to(3)
+      end
+
+      it 'returns label counter' do
+        expect(action).to eq 3
+      end
     end
   end
 end
