@@ -63,8 +63,7 @@ class ApplicationController < ActionController::Base
 
   def connect_to_database
     database = brand_settings.database
-    Rails.logger.warn "No database switch!"
-    return unless database
+    return Rails.logger.warn 'No database switch!' unless database
     Rails.logger.info "Switching to database #{brand_settings.database.database}"
     ActiveRecord::Base.establish_connection(database.to_hash)
   end
