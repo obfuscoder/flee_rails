@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
+  before_filter :log_brand
   before_filter :connect_to_database
   before_filter :init_page_parameter
   before_filter :init_sort_parameter
+  before_filter :log_current_user
 
   helper_method :searchable?
 
@@ -61,8 +63,18 @@ class ApplicationController < ActionController::Base
 
   def connect_to_database
     database = brand_settings.database
+    Rails.logger.warn "No database switch!"
     return unless database
+    Rails.logger.info "Switching to database #{brand_settings.database.database}"
     ActiveRecord::Base.establish_connection(database.to_hash)
+  end
+
+  def log_current_user
+    Rails.logger.info "Current user is #{current_user.email}" if current_user
+  end
+
+  def log_brand
+    Rails.logger.info "Current brand is #{brand_key}"
   end
 
   def init_page_parameter
