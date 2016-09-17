@@ -11,8 +11,8 @@ module Api
     def transactions
       params['_json'].each do |transaction|
         time = Time.zone.parse transaction['date']
-        transaction['items'].each do |item_id|
-          item = Item.find item_id
+        transaction['items'].each do |code|
+          item = Item.find_by code: code
           item.update! sold: time if transaction['type'] == 'PURCHASE'
           item.update! sold: nil if transaction['type'] == 'REFUND'
         end

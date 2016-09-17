@@ -44,24 +44,24 @@ module Api
     describe 'POST transactions' do
       let!(:event) { create :event_with_ongoing_reservation }
       let!(:reservation) { create :reservation, event: event }
-      let!(:items) { create_list :item, 10, reservation: reservation }
+      let!(:items) { create_list :item_with_code, 10, reservation: reservation }
       let(:transactions) do
         [
           {
             id: 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',
-            items: items.take(5).map(&:id),
+            items: items.take(5).map(&:code),
             type: 'PURCHASE',
             date: '2015-08-27T10:57:29.094+02'
           },
           {
             id: 'f4bddeeb-e8a7-4f44-bf94-b974ebfd60d3',
-            items: items.drop(5).take(5).map(&:id),
+            items: items.drop(5).take(5).map(&:code),
             type: 'PURCHASE',
             date: '2015-08-27T10:57:29.102+02'
           },
           {
             id: 'd308a289-fc58-4f0d-82ba-95dc8b42eaa6',
-            items: items.drop(1).take(2).map(&:id),
+            items: items.drop(1).take(2).map(&:code),
             type: 'REFUND',
             date: '2015-08-27T10:57:29.105+02'
           }
