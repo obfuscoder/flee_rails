@@ -57,7 +57,10 @@ module ApplicationHelper
   end
 
   def brand_key
-    Settings.hosts.try(:[], request.host) || 'default'
+    Settings.hosts.to_h.each do |host_part, brand_key|
+      return brand_key if request.host.ends_with? host_part.to_s
+    end
+    'default'
   end
 
   def paginate(collection, params = {})
