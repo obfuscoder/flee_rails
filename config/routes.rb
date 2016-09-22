@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get 'pages/home'
+  get 'pages/index'
   get 'pages/contact'
   get 'pages/imprint'
   get 'pages/privacy'

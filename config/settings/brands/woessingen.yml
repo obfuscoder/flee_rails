@@ -87,6 +87,6 @@ brands:
     donation_of_unsold_items_enabled: false
     prefix: 3
 hosts:
-  woessingen.localhost: woessingen
   woessingen.flohmarkthelfer.de: woessingen
+  woessingen.localhost: woessingen
   kita-oberlinhaus.flohmarkthelfer.de: woessingen
