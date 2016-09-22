@@ -15,7 +15,8 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/settings/brands/hohenhaslach.local.yml',
                                                  'config/settings/brands/durlach.local.yml',
                                                  'config/settings/brands/bischofsheim.local.yml',
-                                                 'config/settings/brands/demo.local.yml')
+                                                 'config/settings/brands/demo.local.yml',
+                                                 'config/settings/brands/default.local.yml')
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/cache', 'backup', 'public/download')
 
