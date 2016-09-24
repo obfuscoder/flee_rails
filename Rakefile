@@ -19,6 +19,7 @@ task :migrations do
       ENV['DB_NAME'] = settings['database']
       ENV['DB_USER'] = settings['username']
       ENV['DB_PASS'] = settings['password']
+      ENV['DB_HOST'] = settings['host']
       sh 'bundle exec rake db:migrate'
     end
   end
@@ -30,6 +31,6 @@ task :dumps do
     destination = "backup/db/#{brand}_#{Time.now.iso8601}.sql.gz"
     puts "Dumping database for #{brand} to #{destination}"
     ENV['MYSQL_PWD'] = settings['password']
-    sh "mysqldump --single-transaction -u #{settings['username']} #{settings['database']} | gzip > #{destination}"
+    sh "mysqldump --single-transaction -u #{settings['username']} -h #{settings['host']} #{settings['database']} | gzip > #{destination}"
   end
 end
