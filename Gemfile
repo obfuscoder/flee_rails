@@ -10,6 +10,8 @@ gem 'jquery-tablesorter'
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 gem 'mysql2', group: :production
 
+gem 'puma'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 

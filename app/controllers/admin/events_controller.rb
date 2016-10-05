@@ -1,7 +1,7 @@
 module Admin
   class EventsController < AdminController
     before_filter :init_event, only: [
-      :edit, :update, :show, :stats, :items_per_category, :sold_items_per_category, :sellers_per_city, :data
+      :edit, :update, :show, :stats, :items_per_category, :sold_items_per_category, :sellers_per_city, :data, :bill
     ]
 
     def init_event
@@ -62,6 +62,9 @@ module Admin
                    :description, :size, :price, :number, :code, :sold, :donation
       end.target!
       send_data ActiveSupport::Gzip.compress(response), filename: 'flohmarkthelfer.data'
+    end
+
+    def bill
     end
 
     def destroy

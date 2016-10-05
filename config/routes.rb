@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       member do
         get :stats
         get :data
+        get :bill
       end
     end
     resources :sellers

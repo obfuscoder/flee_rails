@@ -1,0 +1,13 @@
+- content_for :title, "#{@event.name}"
+%h3= shopping_time @event
+%p= "Umsatz: #{number_to_currency(@event.sold_item_sum)}"
+%form
+  .form-inputs
+    Scanner
+    %input(name='scanner')
+    Router
+    %input(name='router')
+    Repeater
+    %input(name='repeater')
+  .form-actions
+    %input(type='submit')
