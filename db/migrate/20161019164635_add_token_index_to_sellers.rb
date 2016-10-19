@@ -1,6 +1,5 @@
-class AddTokenToSellers < ActiveRecord::Migration
+class AddTokenIndexToSellers < ActiveRecord::Migration
   def change
-    add_column :sellers, :token, :string
     add_index :sellers, :token, unique: true, where: 'deleted_at IS NULL'
   end
 end

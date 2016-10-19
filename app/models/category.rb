@@ -1,7 +1,9 @@
 class Category < ActiveRecord::Base
   extend ActiveModel::Translation
 
-  has_many :items, dependent: :destroy
+  acts_as_paranoid
+
+  has_many :items
 
   validates :name, presence: true, uniqueness: true
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }

@@ -1,9 +1,11 @@
 class Seller < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessor :accept_terms
 
-  has_many :reservations, dependent: :destroy
-  has_many :notifications, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  has_many :reservations
+  has_many :notifications
+  has_many :reviews
 
   validates_presence_of :first_name, :last_name, :email
   validates_presence_of :street, :zip_code, :city, :phone, on: :update
@@ -53,5 +55,22 @@ class Seller < ActiveRecord::Base
       city.matches(pattern) |
       email.matches(pattern) |
       phone.matches(pattern)
+  end
+
+  private
+
+  def paranoia_destroy_attributes
+    {
+      deleted_at: current_time_from_proper_timezone,
+      active: nil,
+      mailing: nil,
+      first_name: nil,
+      last_name: nil,
+      phone: nil,
+      email: nil,
+      street: nil,
+      city: nil,
+      token: nil
+    }
   end
 end

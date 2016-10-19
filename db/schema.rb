@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615162223) do
+ActiveRecord::Schema.define(version: 20161019164635) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(version: 20160615162223) do
     t.string   "name"
     t.boolean  "donation_enforced"
     t.integer  "max_items_per_seller"
+    t.datetime "deleted_at"
   end
 
-  add_index "categories", ["name"], name: "index_categories_on_name", unique: true
+  add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
+  add_index "categories", ["name"], name: "index_categories_on_name", where: "deleted_at IS NULL"
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -150,10 +152,12 @@ ActiveRecord::Schema.define(version: 20160615162223) do
     t.string   "token"
     t.boolean  "mailing"
     t.boolean  "active"
+    t.datetime "deleted_at"
   end
 
-  add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true
-  add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true
+  add_index "sellers", ["deleted_at"], name: "index_sellers_on_deleted_at"
+  add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true, where: "deleted_at IS NULL"
+  add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true, where: "deleted_at IS NULL"
 
   create_table "time_periods", force: :cascade do |t|
     t.datetime "created_at", null: false

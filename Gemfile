@@ -72,3 +72,4 @@ gem 'sorcery'
 gem 'config'
 gem 'jbuilder'
 gem 'whenever', require: false # cron
+gem 'paranoia', '< 2.2' # soft delete records, 2.2+ is for rails 5

@@ -2,21 +2,21 @@ require 'rails_helper'
 require 'validates_email_format_of/rspec_matcher'
 
 RSpec.describe Seller do
-  subject { build(:seller) }
+  subject { build :seller }
 
   it { is_expected.to be_valid }
-  it { is_expected.to validate_presence_of(:first_name) }
-  it { is_expected.to validate_presence_of(:last_name) }
-  it { is_expected.to validate_presence_of(:street) }
-  it { is_expected.to validate_presence_of(:zip_code) }
-  it { is_expected.to validate_presence_of(:city) }
-  it { is_expected.to validate_presence_of(:phone) }
-  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of :first_name }
+  it { is_expected.to validate_presence_of :last_name }
+  it { is_expected.to validate_presence_of :street }
+  it { is_expected.to validate_presence_of :zip_code }
+  it { is_expected.to validate_presence_of :city }
+  it { is_expected.to validate_presence_of :phone }
+  it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_acceptance_of(:accept_terms).on(:create) }
-  it { is_expected.to have_many(:reservations).dependent(:destroy) }
-  it { is_expected.to have_many(:notifications).dependent(:destroy) }
-  it { is_expected.to have_many(:reviews).dependent(:destroy) }
+  it { is_expected.to have_many :reservations }
+  it { is_expected.to have_many :notifications }
+  it { is_expected.to have_many :reviews }
 
   its(:to_s) { is_expected.to eq("#{subject.first_name} #{subject.last_name}") }
 
@@ -74,7 +74,7 @@ RSpec.describe Seller do
       end
     end
 
-    ['valid@example.com', 'valid_name@sub.domain.name', 'nee.domain-works@company.berlin'].each do |valid_value|
+    %w(valid@example.com valid_name@sub.domain.name nee.domain-works@company.berlin).each do |valid_value|
       it "is valid with value #{valid_value}" do
         subject.email = valid_value
         expect(subject).to be_valid
@@ -96,6 +96,30 @@ RSpec.describe Seller do
       subject.save
       expect(subject.token).not_to eq(another_seller.token)
       expect(subject.token).not_to eq(yet_another_seller.token)
+    end
+  end
+
+  describe '#destroy' do
+    before { subject.save }
+    it 'does not delete record' do
+      expect { subject.destroy }.not_to change { Seller.with_deleted.count }
+    end
+
+    it 'marks record as deleted' do
+      expect { subject.destroy }.to change { subject.deleted_at }.from(nil)
+    end
+
+    it 'removes sensitive seller information' do
+      subject.destroy
+      expect(subject.email).to be_nil
+      expect(subject.first_name).to be_nil
+      expect(subject.last_name).to be_nil
+      expect(subject.street).to be_nil
+      expect(subject.city).to be_nil
+      expect(subject.phone).to be_nil
+      expect(subject.token).to be_nil
+      expect(subject.active).to be_nil
+      expect(subject.mailing).to be_nil
     end
   end
 end
