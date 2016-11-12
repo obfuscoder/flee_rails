@@ -41,7 +41,7 @@ RSpec.describe ApplicationController do
 
     context 'with prefix configured' do
       let(:prefix) { 'ABC' }
-      let(:preparations) { allow(Settings.brands.default).to receive(:prefix) { prefix } }
+      let(:preparations) { allow(Settings.brands.demo).to receive(:prefix) { prefix } }
 
       it 'generates item codes with prefix' do
         items.each do |item|

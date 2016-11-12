@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Brand switching' do
-  scenario 'Default brand' do
+  scenario 'Demo brand' do
     visit '/'
-    expect(page).to have_content 'Flohmarkthelfer'
+    expect(page).to have_content 'Flohmarkthelfer Demo'
   end
 
   scenario 'Koenigsbach brand' do

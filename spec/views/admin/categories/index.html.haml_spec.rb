@@ -13,13 +13,16 @@ RSpec.describe 'admin/categories/index' do
   end
 
   describe 'donation column' do
-    it 'does not show column' do
-      render
-      expect(rendered).not_to have_content 'Spendenzwang'
+    context 'when donation option is disabled' do
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }
+      it 'does not show column' do
+        render
+        expect(rendered).not_to have_content 'Spendenzwang'
+      end
     end
 
     context 'when donation option is enabled' do
-      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
       it 'shows donation column' do
         render
         expect(rendered).to have_content 'Spendenzwang'

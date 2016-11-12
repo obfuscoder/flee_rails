@@ -48,7 +48,7 @@ RSpec.describe 'layouts/application' do
     context 'without content for title' do
       it 'uses standard title' do
         render
-        assert_select 'title', 'Flohmarkthelfer'
+        assert_select 'title', 'Flohmarkthelfer Demo'
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe 'layouts/application' do
       it 'uses standard title and content for title' do
         view.instance_variable_get('@view_flow').set(:title, 'Test Title')
         render
-        assert_select 'title', 'Flohmarkthelfer - Test Title'
+        assert_select 'title', 'Flohmarkthelfer Demo - Test Title'
       end
     end
   end

@@ -52,7 +52,7 @@ module Admin
     describe 'POST create' do
       let(:subject) { 'subject' }
       let(:body) { 'body' }
-      let(:from) { Settings.brands.default.mail.from }
+      let(:from) { Settings.brands.demo.mail.from }
       let(:seller) { create :seller }
       let(:params) { { email: { subject: subject, body: body, sellers: [seller.id] } } }
       before do

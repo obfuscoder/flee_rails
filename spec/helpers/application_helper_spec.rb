@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper do
   describe '#brand_key' do
     subject(:action) { helper.brand_key }
-    it { is_expected.to eq 'default' }
+    it { is_expected.to eq 'demo' }
 
     context 'when settings include mapping for foo.localhost to foo' do
       before { allow(Settings.hosts).to receive(:to_h).and_return({ :'foo.localhost' => 'foo' }) }

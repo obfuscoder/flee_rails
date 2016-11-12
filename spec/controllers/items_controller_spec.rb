@@ -45,7 +45,7 @@ RSpec.describe ItemsController do
       [false, true].each do |donation_default|
         context "when donation default setting is #{donation_default}" do
           let(:preparations) do
-            allow(Settings.brands.default).to receive(:donation_of_unsold_items_default).and_return(donation_default)
+            allow(Settings.brands.demo).to receive(:donation_of_unsold_items_default).and_return(donation_default)
           end
           its(:donation) { is_expected.to eq donation_default }
         end

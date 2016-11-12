@@ -39,7 +39,7 @@ RSpec.feature 'labels generation' do
     end
 
     context 'when donation option is enabled' do
-      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
       context 'when item is being donated' do
         let(:preparations) { items.first.update donation: true }
         it 'contains donation label' do

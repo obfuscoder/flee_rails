@@ -94,3 +94,5 @@ hosts:
   demo.localhost: demo
   demo.flohmarkthelfer.de: demo
   test.flohmarkthelfer.de: demo
+  test.host: demo
+  example.com: demo

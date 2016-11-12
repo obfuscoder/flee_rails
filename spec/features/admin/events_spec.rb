@@ -39,6 +39,7 @@ RSpec.feature 'admin events' do
 
   describe 'donation option' do
     context 'when disabled' do
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }
       scenario 'donation option is not available when creating event' do
         click_on 'Neuer Termin'
         expect(page).not_to have_field 'Spenden nicht verkaufter Artikel aktiviert'
@@ -46,8 +47,7 @@ RSpec.feature 'admin events' do
     end
 
     context 'when enabled' do
-      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
-
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
       scenario 'donation option is preselected when creating event' do
         click_on 'Neuer Termin'
         expect(find_field('Spenden nicht verkaufter Artikel aktiviert')).to be_checked
@@ -100,7 +100,7 @@ RSpec.feature 'admin events' do
     end
 
     context 'when donation option is enabled' do
-      before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
       it 'shows donation option' do
         click_on_event
         expect(page).to have_content 'Spenden nicht verkaufter Artikel aktiviert'
