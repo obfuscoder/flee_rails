@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019164635) do
+ActiveRecord::Schema.define(version: 20161113081838) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(version: 20161019164635) do
     t.integer  "event_id"
     t.integer  "number"
     t.integer  "label_counter"
-    t.decimal  "commission_rate"
-    t.decimal  "fee"
+    t.decimal  "commission_rate", precision: 3, scale: 2
+    t.decimal  "fee",             precision: 3, scale: 2
   end
 
   add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true
