@@ -9,23 +9,23 @@ RSpec.describe 'layouts/application' do
     end
 
     it 'links to home page' do
-      assert_select '.navbar ul>li>a[href=?]', root_path
+      expect(rendered).to have_link root_path
     end
 
     it 'links to contact page' do
-      assert_select '.navbar ul>li>a[href=?]', pages_contact_path
+      expect(rendered).to have_link pages_contact_path
     end
 
     it 'links to imprint page' do
-      assert_select '.navbar ul>li>a[href=?]', pages_imprint_path
+      expect(rendered).to have_link pages_imprint_path
     end
 
     it 'links to privacy page' do
-      assert_select '.navbar ul>li>a[href=?]', pages_privacy_path
+      expect(rendered).to have_link pages_privacy_path
     end
 
     it 'links to terms page' do
-      assert_select '.navbar ul>li>a[href=?]', pages_terms_path
+      expect(rendered).to have_link pages_terms_path
     end
   end
 
