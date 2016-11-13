@@ -33,7 +33,6 @@ group :test do
   gem 'pdf-inspector'
   gem 'timecop'
   gem 'simplecov', require: false
-  gem 'codeclimate-test-reporter', require: false
   gem 'fuubar'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
