@@ -4,6 +4,7 @@ AllCops:
     - 'bin/*'
     - 'config/initializers/*'
     - 'spec/features/screenshots.rb'
+    - 'config/routes.rb'
 Metrics/LineLength:
   Max: 120
 Style/Documentation:

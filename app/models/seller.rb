@@ -62,12 +62,9 @@ class Seller < ActiveRecord::Base
   def paranoia_destroy_attributes
     {
       deleted_at: current_time_from_proper_timezone,
-      active: nil,
-      mailing: nil,
-      first_name: nil,
-      last_name: nil,
-      phone: nil,
-      email: nil,
+      active: nil, mailing: nil,
+      first_name: nil, last_name: nil,
+      phone: nil, email: nil,
       street: nil,
       city: nil,
       token: nil

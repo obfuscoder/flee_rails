@@ -31,6 +31,9 @@ task :dumps do
     destination = "backup/db/#{brand}_#{Time.now.iso8601}.sql.gz"
     puts "Dumping database for #{brand} to #{destination}"
     ENV['MYSQL_PWD'] = settings['password']
-    sh "mysqldump --single-transaction -u #{settings['username']} -h #{settings['host']} #{settings['database']} | gzip > #{destination}"
+    username = settings['username']
+    host = settings['host']
+    database = settings['database']
+    sh "mysqldump --single-transaction -u #{username} -h #{host} #{database} | gzip > #{destination}"
   end
 end

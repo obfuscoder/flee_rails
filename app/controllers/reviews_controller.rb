@@ -25,8 +25,11 @@ class ReviewsController < ApplicationController
   end
 
   def only_without_review
-    redirect_to seller_path,
-                alert: t('.error.already_reviewed') unless current_seller.reviews.where(event: @event).empty?
+    redirect_to seller_path, alert: t('.error.already_reviewed') unless not_yet_reviewed?
+  end
+
+  def not_yet_reviewed?
+    current_seller.reviews.where(event: @event).empty?
   end
 
   def review_params

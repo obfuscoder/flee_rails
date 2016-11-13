@@ -6,7 +6,7 @@ RSpec.describe ApplicationHelper do
     it { is_expected.to eq 'demo' }
 
     context 'when settings include mapping for foo.localhost to foo' do
-      before { allow(Settings.hosts).to receive(:to_h).and_return({ :'foo.localhost' => 'foo' }) }
+      before { allow(Settings.hosts).to receive(:to_h).and_return('foo.localhost' => 'foo') }
       {
         'foo.localhost.com' => 'default',
         'foo.localhost' => 'foo',

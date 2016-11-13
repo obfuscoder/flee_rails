@@ -19,9 +19,8 @@ class Item < ActiveRecord::Base
   scope :sold, -> { where { sold.not_eq nil } }
 
   def self.search(needle)
-    needle.nil? ? all : joins(:category).where do
-      sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) }
-    end
+    return all if needle.nil?
+    joins(:category).where { sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) } }
   end
 
   def to_s

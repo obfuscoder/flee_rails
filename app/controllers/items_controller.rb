@@ -61,8 +61,8 @@ class ItemsController < ApplicationController
   end
 
   def forbid_when_labeled
-    redirect_to event_reservation_items_path(@event.id, @reservation.id),
-                alert: t('.error.labeled') if @item.code.present?
+    return unless @item.code.present?
+    redirect_to event_reservation_items_path(@event.id, @reservation.id), alert: t('.error.labeled')
   end
 
   def item_params
