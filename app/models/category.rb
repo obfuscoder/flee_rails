@@ -30,6 +30,14 @@ class Category < ActiveRecord::Base
     Category.where.not(id: descendants.map(&:id) << id)
   end
 
+  def most_limited_category
+    [self, parent.try(:most_limited_category)].compact.select(&:max_items_per_seller).min_by(&:max_items_per_seller)
+  end
+
+  def self_and_parents
+    [self] + (parent ? parent.self_and_parents : [])
+  end
+
   def to_s
     name || super
   end

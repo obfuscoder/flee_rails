@@ -24,7 +24,7 @@ module Admin
     describe 'GET edit' do
       let!(:other_category) { create :category }
       let!(:child) { create :category, parent: category }
-      before { get :edit, id:category.id }
+      before { get :edit, id: category.id }
     end
 
     describe 'PUT update' do

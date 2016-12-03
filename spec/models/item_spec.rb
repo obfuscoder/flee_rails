@@ -72,6 +72,16 @@ RSpec.describe Item do
 
     context 'when limit has been reached' do
       let!(:existing_item) { create :item, category: category, reservation: reservation }
+
+      context 'on parent category' do
+        let(:child_category) { create :category, parent: category }
+        it 'does not allow to create additional items for the category' do
+          expect do
+            create :item, category: child_category, reservation: reservation
+          end.to raise_error ActiveRecord::RecordInvalid
+        end
+      end
+
       it 'does not allow to create additional items for the category' do
         expect { create :item, category: category, reservation: reservation }.to raise_error ActiveRecord::RecordInvalid
       end
