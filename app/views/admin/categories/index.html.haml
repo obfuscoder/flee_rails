@@ -3,6 +3,7 @@
   %tr
     %th= t('position')
     %th= sort_link_to Category, :name
+    %th= Category.human_attribute_name :parent
     %th= Category.human_attribute_name :max_items_per_seller
     - if brand_settings.donation_of_unsold_items_enabled
       %th= Category.human_attribute_name :donation_enforced
@@ -13,6 +14,7 @@
     %tr
       %td= @categories.offset + index + 1
       %td= category.name
+      %td= category.parent
       %td= category.max_items_per_seller
       - if brand_settings.donation_of_unsold_items_enabled
         %td= t(category.donation_enforced?.to_s)

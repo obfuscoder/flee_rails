@@ -6,7 +6,7 @@ module Admin
     let(:user) { create :user }
     before { login_user user }
 
-    let(:category) { create :category }
+    let!(:category) { create :category }
 
     describe 'GET new' do
       before { get :new }
@@ -21,8 +21,15 @@ module Admin
       end
     end
 
+    describe 'GET edit' do
+      let!(:other_category) { create :category }
+      let!(:child) { create :category, parent: category }
+      before { get :edit, id:category.id }
+    end
+
     describe 'PUT update' do
-      let(:params) { { name: 'My Category', max_items_per_seller: 5 } }
+      let(:parent) { create :category }
+      let(:params) { { name: 'My Category', max_items_per_seller: 5, parent_id: parent.id } }
       before { put :update, id: category.id, category: params }
 
       it 'redirects to index path' do
@@ -31,6 +38,10 @@ module Admin
 
       it 'stores max_items_per_seller' do
         expect(category.reload.max_items_per_seller).to eq 5
+      end
+
+      it 'stores parent' do
+        expect(category.reload.parent).to eq parent
       end
     end
   end

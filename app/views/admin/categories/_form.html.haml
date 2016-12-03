@@ -2,6 +2,7 @@
   = f.error_notification
   .form-inputs
     = f.input :name
+    = f.association :parent, collection: @category.possible_parents, include_blank: t('.parent.blank')
     = f.input :max_items_per_seller
     = f.input :donation_enforced if brand_settings.donation_of_unsold_items_enabled
   .form-actions

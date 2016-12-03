@@ -12,6 +12,11 @@ RSpec.describe 'admin/categories/index' do
     expect(rendered).to have_content '4'
   end
 
+  it 'shows parent category' do
+    render
+    expect(rendered).to have_content 'Überkategorie'
+  end
+
   describe 'donation column' do
     context 'when donation option is disabled' do
       before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }

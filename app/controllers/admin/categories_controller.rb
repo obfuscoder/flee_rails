@@ -1,7 +1,9 @@
 module Admin
   class CategoriesController < AdminController
+    before_filter :set_category, only: [:edit, :update, :show]
+
     def index
-      @categories = Category.page(@page).order(column_order)
+      @categories = Category.page(@page).order column_order
     end
 
     def new
@@ -18,12 +20,10 @@ module Admin
     end
 
     def edit
-      @category = Category.find params[:id]
     end
 
     def update
-      @category = Category.find params[:id]
-      if @category.update(category_params)
+      if @category.update category_params
         redirect_to admin_categories_path, notice: t('.success')
       else
         render :edit
@@ -31,7 +31,6 @@ module Admin
     end
 
     def show
-      @category = Category.find params[:id]
     end
 
     def destroy
@@ -45,7 +44,11 @@ module Admin
     private
 
     def category_params
-      params.require(:category).permit :name, :donation_enforced, :max_items_per_seller
+      params.require(:category).permit :name, :donation_enforced, :max_items_per_seller, :parent_id
+    end
+
+    def set_category
+      @category = Category.find params[:id]
     end
   end
 end

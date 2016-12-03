@@ -260,6 +260,9 @@ de:
       delete_all_codes:
         success: Alle Etiketten wurden freigegeben.
     categories:
+      form:
+        parent:
+          blank: '[keine]'
       index:
         title: Kategorien
         new: Neue Kategorie
@@ -309,6 +312,7 @@ de:
     attributes:
       category:
         name: Name
+        parent: Überkategorie
         donation_enforced: Spendenzwang
         max_items_per_seller: max. Anzahl
       event:

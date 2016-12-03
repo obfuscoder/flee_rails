@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113081838) do
+ActiveRecord::Schema.define(version: 20161203114922) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20161113081838) do
     t.boolean  "donation_enforced"
     t.integer  "max_items_per_seller"
     t.datetime "deleted_at"
+    t.integer  "parent_id"
   end
 
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
