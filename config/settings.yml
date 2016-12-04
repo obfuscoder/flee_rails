@@ -13,6 +13,8 @@ brands:
         - 75203 Königsbach
       contact: imprint@flohmarkthelfer.de
     terms: |
+      ### Dienstleistung
+
       Der Anbieter stellt eine Webseite zur Verfügung, über die sich Interessenten zum Verkauf von Ware auf
       Kommissionsflohmärkten anmelden können. Die Platform bietet die Möglichkeit
       der Warenverwaltung inklusive Etikettendruck mit Barcodes, sowie zur Benachrichtigung über stattfindende
@@ -35,6 +37,29 @@ brands:
       - Abrechnung
 
       zur Verfügung. Der Anbieter ist nicht verwantwortlich für die Durchführung der Flohmärkte selbst.
+
+      ### Verfügbarkeit
+
+      Das System steht in der Regel mit Ausnahme von geplanten Wartungsarbeiten jederzeit Verfügung. Es wird versucht,
+      eine Verfügbarkeit von 99,7% zu erreichen. Da der Anbieter von Dritten hinsichtlich der verwendeten
+      Platform und Hardware abhängig ist, kann diese Verfügbarkeit nicht garantiert werden.
+
+      Der Anbieter ist für die Bereitstellung des Systems auf Dritte (Internetprovider, Hostingprovider, Mailprovider)
+      angewiesen. Der Anbieter haftet nicht für Ausfälle oder Datenverlust, der durch Dritte entstanden ist.
+      Es werden in regelmäßigen Abständen Sicherheistkopien der Daten erstellt, welche bei einem Totalsystemausfall
+      auf einem Ersatzsystem zur Verfügung gestellt werden können.
+
+      ### Haftung
+
+      Der Anbieter haftet nicht für Inhalte, die durch Nutzer (Verkäufer, Verwalter) entstehen. Die Nutzer haften selbst
+      für ihre Inhalte.
+
+      ### Ende der Dienstleistung
+
+      Der Anbieter behält sich vor, die Dienstleistung jederzeit zu beenden. Dies wird jedoch mindestens 4 Wochen vor
+      Beendigung der Dienstleistung vom Anbieter an alle dem Anbieter bekannten Verwalter per Mail mitgeteilt.
+      Im Falle der Beendigung der Dienstleistung haben die Verwalter das Recht, vom Anbieter eine Sicherheitskopie der
+      Datenbank für ihren Flohmarkt zu verlangen.
     mail:
       from: Flohmarkthelfer <info@flohmarkthelfer.de>
     price_precision: 0.1
