@@ -11,6 +11,7 @@ class Category < ActiveRecord::Base
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 
   scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
+  scope :selectable, -> { includes(:children).where(children: { id: nil }) }
 
   def self.item_groups
     joins { items }.group(:name).select { [name, count(items.id).as(count)] }

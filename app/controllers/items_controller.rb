@@ -46,7 +46,13 @@ class ItemsController < ApplicationController
   private
 
   def init_categories
-    @categories = Category.order(:name).map { |c| [c.name, c.id, data: { donation_enforced: c.donation_enforced? }] }
+    @categories = Category.selectable.order(:name).map do |category|
+      [
+        category.name,
+        category.id,
+        data: { donation_enforced: category.donation_enforced? }
+      ]
+    end
   end
 
   def set_vars
