@@ -91,6 +91,8 @@ de:
       donation:
         hint:
           Bitte beachten Sie dass ein Artikel dieser Kategorie gespendet werden muss, sollte er nicht verkauft werden.
+      category:
+        blank: "[Bitte wählen]"
   labels:
     index:
       title: Etiketten drucken

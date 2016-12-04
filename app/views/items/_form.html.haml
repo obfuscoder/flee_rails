@@ -1,7 +1,7 @@
 = simple_form_for([@event, @reservation, @item]) do |f|
   = f.error_notification
   .form-inputs
-    = f.association :category, collection: @categories, include_blank: false
+    = f.association :category, collection: @categories, include_blank: t('.category.blank')
     %p.help-block#donation-enforced-hint= t('.donation.hint') if brand_settings.donation_of_unsold_items_enabled
     = f.input :description
     = f.input :size
