@@ -13,6 +13,15 @@ RSpec.describe Reservation do
   it { is_expected.to belong_to(:seller) }
   its(:to_s) { is_expected.to eq("#{subject.event.name} - #{subject.number}") }
 
+  context 'when seller was deleted' do
+    subject(:reservation) { create :reservation }
+    before do
+      reservation.seller.destroy
+      reservation.reload
+    end
+    its(:seller) { is_expected.not_to be_nil }
+  end
+
   describe '#recent' do
     let!(:old_reservation) do
       reservation = nil
