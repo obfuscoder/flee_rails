@@ -94,7 +94,7 @@ Sehr geehrte Verkäuferin/sehr geehrter Verkäufer
 
 wir benötigen für unseren kommendenden Flohmarkt noch Helfer.
 
-Alle Helfer können bereits zwei Stunden vorm eigentlichen Verkaufsstart einkaufen und bekommen ihre Teilnahmegebühr erlassen.
+Alle Helfer können bereits zwei Stunden vorm eigentlichen Verkaufsstart einkaufen und bekommen ihre Reservierungsgebühr erlassen.
 
 Wenn Interesse besteht, kontaktieren Sie uns bitte unter der eMail-Adresse hilfe@flohmarkthelfer.de oder rufen Sie uns unter der Nummer 0815/4711 an.
 

@@ -334,7 +334,7 @@ de:
         kind: Typ
         price_precision: Basis für Preisangaben
         commission_rate: Umsatzanteil für Kommission
-        seller_fee: Teilnahmegebühr
+        seller_fee: Reservierungsgebühr
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
         token: Token
       item:
@@ -360,7 +360,7 @@ de:
         event: Termin
         number: Nummer
         commission_rate: Kommissionsanteil
-        fee: Teilnahmegebühr
+        fee: Reservierungsgebühr
       label:
         reservation: Reservierung
         item: Artikel

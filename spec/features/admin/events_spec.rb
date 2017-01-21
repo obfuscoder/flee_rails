@@ -34,7 +34,7 @@ RSpec.feature 'admin events' do
 
   scenario 'seller fee prefilled with brand setting' do
     click_on 'Neuer Termin'
-    expect(find_field('Teilnahmegebühr').value).to eq '2.0'
+    expect(find_field('Reservierungsgebühr').value).to eq '2.0'
   end
 
   describe 'donation option' do
