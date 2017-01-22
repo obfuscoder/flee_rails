@@ -1,7 +1,7 @@
 - content_for :title, t('.title')
 %table.table.table-condensed.table-hover.table-striped
   %tr
-    %th= t('position')
+    %th= Item.human_attribute_name :number
     %th= Item.human_attribute_name :category
     %th= Item.human_attribute_name :description
     %th= Item.human_attribute_name :size
@@ -12,7 +12,7 @@
     %th= icon_link_to 'Artikel hinzufügen', new_admin_reservation_item_path(@reservation), type: :primary, icon: :file
   - @items.each_with_index do |item, index|
     %tr
-      %td= index+1
+      %td= item.number
       %td= item.category
       %td= item.description
       %td= item.size
@@ -23,7 +23,7 @@
       %td.btn-group
         - if item.code.nil?
           = icon_link_to t('edit'), edit_admin_reservation_item_path(@reservation, item), type: :primary, icon: :pencil
-        = icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+          = icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
         - if item.number.present?
           = icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
 = link_to 'Alle Etiketten freigeben', codes_admin_reservation_items_path(@reservation), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_all_codes.confirm') }

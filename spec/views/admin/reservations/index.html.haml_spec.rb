@@ -19,5 +19,6 @@ RSpec.describe 'admin/reservations/index' do
     it { is_expected.to have_link 'Löschen', href: admin_event_reservation_path(event, reservation) }
     it { is_expected.to have_link 'Neue Reservierung', href: new_admin_event_reservation_path(event) }
     it { is_expected.to have_link 'Bearbeiten', href: edit_admin_event_reservation_path(event, reservation) }
+    it { is_expected.to have_link 'Artikel', href: admin_reservation_items_path(reservation) }
   end
 end

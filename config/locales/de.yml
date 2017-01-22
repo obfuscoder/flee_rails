@@ -195,6 +195,7 @@ de:
       index:
         title: Reservierungen
         new: Neue Reservierung
+        items: Artikel
       new:
         title: Reservierungen durchführen
       create:
@@ -344,6 +345,7 @@ de:
         size: Größe
         price: Preis
         donation: Spende wenn nicht verkauft
+        number: Nummer
         code: Code
       seller:
         first_name: Vorname

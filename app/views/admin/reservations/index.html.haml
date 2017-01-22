@@ -19,7 +19,8 @@
       %td= number_to_currency reservation.fee
       %td= number_to_percentage reservation.commission_rate * 100, precision: 0
       %td
-        = icon_link_to t('edit'), edit_admin_event_reservation_path(@event, reservation), type: :success, icon: :pencil
+        = icon_link_to t('.items'), admin_reservation_items_path(reservation), type: :success, icon: :list
+        = icon_link_to t('edit'), edit_admin_event_reservation_path(@event, reservation), type: :primary, icon: :pencil
         = icon_link_to t('destroy'), [:admin, reservation.event, reservation], method: :delete,
                                                                             type: :danger,
                                                                             icon: :trash,
