@@ -1,0 +1,99 @@
+==== Vorbereitung Verkauf
+
+===== Vorbereitung Wechseldatenträger
+
+Führen Sie diese Schritte nach Erreichen des Artikeleingabeendes aus:
+
+. Loggen Sie sich im *Verwaltungsbereich* ein.
+. Klicken Sie auf *Download Kassensystem*. Es wird das Installationsprogramm für die Kassensystem-Software als Datei *flohmarkthelfer-setup.exe* auf Ihrem Computer (im Download-Ordner) gespeichert.
+. Klicken Sie auf *Termine*.
+. Klicken Sie auf die *Details* für den aktuellen Termin.
+. Klicken Sie auf *Bearbeitungsabschlussmail verschicken*.
+. Warten Sie, bis angezeigt wird: *Es wurde(n) ... Benachrichtigung(en) verschickt*.
+. Merken Sie sich die Angabe unter *Token*.
+. Klicken Sie auf *Daten herunterladen*. Es werden die Termindaten in einer Datei
+*flohmarkthelfer.data* auf Ihrem Computer (im Download-Ordner) gespeichert.
+. Klicken Sie auf *Statistiken* und merken sich den Wert bei *Etiketten*.
+. Legen Sie ein Verzeichnis auf einen am Computer eingsteckten USB-Stick (mit mindestens 100 MB freien Speicherplatz) an: *E:\flohmarkthelfer*.
+. Kopieren Sie *flohmarkthelfer-setup.exe* und *flohmarkthelfer.data* in dieses Verzeichnis.
+. Entfernen Sie den USB-Stick sicher (auswerfen).
+
+===== Einrichtung Netzwerk
+
+. Vergewissern Sie sich, dass der WLAN-Router gestartet und einsatzbereit ist. Sie benötigen den Namen des WLAN-Netzes des Routers (bspw. *flohmarkthelfer* beim Leihgerät) und das WLAN-Passwort.
+. Für das Einrichten der Netzwerkverbindung sind gegebenenfalls Administratorrechte erforderlich.
+. Aktivieren Sie ggf. den WLAN-Adapter. Manche Laptops haben dafür eigene Knöpfe oder eine bestimmte Tastenkombination (z.B. fn + bestimmte Funktionstaste). Ein aktivierter WLAN-Adapter ist meist durch ein blaues oder grünes Lämpchen zu erkennen.
+. Klicken Sie in der Iconleiste rechts unten auf das WLAN-Symbol, wählen das WLAN-Netz zum Verbinden aus und geben das WLAN-Passwort ein.
+. Sollte das Betriebssystem fragen, ob dies ein Heim-, öffentliches oder Büronetzwerk ist, wählen Sie *Heimnetzwerk*.
+
+===== Einrichtung Barcodescanner
+
+. Schließen Sie den Barcodescanner über USB an die Kasse an.
+. Es kann einige Sekunden dauern, bis der Scanner vom Betriebssystem erkannt wird und zur Verwendung bereitsteht. In der Regel wird dies beim Scanner mit einem akustischen oder optischen Signal bestätigt. Ebenso müsste das Betriebssystem einen Hinweis auf das neu erkannte Eingabegerät anzeigen.
+. Starten Sie das Programm *Notepad*.
+. Scannen Sie testweise einige Barcodes ein. Die Barcodenummern sollten nun in dem Programmfenster von *Notepad* angezeigt werden.
+. Schließen Sie *Notepad* wieder.
+
+===== Installation Kassensoftware und Termindaten
+
+Führen Sie folgende Schritte für jede Kasse aus:
+
+. Stecken Sie den USB-Stick in den Rechner
+. Gehen Sie in das Verzeichnis *flohmarkthelfer* auf den USB-Stick. Merken Sie sich dabei den Verzeichnispfad dieses Verzeichnisses auf dem USB-Stick (z.B. *E:\flohmarkthelfer*).
+. Starten Sie das Programm *flohmarkthelfer-setup.exe*.
+. Klicken Sie durch die Installationsdialoge und machen dabei folgende Angaben:
+.. Bei *Verknüpfungsverzeichnis* lassen Sie den Standardwert *Flohmarkthelfer Kassensystem*
++
+image:images/setup1.png[]
++
+.. Als *Name der Kasse* geben Sie einen geeigneten eindeutigen Namen für die Kasse ein.
++
+image:images/setup2.png[]
++
+.. Bei *Hostname des Online-Systems* geben Sie bitte den Teil der Webadresse des Online-Systems ein, der nach "http://" kommt ein. Z.B. bei einer Adresse http://meinflohmarkt.flohmarkthelfer.de/ geben Sie bitte *meinflohmarkt.flohmarkthelfer.de* ein.
+.. Beim *Verzeichnis zur automatischen Synchronisierung* geben Sie bitte das Verzeichnis auf das Verzeichnis des USB-Sticks ein (z.B. *E:\flohmarkthelfer*).
+.. Bei *Modus setzen* wählen Sie bitte *Standardmodus* für eine Kasse, mit der Sie nur den Verkauf durchführen wollen. Wählen Sie *erweiterter Modus* für eine Kasse, mit der Sie auch Listen und Etiketten erzeugen/drucken oder Scantests und Abrechnungen durchführen wollen.
++
+image:images/setup3.png[]
++
+.. Wählen Sie mit ja oder nein aus, ob Sie *PLZ beim Verkauf erfassen wollen*.
+.. Wählen Sie *Datenbank leeren* aus.
++
+image:images/setup4.png[]
++
+image:images/setup5.png[]
++
+. Nach der Installation finden Sie auf dem Desktop die Verknüpfung *Flohmarkthelfer Kassensystem*.
++
+image:images/desktop.png[]
++
+. Vergewissern Sie sich, dass der Rechner mit dem lokalen Netzwerk verbunden ist.
+. Starten Sie dieses Programm erstmalig.
++
+image:images/splash.png[]
++
+. Bestätigen Sie die Meldung, die Termindaten zu importieren, mit *Ja/Yes*:
++
+image:images/import.png[]
++
+. Kurz darauf wird eine Erfolgsmeldung angezeigt:
++
+image:images/import_success.png[]
++
+. Ab jetzt wird versucht, eine Netzwwerkverbindung mit anderen Kassen herzustellen. Gegebenenfalls wird eine Warnmeldung vom Betriebssystem angezeigt. Sie müssen der Kassensoftware den *Zugriff auf das Netzwerk erlauben*. Gegebenenfalls benötigen Sie dafür Administrator-Rechte.
+. Das Hauptmenü erscheint:
++
+image:images/standard.png[]
++
+oder
++
+image:images/expert.png[]
++
+. Klicken Sie auf *Statistiken* und vergewissern Sie sich, dass bei *Anzahl Artikel* die gleiche Anzahl steht, die Sie im Verwaltungsbereich des Online-Systems unter den Terminstatistiken gesehen haben. Ebenso prüfen Sie, dass bei einer frischen Installation bei *Anzahl Transaktionen* und *Anzahl verkaufter Artikel* jeweils *0* stehen sollte (Das Beispielbild wurde nach einem Verkauf gemacht, daher stehen hier keine Nullen):
++
+image:images/stats.png[]
++
+. Schließen Sie die Statistiken wieder
+. Vergewissern Sie sich, dass im unteren Bereich des Hauptfensters der Text [green]#*SYNC*# in grün dargestellt wird, solange der USB-Stick in der Kasse eingesteckt ist.
+
+Nachdem Sie die Software auf allen Kassen installiert und gestartet haben, sollten diese sich miteinander verbunden haben. Bei allen Kassen sollte nun im unteren Bereich des Hauptfensters *Verbunden mit N System(en)* zu sehen sein. Dabei steht *N* für die Anzahl anderer Kassen.

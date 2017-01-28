@@ -1,0 +1,53 @@
+==== Verkauf
+
+===== Kassensystem-Software starten
+
+. Vergewissern Sie sich, dass der Rechner mit dem lokalen Netzwerk verbunden ist, bevor Sie dier Kassensoftware starten.
+. Starten Sie die Kassensystem-Software
++
+image:images/desktop.png[]
++
+image:images/splash.png[]
++
+image:images/standard.png[]
+
+===== Verkauf durchführen
+
+. Klicken Sie auf Verkauf.
+. Der Verkaufsdialog sollte vor Erfassen der Artikel eines neuen Käufers komplett leer sein.
++
+image:images/sale_empty.png[]
++
+. Scannen Sie nacheinander die Artikel ein. Sollte ein Scan einmal nicht funktionieren, geben Sie die Nummer unter dem Barcode von Hand ein und Bestätigen die Eingabe mit *ENTER/RETURN*.
++
+image:images/sale.png[]
++
+.. Wollen Sie eingescannte Artikel wieder entfernen, markieren Sie diese und drücken die *ENTF/DEL*-Taste.
+. Vergewissern Sie sich, dass die Anzahl der Artikel mit der Anzahl eingescannter Artikel übereinstimmt.
+. Haben Sie alle Artikel eingescannt, bestätigen Sie mit *RETURN/ENTER* oder klicken Sie auf *Fertig*.
++
+image:images/salefinalize.png[]
++
+. Verlangen Sie nun das Geld des Kunden.
+. Geben Sie optional das Bargeld ein.
+. Bestätigen Sie mit *ENTER/RETURN*. Es wird nun die Höhe des Wechselgelds angezeigt.
+. Zahlen Sie das Wechselgeld aus.
+. Bestätigen Sie den Verkauf final mit *ENTER/RETURN* oder klicken Sie auf *OK*.
+. Damit ist die Transaktion verbucht und der nächste Verkauf kann getätigt werden.
++
+image:images/sale_empty.png[]
+
+===== Storno durchführen
+
+. Klicken Sie auf Storno. Der Stornodialog sollte vor Erfassen der Artikel eines neuen Stornos komplett leer sein.
+. Scannen Sie nacheinander die Artikel ein, die zurückgegeben werden sollen. Sollte ein Scannen nicht funktionieren, geben Sie die Nummer unter dem Barcode mit der Tastatur ein und Bestätigen die Eingabe mit *ENTER/RETURN*.
++
+image:images/refund.png[]
++
+. Haben Sie alle zu stornierenden Artikel eingescannt, bestätigen Sie mit *RETURN/ENTER* oder klicken Sie auf *Fertig*.
++
+image:images/refundfinalize.png[]
++
+. Zahlen Sie den Betrag aus und nehmen die Ware zurück.
+. Bestätigen Sie den Storno mit *ENTER/RETURN* oder klicken Sie auf *OK*.
+. Damit ist die Transaktion verbucht und der nächste Storno kann getätigt werden.
