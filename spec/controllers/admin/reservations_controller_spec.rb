@@ -98,7 +98,7 @@ module Admin
     describe 'PUT update' do
       let(:reservation) { create :reservation }
       let(:event) { reservation.event }
-      let(:params) { { fee: '2.5', commission_rate: '0.7' } }
+      let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42' } }
       before { put :update, event_id: event.id, id: reservation.id, reservation: params }
 
       it 'redirects to index path' do
@@ -108,6 +108,10 @@ module Admin
       it 'stores fee and commission rate' do
         expect(reservation.reload.fee).to eq 2.5
         expect(reservation.reload.commission_rate).to eq 0.7
+      end
+
+      it 'stores max items' do
+        expect(reservation.reload.max_items).to eq 42
       end
     end
   end

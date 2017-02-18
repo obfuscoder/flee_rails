@@ -324,7 +324,7 @@ de:
         name: Name
         details: Details
         max_sellers: maximale Anzahl Reservierungen
-        max_items_per_seller: maximale Anzahl Artikel je Reservierung
+        max_items_per_reservation: maximale Anzahl Artikel je Reservierung
         max_reservations_per_seller: Reservierungen pro Verkäufer
         confirmed: Termin steht fest
         shopping_periods: Verkauf
@@ -364,6 +364,7 @@ de:
         number: Nummer
         commission_rate: Kommissionsanteil
         fee: Reservierungsgebühr
+        max_items: max. Artikelzahl
       label:
         reservation: Reservierung
         item: Artikel

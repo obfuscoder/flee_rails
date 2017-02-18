@@ -96,6 +96,18 @@ RSpec.describe Reservation do
     end
   end
 
+  describe '#max_items' do
+    subject(:action) { reservation.max_items }
+    let(:max_items) { 42 }
+    context 'when max items is set' do
+      before { reservation.max_items = max_items }
+      it { is_expected.to eq max_items }
+    end
+    context 'when max items is not set' do
+      it { is_expected.to eq reservation.event.max_items_per_reservation }
+    end
+  end
+
   describe '#increase_label_counter' do
     let(:reservation) { create :reservation }
     subject(:action) { reservation.increase_label_counter }

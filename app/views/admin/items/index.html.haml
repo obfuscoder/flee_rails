@@ -10,7 +10,7 @@
     - if @reservation.event.donation_of_unsold_items_enabled
       %th= Item.human_attribute_name :donation
     %th= icon_link_to 'Artikel hinzufügen', new_admin_reservation_item_path(@reservation), type: :primary, icon: :file
-  - @items.each_with_index do |item, index|
+  - @items.each_with_index do |item|
     %tr
       %td= item.number
       %td= item.category

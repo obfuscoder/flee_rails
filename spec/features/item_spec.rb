@@ -45,7 +45,7 @@ RSpec.feature 'Viewing and editing items' do
         create_item
         expect(page).to have_content 'Artikel wurde gespeichert.'
         expect(page).to have_content 'Sie haben aktuell 1 Artikel angelegt.'
-        expect(page).to have_content "Sie können noch #{reservation.event.max_items_per_seller - 1} Artikel anlegen."
+        expect(page).to have_content "Sie können noch #{reservation.event.max_items_per_reservation - 1} Artikel anlegen."
       end
 
       context 'when event price precision is 50 cent' do
@@ -154,7 +154,7 @@ RSpec.feature 'Viewing and editing items' do
       end
 
       context 'when item limit has been reached' do
-        let(:preparations) { items && reservation.event.update(max_items_per_seller: items.count) }
+        let(:preparations) { items && reservation.event.update(max_items_per_reservation: items.count) }
         scenario 'does not allow to create additional items' do
           expect(page).not_to have_link 'Artikel hinzufügen'
           expect(page).to have_content 'Sie können keine weiteren Artikel anlegen.'

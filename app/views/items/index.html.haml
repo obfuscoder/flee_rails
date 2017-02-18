@@ -5,11 +5,11 @@
   - if @event.reservation_end.past?
     Die Artikeleingabe ist abgeschlossen. Sie können jetzt nur noch Ihre Etiketten ausdrucken.
   - else
-    - if @event.max_items_per_seller <= @items.count
+    - if @reservation.max_items <= @items.count
       Sie können keine weiteren Artikel anlegen.
     - else
-      Sie können noch #{@event.max_items_per_seller-@items.count} Artikel anlegen.
-    = link_to 'Artikel hinzufügen', new_event_reservation_item_path(@event, @reservation), type: :primary, icon: :file if @items.count < @event.max_items_per_seller
+      Sie können noch #{@reservation.max_items-@items.count} Artikel anlegen.
+      = link_to 'Artikel hinzufügen', new_event_reservation_item_path(@event, @reservation), type: :primary, icon: :file
 
 %table.table.table-condensed.table-hover.table-striped
   %tr
@@ -22,7 +22,7 @@
       %th= sort_link_to Item, :donation
     %th Aktionen
 
-  - @items.each_with_index do |item, index|
+  - @items.each_with_index do |item|
     %tr
       %td= item.number
       %td= item.category

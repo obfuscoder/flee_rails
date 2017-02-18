@@ -9,7 +9,6 @@
       %th= Category.human_attribute_name :donation_enforced
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
-
   - @categories.each_with_index do |category, index|
     %tr
       %td= @categories.offset + index + 1

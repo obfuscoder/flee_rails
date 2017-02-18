@@ -66,7 +66,7 @@ module Admin
     end
 
     def reservation_params
-      params.require(:reservation).permit :fee, :commission_rate
+      params.require(:reservation).permit :fee, :commission_rate, :max_items
     end
   end
 end

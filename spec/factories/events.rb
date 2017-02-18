@@ -19,7 +19,7 @@ FactoryGirl.define do
 
     factory :event do
       kind :commissioned
-      max_items_per_seller 5
+      max_items_per_reservation 5
       price_precision 0.1
       commission_rate 0.2
 

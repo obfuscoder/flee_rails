@@ -8,7 +8,6 @@
     %th= Seller.human_attribute_name :active
     %th= link_to t('.new'), new_admin_seller_path, type: :primary, icon: :file
 
-
   - @sellers.each_with_index do |seller, index|
     %tr
       %td= @sellers.offset + index + 1

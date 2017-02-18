@@ -6,6 +6,7 @@
     %th= sort_link_to Seller, :city
     %th= sort_link_to Seller, :email
     %th= Seller.human_attribute_name :item_count
+    %th= Reservation.human_attribute_name :max_items
     %th= Reservation.human_attribute_name :fee
     %th= Reservation.human_attribute_name :commission_rate
     %th= link_to t('.new'), new_admin_event_reservation_path(@event), type: :primary, icon: :file
@@ -16,6 +17,7 @@
       %td= reservation.seller.city
       %td= reservation.seller.email
       %td= reservation.items.count
+      %td= reservation.max_items
       %td= number_to_currency reservation.fee
       %td= number_to_percentage reservation.commission_rate * 100, precision: 0
       %td

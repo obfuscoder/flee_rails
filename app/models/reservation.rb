@@ -13,6 +13,8 @@ class Reservation < ActiveRecord::Base
 
   validate :max_reservations_per_seller, on: :create
 
+  validates :max_items, numericality: { greater_than: 0, only_integer: true }
+
   before_validation :create_number
 
   def self.recent
@@ -41,6 +43,10 @@ class Reservation < ActiveRecord::Base
 
   def fee
     read_attribute(:fee) || event.seller_fee
+  end
+
+  def max_items
+    read_attribute(:max_items) || event.try(:max_items_per_reservation)
   end
 
   private
