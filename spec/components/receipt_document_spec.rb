@@ -21,6 +21,26 @@ RSpec.describe ReceiptDocument do
       expect(output).to include 'Reservierungsnummer: 1'
     end
 
+    context 'when reservation fee is not payed in advance' do
+      it 'includes reservation fee' do
+        expect(output).to include 'Reservierungsgebühr'
+        expect(output).to include '-2,00 €'
+        expect(output).to include '29,90 €'
+      end
+    end
+
+    context 'when reservation fee is payed in advance' do
+      let(:event) do
+        create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true,
+                                                reservation_fees_payed_in_advance: true
+      end
+      it 'does not include reservation fee' do
+        expect(output).not_to include 'Reservierungsgebühr'
+        expect(output).not_to include '-2,00 €'
+        expect(output).to include '31,90 €'
+      end
+    end
+
     context 'with chars outside of ascii space' do
       let(:seller) { create :seller, street: '丙' }
       it 'contains the chars' do

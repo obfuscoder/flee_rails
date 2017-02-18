@@ -93,7 +93,7 @@ RSpec.describe Admin::EventsController do
       subject { JSON.parse ActiveSupport::Gzip.decompress(response.body), symbolize_names: true }
       it do
         is_expected.to include :id, :name, :price_precision, :commission_rate, :seller_fee,
-                               :donation_of_unsold_items_enabled
+                               :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
       end
       it { is_expected.to include :categories, :sellers, :items, :reservations }
     end
@@ -108,8 +108,15 @@ RSpec.describe Admin::EventsController do
       it { is_expected.to redirect_to admin_events_path }
 
       context 'when event attributes are invalid' do
-        let(:event) { attributes_for(:event).tap { |event| event['name'] = nil } }
+        let(:event) { attributes_for :event, name: nil }
         it { is_expected.to render_template :new }
+      end
+    end
+
+    context 'with reservation_fees_payed_in_advance set' do
+      let(:event) { attributes_for :event, reservation_fees_payed_in_advance: true }
+      it 'creates event with reservation_fees_payed_in_advance set to true' do
+        expect(Event.last).to be_reservation_fees_payed_in_advance
       end
     end
   end

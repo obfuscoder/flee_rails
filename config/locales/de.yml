@@ -338,6 +338,7 @@ de:
         seller_fee: Reservierungsgebühr
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
         token: Token
+        reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
       item:
         seller: Verkäufer
         category: Kategorie

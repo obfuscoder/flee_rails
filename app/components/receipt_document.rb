@@ -70,7 +70,9 @@ class ReceiptDocument < PdfDocument
     end
     table_data << [{ content: 'Summe', colspan: 3 }, currency(@receipt.sold_items_sum)]
     table_data << [{ content: 'Kommissionsanteil', colspan: 3 }, currency(@receipt.commission_cut)]
-    table_data << [{ content: 'Reservierungsgebühr', colspan: 3 }, currency(@receipt.seller_fee)]
+    unless @receipt.event.reservation_fees_payed_in_advance
+      table_data << [{ content: 'Reservierungsgebühr', colspan: 3 }, currency(@receipt.seller_fee)]
+    end
     table_data << [{ content: 'Auszuzahlender Betrag', colspan: 3 }, currency(@receipt.payout)]
   end
 

@@ -53,7 +53,8 @@ module Admin
 
     def data
       response = Jbuilder.new do |json|
-        json.call @event, :id, :name, :price_precision, :commission_rate, :seller_fee, :donation_of_unsold_items_enabled
+        json.call @event, :id, :name, :price_precision, :commission_rate, :seller_fee,
+                  :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
         json.categories Category.all, :id, :name
         json.sellers @event.reservations.map(&:seller),
                      :id, :first_name, :last_name, :street, :zip_code, :city, :email, :phone
@@ -81,6 +82,7 @@ module Admin
       params.require(:event).permit :name, :details, :max_sellers, :kind, :confirmed,
                                     :max_items_per_seller, :max_reservations_per_seller,
                                     :price_precision, :commission_rate, :seller_fee,
+                                    :reservation_fees_payed_in_advance,
                                     :donation_of_unsold_items_enabled,
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
