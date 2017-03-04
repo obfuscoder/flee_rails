@@ -4,8 +4,12 @@ brands:
     name_html: Kinderflohmarkt der Matthäusgemeinde
     home:
       logo:
-      intro:
-      outro:
+      intro: |
+        **im Gemeindehaus der Matthäusgemeinde, Oosstr. 1, 75179 Pforzheim**
+      outro: |
+        Hier finden Sie uns:
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d99573.58003047868!2d8.36669457898019!3d49.0182738076728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47970642bcf300bd%3A0xda0a7f73fb77b823!2sEvangelisches+Pfarramt+der+Matth%C3%A4usgemeinde!5e0!3m2!1sen!2sde!4v1488613400325" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     contact: hilfe@kinderflohmarkt-arlinger.de
     imprint:
       address:
