@@ -26,7 +26,7 @@ RSpec.describe 'admin/events/show' do
                                    href: admin_event_messages_path(event, :reservation_closed)
     end
 
-    it { is_expected.not_to have_link 'Daten herunterladen' }
+    it { is_expected.to have_link 'Daten herunterladen' }
 
     context 'when reservation end has past' do
       let(:additional_preparation) {}
@@ -34,7 +34,6 @@ RSpec.describe 'admin/events/show' do
         additional_preparation
         event.update reservation_end: 1.hour.ago
       end
-      it { is_expected.not_to have_link 'Daten herunterladen' }
       it do
         is_expected.to have_link 'Bearbeitungsabschlussmail verschicken',
                                  href: admin_event_messages_path(event, :reservation_closed)
