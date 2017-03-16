@@ -66,9 +66,10 @@ RSpec.feature 'Reviews' do
   end
 
   context 'with reservation' do
+    let(:reservation) { create :reservation, event: event, seller: seller }
     before do
       event.reservation_start = 1.hour.ago
-      create :reservation, event: event, seller: seller
+      reservation
     end
     context 'when event has passed' do
       before { Timecop.travel event.shopping_periods.first.max + 1.hour }
@@ -90,7 +91,7 @@ RSpec.feature 'Reviews' do
       end
 
       context 'when review was done already' do
-        before { create :review, event: event, seller: seller }
+        before { create :review, reservation: reservation }
 
         it_behaves_like 'review is not allowed'
       end

@@ -1,7 +1,7 @@
 class Review < ActiveRecord::Base
-  belongs_to :event
-  belongs_to :seller
+  belongs_to :reservation
 
-  validates_presence_of :seller, :event
-  validates :seller_id, uniqueness: { scope: :event_id }
+  validates_presence_of :reservation
+
+  validates :reservation_id, uniqueness: true
 end

@@ -13,7 +13,8 @@ module ReviewsHelper
   end
 
   def rating_sections
-    %w(registration items print reservation mailing content design support handover payoff sale organization total)
+    %w(registration items print reservation_process mailing content
+       design support handover payoff sale organization total)
   end
 
   def rating_average(section)

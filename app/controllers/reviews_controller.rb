@@ -6,11 +6,12 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = current_seller.reviews.build(event: @event)
+    @review = current_seller.reservations.find_by(event: @event).build_review
   end
 
   def create
-    @review = current_seller.reviews.build(review_params.merge(event: @event))
+    reservation = current_seller.reservations.find_by(event: @event)
+    @review = reservation.build_review(review_params.merge(reservation: reservation))
     if @review.save
       redirect_to seller_path, notice: t('.success')
     else
@@ -29,12 +30,12 @@ class ReviewsController < ApplicationController
   end
 
   def not_yet_reviewed?
-    current_seller.reviews.where(event: @event).empty?
+    current_seller.reservations.find_by(event: @event).review.nil?
   end
 
   def review_params
     attributes = %w(
-      registration items print reservation mailing content design support
+      registration items print reservation_process mailing content design support
       handover payoff sale organization total recommend source to_improve
     )
     params.require(:review).permit(attributes)

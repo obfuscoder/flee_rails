@@ -8,7 +8,6 @@ RSpec.describe Event do
   it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than(0) }
   it { is_expected.to have_many(:reservations).dependent(:destroy) }
   it { is_expected.to have_many(:notifications).dependent(:destroy) }
-  it { is_expected.to have_many(:reviews).dependent(:destroy) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq subject.name }
@@ -76,15 +75,20 @@ RSpec.describe Event do
   describe '#reviewed_by?' do
     let(:seller) { build :seller }
     context 'when reviewed by seller' do
-      before { subject.reviews << build(:review, event: subject, seller: seller) }
+      let(:reservation) do
+        build(:reservation, event: subject, seller: seller).tap do |reservation|
+          reservation.build_review
+        end
+      end
+      before { subject.reservations << reservation }
       it 'is reviewed by seller' do
-        expect(subject.reviewed_by?(seller)).to be true
+        expect(subject.reviewed_by?(seller)).to eq true
       end
     end
 
     context 'when not reviewed by seller' do
       it 'is not reviewed by seller' do
-        expect(subject.reviewed_by?(seller)).to be false
+        expect(subject.reviewed_by?(seller)).to eq false
       end
     end
   end

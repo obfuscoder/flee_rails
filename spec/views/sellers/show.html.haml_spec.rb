@@ -2,12 +2,10 @@ require 'rails_helper'
 require 'support/shared_examples_for_views'
 
 RSpec.describe 'sellers/show' do
-  let!(:seller) { assign :seller, create(:seller, reservations: reservations, reviews: reviews) }
+  let!(:seller) { assign :seller, create(:seller, reservations: reservations) }
   let(:reservations) { [reservation].compact }
-  let(:reviews) { [review].compact }
   let!(:events) { assign :events, [event].compact }
   let(:reservation) {}
-  let(:review) {}
   let(:event) {}
   let(:preparations) {}
 
@@ -126,8 +124,11 @@ RSpec.describe 'sellers/show' do
       end
 
       context 'with review' do
-        let(:review) { create :review, event: reservation.event }
-
+        let(:reservation) do
+          create(:reservation).tap do |reservation|
+            reservation.build_review
+          end
+        end
         it 'does not link to new event review page' do
           assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
         end

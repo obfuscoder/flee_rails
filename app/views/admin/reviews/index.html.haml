@@ -4,8 +4,8 @@ Anzahl: #{@reviews.count}
   %thead
     %tr
       %td
-      - @reviews.map(&:seller).each do |seller|
-        %th= link_to seller.id, admin_seller_path(seller)
+      - @reviews.map(&:reservation).each do |reservation|
+        %th= link_to reservation.number, admin_seller_path(reservation.seller)
       %th &Oslash;
     - rating_sections.each do |section|
       %tr
@@ -26,4 +26,4 @@ Anzahl: #{@reviews.count}
 - @reviews.reject { |r| r.to_improve.nil? || r.to_improve.empty? }.each do |review|
   %blockquote
     %p= review.to_improve
-    %footer= review.seller.name
+    %footer= review.reservation.seller.name

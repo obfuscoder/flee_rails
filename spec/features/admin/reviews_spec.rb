@@ -3,10 +3,11 @@ require 'features/admin/login'
 
 RSpec.feature 'admin event reviews' do
   include_context 'login'
-  let!(:event) { create :event }
+  let!(:event) { create :event_with_ongoing_reservation }
   let!(:reviews) do
     [:good_review, :bad_review, :incomplete_review].map do |review|
-      create review, event: event
+      reservation = create :reservation, event: event
+      create review, reservation: reservation
     end
   end
   background do
@@ -19,7 +20,7 @@ RSpec.feature 'admin event reviews' do
     expect(page).to have_content 'Bewertungen'
     expect(page).to have_content 'Anzahl: 3'
     reviews.each do |review|
-      expect(page).to have_link review.seller.id, href: admin_seller_path(review.seller)
+      expect(page).to have_link review.reservation.number, href: admin_seller_path(review.reservation.seller)
     end
     expect(page).to have_content '2,0'
     expect(page).to have_content '2,3'
@@ -30,7 +31,7 @@ RSpec.feature 'admin event reviews' do
     expect(page).to have_content '1x Bekannte/Familie (33%)'
     reviews.select(&:to_improve).each do |review|
       expect(page).to have_content review.to_improve
-      expect(page).to have_content review.seller.to_s
+      expect(page).to have_content review.reservation.seller.to_s
     end
   end
 end

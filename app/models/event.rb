@@ -2,7 +2,6 @@ class Event < ActiveRecord::Base
   enum kind: [:commissioned, :direct]
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :reviews, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :handover_periods, -> { where(kind: :handover).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
   has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
@@ -40,7 +39,7 @@ class Event < ActiveRecord::Base
   end
 
   def reviewed_by?(seller)
-    reviews.any? { |review| review.seller == seller }
+    reservations.any? { |reservation| reservation.seller == seller && reservation.review.present? }
   end
 
   def reservations_left
@@ -54,6 +53,10 @@ class Event < ActiveRecord::Base
 
   def to_s
     name || super
+  end
+
+  def reviews
+    reservations.map(&:review).compact
   end
 
   def past?

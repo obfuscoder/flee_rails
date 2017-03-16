@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316151634) do
+ActiveRecord::Schema.define(version: 20170316181633) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170316151634) do
   end
 
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
-  add_index "categories", ["name"], name: "index_categories_on_name", where: "deleted_at IS NULL"
+  add_index "categories", ["name"], name: "index_categories_on_name"
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -118,14 +118,12 @@ ActiveRecord::Schema.define(version: 20170316151634) do
   add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
 
   create_table "reviews", force: :cascade do |t|
-    t.integer  "event_id"
-    t.integer  "seller_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "registration"
     t.integer  "items"
     t.integer  "print"
-    t.integer  "reservation"
+    t.integer  "reservation_process"
     t.integer  "mailing"
     t.integer  "content"
     t.integer  "design"
@@ -138,10 +136,10 @@ ActiveRecord::Schema.define(version: 20170316151634) do
     t.string   "source"
     t.boolean  "recommend"
     t.text     "to_improve"
+    t.integer  "reservation_id"
   end
 
-  add_index "reviews", ["event_id"], name: "index_reviews_on_event_id"
-  add_index "reviews", ["seller_id"], name: "index_reviews_on_seller_id"
+  add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id"
 
   create_table "sellers", force: :cascade do |t|
     t.datetime "created_at"

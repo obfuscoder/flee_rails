@@ -1,11 +1,10 @@
 FactoryGirl.define do
   factory :review do
-    event
-    seller
+    reservation
 
     factory :good_review do
       registration 1
-      reservation 2
+      reservation_process 2
       items 1
       print 1
       mailing 2
@@ -23,7 +22,7 @@ FactoryGirl.define do
 
     factory :bad_review do
       registration 3
-      reservation 3
+      reservation_process 3
       print 3
       mailing 3
       content 3
@@ -40,7 +39,7 @@ FactoryGirl.define do
 
     factory :random_review do
       registration { Faker::Number.between(1, 3) }
-      reservation { Faker::Number.between(1, 3) }
+      reservation_process { Faker::Number.between(1, 3) }
       items { Faker::Number.between(1, 3) }
       print { Faker::Number.between(1, 3) }
       mailing { Faker::Number.between(1, 3) }
@@ -59,7 +58,7 @@ FactoryGirl.define do
 
     factory :incomplete_review do
       registration 2
-      reservation 2
+      reservation_process 2
       print 1
       sale 2
       total 2
