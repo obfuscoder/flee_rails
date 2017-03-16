@@ -3,7 +3,7 @@ Rails.application.load_tasks
 
 def for_each_database
   Dir.glob 'config/settings/brands/*.local.yml' do |file_path|
-    settings = YAML.load Pathname.new(file_path).read
+    settings = YAML.safe_load Pathname.new(file_path).read
     settings['brands'].each do |brand, brand_settings|
       next if brand_settings['database'].nil? || brand_settings['database'].nil?
       yield brand, brand_settings['database']

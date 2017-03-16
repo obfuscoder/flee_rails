@@ -1,8 +1,7 @@
 class EventsController < ApplicationController
   before_filter :init_event, :only_with_reservation, :only_after_event_passed
 
-  def show
-  end
+  def show; end
 
   private
 

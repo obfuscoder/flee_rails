@@ -24,8 +24,7 @@ module Admin
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @reservation.update(reservation_params)

@@ -12,8 +12,7 @@ class ItemsController < ApplicationController
     @item = Item.new donation: brand_settings.donation_of_unsold_items_default
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @item = @reservation.items.build item_params

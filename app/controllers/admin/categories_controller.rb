@@ -19,8 +19,7 @@ module Admin
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @category.update category_params
@@ -30,8 +29,7 @@ module Admin
       end
     end
 
-    def show
-    end
+    def show; end
 
     def destroy
       if Category.destroy params[:id]

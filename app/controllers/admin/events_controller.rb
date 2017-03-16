@@ -34,8 +34,7 @@ module Admin
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @event.update event_params
@@ -45,11 +44,9 @@ module Admin
       end
     end
 
-    def show
-    end
+    def show; end
 
-    def stats
-    end
+    def stats; end
 
     def data
       response = Jbuilder.new do |json|
@@ -65,8 +62,7 @@ module Admin
       send_data ActiveSupport::Gzip.compress(response), filename: 'flohmarkthelfer.data'
     end
 
-    def bill
-    end
+    def bill; end
 
     def destroy
       if Event.destroy params[:id]
