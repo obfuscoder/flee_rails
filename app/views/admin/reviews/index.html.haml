@@ -23,7 +23,7 @@ Anzahl: #{@reviews.count}
   - sources(@reviews).each do |source|
     %li #{source[:count]}x #{source[:name]} (#{number_to_percentage(source[:percentage]*100, precision: 0)})
 %h4 Bemerkungen
-- @reviews.select(&:to_improve).each do |review|
+- @reviews.reject { |r| r.to_improve.nil? || r.to_improve.empty? }.each do |review|
   %blockquote
     %p= review.to_improve
     %footer= review.seller.name
