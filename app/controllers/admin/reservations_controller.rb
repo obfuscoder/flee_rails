@@ -65,7 +65,7 @@ module Admin
     end
 
     def reservation_params
-      params.require(:reservation).permit :fee, :commission_rate, :max_items
+      params.require(:reservation).permit :fee, :commission_rate, :max_items, :category_limits_ignored
     end
   end
 end

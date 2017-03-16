@@ -67,8 +67,10 @@ class Item < ActiveRecord::Base
   end
 
   def max_number_of_items_for_category
+    return unless reservation.present?
+    return if reservation.category_limits_ignored?
     most_limited_category = category.try(:most_limited_category)
-    return unless reservation.present? && category.present? && most_limited_category.present?
+    return unless category.present? && most_limited_category.present?
     items_with_category = reservation.items.where(category: most_limited_category.self_and_descendants).where.not id: id
     return if items_with_category.count < most_limited_category.max_items_per_seller
     errors.add :category, :limit, limit: most_limited_category.max_items_per_seller,

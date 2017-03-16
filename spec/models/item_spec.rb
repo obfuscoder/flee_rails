@@ -94,6 +94,18 @@ RSpec.describe Item do
       it 'allows updating existing item for that category' do
         expect { existing_item.update! description: 'xxxxx' }.not_to raise_error
       end
+
+      context 'when reservation cab ignore category limits' do
+        let(:reservation) { create :reservation, category_limits_ignored: true }
+        it 'allows to create additional items for the category' do
+          expect { create :item, category: category, reservation: reservation }.not_to raise_error
+        end
+
+        it 'allows to change existing item to the category' do
+          item = create :item, reservation: reservation
+          expect { item.update! category: category }.not_to raise_error
+        end
+      end
     end
   end
 end

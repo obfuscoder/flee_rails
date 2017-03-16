@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218161034) do
+ActiveRecord::Schema.define(version: 20170316151634) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -107,9 +107,10 @@ ActiveRecord::Schema.define(version: 20170218161034) do
     t.integer  "event_id"
     t.integer  "number"
     t.integer  "label_counter"
-    t.decimal  "commission_rate", precision: 3, scale: 2
-    t.decimal  "fee",             precision: 3, scale: 2
+    t.decimal  "commission_rate",         precision: 3, scale: 2
+    t.decimal  "fee",                     precision: 3, scale: 2
     t.integer  "max_items"
+    t.boolean  "category_limits_ignored"
   end
 
   add_index "reservations", ["event_id", "number"], name: "index_reservations_on_event_id_and_number", unique: true

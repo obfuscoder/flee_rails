@@ -365,6 +365,7 @@ de:
         commission_rate: Kommissionsanteil
         fee: Reservierungsgebühr
         max_items: max. Artikelzahl
+        category_limits_ignored: keine Kategorielimits
       label:
         reservation: Reservierung
         item: Artikel

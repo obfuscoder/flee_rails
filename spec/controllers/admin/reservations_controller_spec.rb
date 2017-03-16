@@ -98,7 +98,7 @@ module Admin
     describe 'PUT update' do
       let(:reservation) { create :reservation }
       let(:event) { reservation.event }
-      let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42' } }
+      let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42', category_limits_ignored: true } }
       before { put :update, event_id: event.id, id: reservation.id, reservation: params }
 
       it 'redirects to index path' do
@@ -112,6 +112,10 @@ module Admin
 
       it 'stores max items' do
         expect(reservation.reload.max_items).to eq 42
+      end
+
+      it 'stores category limits ignored' do
+        expect(reservation.reload.category_limits_ignored).to eq true
       end
     end
   end
