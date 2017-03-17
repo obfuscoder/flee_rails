@@ -49,12 +49,15 @@ de:
       success:
         Vielen Dank für Ihre Bewertung. Wir werden Sie zu Herzen nehmen und hoffen,
         Sie bald wieder beim nächsten Flohmarkt als Verkäufer begrüßen zu können.
+      error: Ihre Bewertung konnte leider nicht gespeichert werden.
   events:
     show:
       title: Ergebnisse
-      error: &review_errors
+      error:
         no_reservation: Ergebnisse des Flohmarkts nicht verfügbar. Sie haben keine Reservierung.
         event_ongoing: Ergebnisse des Flohmarkts nicht verfügbar. Der Flohmarkt ist noch nicht abgeschlossen.
+    review:
+      error: *review_errors
   items:
     index:
       title: Artikel

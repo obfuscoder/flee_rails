@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Reviews' do
-  let!(:seller) { create :seller }
-  let!(:event) { create :event }
+  let(:reservation) { create :reservation }
+  let!(:seller) { reservation.seller }
+  let!(:event) { reservation.event }
 
   def visit_review_link
     visit login_seller_url(seller.token, goto: :review, event: event)
@@ -15,7 +16,7 @@ RSpec.feature 'Reviews' do
 
   def login_and_open_event_review_directly
     visit login_seller_url(seller.token)
-    visit new_event_review_path(event)
+    visit review_event_path(event)
   end
 
   shared_examples 'review is not allowed' do
@@ -43,65 +44,42 @@ RSpec.feature 'Reviews' do
       context "when using action #{action}" do
         before { send(action) }
         it 'shows new review page' do
-          expect(current_path).to eq new_event_review_path(event)
+          expect(current_path).to eq new_event_reservation_review_path(event, 1)
         end
       end
     end
   end
 
-  context 'without reservation' do
-    context 'when event has passed' do
-      before { Timecop.travel event.shopping_periods.first.max + 1.hour }
-      after { Timecop.return }
+  context 'when event has passed' do
+    before { Timecop.travel event.shopping_periods.first.max + 1.hour }
+    after { Timecop.return }
 
-      it_behaves_like 'review is not allowed'
+    it_behaves_like 'review is allowed'
+
+    scenario 'review event' do
+      login_and_navigate_to_event_review
+      expect(page).to have_content 'Bewertung'
+      within('.review_registration') { choose '2' }
+      within('.review_total') { choose '3' }
+      choose 'Zeitungsanzeige'
+      choose 'Ja'
+      fill_in 'Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?',
+              with: 'Mehr Farben'
+      click_on 'Bewertung abschließen'
+      expect(page).to have_content 'Vielen Dank für Ihre Bewertung'
     end
 
-    context 'when event is ongoing' do
-      before { Timecop.travel event.shopping_periods.first.max - 1.hour }
-      after { Timecop.return }
+    context 'when review was done already' do
+      before { create :review, reservation: reservation }
 
       it_behaves_like 'review is not allowed'
     end
   end
 
-  context 'with reservation' do
-    let(:reservation) { create :reservation, event: event, seller: seller }
-    before do
-      event.reservation_start = 1.hour.ago
-      reservation
-    end
-    context 'when event has passed' do
-      before { Timecop.travel event.shopping_periods.first.max + 1.hour }
-      after { Timecop.return }
+  context 'when event is ongoing' do
+    before { Timecop.travel event.shopping_periods.first.max - 1.hour }
+    after { Timecop.return }
 
-      it_behaves_like 'review is allowed'
-
-      scenario 'review event' do
-        login_and_navigate_to_event_review
-        expect(page).to have_content 'Bewertung'
-        within('.review_registration') { choose '2' }
-        within('.review_total') { choose '3' }
-        choose 'Zeitungsanzeige'
-        choose 'Ja'
-        fill_in 'Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?',
-                with: 'Mehr Farben'
-        click_on 'Bewertung abschließen'
-        expect(page).to have_content 'Vielen Dank für Ihre Bewertung'
-      end
-
-      context 'when review was done already' do
-        before { create :review, reservation: reservation }
-
-        it_behaves_like 'review is not allowed'
-      end
-    end
-
-    context 'when event is ongoing' do
-      before { Timecop.travel event.shopping_periods.first.max - 1.hour }
-      after { Timecop.return }
-
-      it_behaves_like 'review is not allowed'
-    end
+    it_behaves_like 'review is not allowed'
   end
 end

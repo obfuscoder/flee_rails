@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   get 'pages/deleted'
 
   resources :events, only: [:show] do
+    member do
+      get :review
+      get :reserve
+    end
+
     resources :reservations, only: [:create, :destroy, :edit, :update] do
       resources :items, except: :show do
         member do
@@ -17,12 +22,13 @@ Rails.application.routes.draw do
         end
       end
       resources :labels, only: [:index, :create]
+      resource :review
     end
-    resource :notification, only: [:create, :destroy]
-    resource :review
-  end
 
-  get 'events/:event_id/reserve', to: 'reservations#create', as: :event_reserve
+    get 'reservations/create', to: 'reservations#create'
+
+    resource :notification, only: [:create, :destroy]
+  end
 
   resource :seller do
     match :resend_activation, via: [:get, :post]

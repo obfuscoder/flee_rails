@@ -90,7 +90,7 @@ RSpec.describe 'sellers/show' do
       end
 
       it 'does not link to new event review page' do
-        assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+        assert_select 'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
       end
 
       context 'with event kind commissioned' do
@@ -119,7 +119,7 @@ RSpec.describe 'sellers/show' do
 
       context 'without review' do
         it 'links to new event review page' do
-          assert_select 'a[href=?]', new_event_review_path(reservation.event)
+          assert_select 'a[href=?]', new_event_reservation_review_path(reservation.event, reservation)
         end
       end
 
@@ -130,7 +130,7 @@ RSpec.describe 'sellers/show' do
           end
         end
         it 'does not link to new event review page' do
-          assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+          assert_select 'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
         end
       end
 
@@ -152,7 +152,7 @@ RSpec.describe 'sellers/show' do
       end
 
       it 'does not link to new event review page' do
-        assert_select 'a[href=?]', new_event_review_path(reservation.event), 0
+        assert_select 'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
       end
     end
   end

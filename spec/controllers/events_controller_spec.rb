@@ -26,4 +26,24 @@ RSpec.describe EventsController do
       end
     end
   end
+
+  describe 'GET review' do
+    before do
+      Timecop.travel event.shopping_periods.last.max + 1.day do
+        get :review, id: event.id
+      end
+    end
+    describe 'response' do
+      subject { response }
+      it { is_expected.to redirect_to new_event_reservation_review_path(event, reservation) }
+    end
+  end
+
+  describe 'GET reserve' do
+    before { get :reserve, id: event.id }
+    describe 'response' do
+      subject { response }
+      it { is_expected.to redirect_to event_reservations_create_path(event) }
+    end
+  end
 end

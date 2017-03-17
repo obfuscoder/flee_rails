@@ -13,7 +13,7 @@
             Der Flohmarkt ist beendet.
             Sie können sich #{ link_to 'die Ergebnisse', reservation.event } des Flohmarkts anschauen.
             - unless reservation.event.reviewed_by? @seller
-              Wir würden uns auch freuen, wenn Sie den #{ link_to 'Flohmarkt bewerten', new_event_review_path(reservation.event) } würden.
+              Wir würden uns auch freuen, wenn Sie den #{ link_to 'Flohmarkt bewerten', new_event_reservation_review_path(reservation.event, reservation) } würden.
           - else
             - if reservation.event.commissioned? && reservation.event.reservation_end.future?
               Alle zu verkaufenden Artikel müssen bis zum #{l(reservation.event.reservation_end, format: :long)} eingetragen und die Etiketten erzeugt sein.

@@ -1,17 +1,17 @@
 class ReviewsController < ApplicationController
-  before_filter :init_event, :only_with_reservation, :only_after_event_passed, :only_without_review
+  before_filter :init_event, :init_reservation,
+                :only_with_reservation, :only_after_event_passed, :only_without_review
 
   def show
-    redirect_to new_event_review_path
+    redirect_to new_event_reservation_review_path(@event, @reservation)
   end
 
   def new
-    @review = current_seller.reservations.find_by(event: @event).build_review
+    @review = @reservation.build_review
   end
 
   def create
-    reservation = current_seller.reservations.find_by(event: @event)
-    @review = reservation.build_review(review_params.merge(reservation: reservation))
+    @review = @reservation.build_review(review_params.merge(reservation: @reservation))
     if @review.save
       redirect_to seller_path, notice: t('.success')
     else
@@ -25,12 +25,18 @@ class ReviewsController < ApplicationController
     @event = Event.find params[:event_id]
   end
 
+  def init_reservation
+    @reservation = Reservation.find params[:reservation_id]
+    redirect_to seller_path, alert: t('.error.no_reservation') unless @reservation.seller == current_seller &&
+                                                                      @reservation.event == @event
+  end
+
   def only_without_review
     redirect_to seller_path, alert: t('.error.already_reviewed') unless not_yet_reviewed?
   end
 
   def not_yet_reviewed?
-    current_seller.reservations.find_by(event: @event).review.nil?
+    @reservation.review.nil?
   end
 
   def review_params

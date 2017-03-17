@@ -55,7 +55,7 @@ class SellersController < ApplicationController
     goto = params[:goto]
     event = params[:event]
     return redirect_to seller_path if goto.nil? || event.nil?
-    path_method = goto == 'show' ? 'event_path' : "event_#{goto}_path"
+    path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
     redirect_to send(path_method, event)
   end
 

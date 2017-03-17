@@ -279,7 +279,7 @@ RSpec.feature 'admin events' do
             its(:subject) { is_expected.to eq 'Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns' }
             it 'links to event review' do
               mail.click_on 'Zur Bewertung des Flohmarkts'
-              expect(current_path).to eq new_event_review_path(event)
+              expect(current_path).to eq new_event_reservation_review_path(event, reservation)
             end
             it 'links to event summary' do
               mail.click_on 'Zu den Flohmarktergebnissen'

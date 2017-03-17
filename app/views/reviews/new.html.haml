@@ -10,7 +10,7 @@
 
   Bewerten Sie bitte die folgenden Punkte entsprechend dem **Schulnotensystem** (1=sehr gut bis 6=ungenügend).
   Wenn Sie einen Punkt nicht beantworten wollen/können, lassen Sie ihn einfach leer.
-= simple_form_for @review, url: event_review_path(@event) do |f|
+= simple_form_for @review, url: event_reservation_review_path(@event, @reservation) do |f|
   = f.error_notification
   - rating_sections.each do |section|
     = f.input section, options_for_inline_radios.merge(collection: 1..6)
