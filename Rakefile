@@ -32,8 +32,7 @@ task :dumps do
     puts "Dumping database for #{brand} to #{destination}"
     ENV['MYSQL_PWD'] = settings['password']
     username = settings['username']
-    host = settings['host']
     database = settings['database']
-    sh "mysqldump --single-transaction -u #{username} -h #{host} #{database} | gzip > #{destination}"
+    sh "mysqldump --single-transaction -u #{username} #{database} | gzip > #{destination}"
   end
 end
