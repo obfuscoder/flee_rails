@@ -1,7 +1,7 @@
 module Admin
   class EventsController < AdminController
-    before_filter :init_event, only: [
-      :edit, :update, :show, :stats, :items_per_category, :sold_items_per_category, :sellers_per_city, :data, :bill
+    before_filter :init_event, only: %i[
+      edit update show stats items_per_category sold_items_per_category sellers_per_city data bill
     ]
 
     def init_event
@@ -83,9 +83,9 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
-                                    shopping_periods_attributes: [:id, :min, :max, :_destroy],
-                                    handover_periods_attributes: [:id, :min, :max, :_destroy],
-                                    pickup_periods_attributes: [:id, :min, :max, :_destroy]
+                                    shopping_periods_attributes: %i[id min max _destroy],
+                                    handover_periods_attributes: %i[id min max _destroy],
+                                    pickup_periods_attributes: %i[id min max _destroy]
     end
   end
 end

@@ -76,9 +76,7 @@ RSpec.describe Event do
     let(:seller) { build :seller }
     context 'when reviewed by seller' do
       let(:reservation) do
-        build(:reservation, event: subject, seller: seller).tap do |reservation|
-          reservation.build_review
-        end
+        build(:reservation, event: subject, seller: seller).tap(&:build_review)
       end
       before { subject.reservations << reservation }
       it 'is reviewed by seller' do

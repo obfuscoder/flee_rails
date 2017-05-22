@@ -89,7 +89,7 @@ class ReceiptDocument < PdfDocument
   end
 
   def header_columns
-    [%w(Nr. Kategorie Beschreibung Preis)]
+    [%w[Nr. Kategorie Beschreibung Preis]]
   end
 
   def table_styles

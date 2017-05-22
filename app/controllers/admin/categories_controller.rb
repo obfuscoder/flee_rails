@@ -1,6 +1,6 @@
 module Admin
   class CategoriesController < AdminController
-    before_filter :set_category, only: [:edit, :update, :show]
+    before_filter :set_category, only: %i[edit update show]
 
     def index
       @categories = Category.page(@page).order column_order

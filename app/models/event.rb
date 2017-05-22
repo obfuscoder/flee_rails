@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  enum kind: [:commissioned, :direct]
+  enum kind: %i[commissioned direct]
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :messages, dependent: :destroy

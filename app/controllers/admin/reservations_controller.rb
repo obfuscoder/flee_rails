@@ -1,7 +1,7 @@
 module Admin
   class ReservationsController < AdminController
     before_action :set_event
-    before_action :set_reservation, only: [:edit, :update]
+    before_action :set_reservation, only: %i[edit update]
 
     def index
       @reservations = Reservation.search(params[:search])
@@ -15,7 +15,7 @@ module Admin
     end
 
     def create
-      seller_ids = params[:reservation][:seller_id].select { |seller_id| !seller_id.empty? }
+      seller_ids = params[:reservation][:seller_id].reject(&:empty?)
       creator = Reservations::CreateReservation.new
       reservations = seller_ids.each do |seller_id|
         creator.create @event, Seller.find(seller_id), { context: :admin },

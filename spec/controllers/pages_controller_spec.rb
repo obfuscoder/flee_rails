@@ -23,7 +23,7 @@ RSpec.describe PagesController do
     end
   end
 
-  %w(home contact imprint privacy).each do |page_name|
+  %w[home contact imprint privacy].each do |page_name|
     describe "GET #{page_name}" do
       before { get page_name.to_sym }
 

@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
                      allow_nil: true
   validates :price, numericality: { greater_than: 0 }
   validate :price_divisible_by_precision
-  validate :max_number_of_items_for_category, on: [:create, :update]
+  validate :max_number_of_items_for_category, on: %i[create update]
 
   scope :without_label, -> { where { code.eq nil } }
   scope :with_label, -> { where { code.not_eq nil } }

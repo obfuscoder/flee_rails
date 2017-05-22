@@ -73,7 +73,7 @@ RSpec.describe Seller do
       end
     end
 
-    %w(valid@example.com valid_name@sub.domain.name nee.domain-works@company.berlin).each do |valid_value|
+    %w[valid@example.com valid_name@sub.domain.name nee.domain-works@company.berlin].each do |valid_value|
       it "is valid with value #{valid_value}" do
         subject.email = valid_value
         expect(subject).to be_valid

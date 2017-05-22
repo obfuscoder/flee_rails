@@ -52,7 +52,7 @@ FactoryGirl.define do
       organization { Faker::Number.between(1, 3) }
       total { Faker::Number.between(1, 3) }
       recommend true
-      source { %w(friends internet poster other)[Faker::Number.between(0, 3)] }
+      source { %w[friends internet poster other][Faker::Number.between(0, 3)] }
       to_improve { Faker::Lorem.sentence }
     end
 

@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_vars
-  before_action :set_item, only: [:edit, :update, :destroy, :delete_code]
-  before_action :forbid_when_labeled, only: [:edit, :update, :destroy]
-  before_action :init_categories, only: [:edit, :new, :update, :create]
+  before_action :set_item, only: %i[edit update destroy delete_code]
+  before_action :forbid_when_labeled, only: %i[edit update destroy]
+  before_action :init_categories, only: %i[edit new update create]
 
   def index
     @items = @reservation.items.search(params[:search]).page(@page).joins(:category).order(column_order)

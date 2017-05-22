@@ -1,6 +1,6 @@
 module Admin
   class ItemsController < AdminController
-    before_action :init_categories, only: [:edit, :new, :update, :create]
+    before_action :init_categories, only: %i[edit new update create]
 
     before_filter do
       @reservation = Reservation.find params[:reservation_id]

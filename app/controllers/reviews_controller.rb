@@ -40,10 +40,10 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    attributes = %w(
+    attributes = %w[
       registration items print reservation_process mailing content design support
       handover payoff sale organization total recommend source to_improve
-    )
+    ]
     params.require(:review).permit(attributes)
   end
 end

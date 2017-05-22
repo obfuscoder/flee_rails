@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EventsHelper do
-  %w(shopping handover pickup).each do |kind|
+  %w[shopping handover pickup].each do |kind|
     describe "##{kind}_time" do
       let(:min) { Time.zone.local(2007, 2, 10, 15, 30) }
       let(:max) { min + 2.hours }

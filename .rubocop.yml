@@ -7,9 +7,16 @@ AllCops:
     - 'config/routes.rb'
 Metrics/LineLength:
   Max: 120
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/MethodLength:
+  Max: 25
 Style/Documentation:
   Enabled: false
 Style/MultilineOperationIndentation:
   Enabled: false
 Metrics/AbcSize:
   Max: 30
+Lint/AmbiguousBlockAssociation:
+  Enabled: false

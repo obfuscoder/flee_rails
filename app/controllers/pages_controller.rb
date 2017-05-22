@@ -14,7 +14,7 @@ class PagesController < ApplicationController
 
   def index
     brands = Settings.brands.to_a
-                     .reject { |e| %i(demo default).include? e.first }
+                     .reject { |e| %i[demo default].include? e.first }
                      .sort_by! { |e| e.last.prefix.to_i }
     hosts = Settings.hosts.to_h.invert
     @brands = brands.map do |e|

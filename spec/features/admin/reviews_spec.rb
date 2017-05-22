@@ -5,7 +5,7 @@ RSpec.feature 'admin event reviews' do
   include_context 'login'
   let!(:event) { create :event_with_ongoing_reservation }
   let!(:reviews) do
-    [:good_review, :bad_review, :incomplete_review].map do |review|
+    %i[good_review bad_review incomplete_review].map do |review|
       reservation = create :reservation, event: event
       create review, reservation: reservation
     end

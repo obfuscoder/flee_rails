@@ -124,11 +124,7 @@ RSpec.describe 'sellers/show' do
       end
 
       context 'with review' do
-        let(:reservation) do
-          create(:reservation).tap do |reservation|
-            reservation.build_review
-          end
-        end
+        let(:reservation) { create(:reservation).tap(&:build_review) }
         it 'does not link to new event review page' do
           assert_select 'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
         end

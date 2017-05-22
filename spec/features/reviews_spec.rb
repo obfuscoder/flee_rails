@@ -20,7 +20,7 @@ RSpec.feature 'Reviews' do
   end
 
   shared_examples 'review is not allowed' do
-    [:visit_review_link, :login_and_open_event_review_directly].each do |action|
+    %i[visit_review_link login_and_open_event_review_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
         it 'shows seller home page' do
@@ -40,7 +40,7 @@ RSpec.feature 'Reviews' do
   end
 
   shared_examples 'review is allowed' do
-    [:visit_review_link, :login_and_navigate_to_event_review, :login_and_open_event_review_directly].each do |action|
+    %i[visit_review_link login_and_navigate_to_event_review login_and_open_event_review_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
         it 'shows new review page' do

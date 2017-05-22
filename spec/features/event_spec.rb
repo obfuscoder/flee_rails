@@ -19,7 +19,7 @@ RSpec.feature 'Event results' do
   end
 
   shared_examples 'a forbidden action' do
-    [:visit_results_link, :login_and_open_event_results_directly].each do |action|
+    %i[visit_results_link login_and_open_event_results_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
         it 'shows seller home page' do
@@ -39,7 +39,7 @@ RSpec.feature 'Event results' do
   end
 
   shared_examples 'an allowed action' do
-    [:visit_results_link, :login_and_navigate_to_event_results, :login_and_open_event_results_directly].each do |action|
+    %i[visit_results_link login_and_navigate_to_event_results login_and_open_event_results_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
         it 'shows results page' do
