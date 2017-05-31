@@ -44,7 +44,8 @@ module Api
     describe 'POST transactions' do
       let!(:event) { create :event_with_ongoing_reservation }
       let!(:reservation) { create :reservation, event: event }
-      let!(:items) { create_list :item_with_code, 10, reservation: reservation }
+      let(:category) { create :category }
+      let!(:items) { create_list :item_with_code, 10, category: category, reservation: reservation }
       let(:transactions) do
         [
           {
@@ -69,19 +70,36 @@ module Api
       end
 
       before do
+        prerequisites
         @request.env['HTTP_AUTHORIZATION'] =
           ActionController::HttpAuthentication::Token.encode_credentials event.token
         post :transactions, _json: transactions, format: :json
       end
 
+      let(:prerequisites) {}
+
       describe 'response' do
         subject { response }
         it { is_expected.to have_http_status :ok }
+      end
+
+      it 'sets sold date on sold items' do
+        items.drop(5).take(5).each { |item| expect(item.reload.sold).not_to be_nil }
+        expect(items.first.reload).not_to be_nil
+        items.drop(3).take(2).each { |item| expect(item.reload.sold).not_to be_nil }
+        items.drop(1).take(2).each { |item| expect(item.reload.sold).to be_nil }
+      end
+
+      context 'when item category limit has been reduced' do
+        let(:prerequisites) { category.update! max_items_per_seller: 5 }
+  
+        describe 'response' do
+          subject { response }
+          it { is_expected.to have_http_status :ok }
+        end
+
         it 'sets sold date on sold items' do
           items.drop(5).take(5).each { |item| expect(item.reload.sold).not_to be_nil }
-          expect(items.first.reload).not_to be_nil
-          items.drop(3).take(2).each { |item| expect(item.reload.sold).not_to be_nil }
-          items.drop(1).take(2).each { |item| expect(item.reload.sold).to be_nil }
         end
       end
     end

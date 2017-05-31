@@ -13,8 +13,9 @@ module Api
         time = Time.zone.parse transaction['date']
         transaction['items'].each do |code|
           item = Item.find_by code: code
-          item.update! sold: time if transaction['type'] == 'PURCHASE'
-          item.update! sold: nil if transaction['type'] == 'REFUND'
+          item.sold = time if transaction['type'] == 'PURCHASE'
+          item.sold = nil if transaction['type'] == 'REFUND'
+          item.save! context: :transaction
         end
       end
       render nothing: true
