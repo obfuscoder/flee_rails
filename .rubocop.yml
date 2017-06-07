@@ -14,7 +14,7 @@ Metrics/MethodLength:
   Max: 25
 Style/Documentation:
   Enabled: false
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   Enabled: false
 Metrics/AbcSize:
   Max: 30

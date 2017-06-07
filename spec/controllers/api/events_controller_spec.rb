@@ -92,7 +92,7 @@ module Api
 
       context 'when item category limit has been reduced' do
         let(:prerequisites) { category.update! max_items_per_seller: 5 }
-  
+
         describe 'response' do
           subject { response }
           it { is_expected.to have_http_status :ok }
