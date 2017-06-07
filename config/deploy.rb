@@ -33,14 +33,3 @@ set :puma_init_active_record, true
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
-    on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/puma -p"
-    end
-  end
-
-  # before :start, :make_dirs
-end
