@@ -13,6 +13,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/settings/brands/durlach.local.yml',
                                                  'config/settings/brands/bischofsheim.local.yml',
                                                  'config/settings/brands/arlinger.local.yml',
+                                                 'config/settings/brands/eggenfelden.local.yml',
                                                  'config/settings/brands/demo.local.yml',
                                                  'config/settings/brands/default.local.yml',
                                                  'config/puma.rb')
