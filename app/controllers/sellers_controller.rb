@@ -54,9 +54,13 @@ class SellersController < ApplicationController
     init_session_and_seller
     goto = params[:goto]
     event = params[:event]
-    return redirect_to seller_path if goto.nil? || event.nil?
-    path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
-    redirect_to send(path_method, event)
+    if %w[show review reserve].include?(goto)
+      if event.present?
+        path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
+        return redirect_to send(path_method, event)
+      end
+    end
+    redirect_to seller_path
   end
 
   def init_session_and_seller
@@ -97,11 +101,7 @@ class SellersController < ApplicationController
 
   def resend_activation_for(email)
     errors = ValidatesEmailFormatOf.validate_email_format email
-    if errors.nil?
-      unless send_activation_email_when_found(email)
-        errors = [t('email_not_found')]
-      end
-    end
+    errors = [t('email_not_found')] unless errors.present? || send_activation_email_when_found(email)
     return unless errors
     @seller = Seller.new(email: email)
     flash.now[:alert] = errors.join, ' '
