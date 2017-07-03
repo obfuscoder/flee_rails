@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170316181633) do
   end
 
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
-  add_index "categories", ["name"], name: "index_categories_on_name"
+  add_index "categories", ["name"], name: "index_categories_on_name", where: "deleted_at IS NULL"
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
