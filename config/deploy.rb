@@ -30,3 +30,5 @@ set :puma_preload_app, true
 set :activate_control_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
+
+set :rvm_ruby_string, :local
