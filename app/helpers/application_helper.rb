@@ -64,7 +64,7 @@ module ApplicationHelper
   end
 
   def paginate(collection, params = {})
-    will_paginate collection, renderer: BootstrapPagination::Rails, params: params
+    will_paginate collection, params: params
   end
 
   def sort_link_to(model_class, attribute, text = nil)

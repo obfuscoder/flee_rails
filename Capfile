@@ -5,7 +5,6 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rails'
 require 'capistrano/rvm'
-require 'capistrano/passenger'
 require 'capistrano/puma'
 require 'whenever/capistrano'
 

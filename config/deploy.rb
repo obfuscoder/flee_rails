@@ -28,9 +28,3 @@ set :puma_preload_app, true
 set :activate_control_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
-
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-
-# Default value for keep_releases is 5
-# set :keep_releases, 5

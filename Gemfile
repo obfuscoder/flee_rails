@@ -16,7 +16,6 @@ gem 'puma'
 gem 'sdoc', group: :doc
 
 group :development do
-  gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano3-puma'
@@ -72,4 +71,4 @@ gem 'squeel' # database query DSL
 gem 'underscore-rails'
 gem 'validates_email_format_of'
 gem 'whenever', require: false # cron
-gem 'will_paginate-bootstrap'
+gem 'bootstrap-will_paginate'
