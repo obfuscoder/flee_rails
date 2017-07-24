@@ -15,11 +15,11 @@ RSpec.describe 'pages/home.html.haml' do
   end
 
   it 'links to registration' do
-    assert_select 'a[href=?]', new_seller_path
+    assert_select +'a[href=?]', new_seller_path
   end
 
   it 'links to seller resend activation' do
-    assert_select 'a[href=?]', resend_activation_seller_path
+    assert_select +'a[href=?]', resend_activation_seller_path
   end
 
   describe 'event listing' do

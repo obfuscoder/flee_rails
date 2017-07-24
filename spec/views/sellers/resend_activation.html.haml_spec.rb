@@ -12,9 +12,9 @@ RSpec.describe 'sellers/resend_activation' do
   it 'renders a resend activation form' do
     render
     assert_select 'form[method=post]' do
-      assert_select 'input#seller_email[name=?]', 'seller[email]'
-      assert_select 'input#seller_email[name=?]', 'seller[email]'
-      assert_select 'input[type=submit][value=?]', 'Erneut zusenden'
+      assert_select +'input#seller_email[name=?]', 'seller[email]'
+      assert_select +'input#seller_email[name=?]', 'seller[email]'
+      assert_select +'input[type=submit][value=?]', 'Erneut zusenden'
     end
   end
 end
