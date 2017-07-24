@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'coffee-rails'
@@ -52,6 +54,7 @@ end
 gem 'barby' # pdf barcodes
 gem 'bootstrap-multiselect-rails'
 gem 'bootstrap-sass'
+gem 'bootstrap-will_paginate'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'chartkick' # charts / graphics
 gem 'cocoon'
@@ -71,4 +74,3 @@ gem 'squeel' # database query DSL
 gem 'underscore-rails'
 gem 'validates_email_format_of'
 gem 'whenever', require: false # cron
-gem 'bootstrap-will_paginate'

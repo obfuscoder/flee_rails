@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SellerMailer < ActionMailer::Base
   helper :events
 

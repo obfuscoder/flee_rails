@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class EventsController < AdminController
     before_filter :init_event, only: %i[

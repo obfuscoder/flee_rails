@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.call @event, :id, :name, :price_precision, :commission_rate, :seller_fee, :donation_of_unsold_items_enabled
 
 json.categories @categories, :id, :name

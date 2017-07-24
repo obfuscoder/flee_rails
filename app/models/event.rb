@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
   has_many :reservations, dependent: :destroy

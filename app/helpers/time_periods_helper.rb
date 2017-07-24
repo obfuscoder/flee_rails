@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TimePeriodsHelper
   def period(periods, options = {})
     if options[:exact] != false

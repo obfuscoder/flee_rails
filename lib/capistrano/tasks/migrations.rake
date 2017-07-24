@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :flee do
   desc 'Migrate all databases mentioned in local brand settings'
   task :migrate do

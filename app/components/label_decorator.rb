@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LabelDecorator
   def initialize(item)
     @item = item

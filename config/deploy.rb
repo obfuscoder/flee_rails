@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :application, 'flee_rails'
 set :repo_url, 'https://github.com/obfuscoder/flee_rails'
 

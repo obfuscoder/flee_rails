@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   before_filter :init_event
   before_filter :only_with_reservation, :only_after_event_passed, except: :reserve

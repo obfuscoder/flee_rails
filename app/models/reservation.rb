@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Reservation < ActiveRecord::Base
   belongs_to :seller, -> { with_deleted }
   belongs_to :event

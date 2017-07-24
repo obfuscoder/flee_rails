@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
 

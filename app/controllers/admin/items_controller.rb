@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class ItemsController < AdminController
     before_action :init_categories, only: %i[edit new update create]

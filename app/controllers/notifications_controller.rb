@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotificationsController < ApplicationController
   def create
     Notification.create event_id: params[:event_id], seller: current_seller

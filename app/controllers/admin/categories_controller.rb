@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class CategoriesController < AdminController
     before_filter :set_category, only: %i[edit update show]

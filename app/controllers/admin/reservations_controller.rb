@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class ReservationsController < AdminController
     before_action :set_event

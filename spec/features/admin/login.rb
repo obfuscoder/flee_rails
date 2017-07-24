@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'login' do
   let(:admin) { create :admin }
   let(:password) { 'password' }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TimePeriod < ActiveRecord::Base
   belongs_to :event
 

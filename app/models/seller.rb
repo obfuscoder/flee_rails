@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Seller < ActiveRecord::Base
   acts_as_paranoid
 

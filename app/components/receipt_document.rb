@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReceiptDocument < PdfDocument
   def initialize(receipt)
     super()

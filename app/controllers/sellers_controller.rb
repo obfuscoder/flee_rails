@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SellersController < ApplicationController
   def show
     @seller = current_seller

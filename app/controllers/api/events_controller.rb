@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class EventsController < ApplicationController
     skip_before_filter :verify_authenticity_token
