@@ -51,6 +51,7 @@ group :test, :development do
   gem 'sqlite3'
 end
 
+gem 'baby_squeel' # database query DSL
 gem 'barby' # pdf barcodes
 gem 'bootstrap-multiselect-rails'
 gem 'bootstrap-sass'
@@ -70,7 +71,6 @@ gem 'prawn-table'
 gem 'redcarpet' # markdown
 gem 'simple_form'
 gem 'sorcery'
-gem 'squeel' # database query DSL
 gem 'underscore-rails'
 gem 'validates_email_format_of'
 gem 'whenever', require: false # cron

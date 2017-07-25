@@ -16,13 +16,13 @@ class Item < ActiveRecord::Base
   validate :price_divisible_by_precision
   validate :max_number_of_items_for_category, on: %i[create update]
 
-  scope :without_label, -> { where { code.eq nil } }
-  scope :with_label, -> { where { code.not_eq nil } }
-  scope :sold, -> { where { sold.not_eq nil } }
+  scope :without_label, -> { where.has { code.eq nil } }
+  scope :with_label, -> { where.has { code.not_eq nil } }
+  scope :sold, -> { where.has { sold.not_eq nil } }
 
   def self.search(needle)
     return all if needle.nil?
-    joins(:category).where { sift(:full_text_search, needle) | { category => sift(:full_text_search, needle) } }
+    joins(:category).where.has { sift(:full_text_search, needle) | category.sift(:full_text_search, needle) }
   end
 
   def to_s
@@ -85,8 +85,6 @@ class Item < ActiveRecord::Base
 
   sifter :full_text_search do |needle|
     pattern = "%#{needle}%"
-    description.matches(pattern) |
-      size.matches(pattern) |
-      price.matches(pattern)
+    description.matches(pattern) | size.matches(pattern) | price.matches(pattern)
   end
 end

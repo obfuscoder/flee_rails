@@ -23,16 +23,16 @@ class Event < ActiveRecord::Base
     event.validates :max_items_per_reservation, numericality: { greater_than: 0, only_integer: true }
   end
 
-  scope :reservation_started, -> { where { reservation_start <= Time.now } }
-  scope :reservation_not_yet_ended, -> { where { reservation_end >= Time.now } }
+  scope :reservation_started, -> { where.has { reservation_start <= Time.now } }
+  scope :reservation_not_yet_ended, -> { where.has { reservation_end >= Time.now } }
   scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
-  scope :without_reservation_for, ->(seller) { where { id << seller.reservations.map(&:event_id) } }
-  scope :current_or_upcoming, -> { joins { shopping_periods }.where { shopping_periods.max >= Time.now } }
-  scope :with_sent, ->(category) { joins { messages }.where { messages.category == category.to_s } }
+  scope :without_reservation_for, ->(seller) { where.not(id: seller.reservations.map(&:event_id)) }
+  scope :current_or_upcoming, -> { joining { shopping_periods }.where.has { shopping_periods.max >= Time.now } }
+  scope :with_sent, ->(category) { joining { messages }.where.has { messages.category == category.to_s } }
   scope :reservable, -> { within_reservation_time.with_available_reservations }
 
   def self.with_available_reservations
-    joins { reservations.outer }.group(:id).having { count(reservations.id) < max_sellers }
+    joining { reservations.outer }.grouping { id }.when_having { reservations.id.count < max_sellers }
   end
 
   def reservable_by?(seller)
@@ -87,26 +87,28 @@ class Event < ActiveRecord::Base
   end
 
   def top_sellers
-    result = reservations.joins(:items).merge(Item.sold).group { reservations.number }.select do
-      [reservations.number, count(items.id).as(count)]
+    result = reservations.joins(:items).merge(Item.sold).grouping { number }.selecting do
+      [number, items.id.count.as('count')]
     end
-    result.order { count(items.id).desc }.map { |e| [e.number, e.count] }
+    result.ordering { items.id.count.desc }.map { |e| [e.number, e.count] }
   end
 
   def items_per_category
-    reservations.joins { items }.joins { items.category }.group { items.category.name }
-                .select { [items.category.name, count(items.id).as(count)] }
-                .order { count(items.id).desc }.map { |e| [e.name, e.count] }
+    reservations.joining { items.category }.grouping { items.category.name }
+                .selecting { [items.category.name, items.id.count.as('count')] }
+                .ordering { items.id.count.desc }.map { |e| [e.name, e.count] }
   end
 
   def sold_items_per_category
-    reservations.joins { items }.merge(Item.sold).joins { items.category }.group { items.category.name }
-                .select { [items.category.name, count(items.id).as(count)] }
-                .order { count(items.id).desc }.map { |e| [e.name, e.count] }
+    reservations.joining { items.category }.merge(Item.sold).grouping { items.category.name }
+                .selecting { [items.category.name, items.id.count.as('count')] }
+                .ordering { items.id.count.desc }.map { |e| [e.name, e.count] }
   end
 
   def sellers_per_zip_code
-    reservations.joins { seller }.group { seller.zip_code }.select { [seller.zip_code, count(seller.id).as(count)] }
+    reservations.joining { seller }.grouping { seller.zip_code }.selecting do
+      [seller.zip_code, seller.id.count.as('count')]
+    end
   end
 
   def sellers_per_city

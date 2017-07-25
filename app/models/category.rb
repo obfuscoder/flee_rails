@@ -12,13 +12,13 @@ class Category < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 
-  scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
-  scope :selectable, -> { includes(:children).where(children: { id: nil }) }
+  scope :search, ->(needle) { needle.nil? ? all : where.has { sift :full_text_search, needle } }
+  scope :selectable, -> { joining { children.outer }.where.has { children.id.eq nil } }
 
   def self.item_groups
-    joins { items }.group(:name).select { [name, count(items.id).as(count)] }
-                   .order { count(items.id).desc }
-                   .map { |e| [e.name, e.count] }
+    joining { items }.grouping { name }.selecting { [name, items.id.count.as('count')] }
+                     .ordering { items.id.count.desc }
+                     .map { |e| [e.name, e.count] }
   end
 
   def descendants
@@ -47,6 +47,6 @@ class Category < ActiveRecord::Base
 
   sifter :full_text_search do |needle|
     pattern = "%#{needle}%"
-    name.matches(pattern)
+    name =~ pattern
   end
 end

@@ -19,10 +19,10 @@ class Seller < ActiveRecord::Base
   validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update
   validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create
 
-  scope :with_mailing, -> { where { mailing.eq true } }
-  scope :active, -> { where { active.eq true } }
-  scope :without_reservation_for, ->(event) { where { id << event.reservations.map(&:seller_id) } }
-  scope :search, ->(needle) { needle.nil? ? all : where { sift :full_text_search, needle } }
+  scope :with_mailing, -> { where.has { mailing.eq true } }
+  scope :active, -> { where.has { active.eq true } }
+  scope :without_reservation_for, ->(event) { where.not(id: event.reservations.map(&:seller_id)) }
+  scope :search, ->(needle) { needle.nil? ? all : where.has { sift :full_text_search, needle } }
 
   include Statistics
 
