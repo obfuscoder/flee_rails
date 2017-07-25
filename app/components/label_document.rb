@@ -70,7 +70,7 @@ class LabelDocument < PdfDocument
   end
 
   def center_text(text)
-    text_box text, align: :center, valign: :center, overflow: :shrink_to_fit
+    text_box text, align: :center, valign: :center, overflow: :shrink_to_fit, inline_format: true
   end
 
   def header_cells(label)

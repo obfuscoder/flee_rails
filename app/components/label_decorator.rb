@@ -14,7 +14,7 @@ class LabelDecorator
   end
 
   def details
-    "#{@item.category}\n#{@item.description}" + (@item.size.blank? ? '' : "\nGröße: #{@item.size}")
+    "#{@item.category}\n#{@item.description}" + (@item.size.blank? ? '' : "\n<strong>Größe: #{@item.size}</strong>")
   end
 
   def code

@@ -18,6 +18,6 @@ RSpec.describe LabelDecorator do
 
   context 'when item size is given' do
     let(:item) { create :item_with_code, size: '6' }
-    its(:details) { is_expected.to eq "#{item.category}\n#{item.description}\nGröße: 6" }
+    its(:details) { is_expected.to eq "#{item.category}\n#{item.description}\n<strong>Größe: 6</strong>" }
   end
 end
