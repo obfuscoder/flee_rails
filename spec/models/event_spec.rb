@@ -10,6 +10,7 @@ RSpec.describe Event do
   it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than(0) }
   it { is_expected.to have_many(:reservations).dependent(:destroy) }
   it { is_expected.to have_many(:notifications).dependent(:destroy) }
+  it { is_expected.to have_many(:suspensions).dependent(:destroy) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq subject.name }

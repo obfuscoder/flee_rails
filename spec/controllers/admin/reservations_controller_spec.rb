@@ -22,7 +22,7 @@ module Admin
 
       its(:searchable?) { is_expected.to eq true }
 
-      describe '@sellers' do
+      describe '@reservations' do
         subject { assigns :reservations }
         its(:first) { is_expected.to eq reservations[0] }
 

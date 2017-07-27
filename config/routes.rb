@@ -15,23 +15,23 @@ Rails.application.routes.draw do
       get :reserve
     end
 
-    resources :reservations, only: [:create, :destroy, :edit, :update] do
+    resources :reservations, only: %i[create destroy edit update] do
       resources :items, except: :show do
         member do
           delete :code, action: :delete_code
         end
       end
-      resources :labels, only: [:index, :create]
+      resources :labels, only: %i[index create]
       resource :review
     end
 
     get 'reservations/create', to: 'reservations#create'
 
-    resource :notification, only: [:create, :destroy]
+    resource :notification, only: %i[create destroy]
   end
 
   resource :seller do
-    match :resend_activation, via: [:get, :post]
+    match :resend_activation, via: %i[get post]
     member do
       post :mailing, action: :allow_mailing
       delete :mailing, action: :block_mailing
@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     get 'restore', controller: :pages, action: :restore
     post 'restore', controller: :pages, action: :restore
     resources :events do
-      resources :reviews, :reservations
+      resources :reviews, :reservations, :suspensions
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats

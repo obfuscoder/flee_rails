@@ -1,0 +1,21 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= Seller.human_attribute_name :name
+    %th= Seller.human_attribute_name :city
+    %th= Seller.human_attribute_name :email
+    %th= Suspension.human_attribute_name :reason
+    %th= link_to t('.new'), new_admin_event_suspension_path(@event), type: :primary, icon: :file
+  - @suspensions.each do |suspension|
+    %tr
+      %td= link_to suspension.seller.name, admin_seller_path(suspension.seller)
+      %td= suspension.seller.city
+      %td= suspension.seller.email
+      %td= suspension.reason
+      %td
+        = icon_link_to t('edit'), edit_admin_event_suspension_path(@event, suspension), type: :primary, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, suspension.event, suspension], method: :delete,
+                                                                             type: :danger,
+                                                                             icon: :trash,
+                                                                             data: { confirm: t('sure') }
+%p= paginate @suspensions, event_id: @event.id

@@ -214,6 +214,22 @@ de:
       form:
         commission_rate:
           hint: *commission_rate_hint
+    suspensions:
+      index:
+        title: Sperren
+        new: Neue Sperre
+      new:
+        title: Sperre hinzufügen
+      create:
+        success:
+          one: Sperre erfolgreich gesetzt
+          other: '%{count} Sperren erfolgreich gesetzt'
+      destroy:
+        success: Die Sperre wurde aufgehoben
+      edit:
+        title: Sperre bearbeiten
+      update:
+        success: Sperre aktualisiert
     reviews:
       index:
         title: Bewertungen
@@ -315,6 +331,7 @@ de:
       item: Artikel
       seller: Verkäufer
       reservation: Reservierung
+      suspension: Sperre
       label: Etikett
       email: Mail
     attributes:
@@ -369,6 +386,9 @@ de:
         fee: Reservierungsgebühr
         max_items: max. Artikelzahl
         category_limits_ignored: keine Kategorielimits
+      suspension:
+        seller: Verkäufer
+        reason: Grund
       label:
         reservation: Reservierung
         item: Artikel

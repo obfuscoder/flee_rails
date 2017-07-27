@@ -1,7 +1,7 @@
 class CreateReservations < ActiveRecord::Migration
   def change
     create_table :reservations do |t|
-      t.timestamps
+      t.timestamps null: false
 
       t.references :seller, index: true
       t.references :event, index: true

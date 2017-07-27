@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Notification do
-  subject { build(:notification) }
+  subject { build :notification }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:event) }

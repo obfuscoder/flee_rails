@@ -2,6 +2,6 @@
 = simple_form_for [:admin, @event, Reservation.new] do |f|
   = f.error_notification
   .form-inputs
-    = f.association :seller, label_method: :label_for_reservation, collection: @sellers, as: :check_boxes
+    = f.association :seller, label_method: :label_for_selects, collection: @sellers, as: :check_boxes
   .form-actions
     = f.button :submit

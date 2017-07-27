@@ -1,7 +1,7 @@
 class CreateNotifications < ActiveRecord::Migration
   def change
     create_table :notifications do |t|
-      t.timestamps
+      t.timestamps null: false
 
       t.references :event, index: true
       t.references :seller, index: true

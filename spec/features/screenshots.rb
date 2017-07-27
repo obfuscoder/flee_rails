@@ -56,7 +56,7 @@ RSpec.describe 'Screenshots', js: true do
 
     click_on 'Neue Reservierung'
 
-    sellers.take(15).each { |seller| check seller.label_for_reservation }
+    sellers.take(15).each { |seller| check seller.label_for_selects }
     capture :admin_event_reservation_new, selector: 'div[role="main"]'
 
     click_on 'Reservierung erstellen'

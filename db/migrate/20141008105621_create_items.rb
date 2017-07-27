@@ -1,7 +1,7 @@
 class CreateItems < ActiveRecord::Migration
   def change
     create_table :items do |t|
-      t.timestamps
+      t.timestamps null: false
 
       t.references :category, index: true
       t.string :description

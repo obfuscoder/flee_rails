@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :suspensions, dependent: :destroy
   has_many :handover_periods, -> { where(kind: :handover).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
   has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
   has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod', dependent: :destroy

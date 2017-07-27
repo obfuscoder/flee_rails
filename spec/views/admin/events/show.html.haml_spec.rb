@@ -30,6 +30,8 @@ RSpec.describe 'admin/events/show' do
 
     it { is_expected.to have_link 'Daten herunterladen' }
 
+    it { is_expected.to have_link 'Sperren', href: admin_event_suspensions_path(event) }
+
     context 'when reservation end has past' do
       let(:additional_preparation) {}
       let(:preparation) do

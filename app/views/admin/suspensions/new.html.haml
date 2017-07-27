@@ -1,0 +1,8 @@
+- content_for :title, t('.title')
+= simple_form_for [:admin, @event, Suspension.new] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.association :seller, label_method: :label_for_selects, collection: @sellers, input_html: { multiple: true }
+    = f.input :reason
+  .form-actions
+    = f.button :submit

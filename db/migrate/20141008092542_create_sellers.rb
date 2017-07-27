@@ -1,7 +1,7 @@
 class CreateSellers < ActiveRecord::Migration
   def change
     create_table :sellers do |t|
-      t.timestamps
+      t.timestamps null: false
 
       t.string :first_name
       t.string :last_name

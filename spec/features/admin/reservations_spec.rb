@@ -29,7 +29,7 @@ RSpec.feature 'admin event reservations' do
     shared_examples 'create reservations for selected sellers' do
       before do
         click_on 'Neue Reservierung'
-        selection.each { |seller| check seller.label_for_reservation }
+        selection.each { |seller| check seller.label_for_selects }
         click_on 'Reservierung erstellen'
       end
 
