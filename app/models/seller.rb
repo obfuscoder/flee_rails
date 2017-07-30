@@ -59,6 +59,10 @@ class Seller < ActiveRecord::Base
       phone.matches(pattern)
   end
 
+  def suspended_for?(event)
+    suspensions.find_by(event: event).present?
+  end
+
   private
 
   def paranoia_destroy_attributes

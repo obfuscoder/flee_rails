@@ -6,13 +6,15 @@ RSpec.describe Reservation do
   subject(:reservation) { build :reservation }
 
   it { is_expected.to be_valid }
+  it { is_expected.to belong_to(:event) }
+  it { is_expected.to belong_to(:seller) }
+  it { is_expected.to have_many(:items).dependent(:destroy) }
+
   it { is_expected.to validate_presence_of(:seller) }
   it { is_expected.to validate_presence_of(:event) }
   it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:event_id) }
-  it { is_expected.to have_many(:items).dependent(:destroy) }
-  it { is_expected.to belong_to(:event) }
-  it { is_expected.to belong_to(:seller) }
+
   its(:to_s) { is_expected.to eq("#{subject.event.name} - #{subject.number}") }
 
   context 'when seller was deleted' do
@@ -22,6 +24,23 @@ RSpec.describe Reservation do
       reservation.reload
     end
     its(:seller) { is_expected.not_to be_nil }
+  end
+
+  describe 'when seller is suspended for the event' do
+    let!(:suspension) { create :suspension, event: reservation.event, seller: reservation.seller }
+    it { is_expected.not_to be_valid }
+    context 'when validated' do
+      before { reservation.valid? }
+      describe 'its error messages' do
+        subject(:messages) { reservation.errors.messages }
+        it { is_expected.to have_key :event }
+        describe 'error message for event' do
+          subject { messages[:event][0] }
+          it { is_expected.not_to include 'translation missing' }
+          it { is_expected.to include suspension.reason }
+        end
+      end
+    end
   end
 
   describe '#recent' do

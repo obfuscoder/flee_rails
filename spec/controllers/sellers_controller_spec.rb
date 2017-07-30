@@ -224,13 +224,13 @@ RSpec.describe SellersController do
         subject
         expect(assigns(:seller)).to eq seller
       end
-      it 'assigns the reservable events to @events' do
-        reservable_event = create :event_with_ongoing_reservation
-        unreservable_event = create :event_with_ongoing_reservation
-        create :reservation, event: unreservable_event, seller: seller
-        allow(Event).to receive(:reservable) { [reservable_event, unreservable_event] }
+      it 'assigns events within reservation time to @events' do
+        event1 = build :event_with_ongoing_reservation
+        event2 = build :event_with_ongoing_reservation
+        events = [event1, event2]
+        allow(Event).to receive(:within_reservation_time).and_return(events)
         subject
-        expect(assigns(:events)).to eq [reservable_event]
+        expect(assigns(:events)).to eq events
       end
     end
   end

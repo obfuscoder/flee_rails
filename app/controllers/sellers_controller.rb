@@ -3,9 +3,7 @@
 class SellersController < ApplicationController
   def show
     @seller = current_seller
-    @events = Event.within_reservation_time.select do |event|
-      event.reservable_by? @seller
-    end
+    @events = Event.within_reservation_time
   end
 
   def new

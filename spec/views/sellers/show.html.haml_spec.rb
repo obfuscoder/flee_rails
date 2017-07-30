@@ -40,6 +40,18 @@ RSpec.describe 'sellers/show' do
     it 'shows number of reservations left and max sellers' do
       expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
     end
+
+    context 'when seller is suspended' do
+      let(:preparations) { create :suspension, event: event, seller: seller }
+      it 'shows number of reservations left and max sellers' do
+        expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
+      end
+
+      it 'does not link to reservation' do
+        assert_select +'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
+      end
+    end
+
     context 'when event is full' do
       let(:event) { create :full_event }
       it 'does not link to reservation' do
@@ -47,7 +59,7 @@ RSpec.describe 'sellers/show' do
       end
       context 'when seller is not notified yet' do
         it 'links to notification' do
-          assert_select +'a[href=?][data-method=?]', event_notification_path(event), 'post'
+          assert_select +'a[href=?][data-method=?]', event_notification_path(event), 'post', 1
         end
       end
       context 'when seller is notified already' do

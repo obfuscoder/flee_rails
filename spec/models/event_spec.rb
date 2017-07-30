@@ -25,7 +25,6 @@ RSpec.describe Event do
   end
 
   describe '#reservable' do
-    let!(:seller) { create :seller }
     let!(:event_with_ongoing_reservation) do
       create :event_with_ongoing_reservation, name: 'reservable_event'
     end
@@ -54,6 +53,10 @@ RSpec.describe Event do
         let(:event) { create :event_with_ongoing_reservation, max_reservations_per_seller: 2 }
         it { is_expected.to eq true }
       end
+    end
+    context 'when seller is suspended for the event' do
+      before { create :suspension, event: event, seller: seller }
+      it { is_expected.to eq false }
     end
   end
 

@@ -11,10 +11,12 @@ class Reservation < ActiveRecord::Base
   validates_presence_of :seller, :event, :number
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
 
-  validate :within_reservation_period, on: :create
-  validate :capacity_available, on: :create
-
-  validate :max_reservations_per_seller, on: :create
+  with_options on: :create do |reservation|
+    reservation.validate :within_reservation_period
+    reservation.validate :capacity_available
+    reservation.validate :max_reservations_per_seller
+    reservation.validate :not_suspended
+  end
 
   validates :max_items, numericality: { greater_than: 0, only_integer: true }
 
@@ -77,5 +79,11 @@ class Reservation < ActiveRecord::Base
     reservations = event.reservations.where(seller: seller).where.not(id: id)
     return if reservations.count < max_reservations
     errors.add :event, :limit, limit: max_reservations
+  end
+
+  def not_suspended
+    return if event.nil? || seller.nil?
+    suspension = event.suspensions.find_by(seller: seller)
+    errors.add :event, :suspended, reason: suspension.reason if suspension
   end
 end

@@ -448,6 +448,7 @@ de:
               taken: Sie haben bereits eine Reservierungsnummer.
             event:
               limit: Sie können nur maximal %{limit} Reservierung(en) für diesen Termin haben.
+              suspended: "Reservierung aufgrund einer Sperre nicht möglich. Grund der Sperre: %{reason}"
         seller:
           attributes:
             email:

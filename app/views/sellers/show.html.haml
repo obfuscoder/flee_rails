@@ -26,7 +26,8 @@
             = link_to 'Reservierung freigeben', event_reservation_path(reservation.event, reservation), method: :delete,
               type: :danger, icon: :remove_circle, data: { confirm: t('.confirm_delete_reservation') } if reservation.event.reservation_end.future?
 - if @events
-  %p Die folgenden Flohmärkte sind aktuell in der Reservierungsphase:
+  %h3 Aktuelle Termine
+  %p Die folgenden Termine sind aktuell in der Reservierungsphase:
   %ul
     - @events.each do |event|
       %li
@@ -36,17 +37,22 @@
           %br
           #{event.reservations_left} von #{event.max_sellers} Plätzen frei
           %br
-          - if event.reservations_left > 0 && event.reservation_end.future?
+          - if event.reservable_by?(@seller) && event.reservations_left > 0
             Sie können sich einen Verkäuferplatz reservieren.
             %br
             = link_to 'Verkäuferplatz reservieren', event_reservations_path(event), method: :post, type: :primary, icon: :ok_circle
-          - else
+          - elsif @seller.suspended_for?(event)
+            Sie können aufgrund einer Sperre keine Reservierung durchführen. Grund der Sperre:
+            = @seller.suspensions.find_by(event: event).reason
+          - elsif event.reservations_left == 0
             Leider sind alle Plätze bereits vergeben.
             - if @seller.notifications.any? { |notification| notification.event == event }
               Sie stehen auf der Warteliste und bekommen eine Email sobald ein Platz frei wird.
             - else
               Sie können sich #{ link_to 'auf die Warteliste setzen lassen', event_notification_path(event), method: :post }.
               Sie erhalten eine Mail sobald ein Platz frei wird.
+          - else
+            Sie haben bereits die maximale Anzahl erlaubter Reservierungen für diesen Termin.
 %h3 Ihre Stammdaten
 %p
   %strong #{@seller.first_name} #{@seller.last_name}<br/>
