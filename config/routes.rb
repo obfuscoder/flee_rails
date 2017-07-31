@@ -44,8 +44,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '', controller: :pages, action: :home
-    get 'restore', controller: :pages, action: :restore
-    post 'restore', controller: :pages, action: :restore
     resources :events do
       resources :reviews, :reservations, :suspensions
       post 'messages/:action', to: 'messages#:action', as: :messages
