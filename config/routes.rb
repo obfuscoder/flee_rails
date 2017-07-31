@@ -45,7 +45,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', controller: :pages, action: :home
     resources :events do
-      resources :reviews, :reservations, :suspensions
+      resources :reviews
+      resources :reservations
+      resources :suspensions
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats
@@ -55,6 +57,11 @@ Rails.application.routes.draw do
     end
     resources :sellers
     resources :categories
+    resources :stock_items do
+      collection do
+        get :print, action: :print
+      end
+    end
     resources :reservations do
       resources :items do
         member do

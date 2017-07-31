@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to seller_path, notice: t('.success')
     else
-      render :new, alert: t('.error')
+      render :new
     end
   end
 

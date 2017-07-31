@@ -38,7 +38,7 @@ RSpec.describe Item do
       subject.create_code options
     end
 
-    its(:code) { is_expected.to eq '010010012' }
+    its(:code) { is_expected.to eq '010010019' }
     its(:number) { is_expected.to eq 1 }
 
     context 'when label for other item was created already' do
@@ -48,7 +48,7 @@ RSpec.describe Item do
 
     context 'with prefix option' do
       let(:options) { { prefix: 'ABC' } }
-      its(:code) { is_expected.to eq 'ABC010010012' }
+      its(:code) { is_expected.to eq 'ABC010010019' }
     end
 
     context 'when code was deleted before' do

@@ -103,4 +103,16 @@ class ApplicationController < ActionController::Base
   def searchable?
     false
   end
+
+  # we ensure to raise exception when translation is missing
+  def t(*args)
+    unless Rails.env.production?
+      if args.last.is_a? Hash
+        args.last[:raise] = true
+      else
+        args << { raise: true }
+      end
+    end
+    super(*args)
+  end
 end

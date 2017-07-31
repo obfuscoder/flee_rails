@@ -49,7 +49,6 @@ de:
       success:
         Vielen Dank für Ihre Bewertung. Wir werden Sie zu Herzen nehmen und hoffen,
         Sie bald wieder beim nächsten Flohmarkt als Verkäufer begrüßen zu können.
-      error: Ihre Bewertung konnte leider nicht gespeichert werden.
   events:
     show:
       title: Ergebnisse
@@ -280,6 +279,17 @@ de:
       delete_all_codes:
         success: Alle Etiketten wurden freigegeben.
       form: *item_form
+    stock_items:
+      index:
+        title: Stammartikel
+      new:
+        title: Stammartikel anlegen
+      create:
+        success: Stammartikel erfolgreich angelegt
+      edit:
+        title: Stammartikel bearbeiten
+      update:
+        success: Stammartikel erfolgreich aktualisiert
     categories:
       form:
         parent:
@@ -327,6 +337,7 @@ de:
       category: Kategorie
       event: Termin
       item: Artikel
+      stock_item: Stammartikel
       seller: Verkäufer
       reservation: Reservierung
       suspension: Sperre
@@ -366,6 +377,11 @@ de:
         donation: Spende wenn nicht verkauft
         number: Nummer
         code: Code
+      stock_item:
+        number: Nummer
+        code: Code
+        description: Beschreibung
+        price: Preis
       seller:
         first_name: Vorname
         last_name: Nachname

@@ -9,6 +9,7 @@ module Admin
         { link: admin_events_path, title: 'Termine', icon: :calendar },
         { link: admin_sellers_path, title: 'Verkäufer', icon: :user },
         { link: admin_categories_path, title: 'Kategorien', icon: :align_justify },
+        { link: admin_stock_items_path, title: 'Stammartikel', icon: :list },
         { link: admin_emails_path, title: 'Mails', icon: :envelope },
         { link: '/docs/index.html', title: 'Hilfe', icon: :question_sign }
       ]

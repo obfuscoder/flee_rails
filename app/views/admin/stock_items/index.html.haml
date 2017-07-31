@@ -1,0 +1,18 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= StockItem.human_attribute_name :number
+    %th= StockItem.human_attribute_name :description
+    %th= StockItem.human_attribute_name :price
+    %th= StockItem.human_attribute_name :code
+    %th= icon_link_to t('new'), new_admin_stock_item_path, type: :primary, icon: :file
+  - @stock_items.each_with_index do |stock_item|
+    %tr
+      %td= stock_item.number
+      %td= stock_item.description
+      %td= number_to_currency(stock_item.price)
+      %td= stock_item.code
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_stock_item_path(stock_item), type: :primary, icon: :pencil
+- unless @stock_items.empty?
+  = link_to 'Etiketten drucken', print_admin_stock_items_path, type: :primary, icon: :print

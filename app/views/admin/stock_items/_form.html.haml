@@ -1,0 +1,8 @@
+= simple_form_for [:admin, @stock_item] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :description
+    - if @stock_item.new_record?
+      = f.input :price, html5: false
+  .form-actions
+    = f.button :submit

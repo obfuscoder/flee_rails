@@ -49,17 +49,7 @@ class Item < ActiveRecord::Base
   private
 
   def append_checksum(code)
-    bytes = code.reverse.bytes.each_with_index.map { |byte, index| digit_sum(byte * weight(index)) }
-    checksum = bytes.reduce(:+) % 10
-    code + checksum.to_s
-  end
-
-  def weight(index)
-    index % 2 + 1
-  end
-
-  def digit_sum(value)
-    value.to_s.chars.map(&:to_i).reduce(:+)
+    code + CalculateChecksum.new.call(code).to_s
   end
 
   def price_divisible_by_precision
