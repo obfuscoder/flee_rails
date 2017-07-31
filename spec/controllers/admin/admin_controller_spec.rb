@@ -37,7 +37,7 @@ module Admin
       end
 
       context 'when stock items feature is enabled' do
-        let(:preparations){ allow(Settings.features).to receive(:stock_items).and_return(true) }
+        let(:preparations) { allow(Settings.features).to receive(:stock_items).and_return(true) }
         it 'contains link to stock items' do
           expect(menu.find { |e| e[:link] == admin_stock_items_path }).not_to be_empty
         end
