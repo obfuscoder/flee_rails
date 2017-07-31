@@ -13,6 +13,7 @@ module Admin
         { link: admin_emails_path, title: 'Mails', icon: :envelope },
         { link: '/docs/index.html', title: 'Hilfe', icon: :question_sign }
       ]
+      @menu.reject! { |element| element[:link] == admin_stock_items_path } unless Settings.features.try(:stock_items)
     end
 
     private
