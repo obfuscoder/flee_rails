@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731091729) do
+ActiveRecord::Schema.define(version: 20170801131619) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -160,6 +160,18 @@ ActiveRecord::Schema.define(version: 20170731091729) do
   add_index "sellers", ["deleted_at"], name: "index_sellers_on_deleted_at"
   add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true, where: "deleted_at IS NULL"
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true, where: "deleted_at IS NULL"
+
+  create_table "sold_stock_items", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "event_id"
+    t.integer  "stock_item_id"
+    t.integer  "amount",        null: false
+  end
+
+  add_index "sold_stock_items", ["event_id", "stock_item_id"], name: "index_sold_stock_items_on_event_id_and_stock_item_id", unique: true
+  add_index "sold_stock_items", ["event_id"], name: "index_sold_stock_items_on_event_id"
+  add_index "sold_stock_items", ["stock_item_id"], name: "index_sold_stock_items_on_stock_item_id"
 
   create_table "stock_items", force: :cascade do |t|
     t.datetime "created_at",                          null: false

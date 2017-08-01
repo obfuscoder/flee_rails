@@ -3,9 +3,12 @@
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
   has_many :reservations, dependent: :destroy
+  has_many :reviews, through: :reservations
   has_many :notifications, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :suspensions, dependent: :destroy
+  has_many :sold_stock_items
+  has_many :stock_items, through: :sold_stock_items
   has_many :handover_periods, -> { where(kind: :handover).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
   has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
   has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
@@ -59,10 +62,6 @@ class Event < ActiveRecord::Base
     name || super
   end
 
-  def reviews
-    reservations.map(&:review).compact
-  end
-
   def past?
     shopping_periods.last.max.past?
   end
@@ -80,7 +79,12 @@ class Event < ActiveRecord::Base
   end
 
   def sold_item_sum
-    reservations.joins(:items).merge(Item.sold).sum(:price)
+    reservations.joins(:items).merge(Item.sold).sum(:price) +
+      sold_stock_items.joins(:stock_item).sum('price * amount')
+  end
+
+  def sold_stock_item_count
+    sold_stock_items.map(&:amount).inject(:+)
   end
 
   def sold_item_percentage
@@ -120,11 +124,9 @@ class Event < ActiveRecord::Base
   end
 
   before_save do
-    unless token
-      self.token = loop do
-        random_token = SecureRandom.urlsafe_base64(8, false)
-        break random_token unless self.class.exists?(token: random_token)
-      end
+    self.token ||= loop do
+      random_token = SecureRandom.urlsafe_base64(8, false)
+      break random_token unless self.class.exists?(token: random_token)
     end
   end
 end

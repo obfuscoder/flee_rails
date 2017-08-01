@@ -10,6 +10,7 @@ RSpec.describe 'admin/events/stats' do
            items_with_label_count: 8,
            sold_item_count: 6,
            sold_item_sum: 3.5,
+           sold_stock_item_count: 27,
            sold_item_percentage: 60,
            items_per_category: [
              ['Cat1', 7],
@@ -26,6 +27,10 @@ RSpec.describe 'admin/events/stats' do
            notifications: [
              double(seller: double(name: 'Name1', city: 'city1')),
              double(seller: double(name: 'Name2', city: 'city2'))
+           ],
+           sold_stock_items: [
+             double(amount: 37, stock_item: double(description: 'stock item 1')),
+             double(amount: 73, stock_item: double(description: 'stock item 2'))
            ]
   end
   before { assign :event, event }
@@ -57,6 +62,16 @@ RSpec.describe 'admin/events/stats' do
       event.sold_items_per_category.each do |category_name, item_count|
         is_expected.to have_content category_name
         is_expected.to have_content item_count
+      end
+    end
+
+    it { is_expected.to have_link 'Tabelle anzeigen', href: '#sold_stock_items_table_collapser' }
+    it { is_expected.to have_css '.collapse#sold_stock_items_table_collapser' }
+    it { is_expected.to have_css '#sold_stock_items_table' }
+    it 'lists all sold stock items' do
+      event.sold_stock_items.each do |sold_stock_item|
+        is_expected.to have_content sold_stock_item.amount
+        is_expected.to have_content sold_stock_item.stock_item.description
       end
     end
 

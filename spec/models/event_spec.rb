@@ -9,8 +9,10 @@ RSpec.describe Event do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than(0) }
   it { is_expected.to have_many(:reservations).dependent(:destroy) }
+  it { is_expected.to have_many(:reviews).through(:reservations) }
   it { is_expected.to have_many(:notifications).dependent(:destroy) }
   it { is_expected.to have_many(:suspensions).dependent(:destroy) }
+  it { is_expected.to have_many(:stock_items).through(:sold_stock_items) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq subject.name }
@@ -158,12 +160,24 @@ RSpec.describe Event do
     end
 
     describe '#sold_item_sum' do
-      let(:price) { 3.50 }
+      let(:price) { 3.5 }
       let(:sold_item_count) { 3 }
       let!(:sold_items) { create_list :sold_item, sold_item_count, price: price, reservation: reservation }
+      let(:stock_items) { create_list :stock_item, 4, price: price }
+      let!(:sold_stock_items) do
+        stock_items.map { |e| create :sold_stock_item, stock_item: e, event: event, amount: 2 }
+      end
       subject { event.sold_item_sum }
-      it { is_expected.to eq price * sold_item_count }
+      it { is_expected.to eq 38.5 }
     end
+  end
+
+  describe '#sold_stock_item_count' do
+    let(:event) { create :event }
+    let!(:sold_stock_items) { create_list :sold_stock_item, 3, event: event, amount: 2 }
+    before { event.reload }
+    subject { event.sold_stock_item_count }
+    it { is_expected.to eq 6 }
   end
 
   describe '#items_per_category' do

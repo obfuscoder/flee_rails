@@ -33,6 +33,20 @@
             %tr
               %td= category
               %td= item_count
+  %li
+    verkaufte Stammartikel: #{@event.sold_stock_item_count}
+    %a(data-toggle='collapse' href='#sold_stock_items_table_collapser' aria-expanded=false aria-controls='sold_stock_items_table_collapser') Tabelle anzeigen
+    .collapse#sold_stock_items_table_collapser
+      %table.table.table-condensed.table-hover.table-striped#sold_stock_items_table
+        %thead
+          %tr
+            %th Artikel
+            %th Anzahl
+        %tbody
+          - @event.sold_stock_items.each do |sold_stock_item|
+            %tr
+              %td= sold_stock_item.stock_item.description
+              %td= sold_stock_item.amount
   %li Umsatz: #{number_to_currency(@event.sold_item_sum)}
 %h3 Verkäufer
 %ul
