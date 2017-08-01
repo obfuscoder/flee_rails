@@ -7,6 +7,7 @@ module Api
     describe 'GET show' do
       let!(:event) { create :event }
       let!(:categories) { create_list :category, 5 }
+      let!(:stock_items) { create_list :stock_item, 4 }
       before do
         prerequisites
         get :show, format: :json
@@ -31,6 +32,11 @@ module Api
         describe '@categories' do
           subject { assigns :categories }
           it { is_expected.to eq categories }
+        end
+
+        describe '@stock_items' do
+          subject { assigns :stock_items }
+          it { is_expected.to eq stock_items }
         end
       end
 

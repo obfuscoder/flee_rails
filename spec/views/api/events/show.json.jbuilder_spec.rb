@@ -11,6 +11,7 @@ RSpec.describe 'api/events/show' do
 
     assign :event, event.reload
     assign :categories, Category.all
+    assign :stock_items, create_list(:stock_item, 4)
     render
   end
 
@@ -19,12 +20,21 @@ RSpec.describe 'api/events/show' do
   it { is_expected.to include :id, :name }
   it { is_expected.to include :price_precision, :commission_rate, :seller_fee, :donation_of_unsold_items_enabled }
   it { is_expected.to include :categories }
+  it { is_expected.to include :stock_items }
 
   describe 'categories' do
     subject(:categories) { json[:categories] }
     it { is_expected.to have(5).items }
     it 'have id and name' do
       categories.each { |category| expect(category).to include :id, :name }
+    end
+  end
+
+  describe 'stock_items' do
+    subject(:stock_items) { json[:stock_items] }
+    it { is_expected.to have(4).items }
+    it 'have description and price' do
+      stock_items.each { |stock_item| expect(stock_item).to include :description, :price }
     end
   end
 

@@ -8,6 +8,7 @@ module Api
 
     def show
       @categories = Category.all
+      @stock_items = StockItem.all
     end
 
     def transactions
