@@ -26,9 +26,4 @@ set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
 set :puma_threads, [4, 16]
 set :puma_workers, 2
 set :puma_bind, 'tcp://127.0.0.1:9292'
-set :puma_preload_app, true
-set :activate_control_app, true
-set :puma_worker_timeout, nil
-set :puma_init_active_record, true
-
 set :rvm_ruby_string, :local
