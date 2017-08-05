@@ -24,7 +24,7 @@ RSpec.feature 'admin emails' do
     end
 
     scenario 'select and send mail to several sellers' do
-      within '#email_sellers' do
+      within '#custom_email_sellers' do
         selection.each do |seller|
           find("option[value='#{seller.id}']").select_option
         end

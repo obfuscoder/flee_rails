@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801131619) do
+ActiveRecord::Schema.define(version: 20170805093440) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -34,8 +34,17 @@ ActiveRecord::Schema.define(version: 20170801131619) do
     t.string   "subject"
     t.text     "body"
     t.boolean  "sent"
+    t.string   "from"
+    t.string   "cc"
+    t.string   "message_id"
+    t.boolean  "read"
+    t.string   "kind"
+    t.integer  "parent_id"
   end
 
+  add_index "emails", ["message_id"], name: "index_emails_on_message_id", unique: true
+  add_index "emails", ["parent_id"], name: "index_emails_on_parent_id"
+  add_index "emails", ["read"], name: "index_emails_on_read"
   add_index "emails", ["seller_id"], name: "index_emails_on_seller_id"
 
   create_table "events", force: :cascade do |t|

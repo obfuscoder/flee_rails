@@ -4,9 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/sellers/index' do
   let(:sellers) { create_list :seller, 25 }
-  before do
-    assign :sellers, sellers.paginate
-  end
+  before { assign :sellers, sellers.paginate }
 
   it_behaves_like 'a standard view'
 
@@ -14,5 +12,12 @@ RSpec.describe 'admin/sellers/index' do
     expect_any_instance_of(ApplicationHelper).to receive(:sort_link_to).with(Seller, :name)
     expect_any_instance_of(ApplicationHelper).to receive(:sort_link_to).with(Seller, :email)
     render
+  end
+
+  it 'links to emails for each seller' do
+    render
+    sellers.take(10).each do |seller|
+      expect(rendered).to have_link href: admin_seller_emails_path(seller)
+    end
   end
 end

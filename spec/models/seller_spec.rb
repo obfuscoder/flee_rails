@@ -19,6 +19,7 @@ RSpec.describe Seller do
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many :notifications }
   it { is_expected.to have_many :suspensions }
+  it { is_expected.to have_many :emails }
 
   its(:to_s) { is_expected.to eq("#{subject.first_name} #{subject.last_name}") }
 

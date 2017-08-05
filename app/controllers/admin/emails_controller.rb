@@ -2,13 +2,15 @@
 
 module Admin
   class EmailsController < AdminController
+    before_action :set_seller, only: %i[index]
+
     def emails
-      @email = Email.new
+      @email = CustomEmail.new
       set_view_vars
     end
 
     def create
-      @email = Email.new email_params
+      @email = CustomEmail.new email_params
       if @email.valid?
         selection = Seller.with_mailing.where(id: @email.sellers)
         send_mails(selection)
@@ -19,7 +21,19 @@ module Admin
       end
     end
 
+    def index
+      @emails = @seller.emails.order(created_at: :desc).page(@page)
+    end
+
+    def show
+      @email = Email.find params[:id]
+    end
+
     private
+
+    def set_seller
+      @seller = Seller.find params[:seller_id]
+    end
 
     def set_view_vars
       @sellers = Seller.with_mailing
@@ -55,7 +69,7 @@ module Admin
     end
 
     def email_params
-      params.require(:email).permit(:subject, :body, sellers: [])
+      params.require(:custom_email).permit(:subject, :body, sellers: [])
     end
   end
 end

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
+  post 'mail', to: 'mail#receive', as: :receive_mail
+
   get 'pages/home'
   get 'pages/index'
   get 'pages/contact'
@@ -55,7 +57,10 @@ Rails.application.routes.draw do
         get :bill
       end
     end
-    resources :sellers
+    resources :sellers do
+      resources :emails, only: [:index]
+    end
+    resources :emails, only: [:show]
     resources :categories
     resources :stock_items do
       collection do

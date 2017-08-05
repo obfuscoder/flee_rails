@@ -8,6 +8,44 @@ module Admin
     let(:user) { create :user }
     before { login_user user }
 
+    describe 'GET index' do
+      let(:seller) { create :seller }
+      let!(:emails) { create_list :email, 5, seller: seller }
+      before { get :index, seller_id: seller.id }
+
+      describe '@seller' do
+        subject { assigns :seller }
+        it { is_expected.to eq seller }
+      end
+
+      describe '@emails' do
+        subject { assigns :emails }
+        it { is_expected.to all(satisfy { |e| emails.include? e }) }
+      end
+
+      describe 'response' do
+        subject { response }
+        it { is_expected.to have_http_status :ok }
+        it { is_expected.to render_template :index }
+      end
+    end
+
+    describe 'GET show' do
+      let(:email) { create :email }
+      before { get :show, id: email.id }
+
+      describe '@email' do
+        subject { assigns :email }
+        it { is_expected.to eq email }
+      end
+
+      describe 'response' do
+        subject { response }
+        it { is_expected.to have_http_status :ok }
+        it { is_expected.to render_template :show }
+      end
+    end
+
     describe 'GET emails' do
       let!(:active_seller) { create :seller, active: true }
       let!(:inactive_seller) { create :seller, active: false }
@@ -29,7 +67,7 @@ module Admin
 
       describe '@email' do
         subject { assigns :email }
-        it { is_expected.to be_a_new Email }
+        it { is_expected.to be_a CustomEmail }
       end
 
       describe '@sellers' do
@@ -56,7 +94,7 @@ module Admin
       let(:body) { 'body' }
       let(:from) { Settings.brands.demo.mail.from }
       let(:seller) { create :seller }
-      let(:params) { { email: { subject: subject, body: body, sellers: [seller.id] } } }
+      let(:params) { { custom_email: { subject: subject, body: body, sellers: [seller.id] } } }
       before do
         allow(SellerMailer).to receive(:custom).and_return(double(deliver_later: true))
         post :create, params

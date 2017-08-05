@@ -1,0 +1,8 @@
+- content_for :title, @email.subject
+%h4
+  Von:
+  = @email.from
+%h4
+  An:
+  = @email.to
+%p= markdown(@email.body)

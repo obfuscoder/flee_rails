@@ -17,6 +17,7 @@
       %td= seller.active
       %td.btn-group
         = icon_link_to t('show'), [:admin, seller], type: :primary, icon: :eye_open
+        = icon_link_to t('.emails'), admin_seller_emails_path(seller), type: :info, icon: :envelope
         = icon_link_to t('edit'), edit_admin_seller_path(seller), type: :success, icon: :pencil
         = icon_link_to t('destroy'), [:admin, seller], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.delete.confirm', seller: seller) }
 %p= paginate @sellers

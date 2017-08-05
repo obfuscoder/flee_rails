@@ -1,0 +1,15 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= Email.human_attribute_name :from
+    %th= Email.human_attribute_name :subject
+    %th= Email.human_attribute_name :date
+    %th
+  - @emails.each_with_index do |email|
+    %tr
+      %td= email.from
+      %td= email.subject
+      %td= time_ago_in_words(email.created_at)
+      %td.btn-group
+        = icon_link_to t('show'), admin_email_path(email), type: :primary, icon: :eye_open
+%p= paginate @emails, seller_id: @seller.id
