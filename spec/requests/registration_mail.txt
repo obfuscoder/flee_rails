@@ -1,0 +1,90 @@
+Delivered-To: info@flohmarkthelfer.de
+Received: by 10.107.137.164 with SMTP id t36csp3168855ioi;
+        Mon, 7 Aug 2017 11:14:31 -0700 (PDT)
+X-Received: by 10.28.155.84 with SMTP id d81mr1109371wme.160.1502129671144;
+        Mon, 07 Aug 2017 11:14:31 -0700 (PDT)
+Return-Path: <demo@flohmarkthelfer.de>
+Received: from mis60.de (mis60.de. [178.254.62.11])
+        by mx.google.com with ESMTP id w16si1320004wmw.245.2017.08.07.11.14.30
+        for <info@flohmarkthelfer.de>;
+        Mon, 07 Aug 2017 11:14:31 -0700 (PDT)
+Received-SPF: pass (google.com: domain of demo@flohmarkthelfer.de designates 178.254.62.11 as permitted sender) client-ip=178.254.62.11;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of demo@flohmarkthelfer.de designates 178.254.62.11 as permitted sender) smtp.mailfrom=demo@flohmarkthelfer.de
+Received: from flohmarkthelfer.de (flohmarkthelfer.de [5.1.82.216]) by mis60.de (Postfix) with ESMTP id B070F2653528 for <info@flohmarkthelfer.de>; Mon,
+  7 Aug 2017 20:00:38 +0200 (CEST)
+Received: by flohmarkthelfer.de (Postfix, from userid 1000) id AE0EFD7C002F; Mon,
+  7 Aug 2017 20:14:30 +0200 (CEST)
+Date: Mon, 07 Aug 2017 20:14:30 +0200
+From: Erika Mustermann <erika.mustermann@flohmarkthelfer.de>
+To: info@flohmarkthelfer.de
+Message-ID: <5988ae06a99b4_406e25ae68040458@flohmarkthelfer.mail>
+Subject: RE: Registrierungsbestätigung
+Mime-Version: 1.0
+Content-Type: multipart/alternative; boundary="--==_mimepart_5988ae06a7b92_406e25ae68040320"; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+----==_mimepart_5988ae06a7b92_406e25ae68040320
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Sehr geehrter Flohmarkt Interessent/sehr geehrte Interessentin,
+
+Sie haben sich auf unserer Webseite mit den folgenden Daten registriert:
+
+Erika Mustermann =20
+Musterstra=C3=9Fe 123 =20
+12345 Musterstadt =20
+Tel.: 0815/4711 =20
+Mail: erika.mustermann@flohmarkthelfer.de
+
+Um Ihre Registrierung abzuschlie=C3=9Fen, klicken Sie bitte auf den folgend=
+en Link:
+
+[Zum gesch=C3=BCtzten Bereich](http://demo.flohmarkthelfer.de/sellers/login=
+/EGCmYJbNkb7tENus41HZaA)
+
+=C3=9Cber diesen Link gelangen Sie zu Ihrem gesch=C3=BCtzten Bereich zum Be=
+arbeiten Ihrer pers=C3=B6nlichen Daten sowie zum Bearbeiten Ihrer Artikel z=
+um Verkauf auf Kommissionsflohm=C3=A4rkten sowie zum Reservieren bei aktuel=
+len Flohm=C3=A4rkten.
+
+**Bitte bewahren Sie diesen Link gut auf und schicken Sie diesen nicht an D=
+ritte weiter.**
+
+Viele Gr=C3=BC=C3=9Fe, =20
+Ihr Flohmarkt-Team
+
+----==_mimepart_5988ae06a7b92_406e25ae68040320
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p>Sehr geehrter Flohmarkt Interessent/sehr geehrte Interessentin,</p>
+
+<p>Sie haben sich auf unserer Webseite mit den folgenden Daten registriert:=
+</p>
+
+<p>Erika Mustermann<br />
+Musterstra=C3=9Fe 123<br />
+12345 Musterstadt<br />
+Tel.: 0815/4711<br />
+Mail: erika.mustermann@flohmarkthelfer.de</p>
+
+<p>Um Ihre Registrierung abzuschlie=C3=9Fen, klicken Sie bitte auf den folg=
+enden Link:</p>
+
+<p><a href=3D"http://demo.flohmarkthelfer.de/sellers/login/EGCmYJbNkb7tENus=
+41HZaA">Zum gesch=C3=BCtzten Bereich</a></p>
+
+<p>=C3=9Cber diesen Link gelangen Sie zu Ihrem gesch=C3=BCtzten Bereich zum=
+ Bearbeiten Ihrer pers=C3=B6nlichen Daten sowie zum Bearbeiten Ihrer Artike=
+l zum Verkauf auf Kommissionsflohm=C3=A4rkten sowie zum Reservieren bei akt=
+uellen Flohm=C3=A4rkten.</p>
+
+<p><strong>Bitte bewahren Sie diesen Link gut auf und schicken Sie diesen n=
+icht an Dritte weiter.</strong></p>
+
+<p>Viele Gr=C3=BC=C3=9Fe,<br />
+Ihr Flohmarkt-Team</p>
+
+----==_mimepart_5988ae06a7b92_406e25ae68040320--

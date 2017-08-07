@@ -7,7 +7,7 @@ class CreateEmail
 
   def call(sent)
     seller_mail = sent ? @message.to.first : @message.from.first
-    seller = Seller.find_by email: seller_mail
+    seller = Seller.find_by! email: seller_mail
     Email.create! kind: :custom, seller: seller, sent: sent, message_id: @message.message_id,
                   subject: @message.subject, to: @message.to.first, from: @message.from.first, body: body(@message)
   end
