@@ -15,7 +15,12 @@ class CreateEmail
   private
 
   def body(message)
-    find_text(message).decoded
+    strip_four_byte_chars(find_text(message).decoded)
+  end
+
+  def strip_four_byte_chars(text)
+    return nil if text.nil?
+    text.each_char.select {|c| c.bytes.count < 4}.join('')
   end
 
   def find_text(message)
