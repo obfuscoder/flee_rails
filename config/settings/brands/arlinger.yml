@@ -76,7 +76,7 @@ brands:
       **20% des Umsatzes sind ausschließlich für die Kinder- und Jugendarbeit in der Matthäusgemeinde
       bestimmt. Alle beteiligten Personen arbeiten ehrenamtlich.**
     mail:
-      from: Kinderflohmarkt der Matthäusgemeinde <info@kinderflohmarkt-arlinger.de>
+      from: Kinderflohmarkt der Matthäusgemeinde <matthaeusgemeinde@flohmarkthelfer.de>
     price_precision: 0.5
     commission_rate: 0.2
     seller_fee: 2.5

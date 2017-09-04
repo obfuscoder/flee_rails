@@ -79,7 +79,7 @@ brands:
       Als Unkostenbeitrag behalten wir 20% des Umsatzes ein, der nach Abzug der Kosten
       dem Kindergarten gespendet wird.
     mail:
-      from: Flohmarkt Ersingen <info@flohmarkt-ersingen.de>
+      from: Flohmarkt Ersingen <ersingen@flohmarkthelfer.de>
     price_precision: 0.1
     commission_rate: 0.2
     seller_fee: 2.0
