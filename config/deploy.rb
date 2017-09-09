@@ -23,7 +23,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml',
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp', 'backup', 'public/download', 'public/docs')
 
 set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
-set :puma_threads, [4, 16]
-set :puma_workers, 2
+set :puma_threads, [1, 1]
+set :puma_workers, 4
 set :puma_bind, 'tcp://127.0.0.1:9292'
 set :rvm_ruby_string, :local
