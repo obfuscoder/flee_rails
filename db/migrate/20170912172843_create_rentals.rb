@@ -3,9 +3,11 @@ class CreateRentals < ActiveRecord::Migration
     create_table :rentals do |t|
       t.timestamps null: false
 
-      t.references :hardware, references: :hardware, index: true, foreign_key: true
-      t.references :event, index: true, foreign_key: true
+      t.references :hardware, index: true
+      t.references :event, index: true
       t.integer :amount
     end
+
+    add_foreign_key :rentals, :hardware, column: :hardware_id
   end
 end
