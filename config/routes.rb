@@ -46,10 +46,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '', controller: :pages, action: :home
-    resources :events do
+    resources :events, except: :destroy do
       resources :reviews
       resources :reservations
       resources :suspensions
+      resources :rentals
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats

@@ -67,14 +67,6 @@ module Admin
 
     def bill; end
 
-    def destroy
-      if Event.destroy params[:id]
-        redirect_to admin_events_path, notice: t('.success')
-      else
-        redirect_to admin_events_path, alert: t('.failure')
-      end
-    end
-
     private
 
     def event_params

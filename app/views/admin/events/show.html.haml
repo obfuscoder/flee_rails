@@ -31,7 +31,8 @@
 
 = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil
 = link_to 'Reservierungen', admin_event_reservations_path(@event), type: :primary
-= link_to 'Sperren', admin_event_suspensions_path(@event), type: :primary
+= link_to 'Sperren', admin_event_suspensions_path(@event), type: :primary, icon: :lock
+= link_to 'Leihgeräte', admin_event_rentals_path(@event), type: :primary
 = link_to 'Statistiken', stats_admin_event_path(@event), type: :primary, icon: :signal
 = link_to 'Daten herunterladen', data_admin_event_path(@event, format: :json), type: :primary, icon: :download
 = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart

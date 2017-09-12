@@ -16,5 +16,4 @@
       %td.btn-group
         = icon_link_to t('show'), [:admin, event], type: :primary, icon: :eye_open
         = icon_link_to t('edit'), edit_admin_event_path(event), type: :success, icon: :pencil
-        = icon_link_to t('destroy'), [:admin, event], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
 %p= paginate @events

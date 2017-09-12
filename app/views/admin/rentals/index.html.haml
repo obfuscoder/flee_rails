@@ -1,0 +1,18 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= Hardware.human_attribute_name :description
+    %th= Hardware.human_attribute_name :price
+    %th= Rental.human_attribute_name :amount
+    %th= link_to t('.new'), new_admin_event_rental_path(@event), type: :primary, icon: :file
+  - @rentals.each do |rental|
+    %tr
+      %td= rental.hardware.description
+      %td= number_to_currency(rental.hardware.price)
+      %td= rental.amount
+      %td
+        = icon_link_to t('edit'), edit_admin_event_rental_path(@event, rental), type: :primary, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, @event, rental], method: :delete,
+                                                            type: :danger,
+                                                            icon: :trash,
+                                                            data: { confirm: t('sure') }

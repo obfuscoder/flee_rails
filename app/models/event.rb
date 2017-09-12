@@ -2,16 +2,17 @@
 
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
-  has_many :reservations, dependent: :destroy
+  has_many :reservations
   has_many :reviews, through: :reservations
-  has_many :notifications, dependent: :destroy
-  has_many :messages, dependent: :destroy
-  has_many :suspensions, dependent: :destroy
+  has_many :notifications
+  has_many :messages
+  has_many :suspensions
+  has_many :rentals
   has_many :sold_stock_items
   has_many :stock_items, through: :sold_stock_items
-  has_many :handover_periods, -> { where(kind: :handover).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
-  has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
-  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod', dependent: :destroy
+  has_many :handover_periods, -> { where(kind: :handover).order(:min) }, class_name: 'TimePeriod'
+  has_many :shopping_periods, -> { where(kind: :shopping).order(:min) }, class_name: 'TimePeriod'
+  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod'
 
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank

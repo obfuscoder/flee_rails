@@ -35,6 +35,8 @@ de:
       user:
         create: Anmelden
         update: Änderungen speichern
+      rental:
+        create: Leihe anlegen
   reviews:
     new:
       title: Bewertung
@@ -227,6 +229,20 @@ de:
         title: Sperre bearbeiten
       update:
         success: Sperre aktualisiert
+    rentals:
+      index:
+        title: Leihgeräte
+        new: Neue Leihe
+      new:
+        title: Neue Leihe
+      edit:
+        title: Leihe bearbeiten
+      create:
+        success: Leihe erfolgreich angelegt
+      update:
+        success: Leihe erfolgreich aktualisiert
+      destroy:
+        success: Leihe erfolgreich gelöscht
     reviews:
       index:
         title: Bewertungen
@@ -364,6 +380,8 @@ de:
       label: Etikett
       email: Mail
       custom_email: Mail
+      hardware: Gerät
+      rental: Leihe
     attributes:
       category:
         name: Name
@@ -463,6 +481,12 @@ de:
       time_period:
         min: von
         max: bis
+      hardware:
+        description: Beschreibung
+        price: Leihgebühr
+      rental:
+        amount: Anzahl
+        hardware: Gerät
     errors:
       models:
         reservation:

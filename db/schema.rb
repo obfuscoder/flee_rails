@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805093440) do
+ActiveRecord::Schema.define(version: 20170912172843) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 20170805093440) do
 
   add_index "events", ["token"], name: "index_events_on_token", unique: true
 
+  create_table "hardware", force: :cascade do |t|
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "description"
+    t.decimal  "price",       precision: 5, scale: 1
+  end
+
+  add_index "hardware", ["description"], name: "index_hardware_on_description", unique: true
+
   create_table "items", force: :cascade do |t|
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -108,6 +117,17 @@ ActiveRecord::Schema.define(version: 20170805093440) do
   add_index "notifications", ["event_id", "seller_id"], name: "index_notifications_on_event_id_and_seller_id", unique: true
   add_index "notifications", ["event_id"], name: "index_notifications_on_event_id"
   add_index "notifications", ["seller_id"], name: "index_notifications_on_seller_id"
+
+  create_table "rentals", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "hardware_id"
+    t.integer  "event_id"
+    t.integer  "amount"
+  end
+
+  add_index "rentals", ["event_id"], name: "index_rentals_on_event_id"
+  add_index "rentals", ["hardware_id"], name: "index_rentals_on_hardware_id"
 
   create_table "reservations", force: :cascade do |t|
     t.datetime "created_at",                                      null: false

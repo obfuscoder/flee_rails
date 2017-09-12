@@ -1,0 +1,8 @@
+- content_for :title, t('.title')
+= simple_form_for [:admin, @event, @rental] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :amount
+
+  .form-actions
+    = f.button :submit

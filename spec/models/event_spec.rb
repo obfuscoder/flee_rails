@@ -7,11 +7,12 @@ RSpec.describe Event do
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of :name }
-  it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than(0) }
-  it { is_expected.to have_many(:reservations).dependent(:destroy) }
+  it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than 0 }
+  it { is_expected.to have_many :reservations }
   it { is_expected.to have_many(:reviews).through(:reservations) }
-  it { is_expected.to have_many(:notifications).dependent(:destroy) }
-  it { is_expected.to have_many(:suspensions).dependent(:destroy) }
+  it { is_expected.to have_many :notifications }
+  it { is_expected.to have_many :suspensions }
+  it { is_expected.to have_many :rentals }
   it { is_expected.to have_many(:stock_items).through(:sold_stock_items) }
 
   describe '#to_s' do

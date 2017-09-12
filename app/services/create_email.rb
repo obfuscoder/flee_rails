@@ -20,7 +20,7 @@ class CreateEmail
 
   def strip_four_byte_chars(text)
     return nil if text.nil?
-    text.each_char.select {|c| c.bytes.count < 4}.join('')
+    text.each_char.select { |c| c.bytes.count < 4 }.join('')
   end
 
   def find_text(message)

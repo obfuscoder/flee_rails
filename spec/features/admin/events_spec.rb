@@ -10,12 +10,11 @@ RSpec.feature 'admin events' do
     click_on 'Termine'
   end
 
-  scenario 'shows list of events with buttons for show, edit and delete' do
+  scenario 'shows list of events with buttons for show, edit' do
     events.each do |event|
       expect(page).to have_content event.name
       expect(page).to have_link 'Anzeigen', href: admin_event_path(event)
       expect(page).to have_link 'Bearbeiten', href: edit_admin_event_path(event)
-      expect(page).to have_link 'Löschen', href: admin_event_path(event)
     end
   end
 
@@ -60,12 +59,6 @@ RSpec.feature 'admin events' do
   scenario 'commission rate defaults to brand setting when creating event' do
     click_on 'Neuer Termin'
     expect(find_field('Umsatzanteil für Kommission').value).to eq '0.2'
-  end
-
-  scenario 'delete event' do
-    event = events.first
-    click_link 'Löschen', href: admin_event_path(event)
-    expect(page).to have_content 'Termin gelöscht.'
   end
 
   feature 'edit event' do
