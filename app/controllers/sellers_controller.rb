@@ -37,6 +37,7 @@ class SellersController < ApplicationController
   end
 
   def destroy
+    current_seller.reservations
     current_seller.destroy
     reset_session
     redirect_to pages_deleted_path

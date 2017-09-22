@@ -38,10 +38,15 @@ module Admin
 
     def send_mails_to_reservations(type, reservations, options)
       reservations.each do |reservation|
-        if block_given?
-          SellerMailer.send(type, reservation, yield(reservation), options).deliver_later
-        else
-          SellerMailer.send(type, reservation, options).deliver_later
+        begin
+          if block_given?
+            SellerMailer.send(type, reservation, yield(reservation), options).deliver_later
+          else
+            SellerMailer.send(type, reservation, options).deliver_later
+          end
+        rescue => e
+          logger.error e.message
+          logger.error e.backtrace.join("\n")
         end
       end
     end
