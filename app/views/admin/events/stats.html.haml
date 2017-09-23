@@ -47,7 +47,9 @@
             %tr
               %td= sold_stock_item.stock_item.description
               %td= sold_stock_item.amount
-  %li Umsatz: #{number_to_currency(@event.sold_item_sum)}
+  %li Artikelumsatz: #{number_to_currency(@event.sold_item_sum)}
+  %li Reservierungsgebühren: #{number_to_currency(@event.reservation_fees_sum)}
+  %li Gesamtumsatz: #{number_to_currency(@event.revenue)}
 %h3 Verkäufer
 %ul
   %li

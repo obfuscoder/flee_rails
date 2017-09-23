@@ -10,6 +10,8 @@ RSpec.describe 'admin/events/stats' do
            items_with_label_count: 8,
            sold_item_count: 6,
            sold_item_sum: 3.5,
+           reservation_fees_sum: 12.5,
+           revenue: 14.5,
            sold_stock_item_count: 27,
            sold_item_percentage: 60,
            items_per_category: [

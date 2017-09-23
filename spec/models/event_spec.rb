@@ -171,6 +171,25 @@ RSpec.describe Event do
       subject { event.sold_item_sum }
       it { is_expected.to eq 38.5 }
     end
+
+    describe '#reservation_fees_sum' do
+      subject { event.reservation_fees_sum }
+      let!(:reservation2) { create :reservation, event: event, fee: 10 }
+      it { is_expected.to eq 12 }
+    end
+
+    describe '#revenue' do
+      subject { event.revenue }
+      let!(:reservation2) { create :reservation, event: event, fee: 10 }
+      let(:price) { 3.5 }
+      let(:sold_item_count) { 3 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, price: price, reservation: reservation }
+      let(:stock_items) { create_list :stock_item, 4, price: price }
+      let!(:sold_stock_items) do
+        stock_items.map { |e| create :sold_stock_item, stock_item: e, event: event, amount: 2 }
+      end
+      it { is_expected.to eq 50.5 }
+    end
   end
 
   describe '#sold_stock_item_count' do

@@ -84,6 +84,14 @@ class Event < ActiveRecord::Base
       sold_stock_items.joins(:stock_item).sum('price * amount')
   end
 
+  def reservation_fees_sum
+    reservations.all.map(&:fee).sum
+  end
+
+  def revenue
+    reservation_fees_sum + sold_item_sum
+  end
+
   def sold_stock_item_count
     sold_stock_items.map(&:amount).inject(:+)
   end
