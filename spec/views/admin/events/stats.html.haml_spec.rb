@@ -12,6 +12,9 @@ RSpec.describe 'admin/events/stats' do
            sold_item_sum: 3.5,
            reservation_fees_sum: 12.5,
            revenue: 14.5,
+           rental_fees: 15,
+           system_fees: 0.14,
+           total_fees: 15.14,
            sold_stock_item_count: 27,
            sold_item_percentage: 60,
            items_per_category: [

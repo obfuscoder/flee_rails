@@ -92,6 +92,18 @@ class Event < ActiveRecord::Base
     reservation_fees_sum + sold_item_sum
   end
 
+  def rental_fees
+    rentals.all.map { |r| r.amount * r.hardware.price }.sum
+  end
+
+  def system_fees
+    revenue / 100
+  end
+
+  def total_fees
+    rental_fees + system_fees
+  end
+
   def sold_stock_item_count
     sold_stock_items.map(&:amount).inject(:+)
   end

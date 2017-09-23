@@ -190,6 +190,41 @@ RSpec.describe Event do
       end
       it { is_expected.to eq 50.5 }
     end
+
+    describe '#system_fees' do
+      subject { event.system_fees }
+      let!(:reservation2) { create :reservation, event: event, fee: 10 }
+      let(:price) { 3.5 }
+      let(:sold_item_count) { 3 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, price: price, reservation: reservation }
+      let(:stock_items) { create_list :stock_item, 4, price: price }
+      let!(:sold_stock_items) do
+        stock_items.map { |e| create :sold_stock_item, stock_item: e, event: event, amount: 2 }
+      end
+      it { is_expected.to eq 0.505 }
+    end
+
+    describe '#rental_fees' do
+      subject { event.rental_fees }
+      let!(:scanner) { create :rental, event: event, hardware: create(:scanner), amount: 2 }
+      let!(:router) { create :rental, event: event, hardware: create(:router) }
+      it { is_expected.to eq 15 }
+    end
+
+    describe '#total_fees' do
+      subject { event.total_fees }
+      let!(:reservation2) { create :reservation, event: event, fee: 10 }
+      let(:price) { 3.5 }
+      let(:sold_item_count) { 3 }
+      let!(:sold_items) { create_list :sold_item, sold_item_count, price: price, reservation: reservation }
+      let(:stock_items) { create_list :stock_item, 4, price: price }
+      let!(:sold_stock_items) do
+        stock_items.map { |e| create :sold_stock_item, stock_item: e, event: event, amount: 2 }
+      end
+      let!(:scanner) { create :rental, event: event, hardware: create(:scanner), amount: 2 }
+      let!(:router) { create :rental, event: event, hardware: create(:router) }
+      it { is_expected.to eq 15.505 }
+    end
   end
 
   describe '#sold_stock_item_count' do

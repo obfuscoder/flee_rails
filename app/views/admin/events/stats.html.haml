@@ -50,6 +50,9 @@
   %li Artikelumsatz: #{number_to_currency(@event.sold_item_sum)}
   %li Reservierungsgebühren: #{number_to_currency(@event.reservation_fees_sum)}
   %li Gesamtumsatz: #{number_to_currency(@event.revenue)}
+  %li Leihgebühren: #{number_to_currency(@event.rental_fees)}
+  %li Systemgebühren: #{number_to_currency(@event.system_fees)}
+  %li Gesamtgebühren: #{number_to_currency(@event.total_fees)}
 %h3 Verkäufer
 %ul
   %li
