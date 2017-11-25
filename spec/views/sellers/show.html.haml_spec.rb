@@ -29,13 +29,13 @@ RSpec.describe 'sellers/show' do
   end
 
   it 'links to edit_seller_path' do
-    assert_select +'a[href=?]', edit_seller_path
+    assert_select(+'a[href=?]', edit_seller_path)
   end
 
   context 'with event' do
     let(:event) { create :event_with_ongoing_reservation }
     it 'links to reservation' do
-      assert_select +'a[href=?][data-method=?]', event_reservations_path(event), 'post'
+      assert_select(+'a[href=?][data-method=?]', event_reservations_path(event), 'post')
     end
     it 'shows number of reservations left and max sellers' do
       expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
@@ -48,25 +48,25 @@ RSpec.describe 'sellers/show' do
       end
 
       it 'does not link to reservation' do
-        assert_select +'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
+        assert_select(+'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0)
       end
     end
 
     context 'when event is full' do
       let(:event) { create :full_event }
       it 'does not link to reservation' do
-        assert_select +'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0
+        assert_select(+'a[href=?][data-method=?]', event_reservations_path(event), 'post', 0)
       end
       context 'when seller is not notified yet' do
         it 'links to notification' do
-          assert_select +'a[href=?][data-method=?]', event_notification_path(event), 'post', 1
+          assert_select(+'a[href=?][data-method=?]', event_notification_path(event), 'post', 1)
         end
       end
       context 'when seller is notified already' do
         let(:notification) { build :notification, seller: seller }
         let(:event) { create :full_event, notifications: [notification] }
         it 'does not link to notification' do
-          assert_select +'a[href=?][data-method=?]', event_notification_path(event), 'post', 0
+          assert_select(+'a[href=?][data-method=?]', event_notification_path(event), 'post', 0)
         end
       end
     end
@@ -96,15 +96,15 @@ RSpec.describe 'sellers/show' do
 
     context 'with reservation phase ongoing' do
       it 'allows deletion of reservation' do
-        assert_select +'a[href=?][data-method=?]', event_reservation_path(reservation.event, reservation), 'delete'
+        assert_select(+'a[href=?][data-method=?]', event_reservation_path(reservation.event, reservation), 'delete')
       end
 
       it 'does not link to event statistics page' do
-        assert_select +'a[href=?]', event_path(reservation.event), 0
+        assert_select(+'a[href=?]', event_path(reservation.event), 0)
       end
 
       it 'does not link to new event review page' do
-        assert_select +'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
+        assert_select(+'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0)
       end
 
       context 'with event kind commissioned' do
@@ -133,19 +133,19 @@ RSpec.describe 'sellers/show' do
 
       context 'without review' do
         it 'links to new event review page' do
-          assert_select +'a[href=?]', new_event_reservation_review_path(reservation.event, reservation)
+          assert_select(+'a[href=?]', new_event_reservation_review_path(reservation.event, reservation))
         end
       end
 
       context 'with review' do
         let(:reservation) { create(:reservation).tap(&:build_review) }
         it 'does not link to new event review page' do
-          assert_select +'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
+          assert_select(+'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0)
         end
       end
 
       it 'links to event results page' do
-        assert_select +'a[href=?]', event_path(reservation.event)
+        assert_select(+'a[href=?]', event_path(reservation.event))
       end
     end
 
@@ -158,11 +158,11 @@ RSpec.describe 'sellers/show' do
       end
 
       it 'does not link to event statistics page' do
-        assert_select +'a[href=?]', event_path(reservation.event), 0
+        assert_select(+'a[href=?]', event_path(reservation.event), 0)
       end
 
       it 'does not link to new event review page' do
-        assert_select +'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0
+        assert_select(+'a[href=?]', new_event_reservation_review_path(reservation.event, reservation), 0)
       end
     end
   end
