@@ -63,6 +63,7 @@ gem 'config'
 gem 'groupdate' # for statistics grouped by date
 gem 'haml-rails'
 gem 'jbuilder'
+gem 'mail', '<2.7' # breaking changes in parsing emails
 gem 'maildown'
 gem 'momentjs-rails'
 gem 'paranoia', '< 2.2' # soft delete records, 2.2+ is for rails 5
