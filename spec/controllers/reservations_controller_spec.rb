@@ -14,7 +14,7 @@ describe ReservationsController do
 
     before do
       expect(subject).to receive(:current_seller).and_return seller
-      expect(Reservations::CreateReservation).to receive(:new).and_return creator
+      expect(CreateReservation).to receive(:new).and_return creator
       expect(creator).to receive(:create).with(event, seller, {}, options).and_return reservation
       action
     end

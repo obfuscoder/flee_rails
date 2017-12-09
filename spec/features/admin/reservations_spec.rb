@@ -70,24 +70,5 @@ RSpec.feature 'admin event reservations' do
   context 'with sellers on notification list' do
     let(:selection) { sellers.take(2) }
     let!(:notifications) { selection.map { |seller| create :notification, event: event, seller: seller } }
-
-    scenario 'freeing a reservation notifies sellers on notification list' do
-      click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
-      selection.each do |seller|
-        open_email seller.email
-        expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
-        expect(current_email.body).to have_link 'Verkäuferplatz reservieren',
-                                                href: login_seller_url(seller.token, goto: :reserve, event: event)
-      end
-      expect(Notification.count).to be_zero
-    end
-
-    context 'with more reservations than max sellers' do
-      let(:number_of_reservations) { 10 }
-      scenario 'freeing a reservation does not notify sellers on notification list' do
-        click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
-        expect(Notification.count).not_to be_zero
-      end
-    end
   end
 end

@@ -14,4 +14,8 @@ module EventsHelper
   def pickup_time(event)
     period event.pickup_periods, exact: true
   end
+
+  def waiting_list_position(event, seller)
+    event.notifications.order(:id).pluck(:seller_id).index(seller.id) + 1
+  end
 end

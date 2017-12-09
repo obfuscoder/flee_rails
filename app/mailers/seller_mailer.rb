@@ -12,15 +12,6 @@ class SellerMailer < ActionMailer::Base
     mail(__method__)
   end
 
-  def notification(notification, options)
-    @seller = notification.seller
-    @from = options[:from]
-    @event = notification.event
-    @login_url = login_seller_url @seller.token, host: options[:host]
-    @reserve_url = login_seller_url @seller.token, goto: :reserve, event: @event, host: options[:host]
-    mail(__method__)
-  end
-
   def reservation(reservation, options)
     @seller = reservation.seller
     @from = options[:from]

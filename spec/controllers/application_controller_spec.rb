@@ -3,6 +3,28 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController do
+  describe '#auto_reserve' do
+    controller do
+      def perform_action(event)
+        auto_reserve(event)
+      end
+    end
+    let(:event) { create :event_with_ongoing_reservation, max_sellers: 1 }
+    context 'with two notifications' do
+      let!(:notifications) { create_list :notification, 2, event: event }
+      it 'creates reservation for first notification and keeps last notification' do
+        create_reservation = double(:create_reservation)
+        first_seller = notifications.first.seller
+        last_notification = notifications.last
+        expect(CreateReservation).to receive(:new).and_return create_reservation
+        expect(create_reservation).to receive(:create).with(event, first_seller, anything, anything)
+        subject.perform_action(event)
+        expect(Notification.count).to eq 1
+        expect(Notification.first).to eq last_notification
+      end
+    end
+  end
+
   describe '#create_label_document' do
     controller do
       def create_labels(items)

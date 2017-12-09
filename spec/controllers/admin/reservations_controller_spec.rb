@@ -64,7 +64,7 @@ module Admin
         expect(creator).to receive(:create).with(instance_of(Event), instance_of(Seller),
                                                  hash_including(context: :admin),
                                                  hash_including(host: 'test.host')).twice.and_return reservation
-        expect(Reservations::CreateReservation).to receive(:new).and_return creator
+        expect(CreateReservation).to receive(:new).and_return creator
         action
       end
 

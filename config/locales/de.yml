@@ -145,7 +145,7 @@ de:
     create:
       success: >
         Sie wurden auf der Warteliste eingetragen.
-        Sie erhalten eine eMail, sobald ein Verkäuferplatz freigeworden ist.
+        Sie erhalten automatisch eine Reservierung und eMail, sobald ein Verkäuferplatz freigeworden ist.
   admin:
     unauthorized: Bitte melden Sie sich an.
     sessions:

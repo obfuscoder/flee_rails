@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Reservations::CreateReservation do
+RSpec.describe CreateReservation do
   subject(:instance) { described_class.new }
   describe '#create' do
     let(:event) { double }

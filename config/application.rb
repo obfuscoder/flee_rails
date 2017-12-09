@@ -32,5 +32,7 @@ module Flee
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     config.middleware.use Rack::Deflater
+
+    config.autoload_paths << "#{Rails.root}/components"
   end
 end

@@ -80,15 +80,6 @@ RSpec.feature 'Seller view area' do
           event.update max_sellers: 1
           create :notification, seller: other_seller, event: event
         end
-
-        scenario 'notifies sellers on notification list when reservation is freed' do
-          click_link 'Reservierung freigeben', href: event_reservation_path(event, reservation)
-          open_email other_seller.email
-          expect(current_email.subject). to eq 'Verkäuferplatz beim Flohmarkt freigeworden'
-          current_email.click_on 'Verkäuferplatz reservieren'
-          expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
-          expect(Notification.count).to be_zero
-        end
       end
     end
   end

@@ -18,7 +18,7 @@ module Admin
 
     def create
       seller_ids = params[:reservation][:seller_id].reject(&:empty?)
-      creator = Reservations::CreateReservation.new
+      creator = CreateReservation.new
       reservations = seller_ids.each do |seller_id|
         creator.create @event, Seller.find(seller_id), { context: :admin },
                        host: request.host, from: brand_settings.mail.from

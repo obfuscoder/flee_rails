@@ -68,6 +68,10 @@ RSpec.describe 'sellers/show' do
         it 'does not link to notification' do
           assert_select(+'a[href=?][data-method=?]', event_notification_path(event), 'post', 0)
         end
+
+        it 'shows position on notification list' do
+          expect(rendered).to have_content 'Position 1'
+        end
       end
     end
   end

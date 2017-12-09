@@ -51,14 +51,17 @@ class ApplicationController < ActionController::Base
   def destroy_reservations(reservations)
     reservations.each do |reservation|
       reservation.destroy
-      notify_for_available_reservations(reservation.event)
+      auto_reserve(reservation.event.reload)
     end
   end
 
-  def notify_for_available_reservations(event)
-    return unless event.reservations.count < event.max_sellers
-    Notification.where(event: event).each do |notification|
-      SellerMailer.notification(notification, host: request.host, from: brand_settings.mail.from).deliver_later
+  def auto_reserve(event)
+    reservation_count = event.reservations.count
+    return unless reservation_count < event.max_sellers
+    event.notifications.order(:id).limit(event.max_sellers - reservation_count).each do |notification|
+      CreateReservation.new.create event, notification.seller, {},
+                                   host: request.host,
+                                   from: brand_settings.mail.from
       notification.destroy
     end
   end
