@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :reservation, aliases: [:ongoing_reservation] do
     event factory: :event_with_ongoing_reservation
     seller

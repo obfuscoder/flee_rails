@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :hardware do
     sequence(:description) { |n| "Hardware #{n}" }
     price 5
