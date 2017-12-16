@@ -40,6 +40,7 @@ module Admin
 
     def update
       if @event.update event_params
+        auto_reserve(@event)
         redirect_to admin_events_path, notice: t('.success')
       else
         render :edit
