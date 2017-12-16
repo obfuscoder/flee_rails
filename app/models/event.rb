@@ -2,9 +2,9 @@
 
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
-  has_many :reservations
+  has_many :reservations, -> { order :id }
   has_many :reviews, through: :reservations
-  has_many :notifications
+  has_many :notifications, -> { order :id }
   has_many :messages
   has_many :suspensions
   has_many :rentals
