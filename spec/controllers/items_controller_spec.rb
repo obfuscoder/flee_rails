@@ -59,7 +59,7 @@ RSpec.describe ItemsController do
     let!(:items) { create_list :item, 25, reservation: reservation }
     let(:options) { {} }
     let(:action) { get :index, options.merge(event_id: event.id, reservation_id: reservation.id) }
-    let(:preparations) {}
+    let(:preparations){}
 
     before do
       preparations

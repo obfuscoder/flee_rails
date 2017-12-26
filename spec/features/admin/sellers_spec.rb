@@ -77,7 +77,7 @@ RSpec.feature 'admin sellers' do
 
     feature 'reservation items' do
       let(:item) { items.first }
-      let(:preparation) {}
+      let(:preparation){}
       background do
         preparation
         click_link 'Artikel', href: admin_reservation_items_path(reservation)

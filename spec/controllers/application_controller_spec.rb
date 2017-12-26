@@ -33,7 +33,7 @@ RSpec.describe ApplicationController do
     end
 
     let(:items) { create_list :item, 5 }
-    let(:preparations) {}
+    let(:preparations){}
     before do
       items
       preparations

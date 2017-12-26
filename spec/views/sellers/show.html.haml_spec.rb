@@ -7,9 +7,9 @@ RSpec.describe 'sellers/show' do
   let!(:seller) { assign :seller, create(:seller, reservations: reservations) }
   let(:reservations) { [reservation].compact }
   let!(:events) { assign :events, [event].compact }
-  let(:reservation) {}
-  let(:event) {}
-  let(:preparations) {}
+  let(:reservation){}
+  let(:event){}
+  let(:preparations){}
 
   it_behaves_like 'a standard view'
 

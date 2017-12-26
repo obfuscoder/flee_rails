@@ -46,7 +46,7 @@ RSpec.feature 'Seller edit area' do
       preparation
       navigate_to_seller_edit_page
     end
-    let(:preparation) {}
+    let(:preparation){}
     scenario 'user blocks emails' do
       click_on 'Ich möchte keine eMails mehr erhalten'
       expect(page).to have_content(/Die Mailbenachrichtigungen wurden für Sie deaktiviert./)

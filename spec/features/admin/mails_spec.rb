@@ -7,7 +7,7 @@ RSpec.feature 'admin emails' do
   include_context 'login'
 
   let!(:sellers) { create_list :seller, 10 }
-  let(:selection) {}
+  let(:selection){}
 
   background do
     selection

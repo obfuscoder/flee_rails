@@ -44,7 +44,7 @@ module Admin
           else
             SellerMailer.send(type, reservation, options).deliver_later
           end
-        rescue => e
+        rescue StandardError => e
           logger.error e.message
           logger.error e.backtrace.join("\n")
         end

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Seller view area' do
   let(:seller) { create :seller }
-  let(:preparation) {}
+  let(:preparation){}
   background do
     preparation
     login

@@ -30,7 +30,7 @@ RSpec.describe Item do
 
   describe '#create_code' do
     let(:options) { {} }
-    let(:preparations) {}
+    let(:preparations){}
     let(:reservation) { create :reservation }
     subject { build :item, reservation: reservation }
     before do

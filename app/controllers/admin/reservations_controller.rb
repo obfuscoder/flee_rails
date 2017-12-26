@@ -55,9 +55,7 @@ module Admin
       result = super
       if result.is_a? String
         column, direction = result.split(/ /)
-        if column == 'sellers.name'
-          return "sellers.first_name #{direction}, sellers.last_name #{direction}"
-        end
+        return "sellers.first_name #{direction}, sellers.last_name #{direction}" if column == 'sellers.name'
       end
       result
     end
