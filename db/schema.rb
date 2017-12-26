@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20170912172843) do
 
   create_table "categories", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.boolean  "donation_enforced"
     t.integer  "max_items_per_seller"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   end
 
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
-  add_index "categories", ["name"], name: "index_categories_on_name", where: "deleted_at IS NULL"
+  add_index "categories", ["name"], name: "index_categories_on_name"
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "emails", ["seller_id"], name: "index_emails_on_seller_id"
 
   create_table "events", force: :cascade do |t|
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.text     "details"
     t.integer  "max_sellers"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "hardware", ["description"], name: "index_hardware_on_description", unique: true
 
   create_table "items", force: :cascade do |t|
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "category_id"
     t.string   "description"
     t.string   "size"
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "messages", ["event_id"], name: "index_messages_on_event_id"
 
   create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "event_id"
     t.integer  "seller_id"
   end
@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "rentals", ["hardware_id"], name: "index_rentals_on_hardware_id"
 
   create_table "reservations", force: :cascade do |t|
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "seller_id"
     t.integer  "event_id"
     t.integer  "number"
@@ -147,8 +147,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "reservations", ["seller_id"], name: "index_reservations_on_seller_id"
 
   create_table "reviews", force: :cascade do |t|
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "registration"
     t.integer  "items"
     t.integer  "print"
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id"
 
   create_table "sellers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "street"
@@ -239,8 +239,8 @@ ActiveRecord::Schema.define(version: 20170912172843) do
   add_index "time_periods", ["kind"], name: "index_time_periods_on_kind"
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email",            null: false
     t.string   "crypted_password"
     t.string   "salt"

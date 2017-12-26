@@ -7,8 +7,9 @@ gem 'jquery-rails'
 gem 'jquery-tablesorter'
 gem 'rails', '~> 4.2'
 gem 'sass-rails'
-gem 'therubyracer', platforms: :ruby
 gem 'uglifier'
+gem 'therubyracer' unless RUBY_PLATFORM =~ /darwin/
+
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 gem 'mysql2', group: :production
 

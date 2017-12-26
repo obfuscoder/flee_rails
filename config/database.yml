@@ -18,10 +18,5 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  database: flohmarkthelfer
-  username: flohmarkthelfer
-  password: flohmarkthelfer
-  host: localhost
-  port: 3306
+  <<: *default
+  database: db/production.sqlite3
