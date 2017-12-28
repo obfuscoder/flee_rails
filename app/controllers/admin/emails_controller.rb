@@ -63,7 +63,7 @@ module Admin
     def send_mails(selection)
       selection.each do |seller|
         SellerMailer.custom(seller, @email.subject, @email.body,
-                            from: brand_settings.mail.from,
+                            from: current_client.mail_from,
                             host: request.host).deliver_later
       end
     end

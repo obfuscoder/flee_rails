@@ -54,15 +54,8 @@ module ApplicationHelper
     options_for_inline_radios.merge collection: { 'Ja' => true, 'Nein' => false, 'egal' => nil }
   end
 
-  def brand_settings
-    Settings.brands[brand_key]
-  end
-
-  def brand_key
-    Settings.hosts.to_h.each do |host_part, brand_key|
-      return brand_key if request.host.ends_with? host_part.to_s
-    end
-    'default'
+  def current_client
+    Client.all.to_a.find { |client| client.host_match?(request.host) } || Settings.default_client
   end
 
   def paginate(collection, params = {})

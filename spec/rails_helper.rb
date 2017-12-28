@@ -22,6 +22,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     DatabaseCleaner.clean_with(:truncation)
+    FactoryBot.create :demo_client
   end
 
   config.before :each do |example|
@@ -34,6 +35,7 @@ RSpec.configure do |config|
   end
 
   Capybara.javascript_driver = :poltergeist
+  Capybara.app_host = "http://#{Settings.domain}"
 
   config.infer_spec_type_from_file_location!
 

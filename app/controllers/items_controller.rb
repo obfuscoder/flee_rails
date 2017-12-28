@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new donation: brand_settings.donation_of_unsold_items_default
+    @item = Item.new donation: current_client.donation_of_unsold_items_default
   end
 
   def edit; end
@@ -77,7 +77,7 @@ class ItemsController < ApplicationController
   end
 
   def enforce_donation(parameters)
-    return parameters unless brand_settings.donation_of_unsold_items_enabled && parameters['category_id'].present?
+    return parameters unless current_client.donation_of_unsold_items && parameters['category_id'].present?
     category = Category.find parameters['category_id']
     parameters['donation'] = '1' if category.donation_enforced
     parameters

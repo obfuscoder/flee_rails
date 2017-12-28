@@ -2,7 +2,7 @@
 
 class PagesController < ApplicationController
   def home
-    return redirect_to :pages_index if brand_key == 'default'
+    return redirect_to :pages_index if Settings.domain == request.host
     @events = Event.current_or_upcoming.joins(:shopping_periods).order('time_periods.min').distinct
   end
 
@@ -15,14 +15,7 @@ class PagesController < ApplicationController
   def deleted; end
 
   def index
-    brands = Settings.brands.to_a
-                     .reject { |e| %i[demo default].include? e.first }
-                     .sort_by! { |e| e.last.prefix.to_i }
-    hosts = Settings.hosts.to_h.invert
-    @brands = brands.map do |e|
-      OpenStruct.new name: e.last.name,
-                     url: "http://#{hosts[e.first.to_s]}"
-    end
+    @clients = Client.where.not(key: 'demo')
     render layout: 'index'
   end
 end

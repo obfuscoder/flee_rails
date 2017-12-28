@@ -80,9 +80,9 @@
   .col-lg-4
     %h3 Flohmärkte
     %ul
-      - @brands.each do |brand|
+      - @clients.each do |client|
         %li
-          %a(href="#{brand.url}") #{brand.name}
+          %a{ href: client.url } #{client.name}
 
 .footer
-  %p &copy; 2014-2017 Lehmann Softwarelösungen GbR
+  %p &copy; 2014-2017 Lehmann Softwarelösungen

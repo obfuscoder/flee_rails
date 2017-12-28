@@ -46,7 +46,7 @@ class Receipt
     @sold_items_sum ||= sold_items.map(&:price).inject(:+) || 0
   end
 
-  def seller_fee
+  def reservation_fee
     - @reservation.fee
   end
 end

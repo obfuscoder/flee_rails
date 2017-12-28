@@ -51,7 +51,7 @@ end
 
 RSpec.describe SellerMailer do
   let(:from) { 'info@flohmarkthelfer.de' }
-  let(:host) { 'www.example.com' }
+  let(:host) { 'test.host' }
   describe '#registration' do
     let(:seller) { build :seller }
     let(:expected_contents) do

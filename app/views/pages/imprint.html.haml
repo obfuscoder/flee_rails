@@ -2,11 +2,11 @@
 
 %p Angaben gemäß § 5 TMG:
 %p
-  - brand_settings.imprint.address.each do |line|
+  - Settings.imprint.address.each do |line|
     = line
     %br
 %h3 Kontakt:
-= brand_settings.imprint.contact
+= Settings.imprint.contact
 :markdown
   ### Haftungsausschluss:
 
@@ -66,4 +66,4 @@
 
   <small>*Quelle: http://www.e-recht24.de*</small>
 
-  Copyright 2013-#{Time.now.year} Kai Lehmann
+  Copyright 2013-#{Time.now.year} Lehmann Softwarelösungen

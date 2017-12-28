@@ -24,7 +24,7 @@ RSpec.feature 'Registrations' do
   end
 
   scenario 'User registers and follows login link in mail' do
-    visit '/'
+    visit 'http://demo.test.host'
     click_on 'Zur Registrierung'
     fill_in_and_submit_registration_form
     expect(page).to have_content 'Registrierung erfolgreich'

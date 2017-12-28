@@ -59,7 +59,7 @@ RSpec.feature 'Viewing and editing items' do
       end
 
       context 'when donation option is enabled' do
-        before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
+        before { Client.first.update donation_of_unsold_items: true }
         it 'shows unchecked donation option' do
           create_item do
             expect(find_field('Spende wenn nicht verkauft')).not_to be_checked
@@ -68,7 +68,7 @@ RSpec.feature 'Viewing and editing items' do
         end
 
         context 'when donation default option is enabled' do
-          before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_default) { true } }
+          before { Client.first.update donation_of_unsold_items_default: true }
           it 'shows checked donation option' do
             create_item do
               expect(find_field('Spende wenn nicht verkauft')).to be_checked
@@ -96,7 +96,7 @@ RSpec.feature 'Viewing and editing items' do
       end
 
       context 'when donation option is disabled' do
-        before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }
+        before { Client.first.update donation_of_unsold_items: false }
         it 'does not show option to donate' do
           create_item do
             expect(page).not_to have_field 'Spende wenn nicht verkauft'
@@ -134,7 +134,7 @@ RSpec.feature 'Viewing and editing items' do
         end
 
         context 'when donation option is enabled' do
-          before { allow(Settings.brands.default).to receive(:donation_of_unsold_items_enabled) { true } }
+          before { Client.first.update donation_of_unsold_items: true }
           context 'when donation is enforced' do
             let!(:category) { create :category_with_enforced_donation }
             it 'does not allow to disable donation option' do

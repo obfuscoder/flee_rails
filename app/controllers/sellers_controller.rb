@@ -92,12 +92,12 @@ class SellersController < ApplicationController
     return if seller.active
     seller.update active: true
     Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation).each do |event|
-      SellerMailer.invitation(seller, event, host: request.host, from: brand_settings.mail.from).deliver_later
+      SellerMailer.invitation(seller, event, host: request.host, from: current_client.mail_from).deliver_later
     end
   end
 
   def send_registration_mail(seller)
-    SellerMailer.registration(seller, host: request.host, from: brand_settings.mail.from).deliver_later
+    SellerMailer.registration(seller, host: request.host, from: current_client.mail_from).deliver_later
   end
 
   def resend_activation_for(email)

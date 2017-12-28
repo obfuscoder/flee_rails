@@ -101,7 +101,7 @@ RSpec.describe Reservation do
       it { is_expected.to eq fee }
     end
     context 'when reservation fee is not set' do
-      it { is_expected.to eq reservation.event.seller_fee }
+      it { is_expected.to eq reservation.event.reservation_fee }
     end
   end
 

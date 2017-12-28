@@ -12,7 +12,7 @@ FactoryBot.define do
     max_sellers 10
     reservation_start { 1.day.from_now }
     reservation_end { shopping_time - 1.day }
-    seller_fee 2
+    reservation_fee 2
 
     after :build do |event, evaluator|
       event.shopping_periods << build(:shopping_period, event: event,

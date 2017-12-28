@@ -35,12 +35,12 @@ RSpec.feature 'admin events' do
 
   scenario 'seller fee prefilled with brand setting' do
     click_on 'Neuer Termin'
-    expect(find_field('event_seller_fee').value).to eq '2.0'
+    expect(find_field('event_reservation_fee').value).to eq '2.0'
   end
 
   describe 'donation option' do
     context 'when disabled' do
-      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }
+      before { Client.first.update donation_of_unsold_items: false }
       scenario 'donation option is not available when creating event' do
         click_on 'Neuer Termin'
         expect(page).not_to have_field 'Spenden nicht verkaufter Artikel aktiviert'
@@ -48,7 +48,7 @@ RSpec.feature 'admin events' do
     end
 
     context 'when enabled' do
-      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
+      before { Client.first.update donation_of_unsold_items: true }
       scenario 'donation option is preselected when creating event' do
         click_on 'Neuer Termin'
         expect(find_field('Spenden nicht verkaufter Artikel aktiviert')).to be_checked
@@ -95,7 +95,7 @@ RSpec.feature 'admin events' do
     end
 
     context 'when donation option is enabled' do
-      before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
+      before { Client.first.update donation_of_unsold_items: true }
       it 'shows donation option' do
         click_on_event
         expect(page).to have_content 'Spenden nicht verkaufter Artikel aktiviert'
@@ -134,9 +134,7 @@ RSpec.feature 'admin events' do
         expect(page).to have_content 'Es wurde(n) 1 Einladung(en) verschickt. Es gibt bereits 1 Reservierung(en).'
         open_email active_seller.email
         expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
-        expect(current_email.body).to have_link 'Verkäuferplatz reservieren',
-                                                href: login_seller_url(active_seller.token,
-                                                                       goto: :reserve, event: event)
+        expect(current_email.body).to have_link 'Verkäuferplatz reservieren'
       end
 
       context 'when reservation phase has passed' do
@@ -162,8 +160,7 @@ RSpec.feature 'admin events' do
         expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
         open_email active_seller_with_reservation.email
         expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
-        expect(current_email.body).to have_link 'Zum geschützten Bereich',
-                                                href: login_seller_url(active_seller_with_reservation.token)
+        expect(current_email.body).to have_link 'Zum geschützten Bereich'
       end
 
       context 'when reservation phase has not started yet' do
@@ -214,8 +211,7 @@ RSpec.feature 'admin events' do
           subject(:email) { current_email }
           its(:subject) { is_expected.to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt' }
           its(:body) do
-            is_expected.to have_link('Zum geschützten Bereich',
-                                     href: login_seller_url(active_seller_with_reservation.token))
+            is_expected.to have_link 'Zum geschützten Bereich'
           end
           describe 'attached pdf' do
             subject(:attachment) { email.attachments[0] }

@@ -47,7 +47,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def fee
-    read_attribute(:fee) || event.seller_fee
+    read_attribute(:fee) || event.reservation_fee
   end
 
   def max_items

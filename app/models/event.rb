@@ -17,9 +17,9 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :name, :max_sellers, :seller_fee
+  validates_presence_of :name, :max_sellers, :reservation_fee
   validates_presence_of :max_items_per_reservation, :price_precision, :commission_rate, if: -> { kind == :commissioned }
-  validates :seller_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
+  validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
 
   with_options if: :commissioned? do |event|
@@ -54,9 +54,9 @@ class Event < ActiveRecord::Base
     [max_sellers - reservations.count, 0].max
   end
 
-  def seller_fee=(number)
+  def reservation_fee=(number)
     number.tr!(',', '.') if number.is_a? String
-    self[:seller_fee] = number.try(:to_d)
+    self[:reservation_fee] = number.try(:to_d)
   end
 
   def to_s

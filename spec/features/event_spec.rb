@@ -7,16 +7,16 @@ RSpec.feature 'Event results' do
   let!(:event) { create :event }
 
   def visit_results_link
-    visit login_seller_url(seller.token, goto: :show, event: event)
+    visit login_seller_path(seller.token, goto: :show, event: event)
   end
 
   def login_and_navigate_to_event_results
-    visit login_seller_url(seller.token)
+    visit login_seller_path(seller.token)
     click_on 'Ergebnisse'
   end
 
   def login_and_open_event_results_directly
-    visit login_seller_url(seller.token)
+    visit login_seller_path(seller.token)
     visit event_path(event)
   end
 
@@ -25,7 +25,7 @@ RSpec.feature 'Event results' do
       context "when using action #{action}" do
         before { send(action) }
         it 'shows seller home page' do
-          expect(current_path).to eq seller_path
+          expect(page).to have_content 'Verkäuferbereich'
         end
 
         it 'shows error message that results are not available' do
@@ -35,7 +35,7 @@ RSpec.feature 'Event results' do
     end
 
     it 'does not show link to results' do
-      visit login_seller_url(seller.token)
+      visit login_seller_path(seller.token)
       expect(page).not_to have_link 'Ergebnisse'
     end
   end

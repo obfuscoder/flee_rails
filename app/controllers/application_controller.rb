@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def create_label_document(items)
     items.without_label.each do |item|
-      item.create_code prefix: brand_settings.prefix
+      item.create_code prefix: current_client.prefix
       item.save! context: :generate_label
     end
     LabelDocument.new(label_decorators(items), with_donation: true).render
@@ -61,15 +61,15 @@ class ApplicationController < ActionController::Base
     event.notifications.order(:id).limit(event.max_sellers - reservation_count).each do |notification|
       CreateReservation.new.create event, notification.seller, {},
                                    host: request.host,
-                                   from: brand_settings.mail.from
+                                   from: current_client.mail_from
       notification.destroy
     end
   end
 
   def connect_to_database
-    database = brand_settings.database
+    database = current_client.try(:database)
     return Rails.logger.warn 'No database switch!' unless database
-    Rails.logger.info "Switching to database #{brand_settings.database.database}"
+    Rails.logger.info "Switching to database #{database.database}"
     ActiveRecord::Base.establish_connection(database.to_hash)
   end
 
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_brand
-    Rails.logger.info "Current brand is #{brand_key}"
+    Rails.logger.info "Current client is #{current_client.try(:key)}"
   end
 
   def init_page_parameter

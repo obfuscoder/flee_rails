@@ -15,8 +15,8 @@
     = render 'periods', attribute: :pickup_periods, f: f
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :commission_rate, hint: t('.commission_rate.hint')
-    = f.input :donation_of_unsold_items_enabled if brand_settings.donation_of_unsold_items_enabled
-    = f.input :seller_fee
+    = f.input :donation_of_unsold_items_enabled if current_client.donation_of_unsold_items
+    = f.input :reservation_fee
     = f.input :reservation_fees_payed_in_advance
 
   .form-actions

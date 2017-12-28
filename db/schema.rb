@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912172843) do
+ActiveRecord::Schema.define(version: 20171228195724) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -25,6 +25,28 @@ ActiveRecord::Schema.define(version: 20170912172843) do
 
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
   add_index "categories", ["name"], name: "index_categories_on_name"
+
+  create_table "clients", force: :cascade do |t|
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.string   "key"
+    t.string   "prefix"
+    t.string   "domain"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "logo"
+    t.string   "address"
+    t.string   "invoice_address"
+    t.string   "intro"
+    t.string   "outro"
+    t.string   "mail_address"
+    t.string   "terms"
+    t.decimal  "reservation_fee",                  precision: 4, scale: 2
+    t.decimal  "commission_rate",                  precision: 3, scale: 2
+    t.decimal  "price_precision",                  precision: 3, scale: 2
+    t.boolean  "donation_of_unsold_items"
+    t.boolean  "donation_of_unsold_items_default"
+  end
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -60,7 +82,7 @@ ActiveRecord::Schema.define(version: 20170912172843) do
     t.integer  "kind"
     t.decimal  "price_precision",                   precision: 3, scale: 2
     t.decimal  "commission_rate",                   precision: 3, scale: 2
-    t.decimal  "seller_fee",                        precision: 4, scale: 2
+    t.decimal  "reservation_fee",                   precision: 4, scale: 2
     t.boolean  "donation_of_unsold_items_enabled"
     t.string   "token"
     t.integer  "max_reservations_per_seller"

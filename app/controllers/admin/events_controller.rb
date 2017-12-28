@@ -16,11 +16,11 @@ module Admin
 
     def new
       date = 1.month.from_now.at_midday
-      @event = Event.new price_precision: brand_settings.price_precision,
-                         commission_rate: brand_settings.commission_rate,
-                         seller_fee: brand_settings.seller_fee,
+      @event = Event.new price_precision: current_client.price_precision,
+                         commission_rate: current_client.commission_rate,
+                         reservation_fee: current_client.reservation_fee,
                          kind: :commissioned,
-                         donation_of_unsold_items_enabled: brand_settings.donation_of_unsold_items_enabled,
+                         donation_of_unsold_items_enabled: current_client.donation_of_unsold_items,
                          reservation_start: date - 2.weeks, reservation_end: date - 2.days,
                          shopping_periods_attributes: [min: date, max: date + 2.hours],
                          handover_periods_attributes: [min: date - 1.day, max: date - 1.day + 2.hours],
@@ -53,7 +53,7 @@ module Admin
 
     def data
       response = Jbuilder.new do |json|
-        json.call @event, :id, :name, :price_precision, :commission_rate, :seller_fee,
+        json.call @event, :id, :name, :price_precision, :commission_rate, :reservation_fee,
                   :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
         json.categories Category.all, :id, :name
         json.stock_items StockItem.all, :id, :description, :price, :number, :code
@@ -73,7 +73,7 @@ module Admin
     def event_params
       params.require(:event).permit :name, :details, :max_sellers, :kind, :confirmed,
                                     :max_items_per_reservation, :max_reservations_per_seller,
-                                    :price_precision, :commission_rate, :seller_fee,
+                                    :price_precision, :commission_rate, :reservation_fee,
                                     :reservation_fees_payed_in_advance,
                                     :donation_of_unsold_items_enabled,
                                     :reservation_start, :reservation_end,

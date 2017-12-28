@@ -5,7 +5,7 @@
     %th= sort_link_to Category, :name
     %th= Category.human_attribute_name :parent
     %th= Category.human_attribute_name :max_items_per_seller
-    - if brand_settings.donation_of_unsold_items_enabled
+    - if current_client.donation_of_unsold_items
       %th= Category.human_attribute_name :donation_enforced
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
@@ -15,7 +15,7 @@
       %td= category.name
       %td= category.parent
       %td= category.max_items_per_seller
-      - if brand_settings.donation_of_unsold_items_enabled
+      - if current_client.donation_of_unsold_items
         %td= t(category.donation_enforced?.to_s)
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_category_path(category), type: :success, icon: :pencil

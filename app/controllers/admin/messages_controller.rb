@@ -7,7 +7,7 @@ module Admin
     def invitation
       sellers = Seller.active.with_mailing.without_reservation_for @event
       sellers.each do |seller|
-        SellerMailer.invitation(seller, @event, host: request.host, from: brand_settings.mail.from).deliver_later
+        SellerMailer.invitation(seller, @event, host: request.host, from: current_client.mail_from).deliver_later
       end
       @event.messages.create! category: :invitation
       redirect_to admin_event_path(@event),
@@ -30,7 +30,7 @@ module Admin
 
     def send_mails_and_redirect(&block)
       action = params[:action]
-      options = { host: request.host, from: brand_settings.mail.from }
+      options = { host: request.host, from: current_client.mail_from }
       send_mails_to_reservations(action, @event.reservations, options, &block)
       @event.messages.create! category: action
       redirect_to admin_event_path(@event), notice: t('.success', count: @event.reservations.count)

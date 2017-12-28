@@ -8,16 +8,16 @@ RSpec.feature 'Reviews' do
   let!(:event) { reservation.event }
 
   def visit_review_link
-    visit login_seller_url(seller.token, goto: :review, event: event)
+    visit login_seller_path(seller.token, goto: :review, event: event)
   end
 
   def login_and_navigate_to_event_review
-    visit login_seller_url(seller.token)
+    visit login_seller_path(seller.token)
     click_on 'Flohmarkt bewerten'
   end
 
   def login_and_open_event_review_directly
-    visit login_seller_url(seller.token)
+    visit login_seller_path(seller.token)
     visit review_event_path(event)
   end
 
@@ -36,7 +36,7 @@ RSpec.feature 'Reviews' do
     end
 
     it 'does not show link to review' do
-      visit login_seller_url(seller.token)
+      visit login_seller_path(seller.token)
       expect(page).not_to have_link 'Flohmarkt bewerten'
     end
   end

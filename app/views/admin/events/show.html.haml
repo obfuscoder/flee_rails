@@ -22,10 +22,10 @@
   - if @event.commission_rate.present?
     %dt= Event.human_attribute_name :commission_rate
     %dd= number_to_percentage @event.commission_rate*100, precision: 0
-  - if @event.seller_fee.present?
-    %dt= Event.human_attribute_name :seller_fee
-    %dd= number_to_currency @event.seller_fee
-  - if brand_settings.donation_of_unsold_items_enabled
+  - if @event.reservation_fee.present?
+    %dt= Event.human_attribute_name :reservation_fee
+    %dd= number_to_currency @event.reservation_fee
+  - if current_client.donation_of_unsold_items
     %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
     %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
 

@@ -17,7 +17,7 @@ class ReservationsController < ApplicationController
     reservation = CreateReservation.new.create event,
                                                current_seller, {},
                                                host: request.host,
-                                               from: brand_settings.mail.from
+                                               from: current_client.mail_from
     if reservation.persisted?
       redirect_to seller_path, notice: t('.success', number: reservation.number)
     else

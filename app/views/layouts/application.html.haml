@@ -4,7 +4,7 @@
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    %title= brand_settings.name + (content_for?(:title) ? " - " + yield(:title) : "")
+    %title= current_client.name + (content_for?(:title) ? " - " + yield(:title) : "")
     = csrf_meta_tags
     / HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
@@ -20,7 +20,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to brand_settings.name_html.html_safe, root_path, class: 'navbar-brand'
+          = link_to current_client.short_name.html_safe, root_path, class: 'navbar-brand'
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             - @menu ||= [{ title: 'Hauptseite', link: root_path, icon: :home },
@@ -49,7 +49,7 @@
       - if content_for?(:title)
         %h2= yield(:title)
       - else
-        %h1= brand_settings.name_html.html_safe
+        %h1= current_client.name.html_safe
       = render '/maintenance'
       - flash.each do |type, message|
         %div{class: flash_class_from_type(type)}= message

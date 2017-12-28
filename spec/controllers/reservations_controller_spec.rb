@@ -8,7 +8,7 @@ describe ReservationsController do
     let(:seller) { build :seller }
     let(:action) { get :create, event_id: event.id }
     let(:reservation) { create :reservation }
-    let(:from) { Settings.brands.demo.mail.from }
+    let(:from) { Client.first.mail_from }
     let(:creator) { double }
     let(:options) { { host: 'test.host', from: from } }
 

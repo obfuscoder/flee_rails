@@ -21,7 +21,7 @@ RSpec.feature 'admin categories' do
   end
 
   context 'when donation option is disabled' do
-    before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { false } }
+    before { Client.first.update donation_of_unsold_items: false }
     scenario 'new category does not show the option to enable donation enforcement' do
       click_on 'Neue Kategorie'
       fill_in 'Name', with: 'Hosenkleid'
@@ -32,7 +32,7 @@ RSpec.feature 'admin categories' do
   end
 
   context 'when donation option is enabled' do
-    before { allow(Settings.brands.demo).to receive(:donation_of_unsold_items_enabled) { true } }
+    before { Client.first.update donation_of_unsold_items: true }
     scenario 'new category allows enabling donation enforcement and is shown in overview' do
       click_on 'Neue Kategorie'
       fill_in 'Name', with: 'Hosenkleid'
