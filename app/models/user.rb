@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   attr_accessor :old_password
   attr_accessor :password_confirmation
 
+  belongs_to :client
+
   validates_confirmation_of :password, on: :update
   validates_presence_of :old_password, :password, :password_confirmation, on: :update
   validate :old_password_correct, on: :update

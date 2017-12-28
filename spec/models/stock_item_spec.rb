@@ -5,9 +5,10 @@ require 'rails_helper'
 RSpec.describe StockItem do
   subject(:stock_item) { build :stock_item }
 
-  it { is_expected.to have_many(:events).through(:sold_stock_items) }
-
   it { is_expected.to be_valid }
+
+  it { is_expected.to belong_to :client }
+  it { is_expected.to have_many(:events).through(:sold_stock_items) }
 
   it { is_expected.to validate_presence_of(:description) }
   it { is_expected.to validate_presence_of(:price) }

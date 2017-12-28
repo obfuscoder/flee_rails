@@ -7,6 +7,7 @@ RSpec.describe Seller do
   subject { build :seller }
 
   it { is_expected.to be_valid }
+  it { is_expected.to belong_to :client }
   it { is_expected.to validate_presence_of :first_name }
   it { is_expected.to validate_presence_of :last_name }
   it { is_expected.to validate_presence_of :street }

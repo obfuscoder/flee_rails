@@ -2,6 +2,7 @@
 
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
+  belongs_to :client
   has_many :reservations, -> { order :id }
   has_many :reviews, through: :reservations
   has_many :notifications, -> { order :id }

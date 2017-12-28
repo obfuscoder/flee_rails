@@ -8,6 +8,7 @@ RSpec.describe Event do
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than 0 }
+  it { is_expected.to belong_to :client }
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many(:reviews).through(:reservations) }
   it { is_expected.to have_many :notifications }

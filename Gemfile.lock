@@ -61,6 +61,7 @@ GEM
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
     builder (3.2.3)
+    cancancan (2.1.2)
     capistrano (3.10.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -410,6 +411,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap-will_paginate
   bootstrap3-datetimepicker-rails
+  cancancan
   capistrano-rails
   capistrano-rvm
   capistrano3-puma

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228195724) do
+ActiveRecord::Schema.define(version: 20171228210339) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20171228195724) do
     t.integer  "max_items_per_seller"
     t.datetime "deleted_at"
     t.integer  "parent_id"
+    t.integer  "client_id"
   end
 
+  add_index "categories", ["client_id"], name: "index_categories_on_client_id"
   add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at"
   add_index "categories", ["name"], name: "index_categories_on_name"
 
@@ -87,8 +89,10 @@ ActiveRecord::Schema.define(version: 20171228195724) do
     t.string   "token"
     t.integer  "max_reservations_per_seller"
     t.boolean  "reservation_fees_payed_in_advance"
+    t.integer  "client_id"
   end
 
+  add_index "events", ["client_id"], name: "index_events_on_client_id"
   add_index "events", ["token"], name: "index_events_on_token", unique: true
 
   create_table "hardware", force: :cascade do |t|
@@ -206,8 +210,10 @@ ActiveRecord::Schema.define(version: 20171228195724) do
     t.boolean  "mailing"
     t.boolean  "active"
     t.datetime "deleted_at"
+    t.integer  "client_id"
   end
 
+  add_index "sellers", ["client_id"], name: "index_sellers_on_client_id"
   add_index "sellers", ["deleted_at"], name: "index_sellers_on_deleted_at"
   add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true, where: "deleted_at IS NULL"
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true, where: "deleted_at IS NULL"
@@ -231,8 +237,10 @@ ActiveRecord::Schema.define(version: 20171228195724) do
     t.decimal  "price",       precision: 5, scale: 2
     t.integer  "number"
     t.string   "code"
+    t.integer  "client_id"
   end
 
+  add_index "stock_items", ["client_id"], name: "index_stock_items_on_client_id"
   add_index "stock_items", ["code"], name: "index_stock_items_on_code", unique: true
   add_index "stock_items", ["number"], name: "index_stock_items_on_number", unique: true
 
@@ -266,8 +274,10 @@ ActiveRecord::Schema.define(version: 20171228195724) do
     t.string   "email",            null: false
     t.string   "crypted_password"
     t.string   "salt"
+    t.integer  "client_id"
   end
 
+  add_index "users", ["client_id"], name: "index_users_on_client_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

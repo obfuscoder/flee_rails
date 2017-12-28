@@ -6,6 +6,11 @@ RSpec.describe Client do
   subject(:client) { build :demo_client }
 
   it { is_expected.to be_valid }
+  it { is_expected.to have_many :events }
+  it { is_expected.to have_many :categories }
+  it { is_expected.to have_many :sellers }
+  it { is_expected.to have_many :stock_items }
+  it { is_expected.to have_many :users }
 
   describe '#host_match?' do
     subject { client.host_match? host }

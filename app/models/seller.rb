@@ -5,6 +5,8 @@ class Seller < ActiveRecord::Base
 
   attr_accessor :accept_terms
 
+  belongs_to :client
+
   has_many :reservations
   has_many :notifications
   has_many :suspensions

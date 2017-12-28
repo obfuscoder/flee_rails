@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class StockItem < ActiveRecord::Base
+  belongs_to :client
+
   has_many :sold_stock_items
   has_many :events, through: :sold_stock_items
 
