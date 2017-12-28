@@ -7,11 +7,11 @@ module Admin
     end
 
     def new
-      @seller = Seller.new
+      @seller = current_client.sellers.build
     end
 
     def create
-      @seller = Seller.new seller_params
+      @seller = current_client.sellers.build seller_params
       if @seller.save
         redirect_to admin_sellers_path, notice: t('.success')
       else

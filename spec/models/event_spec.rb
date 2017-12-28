@@ -6,6 +6,7 @@ RSpec.describe Event do
   subject(:event) { build :event }
 
   it { is_expected.to be_valid }
+  it { is_expected.to validate_presence_of :client }
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_numericality_of(:max_sellers).is_greater_than 0 }
   it { is_expected.to belong_to :client }

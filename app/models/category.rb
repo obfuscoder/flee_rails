@@ -10,6 +10,7 @@ class Category < ActiveRecord::Base
   has_many :children, class_name: Category, foreign_key: :parent_id, dependent: :restrict_with_error
   belongs_to :parent, class_name: Category
 
+  validates_presence_of :client
   validates :name, presence: true, uniqueness: true
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 

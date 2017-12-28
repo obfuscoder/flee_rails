@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :category do
+    client Client.first
     sequence(:name) { |n| "Category #{n}" }
 
     factory :category_with_enforced_donation do

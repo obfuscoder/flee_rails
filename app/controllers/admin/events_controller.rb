@@ -16,19 +16,19 @@ module Admin
 
     def new
       date = 1.month.from_now.at_midday
-      @event = Event.new price_precision: current_client.price_precision,
-                         commission_rate: current_client.commission_rate,
-                         reservation_fee: current_client.reservation_fee,
-                         kind: :commissioned,
-                         donation_of_unsold_items_enabled: current_client.donation_of_unsold_items,
-                         reservation_start: date - 2.weeks, reservation_end: date - 2.days,
-                         shopping_periods_attributes: [min: date, max: date + 2.hours],
-                         handover_periods_attributes: [min: date - 1.day, max: date - 1.day + 2.hours],
-                         pickup_periods_attributes: [min: date + 4.hours, max: date + 6.hours]
+      @event = current_client.events.build price_precision: current_client.price_precision,
+                                           commission_rate: current_client.commission_rate,
+                                           reservation_fee: current_client.reservation_fee,
+                                           kind: :commissioned,
+                                           donation_of_unsold_items_enabled: current_client.donation_of_unsold_items,
+                                           reservation_start: date - 2.weeks, reservation_end: date - 2.days,
+                                           shopping_periods_attributes: [min: date, max: date + 2.hours],
+                                           handover_periods_attributes: [min: date - 1.day, max: date - 1.day + 2.hours],
+                                           pickup_periods_attributes: [min: date + 4.hours, max: date + 6.hours]
     end
 
     def create
-      @event = Event.create(event_params)
+      @event = current_client.events.create(event_params)
       if @event.valid?
         redirect_to admin_events_path, notice: t('.success')
       else

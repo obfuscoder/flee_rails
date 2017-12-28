@@ -7,7 +7,7 @@ class SellersController < ApplicationController
   end
 
   def new
-    @seller = Seller.new
+    @seller = current_client.sellers.build
   end
 
   def edit
@@ -15,7 +15,7 @@ class SellersController < ApplicationController
   end
 
   def create
-    @seller = Seller.new seller_params
+    @seller = current_client.sellers.build seller_params
     @seller.active = false
     @seller.mailing = true
 
@@ -47,7 +47,7 @@ class SellersController < ApplicationController
     if request.post?
       resend_activation_for params[:seller][:email]
     else
-      @seller = Seller.new
+      @seller = current_client.sellers.build
     end
   end
 
@@ -104,12 +104,12 @@ class SellersController < ApplicationController
     errors = ValidatesEmailFormatOf.validate_email_format email
     errors = [t('email_not_found')] unless errors.present? || send_activation_email_when_found(email)
     return unless errors
-    @seller = Seller.new(email: email)
+    @seller = current_client.sellers.build email: email
     flash.now[:alert] = errors.join, ' '
   end
 
   def send_activation_email_when_found(email)
-    seller = Seller.find_by_email email
+    seller = current_client.sellers.find_by email: email
     return unless seller
     send_registration_mail(seller)
     render :activation_resent

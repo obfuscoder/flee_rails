@@ -9,11 +9,11 @@ module Admin
     end
 
     def new
-      @category = Category.new
+      @category = current_client.categories.build
     end
 
     def create
-      @category = Category.new category_params
+      @category = current_client.categories.build category_params
       if @category.save
         redirect_to admin_categories_path, notice: t('.success')
       else

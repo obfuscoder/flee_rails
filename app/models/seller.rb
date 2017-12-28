@@ -12,7 +12,7 @@ class Seller < ActiveRecord::Base
   has_many :suspensions
   has_many :emails
 
-  validates_presence_of :first_name, :last_name, :email
+  validates_presence_of :client, :first_name, :last_name, :email
   validates_presence_of :street, :zip_code, :city, :phone, on: :update
   validates_presence_of :street, :zip_code, :city, :phone, on: :create
   validates_acceptance_of :accept_terms, on: :create
