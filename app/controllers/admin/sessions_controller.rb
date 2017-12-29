@@ -8,9 +8,11 @@ module Admin
 
     def create
       @user = User.new user_params
-      if login(@user.email, @user.password)
+      user = login(@user.email, @user.password)
+      if user && user.client == current_client
         redirect_back_or_to admin_path
       else
+        logout if user
         flash.now.alert = t('.failure')
         render :new
       end
