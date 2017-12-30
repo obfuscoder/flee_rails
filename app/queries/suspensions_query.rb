@@ -10,12 +10,12 @@ class SuspensionsQuery
   end
 
   def suspensible_sellers
-    Seller.where.not(id: results.map(&:seller_id))
+    @event.client.sellers.where.not(id: results.map(&:seller_id))
   end
 
   def create(seller_ids, reason)
     suspensions = seller_ids.map do |seller_id|
-      Suspension.create event: @event, seller: Seller.find(seller_id), reason: reason
+      @event.suspensions.create seller: @event.client.sellers.find(seller_id), reason: reason
     end
     suspensions.select(&:valid?)
   end
@@ -27,6 +27,6 @@ class SuspensionsQuery
   private
 
   def results
-    Suspension.where(event: @event)
+    @event.suspensions
   end
 end
