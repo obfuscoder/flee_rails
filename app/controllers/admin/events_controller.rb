@@ -22,9 +22,9 @@ module Admin
                                            kind: :commissioned,
                                            donation_of_unsold_items_enabled: current_client.donation_of_unsold_items,
                                            reservation_start: date - 2.weeks, reservation_end: date - 2.days,
-                                           shopping_periods_attributes: [min: date, max: date + 2.hours],
-                                           handover_periods_attributes: [min: date - 1.day, max: date - 1.day + 2.hours],
-                                           pickup_periods_attributes: [min: date + 4.hours, max: date + 6.hours]
+                                           shopping_periods_attributes: create_period(date),
+                                           handover_periods_attributes: create_period(date - 1.day),
+                                           pickup_periods_attributes: create_period(date + 1.day)
     end
 
     def create
@@ -69,6 +69,10 @@ module Admin
     def bill; end
 
     private
+
+    def create_period(date)
+      [min: date, max: date + 2.hours]
+    end
 
     def event_params
       params.require(:event).permit :name, :details, :max_sellers, :kind, :confirmed,

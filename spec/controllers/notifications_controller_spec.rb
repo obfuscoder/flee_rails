@@ -33,8 +33,8 @@ RSpec.describe NotificationsController do
       end
       context 'with invalid event' do
         let(:event_id) { 9999 }
-        it 'redirects to seller view' do
-          expect(post(:create, event_id: event_id)).to redirect_to seller_path
+        it 'throws error' do
+          expect { post :create, event_id: event_id }.to raise_error ActiveRecord::RecordNotFound
         end
       end
     end

@@ -1,20 +1,10 @@
 # frozen_string_literal: true
 
 class ReservationsController < ApplicationController
+  before_filter :init_event
+
   def create
-    create_reservation params[:event_id]
-  end
-
-  def destroy
-    destroy_reservations(Reservation.where(event_id: params[:event_id], id: params[:id], seller: current_seller))
-    redirect_to seller_path, notice: t('.success')
-  end
-
-  private
-
-  def create_reservation(event_id)
-    event = Event.find event_id
-    reservation = CreateReservation.new.create event,
+    reservation = CreateReservation.new.create @event,
                                                current_seller, {},
                                                host: request.host,
                                                from: current_client.mail_from
@@ -23,5 +13,16 @@ class ReservationsController < ApplicationController
     else
       redirect_to seller_path, alert: t('.failure', reason: reservation.errors.messages.values.join(','))
     end
+  end
+
+  def destroy
+    destroy_reservations(@event.reservations.where(id: params[:id], seller: current_seller))
+    redirect_to seller_path, notice: t('.success')
+  end
+
+  private
+
+  def init_event
+    @event = current_client.events.find params[:event_id]
   end
 end

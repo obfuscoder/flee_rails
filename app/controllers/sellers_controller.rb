@@ -3,7 +3,7 @@
 class SellersController < ApplicationController
   def show
     @seller = current_seller
-    @events = Event.within_reservation_time
+    @events = current_client.events.merge(Event.within_reservation_time)
   end
 
   def new
@@ -91,7 +91,9 @@ class SellersController < ApplicationController
   def activate_seller(seller)
     return if seller.active
     seller.update active: true
-    Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation).each do |event|
+    current_client.events.merge(
+      Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation)
+    ).each do |event|
       SellerMailer.invitation(seller, event, host: request.host, from: current_client.mail_from).deliver_later
     end
   end

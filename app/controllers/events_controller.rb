@@ -18,6 +18,6 @@ class EventsController < ApplicationController
   private
 
   def init_event
-    @event = Event.find params[:id]
+    @event = current_client.events.find params[:id]
   end
 end

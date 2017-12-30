@@ -24,13 +24,12 @@ class ReviewsController < ApplicationController
   private
 
   def init_event
-    @event = Event.find params[:event_id]
+    @event = current_client.events.find params[:event_id]
   end
 
   def init_reservation
-    @reservation = Reservation.find params[:reservation_id]
-    redirect_to seller_path, alert: t('.error.no_reservation') unless @reservation.seller == current_seller &&
-                                                                      @reservation.event == @event
+    @reservation = @event.reservations.find params[:reservation_id]
+    redirect_to seller_path, alert: t('.error.no_reservation') unless @reservation.seller == current_seller
   end
 
   def only_without_review

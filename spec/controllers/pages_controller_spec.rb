@@ -15,11 +15,15 @@ RSpec.describe PagesController do
       let(:request_host) { 'demo.test.host' }
 
       context 'with events' do
-        let(:event) { create(:event) }
+        let(:event) { create :event }
+        let(:event_of_other_client) { create :event, client: create(:client) }
         let(:preparations) { event }
 
-        it 'assigns all events as @events' do
-          expect(assigns(:events)).to match_array([event])
+        describe '@events' do
+          subject { assigns :events }
+          it { is_expected.to include event }
+          it { is_expected.to have(1).item }
+          it { is_expected.not_to include event_of_other_client }
         end
       end
 

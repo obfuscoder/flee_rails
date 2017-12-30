@@ -30,7 +30,7 @@ RSpec.describe ItemsController do
     context 'when another seller is signed in' do
       let(:item) { other_item }
       it 'forbids access' do
-        expect(action).to have_http_status :unauthorized
+        expect { action }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

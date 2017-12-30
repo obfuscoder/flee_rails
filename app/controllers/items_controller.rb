@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new donation: current_client.donation_of_unsold_items_default
+    @item = @reservation.items.build donation: current_client.donation_of_unsold_items_default
   end
 
   def edit; end
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   private
 
   def init_categories
-    @categories = Category.selectable.order(:name).map do |category|
+    @categories = current_client.categories.merge(Category.selectable).order(:name).map do |category|
       [
         category.name,
         category.id,
@@ -58,13 +58,12 @@ class ItemsController < ApplicationController
 
   def set_vars
     @seller = current_seller
-    @event = Event.find params[:event_id]
-    @reservation = Reservation.find_by_id_and_event_id_and_seller_id params[:reservation_id], @event.id, @seller.id
+    @event = current_client.events.find params[:event_id]
+    @reservation = @event.reservations.find_by id: params[:reservation_id], seller: @seller
   end
 
   def set_item
-    @item = Item.find(params[:id])
-    raise UnauthorizedError if @item.reservation.seller != current_seller
+    @item = @reservation.items.find(params[:id])
   end
 
   def forbid_when_labeled
@@ -78,7 +77,7 @@ class ItemsController < ApplicationController
 
   def enforce_donation(parameters)
     return parameters unless current_client.donation_of_unsold_items && parameters['category_id'].present?
-    category = Category.find parameters['category_id']
+    category = current_client.categories.find parameters['category_id']
     parameters['donation'] = '1' if category.donation_enforced
     parameters
   end

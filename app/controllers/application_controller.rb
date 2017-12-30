@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_filter :log_brand
-  before_filter :connect_to_database
+  before_filter :log_client
   before_filter :init_page_parameter
   before_filter :init_sort_parameter
   before_filter :log_current_user
@@ -66,18 +65,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def connect_to_database
-    database = current_client.try(:database)
-    return Rails.logger.warn 'No database switch!' unless database
-    Rails.logger.info "Switching to database #{database.database}"
-    ActiveRecord::Base.establish_connection(database.to_hash)
-  end
-
   def log_current_user
     Rails.logger.info "Current user is #{current_user.email}" if current_user
   end
 
-  def log_brand
+  def log_client
     Rails.logger.info "Current client is #{current_client.try(:key)}"
   end
 

@@ -3,7 +3,10 @@
 class PagesController < ApplicationController
   def home
     return redirect_to :pages_index if Settings.domain == request.host
-    @events = Event.current_or_upcoming.joins(:shopping_periods).order('time_periods.min').distinct
+    @events = current_client.events.merge(Event.current_or_upcoming)
+                            .joins(:shopping_periods)
+                            .order('time_periods.min')
+                            .distinct
   end
 
   def contact; end

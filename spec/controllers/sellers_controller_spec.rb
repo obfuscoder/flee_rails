@@ -225,12 +225,10 @@ RSpec.describe SellersController do
         expect(assigns(:seller)).to eq seller
       end
       it 'assigns events within reservation time to @events' do
-        event1 = build :event_with_ongoing_reservation
-        event2 = build :event_with_ongoing_reservation
-        events = [event1, event2]
-        allow(Event).to receive(:within_reservation_time).and_return(events)
+        event1 = create :event_with_ongoing_reservation
+        event2 = create :event_with_ongoing_reservation
         subject
-        expect(assigns(:events)).to eq events
+        expect(assigns(:events)).to include event1, event2
       end
     end
   end
