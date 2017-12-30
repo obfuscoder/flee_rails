@@ -3,7 +3,7 @@
 module Admin
   class ReviewsController < AdminController
     def index
-      @event = Event.find params[:event_id]
+      @event = current_client.events.find params[:event_id]
       @reviews = @event.reviews
     end
   end

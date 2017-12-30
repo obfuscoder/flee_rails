@@ -12,7 +12,7 @@ module Admin
     def create
       @email = CustomEmail.new email_params
       if @email.valid?
-        selection = Seller.with_mailing.where(id: @email.sellers)
+        selection = current_client.sellers.merge(Seller.with_mailing).where(id: @email.sellers)
         send_mails(selection)
         redirect_to admin_emails_path, notice: t('.success', count: selection.count)
       else
@@ -32,26 +32,26 @@ module Admin
     private
 
     def set_seller
-      @seller = Seller.find params[:seller_id]
+      @seller = current_client.sellers.find params[:seller_id]
     end
 
     def set_view_vars
-      @sellers = Seller.with_mailing
-      @events = Event.all
+      @sellers = current_client.sellers.merge(Seller.with_mailing)
+      @events = current_client.events
       @json = build_selection_map.to_json
     end
 
     def build_selection_map
       {
-        all: Seller.with_mailing.map(&:id),
-        active: Seller.with_mailing.active.map(&:id),
-        inactive: Seller.with_mailing.where(active: false).map(&:id),
+        all: current_client.sellers.merge(Seller.with_mailing).map(&:id),
+        active: current_client.sellers.merge(Seller.with_mailing.active).map(&:id),
+        inactive: current_client.sellers.merge(Seller.with_mailing).where(active: false).map(&:id),
         events: build_event_map
       }
     end
 
     def build_event_map
-      Event.all.each_with_object({}) do |event, h|
+      current_client.events.each_with_object({}) do |event, h|
         h[event.id] = {
           reservation: event.reservations.map(&:seller_id),
           notification: event.notifications.map(&:seller_id),

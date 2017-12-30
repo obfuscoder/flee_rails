@@ -2,10 +2,10 @@
 
 module Admin
   class CategoriesController < AdminController
-    before_filter :set_category, only: %i[edit update show]
+    before_filter :set_category, only: %i[destroy edit update show]
 
     def index
-      @categories = Category.page(@page).order column_order
+      @categories = current_client.categories.page(@page).order column_order
     end
 
     def new
@@ -34,7 +34,7 @@ module Admin
     def show; end
 
     def destroy
-      if Category.destroy params[:id]
+      if @category.destroy
         redirect_to admin_categories_path, notice: t('.success')
       else
         redirect_to admin_categories_path, alert: t('.failure')
@@ -48,7 +48,7 @@ module Admin
     end
 
     def set_category
-      @category = Category.find params[:id]
+      @category = current_client.categories.find params[:id]
     end
   end
 end

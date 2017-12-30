@@ -3,7 +3,7 @@
 module Admin
   class SellersController < AdminController
     def index
-      @sellers = Seller.search(params[:search]).page(@page).order(column_order)
+      @sellers = current_client.sellers.search(params[:search]).page(@page).order(column_order)
     end
 
     def new
@@ -20,11 +20,11 @@ module Admin
     end
 
     def edit
-      @seller = Seller.find params[:id]
+      @seller = current_client.sellers.find params[:id]
     end
 
     def update
-      @seller = Seller.find params[:id]
+      @seller = current_client.sellers.find params[:id]
       if @seller.update seller_params
         redirect_to admin_sellers_path, notice: t('.success')
       else
@@ -33,11 +33,11 @@ module Admin
     end
 
     def show
-      @seller = Seller.find params[:id]
+      @seller = current_client.sellers.find params[:id]
     end
 
     def destroy
-      if Seller.destroy params[:id]
+      if current_client.sellers.find(params[:id]).destroy
         redirect_to admin_sellers_path, notice: t('.success')
       else
         redirect_to admin_sellers_path, alert: t('.failure')

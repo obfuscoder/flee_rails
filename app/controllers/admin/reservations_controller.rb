@@ -6,21 +6,21 @@ module Admin
     before_action :set_reservation, only: %i[edit update]
 
     def index
-      @reservations = Reservation.search(params[:search])
-                                 .where(event_id: params[:event_id])
-                                 .includes(:seller, :event)
-                                 .page(@page).order(column_order)
+      @reservations = @event.reservations.search(params[:search])
+                            .includes(:seller, :event)
+                            .page(@page)
+                            .reorder(column_order)
     end
 
     def new
-      @sellers = Seller.active.select { |seller| @event.reservable_by? seller }
+      @sellers = current_client.sellers.merge(Seller.active).select { |seller| @event.reservable_by? seller }
     end
 
     def create
       seller_ids = params[:reservation][:seller_id].reject(&:empty?)
       creator = CreateReservation.new
       reservations = seller_ids.each do |seller_id|
-        creator.create @event, Seller.find(seller_id), { context: :admin },
+        creator.create @event, current_client.sellers.find(seller_id), { context: :admin },
                        host: request.host, from: current_client.mail_from
       end
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
@@ -37,18 +37,18 @@ module Admin
     end
 
     def destroy
-      destroy_reservations(Reservation.where(event_id: params[:event_id], id: params[:id]))
+      destroy_reservations(@event.reservations.where(id: params[:id]))
       redirect_to admin_event_reservations_path, notice: t('.success')
     end
 
     private
 
     def set_event
-      @event = Event.find params[:event_id]
+      @event = current_client.events.find params[:event_id]
     end
 
     def set_reservation
-      @reservation = Reservation.find params[:id]
+      @reservation = @event.reservations.find params[:id]
     end
 
     def column_order

@@ -3,11 +3,11 @@
 module Admin
   class SessionsController < ApplicationController
     def new
-      @user = User.new
+      @user = current_client.users.build
     end
 
     def create
-      @user = User.new user_params
+      @user = current_client.users.build user_params
       user = login(@user.email, @user.password)
       if user && user.client == current_client
         redirect_back_or_to admin_path

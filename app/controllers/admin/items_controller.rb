@@ -3,21 +3,19 @@
 module Admin
   class ItemsController < AdminController
     before_action :init_categories, only: %i[edit new update create]
-
     before_filter do
       @reservation = Reservation.find params[:reservation_id]
     end
+    before_action :set_item, only: %i[show edit update destroy delete_code]
 
     def index
       @items = @reservation.items
     end
 
-    def show
-      @item = Item.find params[:id]
-    end
+    def show; end
 
     def new
-      @item = Item.new
+      @item = @reservation.items.build
     end
 
     def create
@@ -44,7 +42,7 @@ module Admin
     end
 
     def destroy
-      if Item.destroy params[:id]
+      if @item.destroy
         redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
       else
         redirect_to admin_reservation_items_path(@reservation), alert: t('.failure')
@@ -52,8 +50,7 @@ module Admin
     end
 
     def delete_code
-      item = Item.find params[:id]
-      item.delete_code
+      @item.delete_code
       redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
     end
 
@@ -78,15 +75,19 @@ module Admin
 
     def enforce_donation(parameters)
       return parameters unless current_client.donation_of_unsold_items && parameters['category_id'].present?
-      category = Category.find parameters['category_id']
+      category = current_client.categories.find parameters['category_id']
       parameters['donation'] = '1' if category.donation_enforced
       parameters
     end
 
     private
 
+    def set_item
+      @item = @reservation.items.find params[:id]
+    end
+
     def init_categories
-      @categories = Category.selectable.order(:name).map do |category|
+      @categories = current_client.categories.merge(Category.selectable).order(:name).map do |category|
         [
           category.name,
           category.id,

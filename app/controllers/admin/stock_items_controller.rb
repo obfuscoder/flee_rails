@@ -3,15 +3,15 @@
 module Admin
   class StockItemsController < AdminController
     def index
-      @stock_items = StockItem.all
+      @stock_items = current_client.stock_items.all
     end
 
     def new
-      @stock_item = StockItem.new
+      @stock_item = current_client.stock_items.build
     end
 
     def create
-      @stock_item = StockItem.new stock_item_params
+      @stock_item = current_client.stock_items.build stock_item_params
       if @stock_item.save
         redirect_to admin_stock_items_path, notice: t('.success')
       else
@@ -20,11 +20,11 @@ module Admin
     end
 
     def edit
-      @stock_item = StockItem.find params[:id]
+      @stock_item = current_client.stock_items.find params[:id]
     end
 
     def update
-      @stock_item = StockItem.find params[:id]
+      @stock_item = current_client.stock_items.find params[:id]
       if @stock_item.update stock_item_edit_params
         redirect_to admin_stock_items_path, notice: t('.success')
       else
@@ -33,7 +33,7 @@ module Admin
     end
 
     def print
-      stock_items = StockItem.all
+      stock_items = current_client.stock_items.all
       decorators = stock_items.map { |stock_item| StockLabelDecorator.new(stock_item) }
       pdf = LabelDocument.new(decorators).render
       send_data pdf, filename: 'stammartikel.pdf', type: 'application/pdf'

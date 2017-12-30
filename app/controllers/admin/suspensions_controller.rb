@@ -38,7 +38,7 @@ module Admin
     private
 
     def set_event
-      @event = Event.find params[:event_id]
+      @event = current_client.events.find params[:event_id]
     end
 
     def query

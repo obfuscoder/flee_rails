@@ -9,8 +9,7 @@ module Admin
     before { login_user user }
 
     describe 'GET index' do
-      before { allow(StockItem).to receive(:all).and_return stock_items }
-      let(:stock_items) { double }
+      let(:stock_items) { create_list :stock_item, 3 }
       before { get :index }
 
       subject { response }
@@ -42,9 +41,7 @@ module Admin
     describe 'POST create' do
       let(:price) { '2.5' }
       let(:description) { 'some description' }
-      let(:stock_item) { double save: saved }
       let(:saved) { true }
-      before { allow(StockItem).to receive(:new).and_return stock_item }
       before { post :create, stock_item: { price: price, description: description } }
 
       describe 'response' do
@@ -58,28 +55,12 @@ module Admin
       end
 
       it 'saves new stock item' do
-        expect(StockItem).to have_received(:new).with(price: price, description: description)
-      end
-
-      context 'when creation failed' do
-        let(:saved) { false }
-
-        describe 'response' do
-          subject { response }
-          it { is_expected.to render_template :new }
-          it { is_expected.to have_http_status :ok }
-        end
-
-        describe '@stock_item' do
-          subject { assigns :stock_item }
-          it { is_expected.to eq stock_item }
-        end
+        expect(StockItem.first).to have_attributes(description: description)
       end
     end
 
     describe 'GET edit' do
-      let(:stock_item) { double id: 5 }
-      before { allow(StockItem).to receive(:find).with(stock_item.id.to_s).and_return(stock_item) }
+      let(:stock_item) { create :stock_item }
       before { get :edit, id: stock_item.id }
 
       describe 'response' do
@@ -97,9 +78,7 @@ module Admin
     describe 'PUT update' do
       let(:price) { '2.5' }
       let(:description) { 'some description' }
-      let(:stock_item) { double id: 2, update: updated }
-      let(:updated) { true }
-      before { allow(StockItem).to receive(:find).with(stock_item.id.to_s).and_return(stock_item) }
+      let(:stock_item) { create :stock_item }
       before { put :update, id: stock_item.id, stock_item: { description: description, price: price } }
 
       describe 'response' do
@@ -113,32 +92,16 @@ module Admin
       end
 
       it 'updates stock item' do
-        expect(stock_item).to have_received(:update).with(description: description)
-      end
-
-      context 'when update failed' do
-        let(:updated) { false }
-
-        describe 'response' do
-          subject { response }
-          it { is_expected.to render_template :edit }
-          it { is_expected.to have_http_status :ok }
-        end
-
-        describe '@stock_item' do
-          subject { assigns :stock_item }
-          it { is_expected.to eq stock_item }
-        end
+        expect(stock_item.reload).to have_attributes(description: description)
       end
     end
 
     describe 'GET print' do
       before do
-        expect(StockItem).to receive(:all).and_return([stock_item])
         expect(LabelDocument).to receive(:new).and_return(label_document)
         expect(StockLabelDecorator).to receive(:new).with(stock_item)
       end
-      let(:stock_item) { double }
+      let(:stock_item) { create :stock_item }
       let(:label_document) { double render: pdf }
       let(:pdf) { 'pdf content' }
       before { get :print }

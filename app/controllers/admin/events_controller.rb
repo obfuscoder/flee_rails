@@ -7,11 +7,11 @@ module Admin
     ]
 
     def init_event
-      @event = Event.find params[:id]
+      @event = current_client.events.find params[:id]
     end
 
     def index
-      @events = Event.page(@page).joins(:shopping_periods).order(column_order).distinct
+      @events = current_client.events.page(@page).joins(:shopping_periods).order(column_order).distinct
     end
 
     def new
@@ -55,8 +55,8 @@ module Admin
       response = Jbuilder.new do |json|
         json.call @event, :id, :name, :price_precision, :commission_rate, :reservation_fee,
                   :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
-        json.categories Category.all, :id, :name
-        json.stock_items StockItem.all, :id, :description, :price, :number, :code
+        json.categories current_client.categories.all, :id, :name
+        json.stock_items current_client.stock_items.all, :id, :description, :price, :number, :code
         json.sellers @event.reservations.map(&:seller),
                      :id, :first_name, :last_name, :street, :zip_code, :city, :email, :phone
         json.reservations @event.reservations, :id, :number, :seller_id, :fee, :commission_rate

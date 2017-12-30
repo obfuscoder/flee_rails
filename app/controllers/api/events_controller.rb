@@ -7,8 +7,8 @@ module Api
     before_filter :init_event
 
     def show
-      @categories = Category.all
-      @stock_items = StockItem.all
+      @categories = current_client.categories.all
+      @stock_items = current_client.stock_items.all
     end
 
     def transactions
@@ -23,7 +23,7 @@ module Api
 
     def init_event
       authenticate_or_request_with_http_token do |token, _options|
-        @event = Event.find_by_token(token)
+        @event = current_client.events.find_by token: token
         @event.present?
       end
     end
@@ -33,7 +33,7 @@ module Api
       if item.present?
         update_item(item, time, type)
       else
-        stock_item = StockItem.find_by code: code
+        stock_item = current_client.stock_items.find_by code: code
         update_stock_item(stock_item, time, type) if stock_item.present?
       end
     end
