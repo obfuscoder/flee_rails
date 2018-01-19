@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :client, :name, :max_sellers, :reservation_fee
+  validates_presence_of :client, :name, :max_sellers, :reservation_fee, :number
   validates_presence_of :max_items_per_reservation, :price_precision, :commission_rate, if: -> { kind == :commissioned }
   validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
@@ -28,6 +28,10 @@ class Event < ActiveRecord::Base
     event.validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
     event.validates :max_items_per_reservation, numericality: { greater_than: 0, only_integer: true }
   end
+
+  validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :client_id }
+
+  before_validation :create_number
 
   scope :reservation_started, -> { where.has { reservation_start <= Time.now } }
   scope :reservation_not_yet_ended, -> { where.has { reservation_end >= Time.now } }
@@ -150,5 +154,14 @@ class Event < ActiveRecord::Base
       random_token = SecureRandom.urlsafe_base64(8, false)
       break random_token unless self.class.exists?(token: random_token)
     end
+  end
+
+  private
+
+  def create_number
+    return if client.nil? || number.present?
+
+    current_max = client.events.maximum(:number) || 0
+    self.number = current_max + 1
   end
 end

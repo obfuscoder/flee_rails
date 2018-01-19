@@ -17,7 +17,7 @@ RSpec.describe StockItem do
   it { is_expected.to validate_presence_of :code }
   it { is_expected.to validate_numericality_of(:price).is_greater_than(0) }
   it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
-  it { is_expected.to validate_uniqueness_of(:number) }
+  it { is_expected.to validate_uniqueness_of(:number).scoped_to(:client_id) }
 
   its(:number) { is_expected.to eq 1 }
   its(:code) { is_expected.to eq '16' }

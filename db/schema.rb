@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118170808) do
+ActiveRecord::Schema.define(version: 20180119161903) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -90,9 +90,11 @@ ActiveRecord::Schema.define(version: 20180118170808) do
     t.integer  "max_reservations_per_seller"
     t.boolean  "reservation_fees_payed_in_advance"
     t.integer  "client_id"
+    t.integer  "number"
   end
 
   add_index "events", ["client_id"], name: "index_events_on_client_id"
+  add_index "events", ["number", "client_id"], name: "index_events_on_number_and_client_id", unique: true
   add_index "events", ["token"], name: "index_events_on_token", unique: true
 
   create_table "hardware", force: :cascade do |t|
@@ -241,8 +243,8 @@ ActiveRecord::Schema.define(version: 20180118170808) do
   end
 
   add_index "stock_items", ["client_id"], name: "index_stock_items_on_client_id"
-  add_index "stock_items", ["code"], name: "index_stock_items_on_code", unique: true
-  add_index "stock_items", ["number"], name: "index_stock_items_on_number", unique: true
+  add_index "stock_items", ["code", "client_id"], name: "index_stock_items_on_code_and_client_id", unique: true
+  add_index "stock_items", ["number", "client_id"], name: "index_stock_items_on_number_and_client_id", unique: true
 
   create_table "suspensions", force: :cascade do |t|
     t.datetime "created_at", null: false

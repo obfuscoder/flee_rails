@@ -112,6 +112,8 @@ task :merge_dumps do
       data[:events].each_with_object({}) do |data, h|
         id = data.delete(:id)
         data[:reservation_fee] = data.delete(:seller_fee)
+        data[:number] = id
+        puts "#{brand} - #{id} - #{data}"
         h[id] = Event.create!(data.merge(client: client))
       end
     end
@@ -120,9 +122,10 @@ task :merge_dumps do
       puts "Sellers: #{data[:sellers].count}"
       data[:sellers].each_with_object({}) do |data, h|
         id = data.delete(:id)
-        puts "#{client.key} #{data[:email]} -> #{data[:token]} / #{data[:created_at]}"
+        data[:phone] = nil if data[:phone].blank?
         data = { first_name: 'DELETED', last_name: 'DELETED', email: 'DELETED@DELETED.COM',
                  street: 'DELETED', city: 'DELETED', phone: '012345678', zip_code: '00000' }.merge(data.compact)
+        puts "#{brand} - #{id} - #{data}"
         h[id] = Seller.create!(data.merge(client: client))
       end
     end
@@ -205,7 +208,7 @@ task :merge_dumps do
         id = data.delete(:id)
         event_id = data.delete(:event_id)
         stock_item_id = data.delete(:stock_item_id)
-        h[id] = SoldStockItem.create!(data.merge(event: events[event_id], sold_stock_item: stock_items[stock_item_id]))
+        h[id] = SoldStockItem.create!(data.merge(event: events[event_id], stock_item: stock_items[stock_item_id]))
       end
     end
 
@@ -224,7 +227,9 @@ task :merge_dumps do
       data[:time_periods].each_with_object({}) do |data, h|
         id = data.delete(:id)
         event_id = data.delete(:event_id)
-        h[id] = TimePeriod.create!(data.merge(event: events[event_id]))
+        obj = TimePeriod.new(data.merge(event: events[event_id]))
+        obj.save validate: false
+        h[id] = obj
       end
     end
 
@@ -234,9 +239,14 @@ task :merge_dumps do
         id = data.delete(:id)
         reservation_id = data.delete(:reservation_id)
         category_id = data.delete(:category_id)
-        obj = Item.new(data.merge(reservation: reservations[reservation_id], category: categories[category_id]))
-        obj.save! context: :admin
-        h[id] = obj
+        data[:price] = 0.5 if data[:price] == '0.0'
+        if reservations[reservation_id].nil?
+          puts "ITEM-id #{id} - reservation #{reservation_id} missing!"
+        else
+          obj = Item.new(data.merge(reservation: reservations[reservation_id], category: categories[category_id]))
+          obj.save! context: :admin
+          h[id] = obj
+        end
       end
     end
   end

@@ -16,6 +16,8 @@ RSpec.describe Event do
   it { is_expected.to have_many :suspensions }
   it { is_expected.to have_many :rentals }
   it { is_expected.to have_many(:stock_items).through(:sold_stock_items) }
+  it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
+  it { is_expected.to validate_uniqueness_of(:number).scoped_to(:client_id) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq subject.name }
