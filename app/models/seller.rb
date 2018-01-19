@@ -16,7 +16,7 @@ class Seller < ActiveRecord::Base
   validates_presence_of :street, :zip_code, :city, :phone, on: :update
   validates_presence_of :street, :zip_code, :city, :phone, on: :create
   validates_acceptance_of :accept_terms, on: :create
-  validates_uniqueness_of :email, case_sensitive: false
+  validates_uniqueness_of :email, case_sensitive: false, scope: :client_id
   validates_email_format_of :email
   validates_format_of :zip_code, with: /\A\d{5}\z/, on: :update
   validates_format_of :zip_code, with: /\A\d{5}\z/, on: :create

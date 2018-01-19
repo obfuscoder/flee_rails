@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228210339) do
+ActiveRecord::Schema.define(version: 20180118170808) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at"
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20171228210339) do
 
   add_index "sellers", ["client_id"], name: "index_sellers_on_client_id"
   add_index "sellers", ["deleted_at"], name: "index_sellers_on_deleted_at"
-  add_index "sellers", ["email"], name: "index_sellers_on_email", unique: true, where: "deleted_at IS NULL"
+  add_index "sellers", ["email", "client_id"], name: "index_sellers_on_email_and_client_id", unique: true, where: "deleted_at IS NULL"
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true, where: "deleted_at IS NULL"
 
   create_table "sold_stock_items", force: :cascade do |t|
@@ -278,6 +278,6 @@ ActiveRecord::Schema.define(version: 20171228210339) do
   end
 
   add_index "users", ["client_id"], name: "index_users_on_client_id"
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email", "client_id"], name: "index_users_on_email_and_client_id", unique: true
 
 end

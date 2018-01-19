@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   belongs_to :parent, class_name: Category
 
   validates_presence_of :client
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :client_id }
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 
   scope :search, ->(needle) { needle.nil? ? all : where.has { sift :full_text_search, needle } }

@@ -16,7 +16,7 @@ RSpec.describe Seller do
   it { is_expected.to validate_presence_of :city }
   it { is_expected.to validate_presence_of :phone }
   it { is_expected.to validate_presence_of :email }
-  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive.scoped_to(:client_id) }
   it { is_expected.to validate_acceptance_of(:accept_terms).on(:create) }
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many :notifications }

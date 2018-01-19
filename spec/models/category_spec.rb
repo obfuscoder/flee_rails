@@ -13,7 +13,7 @@ RSpec.describe Category do
 
   it { is_expected.to validate_presence_of :client }
   it { is_expected.to validate_presence_of :name }
-  it { is_expected.to validate_uniqueness_of :name }
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:client_id) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq subject.name }
