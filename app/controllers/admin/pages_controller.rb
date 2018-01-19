@@ -3,9 +3,10 @@
 module Admin
   class PagesController < AdminController
     def home
-      @daily_sellers = daily_data_for(Seller)
-      @daily_items = daily_data_for(Item)
-      @daily_reservations = daily_data_for(Reservation)
+      client = current_client
+      @daily_sellers = daily_data_for(current_client.sellers)
+      @daily_reservations = daily_data_for(Reservation.for_client(client))
+      @daily_items = daily_data_for(Item.for_client(current_client))
     end
 
     def daily_data_for(clazz)

@@ -2,19 +2,18 @@
 =link_to 'Download Kassensystem', Settings.client.download_url, type: :primary, icon: :download_alt
 %h3 Verkäufer
 %ul
-  %li gesamt: #{Seller.count}
-  %li aktiviert: #{Seller.active.count}
-  %li wartend: #{Notification.count}
+  %li gesamt: #{current_client.sellers.count}
+  %li aktiviert: #{current_client.sellers.merge(Seller.active).count}
 %h3 Artikel
 %ul
-  %li gesamt: #{Item.count}
-  %li Etiketten: #{Item.with_label.count}
+  %li gesamt: #{current_client.events.joins(reservations: :items).count}
+  %li Etiketten: #{current_client.events.joins(reservations: :items).merge(Item.with_label).count}
 %h3 Bewertungen
-gesamt: #{Review.count}
+gesamt: #{current_client.events.joins(reservations: :review).count}
 %h3 Statistiken
 %h4 Artikel pro Kategorie
 = javascript_include_tag "//www.google.com/jsapi", "chartkick"
-= pie_chart Category.item_groups
+= pie_chart current_client.categories.item_groups
 %h4 Neue Artikel pro Tag
 = column_chart @daily_items
 %h4 Registrierungen pro Tag

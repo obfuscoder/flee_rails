@@ -22,6 +22,8 @@ class Reservation < ActiveRecord::Base
 
   before_validation :create_number
 
+  scope :for_client, ->(client) { Reservation.joins(:event).where.has { event.client_id.eq client.id } }
+
   def self.recent
     joining { event.shopping_periods }.where.has { event.shopping_periods.max >= 3.months.ago }.distinct.ordering do
       event.shopping_periods.max.desc

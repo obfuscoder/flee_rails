@@ -27,7 +27,6 @@ RSpec.feature 'admin home page' do
   scenario 'shows summary of sellers' do
     expect(page).to have_content 'gesamt: 7'
     expect(page).to have_content 'aktiviert: 1'
-    expect(page).to have_content 'wartend: 1'
   end
 
   scenario 'shows summary of items' do

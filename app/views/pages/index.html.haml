@@ -77,12 +77,25 @@
       %strong
         %a(href="mailto:meinflohmarkt@flohmarkthelfer.de")meinflohmarkt@flohmarkthelfer.de
 
+    %h3 Kommende Termine
+    %ul
+      - Event.current_or_upcoming.joins(:shopping_periods).order('time_periods.min').distinct.each do |event|
+        %li
+          %h4
+            %a{ href: event.client.url }= event.name
+          %p
+            %strong= shopping_time event
+          - if event.confirmed?
+            %dl.dl-horizontal
+              %dt= Event.human_attribute_name :reservation_start
+              %dd= l(event.reservation_start)
+              %dt Freie Plätze
+              %dd #{event.reservations_left} von #{event.max_sellers}
   .col-lg-4
     %h3 Flohmärkte
     %ul
       - @clients.each do |client|
         %li
           %a{ href: client.url } #{client.name}
-
 .footer
   %p &copy; 2014-2017 Lehmann Softwarelösungen

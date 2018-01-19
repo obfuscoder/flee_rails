@@ -19,6 +19,7 @@ class Item < ActiveRecord::Base
   scope :without_label, -> { where.has { code.eq nil } }
   scope :with_label, -> { where.has { code.not_eq nil } }
   scope :sold, -> { where.has { sold.not_eq nil } }
+  scope :for_client, ->(client) { joins(reservation: :event).where.has { reservation.event.client_id.eq client.id } }
 
   def self.search(needle)
     return all if needle.nil?
