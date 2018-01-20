@@ -4,10 +4,33 @@
   address: |
     Beispielstraße 4711
     12345 Musterstadt
+  intro: |
+    Dies ist der **Demobereich** von Flohmarkthelfer. Sie können sich im
+    [Verwaltungsbereich](http://demo.flohmarkthelfer.de/admin) als Organisationsteam testweise mit den
+    folgenden Daten anmelden:
+
+    eMail-Adresse: `admin@flohmarkthelfer.de`
+    Passwort: `admin`
+
+    Im Verwaltungsbereich können Sie unter anderem Termine anlegen und verwalten.
+
+    Sie können sich auch mit Ihrer eMail-Adresse als Verkäufer im Demobereich testweise registrieren. Mit Erhalt der
+    Registrierungsbestätigung können Sie sich in Ihrem geschützten Bereich anmelden und einen Platz bei
+    im Verwaltungsbereich angelegten Terminen reservieren und Artikel anlegen sowie Etiketten drucken.
+
+    Im Verwaltungsbereich können Sie auch das Kassensystem herunterladen und einen Verkauf mit den im Onlinebereich
+    eingegeben Artikeln simulieren.
+
+    **Achtung:** Berücksichtigen Sie bitte, dass sich parallel andere Personen im Verwaltungsbereich mit dem
+    Testkonto anmelden können und dabei von Ihnen angegebene Daten einsehen könnten. Geben Sie daher bitte wenn möglich
+    keine persönlichen Daten an.
+
+    **Der Demo-Bereich wird stets um Mitternacht in den Ausgangszustand zurückgesetzt. Sämtliche durch Tests gemachte
+    Änderungen gehen dabei verloren.**
   outro: |
     Hier finden Sie uns:
 
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2619.402607693358!2d8.61125!3d48.964859999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47970b5856c746a5%3A0xdadf1bab85854356!2sFesthalle!5e0!3m2!1sen!2sde!4v1438025681080" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.0209879112563!2d8.423515551089052!3d49.010185679201044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4797062e30ee3a7d%3A0x704c607da0d89be4!2sEssenweinstra%C3%9Fe+14%2C+76131+Karlsruhe!5e0!3m2!1sen!2sde!4v1516456646731" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   terms: |
     **In Kommission genommen werden** gut erhaltene, gewaschene Baby- und Kinderbekleidung
     für die kommende Jahreszeit bis Größe 176, Umstandsmode, Schuhe, Kinderbetten, Kinderwägen, Buggys,

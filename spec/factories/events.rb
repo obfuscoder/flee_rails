@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :base_event, class: :event do
-    client Client.first
+    client { Client.first }
     transient do
       shopping_time { 1.week.from_now }
       shopping_start { shopping_time }

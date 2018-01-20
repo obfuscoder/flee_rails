@@ -113,7 +113,6 @@ task :merge_dumps do
         id = data.delete(:id)
         data[:reservation_fee] = data.delete(:seller_fee)
         data[:number] = id
-        puts "#{brand} - #{id} - #{data}"
         h[id] = Event.create!(data.merge(client: client))
       end
     end
@@ -125,7 +124,6 @@ task :merge_dumps do
         data[:phone] = nil if data[:phone].blank?
         data = { first_name: 'DELETED', last_name: 'DELETED', email: 'DELETED@DELETED.COM',
                  street: 'DELETED', city: 'DELETED', phone: '012345678', zip_code: '00000' }.merge(data.compact)
-        puts "#{brand} - #{id} - #{data}"
         h[id] = Seller.create!(data.merge(client: client))
       end
     end
