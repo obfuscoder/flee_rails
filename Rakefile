@@ -32,7 +32,7 @@ task :dumps do
   destination_dir = "backup/db/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}"
   FileUtils.mkdir_p destination_dir
   for_each_database do |brand, settings|
-    destination = File.join("#{brand}_#{Time.now.iso8601}.sql.gz")
+    destination = File.join(destination_dir, "#{brand}_#{Time.now.iso8601}.sql.gz")
     puts "Dumping database for #{brand} to #{destination}"
     ENV['MYSQL_PWD'] = settings['password']
     username = settings['username']
