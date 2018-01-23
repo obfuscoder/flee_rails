@@ -50,6 +50,7 @@
         %h2= yield(:title)
       - else
         %h1= brand_settings.name_html.html_safe
+      = render '/maintenance'
       - flash.each do |type, message|
         %div{class: flash_class_from_type(type)}= message
       = yield

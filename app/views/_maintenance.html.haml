@@ -1,0 +1,12 @@
+- if Settings.maintenance
+  .alert.alert-warning
+    %h4 Ankündigung Wartungsarbeiten
+    %p
+      Am
+      %strong= l(Settings.maintenance.date, format: :long)
+      finden Wartungsarbeiten an unserem System statt. Diese beginnen um
+      %strong= l(Settings.maintenance.date + Settings.maintenance.from.seconds, format: :long_time)
+      und werden voraussichtlich gegen
+      %strong= l(Settings.maintenance.date + Settings.maintenance.to.seconds, format: :long_time)
+      abgeschlossen sein.
+    %p In dieser Zeit wird der Zugang zum Online-System nicht möglich sein.
