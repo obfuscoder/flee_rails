@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119161903) do
+ActiveRecord::Schema.define(version: 20180124174539) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 20180119161903) do
     t.integer  "number"
     t.integer  "label_counter"
     t.decimal  "commission_rate",         precision: 3, scale: 2
-    t.decimal  "fee",                     precision: 3, scale: 2
+    t.decimal  "fee",                     precision: 4, scale: 2
     t.integer  "max_items"
     t.boolean  "category_limits_ignored"
   end

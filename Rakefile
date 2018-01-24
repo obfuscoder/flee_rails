@@ -3,39 +3,16 @@
 require File.expand_path('../config/application', __FILE__)
 Rails.application.load_tasks
 
-def for_each_database
-  Dir.glob 'config/settings/brands/*.local.yml' do |file_path|
-    settings = YAML.safe_load Pathname.new(file_path).read
-    settings['brands'].each do |brand, brand_settings|
-      next if brand_settings['database'].nil? || brand_settings['database'].nil?
-      yield brand, brand_settings['database']
-    end
-  end
-end
-
-desc 'executes migrations on all databases configured under config/settings/brands/*.local.xml'
-task :migrations do
-  for_each_database do |brand, settings|
-    puts "Migrating database for #{brand}"
-    Bundler.with_clean_env do
-      ENV['DB_NAME'] = settings['database']
-      ENV['DB_USER'] = settings['username']
-      ENV['DB_PASS'] = settings['password']
-      ENV['DB_HOST'] = settings['host']
-      sh 'bundle exec rake db:migrate'
-    end
-  end
-end
-
-desc 'dumps databases configured under config/settings/brands/*.local.xml'
-task :dumps do
-  destination_dir = "backup/db/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}"
-  FileUtils.mkdir_p destination_dir
-  for_each_database do |brand, settings|
-    destination = File.join(destination_dir, "#{brand}_#{Time.now.iso8601}.sql.gz")
-    puts "Dumping database for #{brand} to #{destination}"
-    ENV['MYSQL_PWD'] = settings['password']
+namespace :db do
+  desc 'creates backup of database'
+  task :backup do
+    destination_dir = "backup/db/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}"
+    FileUtils.mkdir_p destination_dir
+    settings = Rails.configuration.database_configuration['production']
+    destination = File.join(destination_dir, "flohmarkthelfer_#{Time.now.iso8601}.sql.gz")
+    puts "Dumping database to #{destination}"
     username = settings['username']
+    ENV['MYSQL_PWD'] = settings['password']
     database = settings['database']
     sh "mysqldump --single-transaction -u #{username} #{database} | gzip > #{destination}"
   end
@@ -75,6 +52,7 @@ end
 desc 'merge all brand specific json dumps into current database'
 task :merge_dumps do
   brands = {
+    demo: 'demo',
     arlinger: 'kinderflohmarkt-arlinger',
     bischofsheim: 'montessori-maintal',
     bobingen: 'kita-zhf',
@@ -122,7 +100,7 @@ task :merge_dumps do
       data[:sellers].each_with_object({}) do |data, h|
         id = data.delete(:id)
         data[:phone] = nil if data[:phone].blank?
-        data = { first_name: 'DELETED', last_name: 'DELETED', email: 'DELETED@DELETED.COM',
+        data = { first_name: 'DELETED', last_name: 'DELETED', email: "DELETED-#{id}@DELETED.COM",
                  street: 'DELETED', city: 'DELETED', phone: '012345678', zip_code: '00000' }.merge(data.compact)
         h[id] = Seller.create!(data.merge(client: client))
       end
