@@ -3,5 +3,5 @@
 set :output, 'log/cron.log'
 
 every :hour do
-  rake 'dumps'
+  rake 'db:backup'
 end
