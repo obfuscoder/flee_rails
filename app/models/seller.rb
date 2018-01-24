@@ -20,9 +20,8 @@ class Seller < ActiveRecord::Base
   validates_email_format_of :email
   validates_format_of :zip_code, with: /\A\d{5}\z/, on: :update
   validates_format_of :zip_code, with: /\A\d{5}\z/, on: :create
-  # temporarily deactivate for migration
-  # validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update
-  # validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create
+  validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update
+  validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create
 
   scope :with_mailing, -> { where.has { mailing.eq true } }
   scope :active, -> { where.has { active.eq true } }

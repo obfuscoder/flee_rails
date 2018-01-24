@@ -12,5 +12,5 @@ namespace :flee do
     end
   end
 
-  after 'deploy:migrate', 'flee:backup'
+  before 'deploy:migrate', 'flee:backup'
 end
