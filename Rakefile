@@ -43,7 +43,7 @@ end
 
 desc 'dump all brand databases into json files'
 task :dump_dbs do
-  brands = %w[arlinger bischofsheim bobingen dammerstock
+  brands = %w[demo arlinger bischofsheim bobingen dammerstock
               durlach eggenfelden ersingen hohenhaslach
               koenigsbach rueppurr woessingen]
   brands.each do |brand|
