@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124174539) do
+ActiveRecord::Schema.define(version: 20180125083538) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -49,6 +49,10 @@ ActiveRecord::Schema.define(version: 20180124174539) do
     t.boolean  "donation_of_unsold_items"
     t.boolean  "donation_of_unsold_items_default"
   end
+
+  add_index "clients", ["domain"], name: "index_clients_on_domain", unique: true
+  add_index "clients", ["key"], name: "index_clients_on_key", unique: true
+  add_index "clients", ["prefix"], name: "index_clients_on_prefix", unique: true
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false

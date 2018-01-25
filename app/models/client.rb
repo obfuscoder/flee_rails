@@ -7,6 +7,12 @@ class Client < ActiveRecord::Base
   has_many :stock_items
   has_many :users
 
+  validates :key, uniqueness: { case_sensitive: false }, presence: true
+  validates :prefix, uniqueness: true
+  validates :domain, uniqueness: { case_sensitive: false }
+  validates :terms, presence: true
+  validates :name, presence: true
+
   def host_match?(host)
     host.ends_with?(domain) || host.ends_with?(key_based_domain)
   end
@@ -17,10 +23,6 @@ class Client < ActiveRecord::Base
 
   def short_name
     self[:short_name] || name
-  end
-
-  def database
-    Settings.brands.try(key).try(:database)
   end
 
   def mail_address

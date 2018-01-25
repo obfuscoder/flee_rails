@@ -13,6 +13,7 @@ FactoryBot.define do
       key 'demo'
       domain 'test.host'
       name 'Flohmarkthelfer Demo'
+      prefix 'XXX'
     end
   end
 end
