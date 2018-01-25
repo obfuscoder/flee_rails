@@ -2,7 +2,7 @@
   = f.error_notification
   .form-inputs
     = f.input :name
-    = f.input :details, hint: markdown(t('hints.markdown')), input_html: { rows: 8 }
+    = f.input :details, hint: markdown(t('hints.markdown')), input_html: { class: 'markdown_editor', rows: 10 }
     = f.input :max_sellers
     = f.input :kind, collection: { t(:commissioned) => :commissioned, t(:direct) => :direct }, as: :radio_buttons
     = f.input :max_items_per_reservation

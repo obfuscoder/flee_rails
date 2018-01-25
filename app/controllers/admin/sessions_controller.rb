@@ -3,7 +3,11 @@
 module Admin
   class SessionsController < ApplicationController
     def new
-      @user = current_client.users.build
+      if current_client.users.nil?
+        redirect_to pages_index_path
+      else
+        @user = current_client.users.build
+      end
     end
 
     def create

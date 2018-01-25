@@ -6,9 +6,9 @@
     = f.input :short_name
     = f.input :address, as: :text, input_html: { rows: 2 }
     = f.input :invoice_address, as: :text, input_html: { rows: 2 }
-    = f.input :intro, as: :text, hint: markdown(t('hints.markdown')), input_html: { rows: 10 }
-    = f.input :outro, as: :text, hint: markdown(t('hints.markdown')), input_html: { rows: 10 }
-    = f.input :terms, as: :text, hint: markdown(t('hints.markdown')), input_html: { rows: 40 }
+    = f.input :intro, as: :text, hint: markdown(t('hints.markdown')), input_html: { class: 'markdown_editor', rows: 10 }
+    = f.input :outro, as: :text, hint: markdown(t('hints.markdown')), input_html: { class: 'markdown_editor', rows: 10 }
+    = f.input :terms, as: :text, hint: markdown(t('hints.markdown')), input_html: { class: 'markdown_editor', rows: 40 }
     = f.input :price_precision
     = f.input :reservation_fee
     = f.input :commission_rate
