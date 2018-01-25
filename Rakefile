@@ -19,7 +19,7 @@ namespace :db do
 
   namespace :demo do
     desc 'seeds demo content'
-    task :seed do
+    task seed: :environment do
       client_seeds = YAML::load_file(Rails.root.join('db/seeds/clients.yml'))
       demo_seed = client_seeds.find { |seed| seed['key'] == 'demo' }
       client = Client.create! demo_seed
@@ -109,7 +109,7 @@ namespace :db do
     end
 
     desc 'deletes demo content'
-    task :delete do
+    task delete: :environment do
       client = Client.find_by key: 'demo'
       client.destroy_everything! if client.present?
     end
