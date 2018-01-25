@@ -8,9 +8,9 @@ class Seller < ActiveRecord::Base
   belongs_to :client
 
   has_many :reservations
-  has_many :notifications
-  has_many :suspensions
-  has_many :emails
+  has_many :notifications, dependent: :delete_all
+  has_many :suspensions, dependent: :delete_all
+  has_many :emails, dependent: :delete_all
 
   validates_presence_of :client, :first_name, :last_name, :email
   validates_presence_of :street, :zip_code, :city, :phone, on: :update

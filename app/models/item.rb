@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Item < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, -> { with_deleted }
   belongs_to :reservation
 
   include ActionView::Helpers::NumberHelper

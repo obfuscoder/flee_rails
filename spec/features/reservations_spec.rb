@@ -8,6 +8,6 @@ RSpec.feature 'Reservations' do
 
   scenario 'seller tries to get reservation for event' do
     visit login_seller_path(seller.token, goto: :reserve, event: event)
-    expect(page).to have_content 'Die Reservierung ist nocht nicht freigeschaltet.'
+    expect(page).to have_content 'Die Reservierung ist noch nicht freigeschaltet.'
   end
 end

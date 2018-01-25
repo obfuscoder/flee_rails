@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Client < ActiveRecord::Base
-  has_many :events
-  has_many :categories
-  has_many :sellers
-  has_many :stock_items
-  has_many :users
+  has_many :events, dependent: :delete_all
+  has_many :categories, dependent: :delete_all
+  has_many :sellers, dependent: :delete_all
+  has_many :stock_items, dependent: :delete_all
+  has_many :users, dependent: :delete_all
 
   validates :key, uniqueness: { case_sensitive: false }, presence: true
   validates :prefix, uniqueness: true
@@ -35,6 +35,20 @@ class Client < ActiveRecord::Base
 
   def url
     "http://#{domain}"
+  end
+
+  def destroy_everything!
+    Seller.unscoped { Email.joins(:seller).where(sellers: { client_id: id }).delete_all }
+    Item.joins(reservation: :seller).where(sellers: { client_id: id }).delete_all
+    Review.joins(reservation: :seller).where(sellers: { client_id: id }).delete_all
+    Reservation.joins(:seller).where(sellers: { client_id: id }).delete_all
+    Message.joins(:event).where(events: { client_id: id }).delete_all
+    Notification.joins(:seller).where(sellers: { client_id: id }).delete_all
+    Rental.joins(:event).where(events: { client_id: id }).delete_all
+    SoldStockItem.joins(:stock_item).where(stock_items: { client_id: id }).delete_all
+    Suspension.joins(:seller).where(sellers: { client_id: id }).delete_all
+    TimePeriod.joins(:event).where(events: { client_id: id }).delete_all
+    destroy!
   end
 
   private
