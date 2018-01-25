@@ -22,7 +22,7 @@ class Client < ActiveRecord::Base
   end
 
   def short_name
-    self[:short_name] || name
+    self[:short_name].present? ? self[:short_name] : name
   end
 
   def mail_address

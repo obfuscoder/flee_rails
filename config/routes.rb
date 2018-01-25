@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         get :bill
       end
     end
+    resource :client, only: [:edit, :update]
+
     resources :sellers do
       resources :emails, only: [:index]
     end

@@ -32,6 +32,11 @@ RSpec.describe Client do
   describe '#short_name' do
     subject { client.short_name }
     it { is_expected.to eq client.name }
+
+    context 'when short_name is empty' do
+      before { client.short_name = '' }
+      it { is_expected.to eq client.name }
+    end
   end
 
   describe '#mail_from' do

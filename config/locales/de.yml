@@ -1,4 +1,6 @@
 de:
+  hints:
+    markdown: Als Formattierung wird die [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
   commissioned: Kommissionsbasis
   direct: Tischbasis
   "true": ja
@@ -37,6 +39,8 @@ de:
         update: Änderungen speichern
       rental:
         create: Leihe anlegen
+      client:
+        update: Systemeinstellungen aktualisieren
   reviews:
     new:
       title: Bewertung
@@ -183,8 +187,6 @@ de:
         success: Termin gelöscht.
         failure: Termin konnte nicht gelöscht werden.
       form:
-        details:
-          hint: Als Formattierung wird die [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
         price_precision:
           hint: >
             Alle Preise dürfen nur ein Vielfaches dieses Werts in € sein.
@@ -193,6 +195,11 @@ de:
           hint: &commission_rate_hint >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
             Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes.
+    clients:
+      edit:
+        title: Systemeinstellungen
+      update:
+        success: Die Systemeinstellungen wurden aktualisiert.
     reservations:
       index:
         title: Reservierungen
@@ -383,6 +390,18 @@ de:
       hardware: Gerät
       rental: Leihe
     attributes:
+      client:
+        short_name: Kurzname (in Menüleiste sichtbar)
+        address: Adresse
+        invoice_address: Rechnungsadresse
+        intro: Einleitung auf Hauptseite
+        outro: Epilog auf Hauptseite
+        terms: Teilnahmebedingungen
+        price_precision: Standard für Basis für Preisangaben
+        commission_rate: Standard für Umsatzanteil für Kommission
+        reservation_fee: Standard für Reservierungsgebühr
+        donation_of_unsold_items: Standard für Spenden nicht verkaufter Artikel
+        donation_of_unsold_items_default: Standardeinstellung für Spende bei Artikeleingabe
       category:
         name: Name
         parent: Überkategorie
