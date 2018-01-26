@@ -14,7 +14,7 @@ module Admin
     end
 
     def daily_data(items_hash)
-      (29.days.ago.to_date..Date.today).map { |day| day.strftime '%Y-%m-%d' }.map do |day|
+      (29.days.ago.to_date..Time.zone.today).map { |day| day.strftime '%Y-%m-%d' }.map do |day|
         [day, items_hash[day] || 0]
       end
     end

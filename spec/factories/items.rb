@@ -13,12 +13,12 @@ FactoryBot.define do
       end
 
       factory :sold_item do
-        sold Time.now
+        sold Time.zone.now
       end
     end
 
     factory :random_item do
-      created_at { Faker::Time.between 10.days.ago, Time.now }
+      created_at { Faker::Time.between 10.days.ago, Time.zone.now }
       description { Faker::Lorem.words(4).join(' ') }
       price { Faker::Number.decimal 1, 1 }
     end

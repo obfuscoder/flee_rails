@@ -23,7 +23,8 @@ module ApplicationHelper
     icon = ops.delete :icon
     if icon.is_a? Symbol
       icon = icon.to_s.dasherize
-      return "<span class=\"glyphicon glyphicon-#{icon}\" aria-hidden=\"true\"></span> #{name}".html_safe
+      return content_tag(:span, '',
+                         class: ['glyphicon', "glyphicon-#{icon}"], aria_hidden: true) + name
     end
     name
   end
@@ -69,7 +70,7 @@ module ApplicationHelper
     link_options = { sort: attribute_name, dir: @sort == attribute_name && @dir == 'asc' ? 'desc' : 'asc' }
     order_to_icon = { 'asc' => 'bottom', 'desc' => 'top' }
     icon = @sort == attribute_name ? order_to_icon[@dir] : nil
-    span = icon ? (tag 'span', class: "glyphicon glyphicon-triangle-#{icon}") : ''
-    link_to text.html_safe + span.html_safe, link_options
+    span = icon ? tag(:span, class: ['glyphicon', "glyphicon-triangle-#{icon}"]) : ''
+    link_to safe_join([text, span]), link_options
   end
 end

@@ -110,6 +110,8 @@ RSpec.describe Seller do
       expect { subject.destroy }.not_to change { Seller.with_deleted.count }
     end
 
+    it 'destroys associated notifications, suspensions and emails'
+
     it 'marks record as deleted' do
       expect { subject.destroy }.to change { subject.deleted_at }.from(nil)
     end

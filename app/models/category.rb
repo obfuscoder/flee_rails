@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :client
-  has_many :items
+  has_many :items, dependent: :restrict_with_error
   has_many :children, class_name: Category, foreign_key: :parent_id,
                       dependent: :restrict_with_error, inverse_of: :parent
   belongs_to :parent, class_name: Category, inverse_of: :children

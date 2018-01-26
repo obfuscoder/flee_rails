@@ -27,7 +27,7 @@ class Receipt
   end
 
   def date
-    Time.now.strftime '%d. %m. %Y'
+    Time.zone.now.strftime '%d. %m. %Y'
   end
 
   def sold_items

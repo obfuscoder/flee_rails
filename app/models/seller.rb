@@ -7,7 +7,7 @@ class Seller < ActiveRecord::Base
 
   belongs_to :client
 
-  has_many :reservations
+  has_many :reservations, dependent: :restrict_with_error
   has_many :notifications, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all
   has_many :emails, dependent: :delete_all

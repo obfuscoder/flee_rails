@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.feature 'Registrations' do
   let(:email) { 'erika@mustermann.de' }
-  let(:seller) { Seller.find_by_email email }
+  let(:seller) { Seller.find_by email: email }
   def fill_in_and_submit_registration_form
     fill_in 'Vorname', with: 'Erika'
     fill_in 'Nachname', with: 'Mustermann'

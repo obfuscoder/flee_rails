@@ -69,10 +69,10 @@ end
 namespace :db do
   desc 'creates backup of database'
   task :backup do
-    destination_dir = "backup/db/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}"
+    destination_dir = "backup/db/#{Time.zone.now.year}/#{Time.zone.now.month}/#{Time.zone.now.day}"
     FileUtils.mkdir_p destination_dir
     settings = Rails.configuration.database_configuration['production']
-    destination = File.join(destination_dir, "flohmarkthelfer_#{Time.now.iso8601}.sql.gz")
+    destination = File.join(destination_dir, "flohmarkthelfer_#{Time.zone.now.iso8601}.sql.gz")
     puts "Dumping database to #{destination}"
     username = settings['username']
     ENV['MYSQL_PWD'] = settings['password']

@@ -9,6 +9,6 @@ class DateTimePickerInput < SimpleForm::Inputs::Base
   end
 
   def icon_table
-    '<span class="input-group-addon glyphicon glyphicon-th"></span>'.html_safe
+    content_tag(:span, '', class: %w[input-group-addon glyphicon glyphicon-th])
   end
 end

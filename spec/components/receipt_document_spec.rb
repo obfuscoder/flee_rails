@@ -6,7 +6,7 @@ RSpec.describe ReceiptDocument do
   let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
   let(:seller) { create :seller }
   let(:reservation) { create :reservation, event: event, seller: seller }
-  let!(:sold_items) { create_list :item_with_code, 21, reservation: reservation, sold: Time.now }
+  let!(:sold_items) { create_list :item_with_code, 21, reservation: reservation, sold: Time.zone.now }
   let!(:returned_items) { create_list :item_with_code, 12, reservation: reservation }
   let!(:donated_items) { create_list :item_with_code, 5, reservation: reservation, donation: true }
   let(:receipt) { Receipt.new reservation.reload }

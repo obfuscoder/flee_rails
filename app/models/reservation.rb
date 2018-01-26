@@ -45,15 +45,15 @@ class Reservation < ActiveRecord::Base
   end
 
   def commission_rate
-    read_attribute(:commission_rate) || event.commission_rate
+    self[:commission_rate] || event.commission_rate
   end
 
   def fee
-    read_attribute(:fee) || event.reservation_fee
+    self[:fee] || event.reservation_fee
   end
 
   def max_items
-    read_attribute(:max_items) || event.try(:max_items_per_reservation)
+    self[:max_items] || event.try(:max_items_per_reservation)
   end
 
   private
@@ -67,8 +67,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def within_reservation_period
-    errors.add :base, :too_early unless event.present? && Time.now >= event.reservation_start
-    errors.add :base, :too_late unless event.present? && Time.now <= event.reservation_end
+    errors.add :base, :too_early unless event.present? && Time.zone.now >= event.reservation_start
+    errors.add :base, :too_late unless event.present? && Time.zone.now <= event.reservation_end
   end
 
   def capacity_available
