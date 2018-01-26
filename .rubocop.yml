@@ -1,4 +1,7 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
+  TargetRailsVersion: 4.2
   DisplayCopNames: true
   Exclude:
     - 'db/**/*'
@@ -23,6 +26,6 @@ Style/Documentation:
 Layout/MultilineOperationIndentation:
   Enabled: false
 Metrics/AbcSize:
-  Max: 30
+  Max: 50
 Lint/AmbiguousBlockAssociation:
   Enabled: false

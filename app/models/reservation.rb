@@ -8,14 +8,14 @@ class Reservation < ActiveRecord::Base
 
   include Statistics
 
-  validates_presence_of :seller, :event, :number
+  validates :seller, :event, :number, presence: true
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
 
-  with_options on: :create do |reservation|
-    reservation.validate :within_reservation_period
-    reservation.validate :capacity_available
-    reservation.validate :max_reservations_per_seller
-    reservation.validate :not_suspended
+  with_options on: :create do
+    validate :within_reservation_period
+    validate :capacity_available
+    validate :max_reservations_per_seller
+    validate :not_suspended
   end
 
   validates :max_items, numericality: { greater_than: 0, only_integer: true }

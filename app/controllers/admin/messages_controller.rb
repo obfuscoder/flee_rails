@@ -2,7 +2,7 @@
 
 module Admin
   class MessagesController < AdminController
-    before_filter { @event = current_client.events.find params[:event_id] }
+    before_action { @event = current_client.events.find params[:event_id] }
 
     def invitation
       sellers = current_client.sellers.merge(Seller.active.with_mailing.without_reservation_for(@event))

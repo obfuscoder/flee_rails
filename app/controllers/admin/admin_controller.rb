@@ -2,8 +2,8 @@
 
 module Admin
   class AdminController < ApplicationController
-    before_filter :require_login
-    before_filter do
+    before_action :require_login
+    before_action do
       @menu = [
         { link: admin_path, title: 'Adminbereich', icon: :home },
         { link: admin_events_path, title: 'Termine', icon: :calendar },

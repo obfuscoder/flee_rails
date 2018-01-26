@@ -2,7 +2,7 @@
 
 module Admin
   class CategoriesController < AdminController
-    before_filter :set_category, only: %i[destroy edit update show]
+    before_action :set_category, only: %i[destroy edit update show]
 
     def index
       @categories = current_client.categories.page(@page).order column_order

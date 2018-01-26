@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReservationsController < ApplicationController
-  before_filter :init_event
+  before_action :init_event
 
   def create
     reservation = CreateReservation.new.create @event,

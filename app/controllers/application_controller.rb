@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_filter :log_client
-  before_filter :init_page_parameter
-  before_filter :init_sort_parameter
-  before_filter :log_current_user
+  before_action :log_client
+  before_action :init_page_parameter
+  before_action :init_sort_parameter
+  before_action :log_current_user
 
   helper_method :searchable?
 

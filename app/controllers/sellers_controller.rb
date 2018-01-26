@@ -69,7 +69,7 @@ class SellersController < ApplicationController
     sellers = current_client.sellers
     raise UnauthorizedError if sellers.nil?
     seller = sellers.find_by_token params[:token]
-    raise UnauthorizedError unless seller.present?
+    raise UnauthorizedError if seller.blank?
     activate_seller(seller)
     session[:seller_id] = seller.id
   end

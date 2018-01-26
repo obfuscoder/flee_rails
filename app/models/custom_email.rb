@@ -11,7 +11,7 @@ class CustomEmail
                 :notification, :notification_event,
                 :items, :items_event
 
-  validates_presence_of :subject, :body, :sellers
+  validates :subject, :body, :sellers, presence: true
 
   def initialize(attributes = {})
     attributes.each do |name, value|

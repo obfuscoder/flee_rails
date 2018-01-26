@@ -20,9 +20,7 @@ class SuspensionsQuery
     suspensions.select(&:valid?)
   end
 
-  def find(id)
-    results.find(id)
-  end
+  delegate :find, to: :results
 
   private
 

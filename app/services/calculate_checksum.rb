@@ -6,7 +6,7 @@
 # We calculate and use the digit sum mod 10 for each code point which results in a checksum between 0 and 9.
 class CalculateChecksum
   def call(code)
-    return 0 unless code.present?
+    return 0 if code.blank?
     digits = digits(code.to_s)
     weighted_digits = weight_digits(digits)
     sum_digits(weighted_digits)

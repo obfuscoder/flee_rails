@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  before_filter :init_event
+  before_action :init_event
 
   def create
     @event.notifications.create seller: current_seller

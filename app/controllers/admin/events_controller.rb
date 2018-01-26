@@ -2,9 +2,7 @@
 
 module Admin
   class EventsController < AdminController
-    before_filter :init_event, only: %i[
-      edit update show stats items_per_category sold_items_per_category sellers_per_city data bill
-    ]
+    before_action :init_event, only: %i[edit update show stats data bill]
 
     def init_event
       @event = current_client.events.find params[:id]

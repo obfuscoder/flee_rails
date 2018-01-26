@@ -33,6 +33,6 @@ module Flee
 
     config.middleware.use Rack::Deflater
 
-    config.autoload_paths << "#{Rails.root}/components"
+    config.autoload_paths << Rails.root.join('components')
   end
 end

@@ -12,16 +12,16 @@ class Seller < ActiveRecord::Base
   has_many :suspensions, dependent: :delete_all
   has_many :emails, dependent: :delete_all
 
-  validates_presence_of :client, :first_name, :last_name, :email
-  validates_presence_of :street, :zip_code, :city, :phone, on: :update
-  validates_presence_of :street, :zip_code, :city, :phone, on: :create
-  validates_acceptance_of :accept_terms, on: :create
-  validates_uniqueness_of :email, case_sensitive: false, scope: :client_id
+  validates :client, :first_name, :last_name, :email, presence: true
+  validates :street, :zip_code, :city, :phone, presence: { on: :update }
+  validates :street, :zip_code, :city, :phone, presence: { on: :create }
+  validates :accept_terms, acceptance: { on: :create }
+  validates :email, uniqueness: { case_sensitive: false, scope: :client_id }
   validates_email_format_of :email
-  validates_format_of :zip_code, with: /\A\d{5}\z/, on: :update
-  validates_format_of :zip_code, with: /\A\d{5}\z/, on: :create
-  validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update
-  validates_format_of :phone, with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create
+  validates :zip_code, format: { with: /\A\d{5}\z/, on: :update }
+  validates :zip_code, format: { with: /\A\d{5}\z/, on: :create }
+  validates :phone, format: { with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update }
+  validates :phone, format: { with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create }
 
   scope :with_mailing, -> { where.has { mailing.eq true } }
   scope :active, -> { where.has { active.eq true } }

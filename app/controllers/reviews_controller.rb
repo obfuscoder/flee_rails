@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReviewsController < ApplicationController
-  before_filter :init_event, :init_reservation,
+  before_action :init_event, :init_reservation,
                 :only_with_reservation, :only_after_event_passed, :only_without_review
 
   def show

@@ -2,9 +2,9 @@
 
 module Api
   class EventsController < ApplicationController
-    skip_before_filter :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
 
-    before_filter :init_event
+    before_action :init_event
 
     def show
       @categories = current_client.categories.all

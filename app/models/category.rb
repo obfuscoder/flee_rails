@@ -10,7 +10,7 @@ class Category < ActiveRecord::Base
   has_many :children, class_name: Category, foreign_key: :parent_id, dependent: :restrict_with_error
   belongs_to :parent, class_name: Category
 
-  validates_presence_of :client
+  validates :client, presence: true
   validates :name, presence: true, uniqueness: { scope: :client_id }
   validates :max_items_per_seller, numericality: { only_integer: true, allow_blank: true }
 
@@ -32,7 +32,7 @@ class Category < ActiveRecord::Base
   end
 
   def possible_parents
-    Category.where.not(id: descendants.map(&:id) << id)
+    client.categories.where.not(id: descendants.map(&:id) << id)
   end
 
   def most_limited_category

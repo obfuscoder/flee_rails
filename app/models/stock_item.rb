@@ -6,8 +6,8 @@ class StockItem < ActiveRecord::Base
   has_many :sold_stock_items
   has_many :events, through: :sold_stock_items
 
-  validates_presence_of :client, :description, :price, :number, :code
-  validates_uniqueness_of :code, scope: :client_id
+  validates :client, :description, :price, :number, :code, presence: true
+  validates :code, uniqueness: { scope: :client_id }
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :client_id }
   validates :price, numericality: { greater_than: 0 }
 

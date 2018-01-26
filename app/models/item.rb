@@ -7,8 +7,8 @@ class Item < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   include Statistics
 
-  validates_presence_of :category, :description, :price, :reservation
-  validates_uniqueness_of :code, allow_nil: true
+  validates :category, :description, :price, :reservation, presence: true
+  validates :code, uniqueness: { allow_nil: true }
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
                      allow_nil: true
@@ -60,7 +60,7 @@ class Item < ActiveRecord::Base
   end
 
   def max_number_of_items_for_category
-    return unless reservation.present?
+    return if reservation.blank?
     return if reservation.category_limits_ignored?
     most_limited_category = category.try(:most_limited_category)
     return unless category.present? && most_limited_category.present?

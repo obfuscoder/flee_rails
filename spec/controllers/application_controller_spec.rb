@@ -13,7 +13,7 @@ RSpec.describe ApplicationController do
     context 'with two notifications' do
       let!(:notifications) { create_list :notification, 2, event: event }
       it 'creates reservation for first notification and keeps last notification' do
-        create_reservation = double(:create_reservation)
+        create_reservation = double(:create_demo_reservation)
         first_seller = notifications.first.seller
         last_notification = notifications.last
         expect(CreateReservation).to receive(:new).and_return create_reservation

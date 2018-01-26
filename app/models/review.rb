@@ -3,7 +3,7 @@
 class Review < ActiveRecord::Base
   belongs_to :reservation
 
-  validates_presence_of :reservation
+  validates :reservation, presence: true
 
   validates :reservation_id, uniqueness: true
 end

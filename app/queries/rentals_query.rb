@@ -13,18 +13,12 @@ class RentalsQuery
     all.build
   end
 
-  def create(params)
-    all.create params
-  end
+  delegate :create, :find, to: :all
 
   def update(id, params)
     rental = find(id)
     rental.update(params)
     rental
-  end
-
-  def find(id)
-    all.find(id)
   end
 
   def all

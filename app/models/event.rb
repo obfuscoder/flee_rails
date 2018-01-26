@@ -17,22 +17,21 @@ class Event < ActiveRecord::Base
   has_many :shopping_periods, -> { where(kind: :shopping).order(:min) },
            class_name: 'TimePeriod',
            dependent: :delete_all
-  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) },
-           class_name: 'TimePeriod',
-           dependent: :delete_all
+  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod', dependent: :delete_all
 
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :client, :name, :max_sellers, :reservation_fee, :number
-  validates_presence_of :max_items_per_reservation, :price_precision, :commission_rate, if: -> { kind == :commissioned }
+  validates :client, :name, :max_sellers, :reservation_fee, :number, presence: true
+  validates :max_items_per_reservation, :price_precision, :commission_rate,
+            presence: { if: -> { kind == :commissioned } }
   validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
 
-  with_options if: :commissioned? do |event|
-    event.validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
-    event.validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
-    event.validates :max_items_per_reservation, numericality: { greater_than: 0, only_integer: true }
+  with_options if: :commissioned? do
+    validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
+    validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
+    validates :max_items_per_reservation, numericality: { greater_than: 0, only_integer: true }
   end
 
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :client_id }

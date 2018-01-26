@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   belongs_to :client
 
   validates :email, uniqueness: true
-  validates_confirmation_of :password, on: :update
-  validates_presence_of :client
-  validates_presence_of :old_password, :password, :password_confirmation, on: :update
+  validates :password, confirmation: { on: :update }
+  validates :client, presence: true
+  validates :old_password, :password, :password_confirmation, presence: { on: :update }
   validate :old_password_correct, on: :update
   validate :password_differs_from_old_password, on: :update
   validate :password_strength, on: :update
