@@ -6,6 +6,8 @@ AllCops:
     - 'config/initializers/*'
     - 'spec/features/screenshots.rb'
     - 'config/routes.rb'
+Rails:
+  Enabled: true
 Metrics/LineLength:
   Max: 120
 Metrics/ModuleLength:
