@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'cancancan'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
