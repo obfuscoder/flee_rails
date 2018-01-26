@@ -13,7 +13,7 @@ RSpec.describe 'admin/events/show' do
   end
 
   describe 'rendered' do
-    let(:preparation){}
+    let(:preparation) {}
     before do
       preparation
       render
@@ -35,7 +35,7 @@ RSpec.describe 'admin/events/show' do
     it { is_expected.to have_link 'Leihgeräte', href: admin_event_rentals_path(event) }
 
     context 'when reservation end has past' do
-      let(:additional_preparation){}
+      let(:additional_preparation) {}
       let(:preparation) do
         additional_preparation
         event.update reservation_end: 1.hour.ago

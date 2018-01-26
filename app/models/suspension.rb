@@ -2,7 +2,7 @@
 
 class Suspension < ActiveRecord::Base
   belongs_to :event
-  belongs_to :seller, -> { with_deleted }
+  belongs_to :seller, -> { with_deleted }, inverse_of: :suspensions
 
   validates :seller, :event, :reason, presence: true
   validates :seller_id, uniqueness: { scope: :event_id }

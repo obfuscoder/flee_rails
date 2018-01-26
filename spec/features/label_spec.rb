@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.feature 'labels generation' do
   let(:seller) { create :seller }
   let!(:category) { create :category }
-  let(:preparations){}
+  let(:preparations) {}
   let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
 
   background do
@@ -25,7 +25,7 @@ RSpec.feature 'labels generation' do
     let(:reservation) { create :reservation, seller: seller }
     let(:items) { create_list :item, 5, reservation: reservation }
     let(:preparations) { items }
-    let(:make_selection){}
+    let(:make_selection) {}
     before do
       click_on 'Etiketten drucken'
       make_selection

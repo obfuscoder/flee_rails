@@ -41,7 +41,7 @@ module Api
       end
 
       context 'with invalid access token' do
-        let(:prerequisites){}
+        let(:prerequisites) {}
         describe 'response' do
           subject { response }
           it { is_expected.to have_http_status :unauthorized }
@@ -97,7 +97,7 @@ module Api
         post :transactions, _json: transactions, format: :json
       end
 
-      let(:prerequisites){}
+      let(:prerequisites) {}
 
       describe 'response' do
         subject { response }

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PagesController do
   describe 'GET home' do
-    let(:preparations){}
+    let(:preparations) {}
     before do
       preparations
       request.host = request_host

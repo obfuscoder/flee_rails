@@ -24,7 +24,7 @@ module Admin
       preparations
       get :test
     end
-    let(:preparations){}
+    let(:preparations) {}
 
     describe '@menu' do
       subject(:menu) { assigns :menu }

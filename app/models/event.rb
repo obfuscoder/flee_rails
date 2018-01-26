@@ -3,9 +3,9 @@
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
   belongs_to :client
-  has_many :reservations, -> { order :id }
+  has_many :reservations, -> { order :id }, inverse_of: :event
   has_many :reviews, through: :reservations
-  has_many :notifications, -> { order :id }
+  has_many :notifications, -> { order :id }, inverse_of: :event
   has_many :messages, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all
   has_many :rentals, dependent: :delete_all
@@ -13,11 +13,16 @@ class Event < ActiveRecord::Base
   has_many :stock_items, through: :sold_stock_items
   has_many :handover_periods, -> { where(kind: :handover).order(:min) },
            class_name: 'TimePeriod',
-           dependent: :delete_all
+           dependent: :delete_all,
+           inverse_of: :event
   has_many :shopping_periods, -> { where(kind: :shopping).order(:min) },
            class_name: 'TimePeriod',
-           dependent: :delete_all
-  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) }, class_name: 'TimePeriod', dependent: :delete_all
+           dependent: :delete_all,
+           inverse_of: :event
+  has_many :pickup_periods, -> { where(kind: :pickup).order(:min) },
+           class_name: 'TimePeriod',
+           dependent: :delete_all,
+           inverse_of: :event
 
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank

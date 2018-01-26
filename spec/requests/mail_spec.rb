@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'mail request' do
   let(:mail_content) { File.binread(File.dirname(__FILE__) + '/registration_mail.txt') }
-  let(:preparations){}
+  let(:preparations) {}
   before do
     preparations
     post '/mail', mail_content, content_type: 'application/octet-stream'

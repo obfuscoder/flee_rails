@@ -7,8 +7,9 @@ class Category < ActiveRecord::Base
 
   belongs_to :client
   has_many :items
-  has_many :children, class_name: Category, foreign_key: :parent_id, dependent: :restrict_with_error
-  belongs_to :parent, class_name: Category
+  has_many :children, class_name: Category, foreign_key: :parent_id,
+                      dependent: :restrict_with_error, inverse_of: :parent
+  belongs_to :parent, class_name: Category, inverse_of: :children
 
   validates :client, presence: true
   validates :name, presence: true, uniqueness: { scope: :client_id }

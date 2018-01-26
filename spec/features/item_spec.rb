@@ -6,7 +6,7 @@ RSpec.feature 'Viewing and editing items' do
   let(:reservation) { create :reservation }
   let(:seller) { reservation.seller }
   let!(:category) { create :category }
-  let(:preparations){}
+  let(:preparations) {}
   background do
     preparations
     visit login_seller_path(seller.token)
