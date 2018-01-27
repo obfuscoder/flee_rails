@@ -6,7 +6,7 @@ class Receipt
 
     commission_cut_sum =
       (sold_items_sum * (1 - reservation.commission_rate) / reservation.event.price_precision).floor *
-        reservation.event.price_precision
+      reservation.event.price_precision
     @payout = commission_cut_sum
     @payout -= reservation.fee unless event.reservation_fees_payed_in_advance
     @commission_cut = commission_cut_sum - sold_items_sum

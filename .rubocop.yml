@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   TargetRailsVersion: 4.2
   DisplayCopNames: true
@@ -11,24 +9,40 @@ AllCops:
     - 'config/routes.rb'
 Rails:
   Enabled: true
+
 Metrics/ClassLength:
   Max: 150
+
 Metrics/LineLength:
   Max: 120
+
 Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*'
+
 Metrics/BlockLength:
   Max: 50
   Exclude:
     - 'spec/**/*'
+
 Metrics/MethodLength:
   Max: 25
+
 Style/Documentation:
   Enabled: false
-Layout/MultilineOperationIndentation:
-  Enabled: false
+
 Metrics/AbcSize:
   Max: 50
+
 Lint/AmbiguousBlockAssociation:
-  Enabled: false
+  Exclude:
+    - 'spec/**/*'
+
+Rails/OutputSafety:
+  Exclude:
+    - 'app/helpers/markdown_helper.rb'
+    - 'app/mailers/seller_mailer.rb'
+
+Style/FormatStringToken:
+  Exclude:
+    - 'app/models/item.rb'
