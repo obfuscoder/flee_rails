@@ -14,7 +14,7 @@ FactoryBot.define do
     sequence(:token) { |n| "token#{n}" }
 
     factory :random_seller do
-      created_at { Faker::Time.between 10.days.ago, Time.zone.now }
+      created_at { Faker::Time.between 10.days.ago, Time.now }
     end
   end
 end

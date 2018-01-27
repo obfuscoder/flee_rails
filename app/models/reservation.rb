@@ -67,8 +67,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def within_reservation_period
-    errors.add :base, :too_early unless event.present? && Time.zone.now >= event.reservation_start
-    errors.add :base, :too_late unless event.present? && Time.zone.now <= event.reservation_end
+    errors.add :base, :too_early unless event.present? && Time.now >= event.reservation_start
+    errors.add :base, :too_late unless event.present? && Time.now <= event.reservation_end
   end
 
   def capacity_available

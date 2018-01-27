@@ -46,3 +46,7 @@ Rails/OutputSafety:
 Style/FormatStringToken:
   Exclude:
     - 'app/models/item.rb'
+
+# Time.zone is nil when executing rake tasks in production environment
+Rails/TimeZone:
+  Enabled: false

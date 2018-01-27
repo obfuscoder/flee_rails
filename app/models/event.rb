@@ -43,11 +43,11 @@ class Event < ActiveRecord::Base
 
   before_validation :create_number
 
-  scope :reservation_started, -> { where.has { reservation_start <= Time.zone.now } }
-  scope :reservation_not_yet_ended, -> { where.has { reservation_end >= Time.zone.now } }
+  scope :reservation_started, -> { where.has { reservation_start <= Time.now } }
+  scope :reservation_not_yet_ended, -> { where.has { reservation_end >= Time.now } }
   scope :within_reservation_time, -> { reservation_started.reservation_not_yet_ended }
   scope :without_reservation_for, ->(seller) { where.not(id: seller.reservations.map(&:event_id)) }
-  scope :current_or_upcoming, -> { joining { shopping_periods }.where.has { shopping_periods.max >= Time.zone.now } }
+  scope :current_or_upcoming, -> { joining { shopping_periods }.where.has { shopping_periods.max >= Time.now } }
   scope :with_sent, ->(category) { joining { messages }.where.has { messages.category == category.to_s } }
   scope :reservable, -> { within_reservation_time.with_available_reservations }
 
