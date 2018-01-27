@@ -13,6 +13,7 @@ default_client:
   name: Flohmarkthelfer
   short_name: Flohmarkt<strong>helfer</strong>
   contact: hilfe@flohmarkthelfer.de
+  mail_address: hilfe@flohmarkthelfer.de
   terms: |
     ### Dienstleistung
 

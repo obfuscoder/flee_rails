@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
     render file: '/public/401', status: :unauthorized
   end
 
+  def not_found
+    render file: '/public/404', status: :not_found
+  end
+
   private
 
   def create_label_document(items)
