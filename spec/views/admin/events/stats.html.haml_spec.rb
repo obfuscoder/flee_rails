@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'admin/events/stats' do
   let(:event) do
     double id: 1,
-           max_sellers: 13,
+           max_reservations: 13,
            item_count: 10,
            items_with_label_count: 8,
            sold_item_count: 6,
@@ -90,7 +90,7 @@ RSpec.describe 'admin/events/stats' do
       end
     end
 
-    it { is_expected.to have_content "#{event.reservations.count} / #{event.max_sellers}" }
+    it { is_expected.to have_content "#{event.reservations.count} / #{event.max_reservations}" }
     it { is_expected.to have_content event.notifications.count }
 
     it { is_expected.to have_link 'anzeigen', href: '#notifications_collapser' }

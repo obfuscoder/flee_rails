@@ -60,11 +60,9 @@ class ApplicationController < ActionController::Base
 
   def auto_reserve(event)
     reservation_count = event.reservations.count
-    return unless reservation_count < event.max_sellers
-    event.notifications.order(:id).limit(event.max_sellers - reservation_count).each do |notification|
-      CreateReservation.new.create event, notification.seller, {},
-                                   host: request.host,
-                                   from: current_client.mail_from
+    return unless reservation_count < event.max_reservations
+    event.notifications.order(:id).limit(event.max_reservations - reservation_count).each do |notification|
+      CreateReservation.new.create event, notification.seller
       notification.destroy
     end
   end

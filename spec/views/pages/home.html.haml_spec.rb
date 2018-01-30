@@ -30,7 +30,7 @@ RSpec.describe 'pages/home.html.haml' do
       let(:event) { create :event, confirmed: true }
       it { is_expected.to have_text 'Reservierungsstart', count: 1 }
       it { is_expected.to have_text 'Artikelabgabe', count: 1 }
-      it { is_expected.to have_text "#{event.reservations_left} von #{event.max_sellers}" }
+      it { is_expected.to have_text "#{event.reservations_left} von #{event.max_reservations}" }
 
       context 'when event kind is direct' do
         let(:event) { create :event, confirmed: true, kind: :direct }

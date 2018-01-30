@@ -35,7 +35,7 @@
           %strong= event.name
           (#{shopping_time(event)})
           %br
-          #{event.reservations_left} von #{event.max_sellers} Plätzen frei
+          #{event.reservations_left} von #{event.max_reservations} Plätzen frei
           %br
           - if event.reservable_by?(@seller) && event.reservations_left > 0
             Sie können sich einen Verkäuferplatz reservieren.

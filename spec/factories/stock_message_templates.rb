@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :email do
-    seller
+  factory :stock_message_template do
+    sequence(:category) { |n| "category-#{n}" }
     subject { Faker::Lorem.sentence }
     body { Faker::Lorem.paragraphs.join "\n\n" }
-    kind :custom
-    from { Faker::Internet.email }
-    to { Faker::Internet.email }
   end
 end

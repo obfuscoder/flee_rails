@@ -38,13 +38,13 @@ RSpec.describe 'sellers/show' do
       assert_select(+'a[href=?][data-method=?]', event_reservations_path(event), 'post')
     end
     it 'shows number of reservations left and max sellers' do
-      expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
+      expect(rendered).to have_content "#{event.reservations_left} von #{event.max_reservations} Plätzen frei"
     end
 
     context 'when seller is suspended' do
       let(:preparations) { create :suspension, event: event, seller: seller }
       it 'shows number of reservations left and max sellers' do
-        expect(rendered).to have_content "#{event.reservations_left} von #{event.max_sellers} Plätzen frei"
+        expect(rendered).to have_content "#{event.reservations_left} von #{event.max_reservations} Plätzen frei"
       end
 
       it 'does not link to reservation' do

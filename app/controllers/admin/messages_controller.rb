@@ -7,7 +7,7 @@ module Admin
     def invitation
       sellers = current_client.sellers.merge(Seller.active.with_mailing.without_reservation_for(@event))
       sellers.each do |seller|
-        SellerMailer.invitation(seller, @event, host: request.host, from: current_client.mail_from).deliver_later
+        SellerMailer.invitation(seller, @event).deliver_later
       end
       @event.messages.create! category: :invitation
       redirect_to admin_event_path(@event),
@@ -30,19 +30,18 @@ module Admin
 
     def send_mails_and_redirect(&block)
       action = params[:action]
-      options = { host: request.host, from: current_client.mail_from }
-      send_mails_to_reservations(action, @event.reservations, options, &block)
+      send_mails_to_reservations(action, @event.reservations, &block)
       @event.messages.create! category: action
       redirect_to admin_event_path(@event), notice: t('.success', count: @event.reservations.count)
     end
 
-    def send_mails_to_reservations(type, reservations, options)
+    def send_mails_to_reservations(type, reservations)
       reservations.each do |reservation|
         begin
           if block_given?
-            SellerMailer.send(type, reservation, yield(reservation), options).deliver_later
+            SellerMailer.send(type, reservation, yield(reservation)).deliver_later
           else
-            SellerMailer.send(type, reservation, options).deliver_later
+            SellerMailer.send(type, reservation).deliver_later
           end
         rescue StandardError => e
           logger.error e.message

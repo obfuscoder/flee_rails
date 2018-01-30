@@ -410,7 +410,7 @@ de:
       event:
         name: Name
         details: Details
-        max_sellers: maximale Anzahl Reservierungen
+        max_reservations: maximale Anzahl Reservierungen
         max_items_per_reservation: maximale Anzahl Artikel je Reservierung
         max_reservations_per_seller: Reservierungen pro Verkäufer
         confirmed: Termin steht fest
@@ -559,21 +559,6 @@ de:
       title: Impressum
     contact:
       title: Hilfe / Kontakt
-  seller_mailer:
-    registration:
-      subject: Registrierungsbestätigung
-    notification:
-      subject: Verkäuferplatz beim Flohmarkt freigeworden
-    invitation:
-      subject: Reservierung zum Flohmarkt startet in Kürze
-    reservation:
-      subject: Reservierungsbestätigung
-    reservation_closing:
-      subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
-    reservation_closed:
-      subject: Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt
-    finished:
-      subject: Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns
   terms:
     title: Teilnahmebedingungen
   privacy:

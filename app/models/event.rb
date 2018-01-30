@@ -27,11 +27,11 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
 
-  validates :client, :name, :max_sellers, :reservation_fee, :number, presence: true
+  validates :client, :name, :max_reservations, :reservation_fee, :number, presence: true
   validates :max_items_per_reservation, :price_precision, :commission_rate,
             presence: { if: -> { kind == :commissioned } }
   validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
-  validates :max_sellers, numericality: { greater_than: 0, only_integer: true }
+  validates :max_reservations, numericality: { greater_than: 0, only_integer: true }
 
   with_options if: :commissioned? do
     validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
   scope :reservable, -> { within_reservation_time.with_available_reservations }
 
   def self.with_available_reservations
-    joining { reservations.outer }.grouping { id }.when_having { reservations.id.count < max_sellers }
+    joining { reservations.outer }.grouping { id }.when_having { reservations.id.count < max_reservations }
   end
 
   def reservable_by?(seller)
@@ -66,7 +66,7 @@ class Event < ActiveRecord::Base
   end
 
   def reservations_left
-    [max_sellers - reservations.count, 0].max
+    [max_reservations - reservations.count, 0].max
   end
 
   def reservation_fee=(number)

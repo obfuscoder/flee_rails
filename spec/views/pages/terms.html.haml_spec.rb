@@ -7,6 +7,6 @@ RSpec.describe 'pages/terms.html.haml' do
 
   it 'contains terms' do
     render
-    expect(rendered).to have_content 'Teilnahmebedingungen'
+    expect(rendered).to have_content 'In Kommission genommen werden'
   end
 end

@@ -8,14 +8,13 @@ describe ReservationsController do
     let(:seller) { build :seller }
     let(:action) { get :create, event_id: event.id }
     let(:reservation) { create :reservation }
-    let(:from) { Client.first.mail_from }
     let(:creator) { double }
-    let(:options) { { host: 'test.host', from: from } }
+    let(:options) { { host: 'demo.test.host', from: from } }
 
     before do
       expect(subject).to receive(:current_seller).and_return seller
       expect(CreateReservation).to receive(:new).and_return creator
-      expect(creator).to receive(:create).with(event, seller, {}, options).and_return reservation
+      expect(creator).to receive(:create).with(event, seller).and_return reservation
       action
     end
 

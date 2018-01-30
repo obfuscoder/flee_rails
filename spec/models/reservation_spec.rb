@@ -144,7 +144,7 @@ RSpec.describe Reservation do
     end
 
     context 'when reservation limit is reached' do
-      before { reservation.event.update max_sellers: 0, max_reservations_per_seller: 0 }
+      before { reservation.event.update max_reservations: 0, max_reservations_per_seller: 0 }
       it 'increases label_counter' do
         expect { action }.not_to raise_error
       end

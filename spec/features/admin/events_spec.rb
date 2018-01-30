@@ -88,7 +88,7 @@ RSpec.feature 'admin events' do
       click_on_event
       expect(page).to have_content event.name
       expect(page).to have_content event.details
-      expect(page).to have_content event.max_sellers
+      expect(page).to have_content event.max_reservations
       expect(page).to have_content event.max_items_per_reservation
       expect(page).to have_content '20%' # commission rate
       expect(page).to have_content '2,00 €' # seller fee

@@ -9,7 +9,7 @@ RSpec.describe ApplicationController do
         auto_reserve(event)
       end
     end
-    let(:event) { create :event_with_ongoing_reservation, max_sellers: 1 }
+    let(:event) { create :event_with_ongoing_reservation, max_reservations: 1 }
     context 'with two notifications' do
       let!(:notifications) { create_list :notification, 2, event: event }
       it 'creates reservation for first notification and keeps last notification' do
@@ -17,7 +17,7 @@ RSpec.describe ApplicationController do
         first_seller = notifications.first.seller
         last_notification = notifications.last
         expect(CreateReservation).to receive(:new).and_return create_reservation
-        expect(create_reservation).to receive(:create).with(event, first_seller, anything, anything)
+        expect(create_reservation).to receive(:create).with(event, first_seller)
         subject.perform_action(event)
         expect(Notification.count).to eq 1
         expect(Notification.first).to eq last_notification

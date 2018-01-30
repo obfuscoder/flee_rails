@@ -5,7 +5,7 @@ require 'features/admin/login'
 
 RSpec.feature 'admin event reservations' do
   include_context 'login'
-  let(:event) { create :event_with_ongoing_reservation, max_sellers: 5 }
+  let(:event) { create :event_with_ongoing_reservation, max_reservations: 5 }
   let!(:sellers) { create_list :seller, 4, active: true }
   let(:number_of_reservations) { 3 }
   let!(:reservations) { create_list :reservation, number_of_reservations, event: event }

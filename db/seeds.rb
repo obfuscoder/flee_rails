@@ -1,11 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-clients_file = Rails.root.join 'db', 'seeds', 'clients.yml'
-clients = YAML::load_file clients_file
-Client.create! clients
+%w[client stock_message_template hardware].each do |entity|
+  file = Rails.root.join 'db', 'seeds', "#{entity.pluralize}.yml"
+  yaml = YAML::load_file file
+  entity.camelize.constantize.create! yaml
+end

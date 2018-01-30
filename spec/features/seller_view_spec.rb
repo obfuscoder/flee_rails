@@ -24,7 +24,7 @@ RSpec.feature 'Seller view area' do
   end
 
   context 'with event' do
-    let(:event) { create :event_with_ongoing_reservation, max_sellers: 1 }
+    let(:event) { create :event_with_ongoing_reservation, max_reservations: 1 }
     let(:preparation) { event }
 
     scenario 'can make a reservation' do
@@ -77,7 +77,7 @@ RSpec.feature 'Seller view area' do
         let(:other_seller) { create :seller }
         let(:preparation) do
           reservation
-          event.update max_sellers: 1
+          event.update max_reservations: 1
           create :notification, seller: other_seller, event: event
         end
       end

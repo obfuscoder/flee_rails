@@ -1,0 +1,159 @@
+- category: registration
+  subject: Registrierungsbestätigung
+  body: |
+    Sehr geehrter Flohmarkt Interessent/sehr geehrte Interessentin,
+
+    Sie haben sich auf unserer Webseite mit den folgenden Daten registriert:
+
+    {{ registration_info }}
+
+    Um Ihre Registrierung abzuschließen, klicken Sie bitte auf den folgenden Link:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Über diesen Link gelangen Sie zu Ihrem geschützten Bereich zum Bearbeiten
+    Ihrer persönlichen Daten sowie zum Bearbeiten Ihrer Artikel zum Verkauf auf
+    Kommissionsflohmärkten sowie zum Reservieren bei aktuellen Flohmärkten.
+
+    **Bitte bewahren Sie diesen Link gut auf und schicken Sie diesen nicht an Dritte weiter.**
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
+- category: invitation
+  subject: Reservierung zum Flohmarkt startet in Kürze
+  body: |
+    Sehr geehrter Flohmarkt Interessent/sehr geehrte Interessentin,
+
+    Wir freuen uns, Ihnen mitteilen zu können, dass die Reservierung von Verkäuferplätzen
+    für den folgenden Flohmarkt in Kürze startet:
+
+    Flohmarkt: {{ event_name }}
+    Termin: {{ event_shopping_time }}
+
+    Die Möglichkeit zur Reservierung wird am {{ event_reservation_start }} freigeschaltet.
+
+    Sie können sich ab diesem Zeitpunkt über den folgenden Link einen Verkäuferplatz reservieren:
+
+    [Verkäuferplatz reservieren]({{ reserve_url }})
+
+    Die Anzahl der Reservierungsplätze ist begrenzt auf {{ event_max_reservations }}.
+
+    Mit erfolgreicher Reservierung wird Ihnen eine Reservierugnsnummer zugeteilt.
+    Jeder Verkäufer darf maximal  {{ event_max_items_per_reservation }} Artikel anbieten.
+
+    Sie können mit Erhalt Ihrer Reservierungssnummer Ihre Artikel eingeben und Etiketten erzeugen und ausdrucken.
+
+    Ihren geschützten Bereich erreichen Sie wie immer über den folgenden Link:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
+- category: reservation
+  subject: Reservierungsbestätigung
+  body: |
+    Sehr geehrter Flohmarkt Teilnehmer/sehr geehrte Teilnehmerin,
+
+    Sie haben erfolgreich eine Reservierung für den folgenden Flohmarkt erhalten:
+
+    Flohmarkt: {{ event_name }}
+    Termin: {{ event_shopping_time }}
+
+    Ihre Reservierungsnummer ist {{ reservation_number }}.
+    Sie können ab sofort über den Zugang zu Ihrem geschützten Bereich Artikel anlegen und Etiketten drucken.
+
+    Bitte beachten Sie, dass sämtliche Artikel bis zum {{ event_reservation_end }}
+    eingegeben und die Etiketten dafür erzeugt sein müssen.
+
+    Ihren geschützten Bereich erreichen Sie über folgenden Link:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Sollten Sie doch nicht mehr teilnehmen können, melden Sie sich bitte unter
+    dem oben genannten Link ab, damit andere Verkäufer nachrücken können.
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
+- category: reservation_closing
+  subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
+  body: |
+    Sehr geehrte(r) Flohmarkt Verkäufer/in,
+
+    Die Vorbereitungen für den folgenden Flohmarkt sind bald abgeschlossen:
+
+    Flohmarkt: {{ event_name }}
+    Termin: {{ event_shopping_time }}
+
+    Denken Sie bitte daran, Ihre Artikel bis zum {{ event_reservation_end }} komplett einzugeben.
+    Danach sind keine weiteren Artikel mehr erzeugbar.
+
+    Sollten Sie bis dahin zwar Ihre Artikel eingegeben, aber dafür noch keine Etiketten erzeugt haben,
+    wird dies automatisch durchgeführt.
+
+    Sie erreichen über den folgenden Link Ihren gesicherten Bereich und können dort die Bearbeitung Ihrer Artikel,
+    sowie das Erzeugen und Drucken der Etiketten aufrufen:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Sollten Sie nicht mehr am Flohmarkt teilnehmen können, geben Sie bitte Ihre Reservierung wieder frei
+    und überlassen anderen Ihren Platz! Die Freigabe können Sie ebenfalls unter dem oben angegebenen Link durchführen.
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
+- category: reservation_closed
+  subject: Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt
+  body: |
+    Sehr geehrte(r) Flohmarkt Verkäufer/in,
+
+    Die Vorbereitungen für den folgenden Flohmarkt sind abgeschlossen:
+
+    Flohmarkt: {{ event_name }}
+    Termin: {{ event_shopping_time }}
+
+    Die Bearbeitung Ihrer Artikel ist damit nicht mehr möglich.
+    Für alle noch in Bearbeitung befindlichen Artikel wurden ebenfalls Etiketten erzeugt.
+
+    Im Anhang finden Sie die erzeugten Etiketten.
+    Sie können sich die Etiketten auch jederzeit innerhalb Ihres geschützten Bereichs erzeugen:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Geben Sie bitte Ihre Artikel zu folgenden Zeiten bei uns ab:
+
+    {{ event_handover_time }}
+
+    Der Abholzeitraum ist:
+
+    {{ event_pickup_time }}
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
+- category: finished
+  subject: Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns
+  body: |
+    Sehr geehrte(r) Flohmarkt Verkäufer/in,
+
+    der folgende Flohmarkt ist beendet:
+
+    Flohmarkt: {{ event_name }}
+    Termin: {{ event_shopping_time }}
+
+    Vielen Dank für Ihre Teilnahme als Verkäufer. Sie haben zu einer großartigen Spende beigetragen.
+    Wir hoffen, dass es für Sie genau so ein tolles und erfolgreiches Ergebnis war, wie für uns.
+
+    Wir haben einige Auswertungen über die Verkäufe auf der folgenden Webseite für Sie zusammengestellt.
+    Sie können dort auch sehen, ob Sie unter den Top 10 der Verkäufer gelandet sind:
+
+    [Zu den Flohmarktergebnissen]({{ results_url }})
+
+    Wir würden uns sehr freuen, wenn Sie uns Ihre persönlichen Erfahrungen mitteilen könnten.
+    Sie haben unter dem folgenden Link die Möglichkeit, unseren Flohmarkt zu bewerten und Empfehlungen zu geben,
+    wie wir unser System und den Flohmarkt in Zukunft verbessern können,
+    um das Erlebnis für Verkäufer und Käufer noch schöner zu gestalten:
+
+    [Zur Bewertung des Flohmarkts]({{ review_url }})
+
+    Wir hoffen, Sie auch beim nächsten Mal wieder als Verkäufer begrüßen zu dürfen.
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team

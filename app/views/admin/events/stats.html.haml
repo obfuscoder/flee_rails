@@ -56,7 +56,7 @@
 %h3 Verkäufer
 %ul
   %li
-    Reservierungen: #{@event.reservations.count} / #{@event.max_sellers}
+    Reservierungen: #{@event.reservations.count} / #{@event.max_reservations}
     = pie_chart @event.sellers_per_city
     %a(data-toggle='collapse' href='#sellers_per_city_table_collapser' aria-expanded=false aria-controls='selles_per_city_table_collapser') Tabelle anzeigen
     .collapse#sellers_per_city_table_collapser

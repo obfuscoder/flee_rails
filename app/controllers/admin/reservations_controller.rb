@@ -19,9 +19,9 @@ module Admin
     def create
       seller_ids = params[:reservation][:seller_id].reject(&:empty?)
       creator = CreateReservation.new
+      client = current_client
       reservations = seller_ids.each do |seller_id|
-        creator.create @event, current_client.sellers.find(seller_id), { context: :admin },
-                       host: request.host, from: current_client.mail_from
+        creator.create @event, client.sellers.find(seller_id), context: :admin
       end
       redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
     end

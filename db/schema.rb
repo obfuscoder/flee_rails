@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125083538) do
+ActiveRecord::Schema.define(version: 20180130194827) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20180125083538) do
     t.datetime "updated_at",                                                null: false
     t.string   "name"
     t.text     "details"
-    t.integer  "max_sellers"
+    t.integer  "max_reservations"
     t.integer  "max_items_per_reservation"
     t.boolean  "confirmed"
     t.datetime "reservation_start"
@@ -128,6 +128,18 @@ ActiveRecord::Schema.define(version: 20180125083538) do
   add_index "items", ["code"], name: "index_items_on_code", unique: true
   add_index "items", ["reservation_id", "number"], name: "index_items_on_reservation_id_and_number", unique: true
   add_index "items", ["reservation_id"], name: "index_items_on_reservation_id"
+
+  create_table "message_templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "category"
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "client_id"
+  end
+
+  add_index "message_templates", ["category", "client_id"], name: "index_message_templates_on_category_and_client_id", unique: true
+  add_index "message_templates", ["client_id"], name: "index_message_templates_on_client_id"
 
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -249,6 +261,16 @@ ActiveRecord::Schema.define(version: 20180125083538) do
   add_index "stock_items", ["client_id"], name: "index_stock_items_on_client_id"
   add_index "stock_items", ["code", "client_id"], name: "index_stock_items_on_code_and_client_id", unique: true
   add_index "stock_items", ["number", "client_id"], name: "index_stock_items_on_number_and_client_id", unique: true
+
+  create_table "stock_message_templates", force: :cascade do |t|
+    t.string   "category"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "stock_message_templates", ["category"], name: "index_stock_message_templates_on_category", unique: true
 
   create_table "suspensions", force: :cascade do |t|
     t.datetime "created_at", null: false

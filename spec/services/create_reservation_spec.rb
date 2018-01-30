@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe CreateReservation do
   subject(:instance) { described_class.new }
   describe '#create' do
-    let(:event) { double }
-    let(:seller) { double }
+    let(:event) { double :event }
+    let(:seller) { double :seller }
     let(:reservation) { double save: true }
     let(:options) { {} }
     before do
@@ -21,7 +21,7 @@ RSpec.describe CreateReservation do
     context 'when reservation was persisted' do
       it 'sends reservation confirmation mail' do
         mailer = double
-        expect(SellerMailer).to receive(:reservation).with(reservation, options).and_return mailer
+        expect(SellerMailer).to receive(:reservation).with(reservation).and_return mailer
         expect(mailer).to receive(:deliver_later)
         action
       end
@@ -39,12 +39,6 @@ RSpec.describe CreateReservation do
       options = { context: :admin }
       expect(reservation).to receive(:save).with(options).and_return(reservation)
       instance.create event, seller, options
-    end
-
-    it 'passes on provided options to mailer' do
-      options = { host: 'test.host' }
-      expect(SellerMailer).to receive(:reservation).with(reservation, options).and_return double(deliver_later: true)
-      instance.create event, seller, {}, options
     end
   end
 end

@@ -21,7 +21,7 @@ module Admin
     private
 
     def remote_request_on_demo?
-      current_client.key == 'demo' && !request.local? && request.host != 'test.host'
+      current_client.key == 'demo' && !request.local? && !request.host.ends_with?('demo.test.host')
     end
 
     def not_authenticated

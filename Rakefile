@@ -38,7 +38,7 @@ def create_demo_event(client)
   details = 'Schwangere **mit Mutterpass** inklusive einer Begleitperson haben 30 Minuten eher Einlass.'
   client.events.create! name: 'Mustertermin',
                         details: details,
-                        max_sellers: 100,
+                        max_reservations: 100,
                         confirmed: true,
                         kind: :commissioned,
                         max_items_per_reservation: 50,

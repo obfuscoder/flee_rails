@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Client do
-  subject(:client) { build :client, key: 'key', domain: 'somedomain.de', name: 'Flohmarkthelfer Test' }
+  subject(:client) { create :client, key: 'key', domain: 'somedomain.de', name: 'Flohmarkthelfer Test' }
 
   it { is_expected.to be_valid }
   it { is_expected.to have_many :events }
@@ -11,9 +11,9 @@ RSpec.describe Client do
   it { is_expected.to have_many :sellers }
   it { is_expected.to have_many :stock_items }
   it { is_expected.to have_many :users }
+  it { is_expected.to have_many :message_templates }
 
   it { is_expected.to validate_uniqueness_of(:key).case_insensitive }
-  it { is_expected.to validate_uniqueness_of(:domain).case_insensitive }
   it { is_expected.to validate_uniqueness_of :prefix }
   it { is_expected.to validate_presence_of :key }
   it { is_expected.to validate_presence_of :name }
@@ -69,6 +69,7 @@ RSpec.describe Client do
     let!(:sold_stock_item) { create :sold_stock_item, stock_item: stock_item }
     let!(:suspension) { create :suspension, event: event, seller: seller }
     let!(:time_period) { event.shopping_periods.first }
+    let!(:message_template) { create :message_template, client: client }
 
     before { client.destroy_everything! }
 
@@ -88,6 +89,7 @@ RSpec.describe Client do
       expect { sold_stock_item.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { suspension.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { time_period.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { message_template.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

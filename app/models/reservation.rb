@@ -72,7 +72,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def capacity_available
-    errors.add :base, :limit_reached unless event.present? && event.reservations.size < event.max_sellers
+    errors.add :base, :limit_reached unless event.present? && event.reservations.size < event.max_reservations
   end
 
   def max_reservations_per_seller
