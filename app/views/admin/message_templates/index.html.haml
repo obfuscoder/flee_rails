@@ -1,0 +1,13 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= MessageTemplate.human_attribute_name :category
+    %th= MessageTemplate.human_attribute_name :subject
+    %th
+  - @message_templates.each_with_index do |message_template|
+    %tr
+      %td= t("message_categories.#{message_template.category}")
+      %td= message_template.subject
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_message_template_path(message_template), type: :primary, icon: :pencil
+        = icon_link_to t('.destroy.action'), admin_message_template_path(message_template), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }

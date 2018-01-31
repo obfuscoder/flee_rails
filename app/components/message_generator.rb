@@ -17,5 +17,7 @@ class MessageGenerator
 
   def evaluate(place_holder)
     @data_extractor.send place_holder.delete('{{').delete('}}').strip
+  rescue NoMethodError
+    place_holder
   end
 end

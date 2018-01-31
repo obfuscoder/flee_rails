@@ -1,6 +1,62 @@
 de:
+  message_categories:
+    registration: Registrierungsbestätigung
+    invitation: Reservierungseinladung
+    reservation: Reservierungsbestätigung
+    reservation_closing: Erinnerungsmail vor Bearbeitungsschluss
+    reservation_closed: Bearbeitungsabschlussmail
+    finished: Abschlussmail
   hints:
     markdown: Als Formattierung wird die [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
+    messages: |
+      Der Inhalt wird als Text- und als HTML-Mail verschickt. Als Formattierung wird die
+      [Markdown-Syntax](https://de.wikipedia.org/wiki/Markdown) benutzt.
+
+      Es können Platzhalter sowohl in der Betreffzeile als auch im Inhalt der Mail benutzt werden,
+      die beim Verschicken der Mails mit den tatsächlichen Daten ersetzt werden.
+      Alle Platzhalter sind in der Form `{{ platzhalter }}` anzugeben. Es stehen folgende Platzhalter zur Verfügung:
+
+      Verkäuferdaten:
+
+      - `{{ registration_info }}` - vollständige Registrierungsdaten inkl. Name, Adresse, Telefonnummer und eMail-Adresse
+      - `{{ seller_first_name }}` - Vorname
+      - `{{ seller_last_name }}` - Nachname
+      - `{{ seller_street }}` - Straße
+      - `{{ seller_zip_code }}` - Postleitzahl
+      - `{{ seller_city }}` - Ort
+      - `{{ seller_phone }}` - Telefonnummer
+      - `{{ seller_email }}` - eMail-Adresse
+
+      Termindaten (sofern Bezug vorhanden in Standardmail):
+
+      - `{{ event_name }}` - Name
+      - `{{ event_shopping_time }}` - Verkaufszeiten
+      - `{{ event_reservation_start }}` - Reservierungsstart
+      - `{{ event_reservation_end }}` - Artikeleingabeende
+      - `{{ event_handover_time }}` - Artikelabgabezeiten
+      - `{{ event_pickup_time }}` - Artikelabholzeiten
+      - `{{ event_max_reservations }}` - maximale Anzahl möglicher Reservierungen
+      - `{{ event_max_items_per_reservation }}` - maximale Anzahl Artikel pro Reservierung
+      - `{{ event_max_reservations_per_seller }}` - maximale Anzahl Reservierungen pro Verkäufer
+      - `{{ event_commission_rate }}` - Kommissionsanteil
+      - `{{ event_reservation_fee }}` - Reservierungsgebühr
+
+      Reservierungsdaten (sofern Bezug vorhanden in Standardmail):
+
+      - `{{ reservation_number }}` - Reservierungsnummer
+
+      Als Einsprungslinks in den gesicherten Bereich für Verkäufer stehen folgende Platzhalter zur Verfügung:
+
+      - `{{ login_url }}` - Hauptseite
+      - `{{ reserve_url }}` - Reservierung durchführen (nur in Reservierungseinladung)
+      - `{{ review_url }}` - Zur Bewertung des Termins (nur in Abschlussmail)
+      - `{{ results_url }}` - Zum Abschlussbericht des Termins (nur in Abschlussmail)
+
+      Damit daraus ein anklickbarer und leserlicher Link wird, bitte folgende Syntax verwenden:
+
+      `[Text des Einsprunglinks]({{ platzhalter }})`
+
+      Darüberhinaus können Sie natürlich andere Seiten mit dieser Schreibweise auch ohne Platzhalter verlinken.
   commissioned: Kommissionsbasis
   direct: Tischbasis
   "true": ja
@@ -200,6 +256,19 @@ de:
         title: Systemeinstellungen
       update:
         success: Die Systemeinstellungen wurden aktualisiert.
+        denied_in_demo: Das Ändern der Systemeinstellungen ist in der Demo-Version nicht erlaubt.
+    message_templates:
+      index:
+        title: Standardmails
+        destroy:
+          action: Zurücksetzen
+          confirm: Sind Sie sicher, dass Sie die Standardmail auf ihren Urzustand zurücksetzen wollen?
+      update:
+        success: Die Standardmail wurde erfolgreich aktualisiert.
+      destroy:
+        success: Die Standardmail wurde erfolgreich auf den Urzustand zurückgesetzt.
+      edit:
+        title: '%{message_category} bearbeiten'
     reservations:
       index:
         title: Reservierungen
@@ -379,6 +448,7 @@ de:
     models:
       category: Kategorie
       event: Termin
+      message_template: Standardmail
       item: Artikel
       stock_item: Stammartikel
       seller: Verkäufer
@@ -506,6 +576,10 @@ de:
       rental:
         amount: Anzahl
         hardware: Gerät
+      message_template:
+        category: Kategorie
+        subject: Betreff
+        body: Inhalt
     errors:
       models:
         reservation:

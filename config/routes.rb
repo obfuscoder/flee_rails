@@ -70,6 +70,7 @@ Rails.application.routes.draw do
         get :print, action: :print
       end
     end
+    resources :message_templates, only: %i[index edit update destroy]
     resources :reservations do
       resources :items do
         member do

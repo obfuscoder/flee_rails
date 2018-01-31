@@ -1,5 +1,3 @@
-features:
-  stock_items: true
 client:
   download_url: http://flohmarkthelfer.de/download/flohmarkthelfer-setup.exe
 domain: flohmarkthelfer.de

@@ -2,7 +2,7 @@
 
 module Admin
   class ClientsController < AdminController
-    before_action :allow_local_request_for_demo
+    before_action :deny_remote_request_for_demo, only: [:update]
 
     def edit
       @client = current_client
@@ -27,8 +27,8 @@ module Admin
                                      :donation_of_unsold_items, :donation_of_unsold_items_default
     end
 
-    def allow_local_request_for_demo
-      head :forbidden if remote_request_on_demo?
+    def deny_remote_request_for_demo
+      redirect_to edit_admin_client_path, notice: t('.denied_in_demo') if remote_request_on_demo?
     end
   end
 end

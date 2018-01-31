@@ -24,7 +24,7 @@ module ApplicationHelper
     if icon.is_a? Symbol
       icon = icon.to_s.dasherize
       return content_tag(:span, '',
-                         class: ['glyphicon', "glyphicon-#{icon}"], aria_hidden: true) + name
+                         class: ['glyphicon', "glyphicon-#{icon}"], aria_hidden: true) + ' ' + name
     end
     name
   end

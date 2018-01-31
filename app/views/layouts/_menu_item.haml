@@ -1,1 +1,11 @@
-%li{class: ('active' if current_page? item[:link])}= link_to item[:title], item[:link], target: (item[:link].start_with?('http') ? '_blank' : nil), icon: item[:icon]
+- if item[:link]
+  %li{class: ('active' if current_page? item[:link])}= link_to item[:title], item[:link], target: (item[:link].start_with?('http') ? '_blank' : nil),     icon: item[:icon]
+- if item[:items]
+  %li.dropdown
+    %a.dropdown-toggle(data-toggle='dropdown' role='button')
+      - if item[:icon]
+        %span.glyphicon{ class: "glyphicon-#{item[:icon].to_s.dasherize}" }
+      = item[:title]
+      %span.caret
+    %ul.dropdown-menu
+      = render partial: 'layouts/menu_item', collection: item[:items], as: :item

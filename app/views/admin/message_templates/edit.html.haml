@@ -1,0 +1,8 @@
+- content_for :title, t('.title', message_category: t("message_categories.#{@message_template.category}"))
+= simple_form_for [:admin, @message_template] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :subject
+    = f.input :body, as: :text, hint: markdown(t('hints.messages')), input_html: { class: 'markdown_editor', rows: 20 }
+  .form-actions
+    = f.button :submit

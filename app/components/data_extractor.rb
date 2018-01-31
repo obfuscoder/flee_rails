@@ -6,7 +6,7 @@ class DataExtractor
   end
 
   delegate :first_name, :last_name, :street, :zip_code, :city, :phone, :email, to: :seller, prefix: true
-  delegate :name, :max_reservations, :max_items_per_reservation, to: :event, prefix: true
+  delegate :name, :max_reservations, :max_items_per_reservation, :max_reservations_per_seller, to: :event, prefix: true
   delegate :number, to: :reservation, prefix: true
 
   def registration_info
@@ -23,16 +23,16 @@ class DataExtractor
     urls[:login]
   end
 
+  def reserve_url
+    urls[:reserve]
+  end
+
   def results_url
     urls[:results]
   end
 
   def review_url
     urls[:review]
-  end
-
-  def reserve_url
-    urls[:reserve]
   end
 
   def event_shopping_time
@@ -53,6 +53,14 @@ class DataExtractor
 
   def event_reservation_start
     l(event.reservation_start)
+  end
+
+  def event_commission_rate
+    ApplicationController.helpers.number_to_percentage event.commission_rate * 100, precision: 0
+  end
+
+  def event_reservation_fee
+    ApplicationController.helpers.number_to_currency(event.reservation_fee)
   end
 
   private
