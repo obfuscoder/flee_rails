@@ -81,7 +81,7 @@ namespace :db do
   end
 
   namespace :seed do
-    task :message_templates do
+    task message_templates: :environment do
       data = YAML.load_file(Rails.root.join('db', 'seeds', 'stock_message_templates.yml'))
       StockMessageTemplate.create! data
     end
