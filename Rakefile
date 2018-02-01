@@ -80,13 +80,6 @@ namespace :db do
     sh "mysqldump --single-transaction -u #{username} #{database} | gzip > #{destination}"
   end
 
-  namespace :seed do
-    task message_templates: :environment do
-      data = YAML.load_file(Rails.root.join('db', 'seeds', 'stock_message_templates.yml'))
-      StockMessageTemplate.create! data
-    end
-  end
-
   namespace :demo do
     desc 'seeds demo content'
     task seed: :environment do
