@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
            class_name: 'TimePeriod',
            dependent: :delete_all,
            inverse_of: :event
+  has_many :transactions, dependent: :destroy
 
   accepts_nested_attributes_for :shopping_periods, :handover_periods, :pickup_periods,
                                 allow_destroy: true, reject_if: :all_blank
