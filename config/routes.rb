@@ -61,9 +61,8 @@ Rails.application.routes.draw do
     resource :client, only: [:edit, :update]
 
     resources :sellers do
-      resources :emails, only: [:index]
+      resources :emails, only: [:index, :show]
     end
-    resources :emails, only: [:show]
     resources :categories
     resources :stock_items do
       collection do

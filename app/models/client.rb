@@ -7,6 +7,7 @@ class Client < ActiveRecord::Base
   has_many :stock_items, dependent: :delete_all
   has_many :users, dependent: :delete_all
   has_many :message_templates, dependent: :delete_all
+  has_many :reservations, through: :events
 
   validates :key, uniqueness: { case_sensitive: false }, presence: true
   validates :prefix, uniqueness: true

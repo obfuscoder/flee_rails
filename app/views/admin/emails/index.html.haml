@@ -11,5 +11,5 @@
       %td= email.subject
       %td= time_ago_in_words(email.created_at)
       %td.btn-group
-        = icon_link_to t('show'), admin_email_path(email), type: :primary, icon: :eye_open
+        = icon_link_to t('show'), admin_seller_email_path(@seller, email), type: :primary, icon: :eye_open
 %p= paginate @emails, seller_id: @seller.id

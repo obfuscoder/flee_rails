@@ -4,7 +4,7 @@ module Admin
   class ItemsController < AdminController
     before_action :init_categories, only: %i[edit new update create]
     before_action do
-      @reservation = Reservation.find params[:reservation_id]
+      @reservation = current_client.reservations.find params[:reservation_id]
     end
     before_action :set_item, only: %i[show edit update destroy delete_code]
 

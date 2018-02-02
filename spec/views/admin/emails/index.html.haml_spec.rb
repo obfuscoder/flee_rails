@@ -13,7 +13,7 @@ RSpec.describe 'admin/emails/index' do
   it 'links to show each email' do
     render
     emails.each do |email|
-      expect(rendered).to have_link href: admin_email_path(email)
+      expect(rendered).to have_link href: admin_seller_email_path(seller, email)
     end
   end
 

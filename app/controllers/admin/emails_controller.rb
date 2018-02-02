@@ -2,7 +2,7 @@
 
 module Admin
   class EmailsController < AdminController
-    before_action :set_seller, only: %i[index]
+    before_action :set_seller, only: %i[index show]
 
     def emails
       @email = CustomEmail.new
@@ -26,7 +26,7 @@ module Admin
     end
 
     def show
-      @email = Email.find params[:id]
+      @email = @seller.emails.find params[:id]
     end
 
     private

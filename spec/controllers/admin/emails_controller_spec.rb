@@ -32,7 +32,7 @@ module Admin
 
     describe 'GET show' do
       let(:email) { create :email }
-      before { get :show, id: email.id }
+      before { get :show, seller_id: email.seller.id, id: email.id }
 
       describe '@email' do
         subject { assigns :email }
