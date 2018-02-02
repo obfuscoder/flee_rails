@@ -9,9 +9,12 @@ RSpec.describe 'api/events/show' do
     create_list :item, 3, reservation: reservations.first
     create_list :item, 2, reservation: reservations.second
 
+    stock_items = create_list :stock_item, 4
+    event.sold_stock_items.create stock_item: stock_items.first, amount: 2
+
+    assign :stock_items, stock_items
     assign :event, event.reload
     assign :categories, Category.all
-    assign :stock_items, create_list(:stock_item, 4)
     render
   end
 
@@ -25,49 +28,34 @@ RSpec.describe 'api/events/show' do
   describe 'categories' do
     subject(:categories) { json[:categories] }
     it { is_expected.to have(5).items }
-    it 'have id and name' do
-      categories.each { |category| expect(category).to include :id, :name }
-    end
+    it { is_expected.to all(include(:id, :name)) }
   end
 
   describe 'stock_items' do
     subject(:stock_items) { json[:stock_items] }
     it { is_expected.to have(4).items }
-    it 'have description and price' do
-      stock_items.each { |stock_item| expect(stock_item).to include :description, :price }
-    end
+    it { is_expected.to all(include(:description, :price, :number, :code, :sold)) }
+    its(:first) { is_expected.to include sold: 2 }
   end
 
   describe 'sellers' do
     subject(:sellers) { json[:sellers] }
     it { is_expected.to have(2).items }
-    it 'have id and name' do
-      sellers.each do |seller|
-        expect(seller).to include :id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email
-      end
-    end
+    it { is_expected.to all(include(:id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email)) }
   end
 
   describe 'reservations' do
     subject(:reservations) { json[:reservations] }
     it { is_expected.to have(2).items }
-
-    it 'have necessary attributes' do
-      reservations.each do |reservation|
-        expect(reservation).to include :id, :number, :seller_id, :fee, :commission_rate
-      end
-    end
+    it { is_expected.to all(include(:id, :number, :seller_id, :fee, :commission_rate)) }
   end
 
   describe 'items' do
     subject(:items) { json[:items] }
     it { is_expected.to have(5).items }
-
-    it 'have necessary attributes' do
-      items.each do |item|
-        expect(item).to include :id, :category_id, :reservation_id, :description,
-                                :number, :code, :sold, :donation, :size, :price
-      end
+    it do
+      is_expected.to all(include(:id, :category_id, :reservation_id, :description,
+                                 :number, :code, :sold, :donation, :size, :price))
     end
   end
 end

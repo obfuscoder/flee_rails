@@ -84,6 +84,7 @@ RSpec.describe Admin::EventsController do
   describe 'GET data' do
     let(:event) { create :event }
     let!(:categories) { create_list :category, 5 }
+    let!(:stock_items) { create_list :stock_item, 4 }
     before { get :data, id: event.id }
     describe 'response' do
       subject { response }
@@ -92,12 +93,15 @@ RSpec.describe Admin::EventsController do
     end
 
     describe 'body' do
-      subject { JSON.parse ActiveSupport::Gzip.decompress(response.body), symbolize_names: true }
+      subject(:decoded_body) { JSON.parse ActiveSupport::Gzip.decompress(response.body), symbolize_names: true }
       it do
         is_expected.to include :id, :name, :price_precision, :commission_rate, :reservation_fee,
                                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
       end
-      it { is_expected.to include :categories, :sellers, :items, :reservations }
+      it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }
+
+      its([:stock_items]) { is_expected.to have(4).items }
+      its([:stock_items]) { is_expected.to all(include(:description, :price, :number, :code, :sold)) }
     end
   end
 

@@ -28,7 +28,6 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email'
-  gem 'database_cleaner'
   gem 'fuubar'
   gem 'launchy'
   gem 'pdf-inspector'
