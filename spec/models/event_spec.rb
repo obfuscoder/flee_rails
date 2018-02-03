@@ -12,6 +12,7 @@ RSpec.describe Event do
   it { is_expected.to belong_to :client }
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many(:reviews).through(:reservations) }
+  it { is_expected.to have_many(:items).through(:reservations) }
   it { is_expected.to have_many :notifications }
   it { is_expected.to have_many :suspensions }
   it { is_expected.to have_many :rentals }

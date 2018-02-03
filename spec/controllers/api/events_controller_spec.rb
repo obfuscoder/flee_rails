@@ -58,6 +58,12 @@ module Api
       let(:transactions) do
         [
           {
+            id: 'damaged',
+            items: items.take(2).map(&:code),
+            type: 'UNKNOWN',
+            date: '2015-08-27T10:57:29.094+02'
+          },
+          {
             id: 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',
             items: items.take(5).map(&:code),
             type: 'PURCHASE',
@@ -77,11 +83,17 @@ module Api
           },
           {
             id: 'd308a289-fc58-4f0d-82ba-95dc8b42eaa7',
-            items: stock_items.take(2).map(&:code),
+            items: stock_items.take(2).map(&:code) + stock_items.take(1).map(&:code),
             type: 'PURCHASE',
             date: '2015-08-27T10:57:30.105+02'
           },
           {
+            id: 'd308a289-fc58-4f0d-82ba-95dc8b42eaa8',
+            items: (stock_items.drop(1).take(2) + items.drop(8).take(2)).map(&:code),
+            type: 'PURCHASE',
+            date: '2015-08-27T10:57:31.105+02'
+          },
+          { # this transaction should be ignored as it is repeated
             id: 'd308a289-fc58-4f0d-82ba-95dc8b42eaa8',
             items: (stock_items.drop(1).take(2) + items.drop(8).take(2)).map(&:code),
             type: 'PURCHASE',
@@ -112,10 +124,26 @@ module Api
       end
 
       it 'creates sold_stock_items and adds their sold counts' do
-        [1, 2, 1].each_with_index do |sold, index|
+        [2, 2, 1].each_with_index do |sold, index|
           sold_stock_item = stock_items[index].sold_stock_items.find_by(event: event)
           expect(sold_stock_item).not_to be_nil
           expect(sold_stock_item.amount).to eq sold
+        end
+      end
+
+      it 'stores unique transactions' do
+        expect(event.transactions).to have(5).items
+      end
+
+      [5, 3, 2, 0, 2].each_with_index do |count, index|
+        it "references #{count} items for transaction with index #{index}" do
+          expect(event.transactions[index].items.count).to eq count
+        end
+      end
+
+      [0, 0, 0, 2, 2].each_with_index do |count, index|
+        it "references #{count} stock items for transaction with index #{index}" do
+          expect(event.transactions[index].stock_items.count).to eq count
         end
       end
 

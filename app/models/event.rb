@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   belongs_to :client
   has_many :reservations, -> { order :id }, inverse_of: :event
   has_many :reviews, through: :reservations
+  has_many :items, through: :reservations
   has_many :notifications, -> { order :id }, inverse_of: :event
   has_many :messages, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Transaction < ActiveRecord::Base
-  enum kind: %i[sale refund]
+  enum kind: %i[purchase refund]
 
   belongs_to :event
   has_many :items, through: :transaction_items
