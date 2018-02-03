@@ -15,6 +15,8 @@ RSpec.describe Item do
   it { is_expected.to validate_uniqueness_of(:code) }
   it { is_expected.to belong_to(:category) }
   it { is_expected.to belong_to(:reservation) }
+  it { is_expected.to have_many(:item_transactions).through(:transaction_items) }
+  it { is_expected.to have_many(:transaction_items).dependent(:restrict_with_error) }
 
   describe '#to_s' do
     its(:to_s) { is_expected.to eq(subject.description) }

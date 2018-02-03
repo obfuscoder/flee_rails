@@ -2,7 +2,7 @@ AllCops:
   TargetRailsVersion: 4.2
   DisplayCopNames: true
   Exclude:
-    - 'db/**/*'
+    - 'db/schema.rb'
     - 'bin/*'
     - 'config/initializers/*'
     - 'spec/features/screenshots.rb'

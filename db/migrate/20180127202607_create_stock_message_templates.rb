@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStockMessageTemplates < ActiveRecord::Migration
   def change
     create_table :stock_message_templates do |t|

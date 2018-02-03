@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateItems < ActiveRecord::Migration
   def change
     create_table :items do |t|
@@ -13,7 +15,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :code
       t.datetime :sold
     end
-    add_index :items, [:reservation_id, :number], unique: true
+    add_index :items, %i[reservation_id number], unique: true
     add_index :items, :code, unique: true
   end
 end

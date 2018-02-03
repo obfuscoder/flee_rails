@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSuspensions < ActiveRecord::Migration
   def change
     create_table :suspensions do |t|
@@ -7,6 +9,6 @@ class CreateSuspensions < ActiveRecord::Migration
       t.references :seller, index: true, foreign_key: true
       t.string :reason
     end
-    add_index :suspensions, [:event_id, :seller_id], unique: true
+    add_index :suspensions, %i[event_id seller_id], unique: true
   end
 end

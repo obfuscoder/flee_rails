@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202223047) do
+ActiveRecord::Schema.define(version: 20180203180945) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -295,6 +295,29 @@ ActiveRecord::Schema.define(version: 20180202223047) do
 
   add_index "time_periods", ["event_id"], name: "index_time_periods_on_event_id"
   add_index "time_periods", ["kind"], name: "index_time_periods_on_kind"
+
+  create_table "transaction_items", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "transaction_id", null: false
+    t.integer  "item_id",        null: false
+  end
+
+  add_index "transaction_items", ["item_id"], name: "index_transaction_items_on_item_id"
+  add_index "transaction_items", ["transaction_id", "item_id"], name: "index_transaction_items_on_transaction_id_and_item_id", unique: true
+  add_index "transaction_items", ["transaction_id"], name: "index_transaction_items_on_transaction_id"
+
+  create_table "transaction_stock_items", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "transaction_id", null: false
+    t.integer  "stock_item_id",  null: false
+    t.integer  "amount"
+  end
+
+  add_index "transaction_stock_items", ["stock_item_id"], name: "index_transaction_stock_items_on_stock_item_id"
+  add_index "transaction_stock_items", ["transaction_id", "stock_item_id"], name: "index_transaction_stock_items_on_transaction_and_stock_item", unique: true
+  add_index "transaction_stock_items", ["transaction_id"], name: "index_transaction_stock_items_on_transaction_id"
 
   create_table "transactions", force: :cascade do |t|
     t.datetime "created_at",            null: false

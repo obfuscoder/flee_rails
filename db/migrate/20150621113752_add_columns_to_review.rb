@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToReview < ActiveRecord::Migration
   def change
     add_column :reviews, :registration, :integer

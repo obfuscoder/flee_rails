@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTokenToSellers < ActiveRecord::Migration
   def change
     add_column :sellers, :token, :string
