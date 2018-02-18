@@ -6,7 +6,8 @@ RSpec.describe 'api/events/show' do
   before do
     event = create :event_with_ongoing_reservation
     reservations = create_list :reservation, 2, event: event
-    create_list :item, 3, reservation: reservations.first
+    create_list :item_with_code, 3, reservation: reservations.first
+    create_list :item_with_code, 2, reservation: reservations.second
     create_list :item, 2, reservation: reservations.second
 
     stock_items = create_list :stock_item, 4
@@ -27,7 +28,7 @@ RSpec.describe 'api/events/show' do
 
   describe 'categories' do
     subject(:categories) { json[:categories] }
-    it { is_expected.to have(5).items }
+    it { is_expected.to have(7).items }
     it { is_expected.to all(include(:id, :name)) }
   end
 

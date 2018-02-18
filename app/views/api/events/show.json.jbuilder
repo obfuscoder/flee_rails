@@ -17,5 +17,5 @@ json.sellers @event.reservations.map(&:seller), :id, :first_name, :last_name, :s
 
 json.reservations @event.reservations, :id, :number, :seller_id, :fee, :commission_rate
 
-json.items @event.reservations.map(&:items).flatten, :id, :category_id, :reservation_id,
-           :description, :size, :price, :number, :code, :sold, :donation
+json.items @event.reservations.map(&:items).flatten.reject { |item| item.code.nil? },
+           :id, :category_id, :reservation_id, :description, :size, :price, :number, :code, :sold, :donation
