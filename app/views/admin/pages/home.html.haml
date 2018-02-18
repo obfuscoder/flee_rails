@@ -1,5 +1,7 @@
 - content_for :title, t('.title')
-=link_to 'Download Kassensystem', Settings.client.download_url, type: :primary, icon: :download_alt
+%h3 Downloads
+=link_to 'Kassensystem (Windows)', Settings.downloads.client, type: :primary, icon: :download_alt
+=link_to 'Mobiles Kassensystem (Android)', Settings.downloads.mobile, type: :primary, icon: :download_alt
 %h3 Verkäufer
 %ul
   %li gesamt: #{current_client.sellers.count}

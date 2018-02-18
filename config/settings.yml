@@ -1,5 +1,6 @@
-client:
-  download_url: http://flohmarkthelfer.de/download/flohmarkthelfer-setup.exe
+downloads:
+  client: http://flohmarkthelfer.de/download/flohmarkthelfer-setup.exe
+  mobile: http://flohmarkthelfer.de/download/flohmarkthelfer.apk
 domain: flohmarkthelfer.de
 imprint:
   address:
