@@ -6,7 +6,7 @@ require 'features/admin/login'
 RSpec.feature 'admin event reservations' do
   include_context 'login'
   let(:event) { create :event_with_ongoing_reservation, max_reservations: 5 }
-  let!(:sellers) { create_list :seller, 4, active: true }
+  let!(:sellers) { create_list :seller, 4 }
   let(:number_of_reservations) { 3 }
   let!(:reservations) { create_list :reservation, number_of_reservations, event: event }
   background do
@@ -29,7 +29,7 @@ RSpec.feature 'admin event reservations' do
     shared_examples 'create reservations for selected sellers' do
       before do
         click_on 'Neue Reservierung'
-        selection.each { |seller| check seller.label_for_selects }
+        selection.each { |seller| select seller.label_for_selects, from: 'Verkäufer' }
         click_on 'Reservierung erstellen'
       end
 

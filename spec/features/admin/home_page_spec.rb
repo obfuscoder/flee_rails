@@ -5,8 +5,8 @@ require 'features/admin/login'
 
 RSpec.feature 'admin home page' do
   def create_sellers
-    create :seller, created_at: 1.day.ago
-    create :seller, active: true, created_at: 7.days.ago
+    create :seller, active: false, created_at: 1.day.ago
+    create :seller, created_at: 7.days.ago
     create :notification
   end
 
@@ -26,7 +26,7 @@ RSpec.feature 'admin home page' do
 
   scenario 'shows summary of sellers' do
     expect(page).to have_content 'gesamt: 7'
-    expect(page).to have_content 'aktiviert: 1'
+    expect(page).to have_content 'aktiviert: 6'
   end
 
   scenario 'shows summary of items' do

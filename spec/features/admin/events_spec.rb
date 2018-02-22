@@ -121,10 +121,10 @@ RSpec.feature 'admin events' do
     end
 
     feature 'sending mailings' do
-      let!(:inactive_seller) { create :seller }
-      let!(:active_seller) { create :seller, active: true }
-      let!(:active_seller_with_reservation) { create :seller, active: true }
-      let!(:seller_without_mailing) { create :seller, active: true, mailing: false }
+      let!(:inactive_seller) { create :seller, active: false }
+      let!(:active_seller) { create :seller }
+      let!(:active_seller_with_reservation) { create :seller }
+      let!(:seller_without_mailing) { create :seller, mailing: false }
       let!(:reservation) { create :reservation, event: event, seller: active_seller_with_reservation }
       let!(:items) { create_list :item, 5, reservation: reservation }
 

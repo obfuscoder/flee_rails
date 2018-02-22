@@ -47,7 +47,7 @@ module Admin
     end
 
     describe 'GET emails' do
-      let!(:active_seller) { create :seller, active: true }
+      let!(:active_seller) { create :seller }
       let!(:inactive_seller) { create :seller, active: false }
       let!(:event) { create :event_with_ongoing_reservation }
       let!(:reservation) { create :reservation, event: event, seller: active_seller }

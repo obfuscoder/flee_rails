@@ -22,7 +22,7 @@ RSpec.describe 'Screenshots', js: true do
 
   it 'creates screenshots' do
     admin = create :admin, email: 'admin@example.com'
-    sellers = create_list :random_seller, 30, active: true
+    sellers = create_list :random_seller, 30
 
     visit admin_path
     fill_in 'eMail-Adresse', with: admin.email

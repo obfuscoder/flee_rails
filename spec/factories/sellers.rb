@@ -12,6 +12,7 @@ FactoryBot.define do
     mailing true
     email { Faker::Internet.email }
     sequence(:token) { |n| "token#{n}" }
+    active true
 
     factory :random_seller do
       created_at { Faker::Time.between 10.days.ago, Time.now }
