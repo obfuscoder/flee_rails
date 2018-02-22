@@ -7,7 +7,7 @@ module Admin
     def invitation
       sellers = current_client.sellers.merge(Seller.active.with_mailing.without_reservation_for(@event))
       sellers.each do |seller|
-        SellerMailer.invitation(seller, @event).deliver_later
+        SellerMailer.invitation(seller, @event).deliver_later if @event.reservable_by? seller
       end
       @event.messages.create! category: :invitation
       redirect_to admin_event_path(@event),

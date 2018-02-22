@@ -472,6 +472,7 @@ de:
         reservation_fee: Standard für Reservierungsgebühr
         donation_of_unsold_items: Standard für Spenden nicht verkaufter Artikel
         donation_of_unsold_items_default: Standardeinstellung für Spende bei Artikeleingabe
+        reservation_by_seller_forbidden: Reservierungen nur im Verwaltungsbereich durchführbar
       category:
         name: Name
         parent: Überkategorie
@@ -590,8 +591,8 @@ de:
                 Bitte haben Sie Verständnis dafür, dass wir allen Interessenten die gleiche Chance geben wollen,
                 indem wir alle vorab per Mail über den Reservierungsbeginn informieren, und jeder die Zeit hat,
                 sich auf diesen Termin vorzubereiten.
-              limit_reached: >
-                Alle Reservierungsnummern sind bereits vergeben.
+              limit_reached: Alle Reservierungsnummern sind bereits vergeben.
+              forbidden: Sie dürfen keine Reservierung durchführen.
             number:
               taken: Sie haben bereits eine Reservierungsnummer.
             event:

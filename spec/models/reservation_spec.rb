@@ -26,7 +26,7 @@ RSpec.describe Reservation do
     its(:seller) { is_expected.not_to be_nil }
   end
 
-  describe 'when seller is suspended for the event' do
+  context 'when seller is suspended for the event' do
     let!(:suspension) { create :suspension, event: reservation.event, seller: reservation.seller }
     it { is_expected.not_to be_valid }
     context 'when validated' do
@@ -38,6 +38,24 @@ RSpec.describe Reservation do
           subject { messages[:event][0] }
           it { is_expected.not_to include 'translation missing' }
           it { is_expected.to include suspension.reason }
+        end
+      end
+    end
+  end
+
+  context 'when reservation by seller is forbidden' do
+    let(:client) { create :client, reservation_by_seller_forbidden: true }
+    let(:seller) { create :seller, client: client }
+    let(:event) { create :event_with_ongoing_reservation, client: client }
+    subject(:reservation) { build :reservation, seller: seller, event: event }
+    it { is_expected.not_to be_valid }
+    context 'when validated' do
+      before { reservation.valid? }
+      describe 'its error messages' do
+        subject(:messages) { reservation.errors.messages }
+        describe 'error message for base' do
+          subject { messages[:base].first }
+          it { is_expected.not_to include 'translation missing' }
         end
       end
     end

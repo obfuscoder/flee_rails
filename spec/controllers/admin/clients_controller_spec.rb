@@ -32,7 +32,10 @@ RSpec.describe Admin::ClientsController do
         terms: 'terms',
         price_precision: '1',
         reservation_fee: '10',
-        commission_rate: '0.5'
+        commission_rate: '0.5',
+        donation_of_unsold_items: '1',
+        donation_of_unsold_items_default: '1',
+        reservation_by_seller_forbidden: '1'
       }
     end
 
@@ -42,7 +45,11 @@ RSpec.describe Admin::ClientsController do
 
     it 'updates current client' do
       action
-      expect(user.client.reload).to have_attributes name: client_params[:name], short_name: client_params[:short_name]
+      expect(user.client.reload).to have_attributes name: client_params[:name],
+                                                    short_name: client_params[:short_name],
+                                                    donation_of_unsold_items: true,
+                                                    donation_of_unsold_items_default: true,
+                                                    reservation_by_seller_forbidden: true
     end
   end
 end

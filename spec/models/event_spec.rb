@@ -66,6 +66,12 @@ RSpec.describe Event do
       before { create :suspension, event: event, seller: seller }
       it { is_expected.to eq false }
     end
+    context 'when reservation by seller is forbidden' do
+      let(:client) { create :client, reservation_by_seller_forbidden: true }
+      let(:event) { create :event_with_ongoing_reservation, client: client }
+      let(:seller) { create :seller, client: client }
+      it { is_expected.to eq false }
+    end
   end
 
   describe '#kind' do

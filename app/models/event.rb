@@ -58,6 +58,7 @@ class Event < ActiveRecord::Base
   end
 
   def reservable_by?(seller)
+    return false if seller.client.reservation_by_seller_forbidden
     return false if suspensions.find_by(seller: seller)
     return reservations.where(seller: seller).empty? if max_reservations_per_seller.nil?
     reservations.where(seller: seller).count < max_reservations_per_seller

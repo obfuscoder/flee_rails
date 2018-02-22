@@ -3,9 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SellersController do
-  before do
-    allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self))
-  end
+  before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self)) }
 
   describe 'GET new' do
     before do
@@ -194,6 +192,14 @@ RSpec.describe SellersController do
             it 'sends invitation mail to seller' do
               expect(SellerMailer).to receive(:invitation) { double deliver_later: true }
               subject
+            end
+
+            context 'when event is not reservable by seller' do
+              it 'does not send invitation mail to seller' do
+                expect(SellerMailer).not_to receive :invitation
+                allow_any_instance_of(Event).to receive(:reservable_by?).with(seller).and_return(false)
+                subject
+              end
             end
           end
         end

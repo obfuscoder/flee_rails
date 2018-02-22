@@ -50,7 +50,11 @@
               Sie stehen auf der Warteliste an Position #{waiting_list_position(event, @seller)}.
             - else
               Sie können sich #{ link_to 'auf die Warteliste setzen lassen', event_notification_path(event), method: :post }.
-              Sie erhalten automatisch eine Reservierung und eine Mail, sobald ein Platz für Sie frei wird.
+              Sie erhalten eine Mail, sobald ein Platz für Sie frei geworden ist.
+          - elsif event.client.reservation_by_seller_forbidden
+            Um eine Reservierung zu erhalten,
+            =mail_to(current_client.mail_address, 'kontaktieren Sie uns')
+            bitte.
           - else
             Sie haben bereits die maximale Anzahl erlaubter Reservierungen für diesen Termin.
 %h3 Ihre Stammdaten

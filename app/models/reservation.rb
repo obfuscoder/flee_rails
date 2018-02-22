@@ -16,6 +16,7 @@ class Reservation < ActiveRecord::Base
     validate :capacity_available
     validate :max_reservations_per_seller
     validate :not_suspended
+    validate :reservation_allowed_by_seller
   end
 
   validates :max_items, numericality: { greater_than: 0, only_integer: true }
@@ -87,5 +88,10 @@ class Reservation < ActiveRecord::Base
     return if event.nil? || seller.nil?
     suspension = event.suspensions.find_by(seller: seller)
     errors.add :event, :suspended, reason: suspension.reason if suspension
+  end
+
+  def reservation_allowed_by_seller
+    return if event.nil?
+    errors.add :base, :forbidden if event.client.reservation_by_seller_forbidden?
   end
 end
