@@ -13,19 +13,42 @@ module Admin
     end
 
     def new
-      @sellers = current_client.sellers.merge(Seller.active).select do |seller|
-        @event.reservable_by? seller, context: :admin
-      end
+      @reservation = Reservation.new
+      init_sellers
+      init_available_numbers
+      render :new
+    end
+
+    def new_bulk
+      @reservation = Reservation.new
+      init_sellers
     end
 
     def create
-      seller_ids = params[:reservation][:seller_id].reject(&:empty?)
       creator = CreateReservation.new
       client = current_client
-      reservations = seller_ids.each do |seller_id|
-        creator.create @event, client.sellers.find(seller_id), context: :admin
+      seller_id = params[:reservation][:seller_id]
+      number = params[:reservation][:number]
+      reservation = Reservation.new event: @event, seller: client.sellers.find_by(id: seller_id), number: number
+      @reservation = creator.call reservation, context: :admin
+      if @reservation.persisted?
+        redirect_to admin_event_reservations_path, notice: t('.success', count: 1)
+      else
+        init_sellers
+        init_available_numbers
+        render :new
       end
-      redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count)
+    end
+
+    def create_bulk
+      creator = CreateReservation.new
+      client = current_client
+      seller_ids = params[:reservation][:seller_id].reject(&:empty?)
+      reservations = seller_ids.map do |seller_id|
+        reservation = Reservation.new event: @event, seller: client.sellers.find(seller_id)
+        creator.call reservation, context: :admin
+      end
+      redirect_to admin_event_reservations_path, notice: t('.success', count: reservations.count(&:persisted?))
     end
 
     def edit; end
@@ -44,6 +67,16 @@ module Admin
     end
 
     private
+
+    def init_sellers
+      @sellers = current_client.sellers.merge(Seller.active).select do |seller|
+        @event.reservable_by? seller, context: :admin
+      end
+    end
+
+    def init_available_numbers
+      @available_numbers = [*1..500] - @event.reservations.pluck(:number)
+    end
 
     def set_event
       @event = current_client.events.find params[:event_id]

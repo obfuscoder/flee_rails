@@ -48,7 +48,12 @@ Rails.application.routes.draw do
     get '', controller: :pages, action: :home
     resources :events, except: :destroy do
       resources :reviews
-      resources :reservations
+      resources :reservations do
+        collection do
+          get :new_bulk
+          post :create_bulk
+        end
+      end
       resources :suspensions
       resources :rentals
       post 'messages/:action', to: 'messages#:action', as: :messages

@@ -4,7 +4,7 @@ class ReservationsController < ApplicationController
   before_action :init_event
 
   def create
-    reservation = CreateReservation.new.create @event, current_seller
+    reservation = CreateReservation.new.call Reservation.new(event: @event, seller: current_seller)
     if reservation.persisted?
       redirect_to seller_path, notice: t('.success', number: reservation.number)
     else

@@ -4,22 +4,18 @@ require 'rails_helper'
 
 RSpec.describe CreateReservation do
   subject(:instance) { described_class.new }
-  describe '#create' do
-    subject(:action) { instance.create event, seller }
-
+  describe '#call' do
+    subject(:action) { instance.call reservation }
     let(:event) { double :event, notifications: notifications }
     let(:seller) { double :seller }
-    let(:reservation) { double :reservation, save: true }
+    let(:reservation) { double :reservation, event: event, seller: seller, save: true }
     let(:notifications) { double :notification, where: relevant_notifications }
     let(:relevant_notifications) { double :relevant_notifications, destroy_all: nil }
     let(:options) { {} }
-    before do
-      allow(Reservation).to receive(:new).and_return(reservation)
-      allow(SellerMailer).to receive(:reservation).and_return double(deliver_later: true)
-    end
-    it 'creates a reservation' do
+    before { allow(SellerMailer).to receive(:reservation).and_return double(deliver_later: true) }
+    it 'saves the reservation' do
       action
-      expect(Reservation).to have_received(:new).with(hash_including(event: event, seller: seller))
+      expect(reservation).to have_received(:save)
     end
 
     it { is_expected.to eq reservation }
@@ -51,7 +47,7 @@ RSpec.describe CreateReservation do
     it 'passes on provided options to save' do
       options = { context: :admin }
       expect(reservation).to receive(:save).with(options).and_return(reservation)
-      instance.create event, seller, options
+      instance.call reservation, options
     end
   end
 end

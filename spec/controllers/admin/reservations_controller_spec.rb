@@ -63,6 +63,17 @@ module Admin
       end
       let(:preparations) {}
 
+      describe 'response' do
+        subject { response }
+        it { is_expected.to render_template :new }
+        it { is_expected.to have_http_status :ok }
+      end
+
+      describe '@reservation' do
+        subject { assigns :reservation }
+        it { is_expected.to be_a_new Reservation }
+      end
+
       describe '@sellers' do
         subject { assigns :sellers }
         it { is_expected.to include new_seller }
@@ -72,23 +83,118 @@ module Admin
           it { is_expected.to include new_seller }
         end
       end
+
+      describe '@available_numbers' do
+        subject { assigns :available_numbers }
+        it { is_expected.not_to include 3 }
+        it { is_expected.to include 5 }
+      end
+    end
+
+    describe 'GET new_bulk' do
+      let!(:new_seller) { create :seller }
+      before do
+        preparations
+        get :new_bulk, event_id: event.id
+      end
+      let(:preparations) {}
+
+      describe 'response' do
+        subject { response }
+        it { is_expected.to render_template :new_bulk }
+        it { is_expected.to have_http_status :ok }
+      end
+
+      describe '@reservation' do
+        subject { assigns :reservation }
+        it { is_expected.to be_a_new Reservation }
+      end
+
+      describe '@sellers' do
+        subject { assigns :sellers }
+        it { is_expected.to include new_seller }
+
+        context 'when reservation by seller is forbidden' do
+          let(:preparations) { event.client.update reservation_by_seller_forbidden: true }
+          it { is_expected.to include new_seller }
+        end
+      end
     end
 
     describe 'POST create' do
-      let(:action) { post :create, event_id: event.id, reservation: { seller_id: [seller1.id, seller2.id] } }
-      let(:reservation) { create :reservation }
+      let!(:new_seller) { create :seller }
+      let(:number) { 5 }
+      let(:reservation_param) { { seller_id: new_seller.id, number: number } }
+      let(:action) { post :create, event_id: event.id, reservation: reservation_param }
+      let(:reservation) { create :reservation, event: event, seller: new_seller, number: number }
+      let(:creator) { double call: reservation }
+      let(:preparations) {}
 
       before do
-        creator = double
-        expect(creator).to receive(:create).with(instance_of(Event), instance_of(Seller),
-                                                 hash_including(context: :admin)).twice.and_return reservation
-        expect(CreateReservation).to receive(:new).and_return creator
+        allow(CreateReservation).to receive(:new).and_return creator
+        preparations
         action
       end
 
       it { is_expected.to redirect_to admin_event_reservations_path }
+
+      it 'notifies about the reservation' do
+        expect(flash[:notice]).to be_present
+      end
+
+      it 'uses CreateReservation' do
+        expect(creator).to have_received(:call).with(instance_of(Reservation),
+                                                     hash_including(context: :admin))
+      end
+
+      context 'when reservation could not be created' do
+        let(:reservation) { event.reservations.create }
+        describe 'response' do
+          subject { response }
+          it { is_expected.to render_template :new }
+        end
+
+        describe '@reservation' do
+          subject { assigns :reservation }
+          it { is_expected.to be_a_new Reservation }
+        end
+
+        describe '@sellers' do
+          subject { assigns :sellers }
+          it { is_expected.to include new_seller }
+        end
+
+        describe '@available_numbers' do
+          subject { assigns :available_numbers }
+          it { is_expected.to include number }
+        end
+      end
+    end
+
+    describe 'POST create_bulk' do
+      let!(:new_seller) { create :seller }
+      let!(:new_seller2) { create :seller }
+      let(:reservation_param) { { seller_id: [new_seller.id, new_seller2.id] } }
+      let(:action) { post :create_bulk, event_id: event.id, reservation: reservation_param }
+      let(:reservation) { create :reservation }
+      let(:creator) { double call: reservation }
+      let(:preparations) {}
+
+      before do
+        allow(CreateReservation).to receive(:new).and_return creator
+        preparations
+        action
+      end
+
+      it { is_expected.to redirect_to admin_event_reservations_path }
+
       it 'notifies about the reservations' do
         expect(flash[:notice]).to be_present
+      end
+
+      it 'uses CreateReservation' do
+        expect(creator).to have_received(:call).with(instance_of(Reservation),
+                                                     hash_including(context: :admin)).twice
       end
 
       context 'when reservations were not persisted' do

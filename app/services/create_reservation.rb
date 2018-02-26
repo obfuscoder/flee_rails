@@ -3,18 +3,20 @@
 class CreateReservation
   def initialize; end
 
-  def create(event, seller, save_options = {})
+  def call(reservation, save_options = {})
     ActiveRecord::Base.transaction do
-      reservation = Reservation.new event: event, seller: seller
-      reservation.save(save_options) && send_reservation_mail(reservation) && destroy_notifications(event, seller)
+      if reservation.save(save_options)
+        destroy_notifications reservation
+        send_reservation_mail reservation
+      end
       reservation
     end
   end
 
   private
 
-  def destroy_notifications(event, seller)
-    event.notifications.where(seller: seller).destroy_all
+  def destroy_notifications(reservation)
+    reservation.event.notifications.where(seller: reservation.seller).destroy_all
   end
 
   def send_reservation_mail(reservation)

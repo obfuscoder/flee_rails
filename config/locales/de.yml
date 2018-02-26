@@ -273,13 +273,18 @@ de:
       index:
         title: Reservierungen
         new: Neue Reservierung
+        new_bulk: Neue Reservierungen
         items: Artikel
       new:
+        title: Neue Reservierung
+        seller:
+          blank: "[Bitte wählen]"
+      new_bulk:
         title: Reservierungen durchführen
       create:
-        success:
-          one: Reservierung erfolgreich durchgeführt
-          other: '%{count} Reservierungen erfolgreich durchgeführt'
+        success: Reservierung erfolgreich durchgeführt
+      create_bulk:
+        success: '%{count} Reservierungen erfolgreich durchgeführt'
       destroy:
         success: Die Reservierung wurde gelöscht
       edit:
@@ -473,6 +478,7 @@ de:
         donation_of_unsold_items: Standard für Spenden nicht verkaufter Artikel
         donation_of_unsold_items_default: Standardeinstellung für Spende bei Artikeleingabe
         reservation_by_seller_forbidden: Reservierungen nur im Verwaltungsbereich durchführbar
+        reservation_numbers_assignable: Reservierungsnummern werden individuell vergeben
       category:
         name: Name
         parent: Überkategorie

@@ -62,8 +62,7 @@ class ApplicationController < ActionController::Base
     reservation_count = event.reservations.count
     return unless reservation_count < event.max_reservations
     event.notifications.order(:id).limit(event.max_reservations - reservation_count).each do |notification|
-      CreateReservation.new.create event, notification.seller
-      notification.destroy
+      CreateReservation.new.call Reservation.new(event: event, seller: notification.seller)
     end
   end
 

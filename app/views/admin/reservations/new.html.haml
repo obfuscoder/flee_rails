@@ -1,7 +1,8 @@
 - content_for :title, t('.title')
-= simple_form_for [:admin, @event, Reservation.new] do |f|
+= simple_form_for [:admin, @event, @reservation] do |f|
   = f.error_notification
   .form-inputs
-    = f.association :seller, label_method: :label_for_selects, collection: @sellers, input_html: { multiple: true }
+    = f.association :seller, label_method: :label_for_selects, collection: @sellers, include_blank: t('.seller.blank')
+    = f.input :number, collection: @available_numbers, include_blank: false
   .form-actions
     = f.button :submit

@@ -9,7 +9,10 @@
     %th= Reservation.human_attribute_name :max_items
     %th= Reservation.human_attribute_name :fee
     %th= Reservation.human_attribute_name :commission_rate
-    %th= link_to t('.new'), new_admin_event_reservation_path(@event), type: :primary, icon: :file
+    - if current_client.reservation_numbers_assignable
+      %th= link_to t('.new'), new_admin_event_reservation_path(@event), type: :primary, icon: :file
+    - else
+      %th= link_to t('.new_bulk'), new_bulk_admin_event_reservations_path(@event), type: :primary, icon: :file
   - @reservations.each do |reservation|
     %tr
       %td= reservation.number
