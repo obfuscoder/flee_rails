@@ -55,6 +55,25 @@ module Admin
       end
     end
 
+    describe 'GET new' do
+      let!(:new_seller) { create :seller }
+      before do
+        preparations
+        get :new, event_id: event.id
+      end
+      let(:preparations) {}
+
+      describe '@sellers' do
+        subject { assigns :sellers }
+        it { is_expected.to include new_seller }
+
+        context 'when reservation by seller is forbidden' do
+          let(:preparations) { new_seller.client.update reservation_by_seller_forbidden: true }
+          it { is_expected.to include new_seller }
+        end
+      end
+    end
+
     describe 'POST create' do
       let(:action) { post :create, event_id: event.id, reservation: { seller_id: [seller1.id, seller2.id] } }
       let(:reservation) { create :reservation }

@@ -13,7 +13,9 @@ module Admin
     end
 
     def new
-      @sellers = current_client.sellers.merge(Seller.active).select { |seller| @event.reservable_by? seller }
+      @sellers = current_client.sellers.merge(Seller.active).select do |seller|
+        @event.reservable_by? seller, context: :admin
+      end
     end
 
     def create
