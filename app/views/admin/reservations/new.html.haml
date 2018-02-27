@@ -4,5 +4,6 @@
   .form-inputs
     = f.association :seller, label_method: :label_for_selects, collection: @sellers, include_blank: t('.seller.blank')
     = f.input :number, collection: @available_numbers, include_blank: false
+    = render 'inputs', f: f
   .form-actions
     = f.button :submit

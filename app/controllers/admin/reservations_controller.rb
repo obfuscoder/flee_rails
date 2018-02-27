@@ -13,23 +13,20 @@ module Admin
     end
 
     def new
-      @reservation = Reservation.new
+      @reservation = @event.reservations.build
       init_sellers
       init_available_numbers
       render :new
     end
 
     def new_bulk
-      @reservation = Reservation.new
+      @reservation = @event.reservations.build
       init_sellers
     end
 
     def create
       creator = CreateReservation.new
-      client = current_client
-      seller_id = params[:reservation][:seller_id]
-      number = params[:reservation][:number]
-      reservation = Reservation.new event: @event, seller: client.sellers.find_by(id: seller_id), number: number
+      reservation = @event.reservations.build create_reservation_params
       @reservation = creator.call reservation, context: :admin
       if @reservation.persisted?
         redirect_to admin_event_reservations_path, notice: t('.success', count: 1)
@@ -67,6 +64,11 @@ module Admin
     end
 
     private
+
+    def create_reservation_params
+      params.require(:reservation).permit :fee, :commission_rate, :max_items,
+                                          :category_limits_ignored, :number, :seller_id
+    end
 
     def init_sellers
       @sellers = current_client.sellers.merge(Seller.active).select do |seller|

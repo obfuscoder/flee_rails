@@ -8,7 +8,7 @@ RSpec.describe 'admin/reservations/new' do
   before do
     assign :sellers, [seller]
     assign :event, event
-    assign :reservation, Reservation.new
+    assign :reservation, event.reservations.build
   end
 
   it_behaves_like 'a standard view'
@@ -19,5 +19,9 @@ RSpec.describe 'admin/reservations/new' do
 
     it { is_expected.to have_field 'reservation_seller_id' }
     it { is_expected.to have_field 'reservation_number' }
+    it { is_expected.to have_field 'reservation_commission_rate' }
+    it { is_expected.to have_field 'reservation_fee' }
+    it { is_expected.to have_field 'reservation_max_items' }
+    it { is_expected.to have_field 'reservation_category_limits_ignored' }
   end
 end

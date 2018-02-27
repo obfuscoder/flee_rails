@@ -291,7 +291,7 @@ de:
         title: Reservierung bearbeiten
       update:
         success: Reservierung aktualisiert
-      form:
+      inputs:
         commission_rate:
           hint: *commission_rate_hint
     suspensions:
@@ -472,8 +472,8 @@ de:
         intro: Einleitung auf Hauptseite
         outro: Epilog auf Hauptseite
         terms: Teilnahmebedingungen
-        price_precision: Standard für Basis für Preisangaben
-        commission_rate: Standard für Umsatzanteil für Kommission
+        price_precision: Standard für Preisangabenbasis
+        commission_rate: Standard für Umsatzanteil bei Kommission
         reservation_fee: Standard für Reservierungsgebühr
         donation_of_unsold_items: Standard für Spenden nicht verkaufter Artikel
         donation_of_unsold_items_default: Standardeinstellung für Spende bei Artikeleingabe

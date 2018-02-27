@@ -124,11 +124,19 @@ module Admin
     describe 'POST create' do
       let!(:new_seller) { create :seller }
       let(:number) { 5 }
-      let(:reservation_param) { { seller_id: new_seller.id, number: number } }
+      let(:commission_rate) { 0.4 }
+      let(:fee) { 15 }
+      let(:max_items) { 300 }
+      let(:category_limits_ignored) { true }
+      let(:reservation_param) do
+        { seller_id: new_seller.id, number: number, commission_rate: commission_rate,
+          category_limits_ignored: category_limits_ignored, max_items: max_items, fee: fee }
+      end
       let(:action) { post :create, event_id: event.id, reservation: reservation_param }
       let(:reservation) { create :reservation, event: event, seller: new_seller, number: number }
       let(:creator) { double call: reservation }
       let(:preparations) {}
+      let(:creation_checks) {}
 
       before do
         allow(CreateReservation).to receive(:new).and_return creator
@@ -143,7 +151,11 @@ module Admin
       end
 
       it 'uses CreateReservation' do
-        expect(creator).to have_received(:call).with(instance_of(Reservation),
+        expect(creator).to have_received(:call).with(have_attributes(number: number,
+                                                                     commission_rate: commission_rate,
+                                                                     fee: fee,
+                                                                     max_items: max_items,
+                                                                     category_limits_ignored: category_limits_ignored),
                                                      hash_including(context: :admin))
       end
 
