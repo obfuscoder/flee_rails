@@ -40,16 +40,18 @@ class Client < ActiveRecord::Base
   end
 
   def destroy_everything!
-    Seller.unscoped { Email.joins(:seller).where(sellers: { client_id: id }).delete_all }
-    Item.joins(reservation: :seller).where(sellers: { client_id: id }).delete_all
-    Review.joins(reservation: :seller).where(sellers: { client_id: id }).delete_all
-    Reservation.joins(:seller).where(sellers: { client_id: id }).delete_all
-    Message.joins(:event).where(events: { client_id: id }).delete_all
-    Notification.joins(:seller).where(sellers: { client_id: id }).delete_all
-    Rental.joins(:event).where(events: { client_id: id }).delete_all
-    SoldStockItem.joins(:stock_item).where(stock_items: { client_id: id }).delete_all
-    Suspension.joins(:seller).where(sellers: { client_id: id }).delete_all
-    TimePeriod.joins(:event).where(events: { client_id: id }).delete_all
+    Seller.unscoped { Email.joins(:seller).where(sellers: { client_id: id }).destroy_all }
+    Transaction.joins(:event).where(events: { client_id: id }).destroy_all
+    Item.joins(reservation: :seller).where(sellers: { client_id: id }).destroy_all
+    Review.joins(reservation: :seller).where(sellers: { client_id: id }).destroy_all
+    Reservation.joins(:seller).where(sellers: { client_id: id }).destroy_all
+    Message.joins(:event).where(events: { client_id: id }).destroy_all
+    Notification.joins(:seller).where(sellers: { client_id: id }).destroy_all
+    Rental.joins(:event).where(events: { client_id: id }).destroy_all
+    SoldStockItem.joins(:stock_item).where(stock_items: { client_id: id }).destroy_all
+    Suspension.joins(:seller).where(sellers: { client_id: id }).destroy_all
+    TimePeriod.joins(:event).where(events: { client_id: id }).destroy_all
+    Seller.unscoped.where(client_id: id).delete_all
     destroy!
   end
 
