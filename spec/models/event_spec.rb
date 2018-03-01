@@ -133,15 +133,17 @@ RSpec.describe Event do
 
   describe '#top_sellers' do
     let(:event) { create :event_with_ongoing_reservation }
-    let!(:reservation1) { create :reservation, event: event }
-    let!(:reservation2) { create :reservation, event: event }
+    let(:reservation1) { create :reservation, event: event }
+    let(:reservation2) { create :reservation, event: event }
+    let(:reservation3) { create :reservation, event: event }
     subject { event.top_sellers }
     before do
       create_list :sold_item, 5, reservation: reservation1
       create_list :sold_item, 3, reservation: reservation2
+      create_list :sold_item, 10, reservation: reservation3
     end
 
-    it { is_expected.to eq [[1, 5], [2, 3]] }
+    it { is_expected.to eq [[reservation3.number, 10], [reservation1.number, 5], [reservation2.number, 3]] }
   end
 
   describe 'item counts' do

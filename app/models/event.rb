@@ -132,7 +132,7 @@ class Event < ActiveRecord::Base
   end
 
   def top_sellers
-    result = reservations.joins(:items).merge(Item.sold).grouping { number }.selecting do
+    result = reservations.unscope(:order).joins(:items).merge(Item.sold).grouping { number }.selecting do
       [number, items.id.count.as('count')]
     end
     result.ordering { items.id.count.desc }.map { |e| [e.number, e.count] }
