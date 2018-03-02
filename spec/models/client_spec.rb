@@ -57,7 +57,7 @@ RSpec.describe Client do
     let!(:category) { create :category, client: client }
     let!(:event) { create :event_with_ongoing_reservation, client: client }
     let!(:seller) { create :seller, client: client }
-    let!(:deleted_seller) { create(:seller, client: client).tap { |seller| seller.destroy } }
+    let!(:deleted_seller) { create(:seller, client: client).tap(&:destroy) }
     let!(:stock_item) { create :stock_item, client: client }
     let!(:user) { create :user, client: client }
     let!(:email) { create :email, seller: seller }
