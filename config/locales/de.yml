@@ -570,8 +570,8 @@ de:
         to_improve: Welche Dinge haben Ihnen nicht gefallen bzw. was sollten wir Ihrer Meinung nach verbessern?
       user:
         email: eMail-Adresse
-        old_password: aktuelles Passwort
-        password: neues Passwort
+        old_password: altes Passwort
+        password: Passwort
         password_confirmation: Passwortwiederholung
       time_period:
         min: von

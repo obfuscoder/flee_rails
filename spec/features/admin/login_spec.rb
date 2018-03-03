@@ -24,9 +24,9 @@ RSpec.feature 'admin login' do
       let(:password_repeat) { new_password }
       before do
         click_on 'Passwort ändern'
-        fill_in 'aktuelles Passwort', with: old_password
-        fill_in 'neues Passwort', with: new_password
-        fill_in 'Passwortwiederholung', with: password_repeat
+        fill_in 'user_old_password', with: old_password
+        fill_in 'user_password', with: new_password
+        fill_in 'user_password_confirmation', with: password_repeat
         click_on 'Änderungen speichern'
       end
 
