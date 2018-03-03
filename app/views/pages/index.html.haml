@@ -9,13 +9,24 @@
 = render '/maintenance'
 .row.marketing
   .col-lg-8
-    %p Sie organisieren selbst einen Kommissionsflohmarkt (auch vorsortierter Flohmarkt oder Basar genannt) und sind auf der Suche nach einem System, was Ihnen die Arbeit erleichtert?
-    %p Wir bieten Ihnen und Ihren Verkäufern die Möglichkeit, die Artikel einfach und schnell zu verkaufen und eine <strong>komplette Abrechnung</strong> der Verkäufe mit nur <strong>wenigen Klicks</strong> zu erreichen.
-    %p Nehmen Sie mit uns Kontakt auf unter <strong>meinflohmarkt@flohmarkthelfer.de</strong>
-
+    %p
+      Sie organisieren selbst einen Kommissionsflohmarkt (auch vorsortierter Flohmarkt oder Basar genannt)
+      und sind auf der Suche nach einem System, was Ihnen die Arbeit erleichtert?
+    %p
+      Wir bieten Ihnen und Ihren Verkäufern die Möglichkeit, die Artikel einfach und schnell zu verkaufen und eine
+      %strong komplette Abrechnung
+      der Verkäufe mit nur
+      %strong wenigen Klicks
+      zu erreichen.
+    %p
+      Nehmen Sie mit uns Kontakt auf unter
+      %strong meinflohmarkt@flohmarkthelfer.de
     %h3 Wir bieten:
 
-    %h4 Ein <strong>komplettes Online-System</strong> für
+    %h4
+      Ein
+      %strong komplettes Online-System
+      für
     %ul
       %li Platzreservierung
       %li Artikelverwaltung
@@ -28,7 +39,10 @@
       %li Statistiken zu Artikelerzeugung, Verkauf, Anmeldungen, Käufer (falls PLZs beim Verkauf erfasst)
       %li Bewertungssystem zur Erfragung von Verkäuferfeedback
 
-    %h4 Ein vollumfängliches <strong>Kassen- und Abrechnungssystem</strong> für
+    %h4
+      Ein vollumfängliches
+      %strong Kassen- und Abrechnungssystem
+      für
     %ul
       %li Erfassen zu verkaufender Artikel mit automatischer Erkennung anhand von Barcodescans
       %li Wechselgeldberechnung
@@ -40,9 +54,17 @@
       %li Erzeugung von Etiketten und Barcodes, sollten die Etiketten eines Verkäufers nicht lesbar/scanbar sein.
       %li automatische Synchronisierung der Verkäufe über alle Kassensysteme
 
-    %h4 Verleih von <strong>Barcode-Scannern</strong> und Netzwerk-Komponenten
-    %h4 <strong>Individuelle Betreueung und Anpassungen</strong> des Systems an die Bedürfnisse der Veranstalter
-    %h4 Schulung und <strong>Hilfe/Support</strong> auch vor Ort
+    %h4
+      Verleih von
+      %strong Barcode-Scannern
+      und Netzwerk-Komponenten
+    %h4
+      %strong Individuelle Betreueung und Anpassungen
+      des Systems an die Bedürfnisse der Veranstalter
+    %h4
+      Schulung und
+      %strong Hilfe/Support
+      auch vor Ort
     %h3 Unsere Preise
     %table.table
       %tr
@@ -77,7 +99,7 @@
 
     %h3 Kommende Termine
     %ul
-      - Event.current_or_upcoming.joins(:shopping_periods).order('time_periods.min').distinct.each do |event|
+      - @events.each do |event|
         %li
           %h4
             %a{ href: event.client.url }= event.name

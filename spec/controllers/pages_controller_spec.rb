@@ -59,6 +59,10 @@ RSpec.describe PagesController do
   end
 
   describe 'GET index' do
+    let(:demo_client) { Client.find_by key: 'demo' }
+    let!(:client) { create :client }
+    let!(:event) { create :event, client: client }
+    let!(:demo_event) { create :event }
     before { get :index }
 
     describe 'response' do
@@ -69,8 +73,14 @@ RSpec.describe PagesController do
 
     describe '@clients' do
       subject { assigns :clients }
-      it { is_expected.to have(Client.count - 1).elements }
-      it { is_expected.not_to include(Client.find_by(key: 'demo')) }
+      it { is_expected.to include client }
+      it { is_expected.not_to include demo_client }
+    end
+
+    describe '@events' do
+      subject { assigns :events }
+      it { is_expected.to include event }
+      it { is_expected.not_to include demo_event }
     end
   end
 end

@@ -17,7 +17,13 @@ class PagesController < ApplicationController
   def deleted; end
 
   def index
-    @clients = Client.where.not(key: 'demo')
+    demo_client = Client.find_by key: 'demo'
+    @clients = Client.where.not id: demo_client.id
+    @events = Event.current_or_upcoming
+                   .where.not(client: demo_client)
+                   .joins(:shopping_periods)
+                   .order('time_periods.min')
+                   .distinct
     render layout: 'index'
   end
 end
