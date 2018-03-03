@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe ItemsController do
   let(:seller) { create :seller }
-  let(:reservation) { create :reservation, seller: seller }
-  let(:event) { reservation.event }
+  let(:event) { create :event_with_ongoing_reservation }
+  let(:reservation) { create :reservation, seller: seller, event: event }
   let(:item) { create :item, reservation: reservation }
   let(:item_with_code) { create :item_with_code, reservation: reservation }
   let(:other_item) { create :item }
@@ -40,6 +40,7 @@ RSpec.describe ItemsController do
       preparations
       get :new, event_id: event.id, reservation_id: reservation.id
     end
+    let(:preparations) {}
 
     describe '@item' do
       subject { assigns :item }
@@ -48,6 +49,30 @@ RSpec.describe ItemsController do
         context "when donation default setting is #{donation_default}" do
           let(:preparations) { Client.first.update donation_of_unsold_items_default: donation_default }
           its(:donation) { is_expected.to eq donation_default }
+        end
+      end
+    end
+
+    describe '@categories' do
+      let(:preparations) do
+        create :category, client: event.client
+        create :category_with_enforced_donation, client: event.client
+      end
+      subject(:categories) { assigns :categories }
+      it { is_expected.to have(2).items }
+      context 'when event donation is disabled' do
+        it 'have donation enforced attributes' do
+          categories.each do |category|
+            expect(category).not_to include :data
+          end
+        end
+      end
+      context 'when event donation is enabled' do
+        let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+        it 'have donation enforced attributes' do
+          categories.each do |category|
+            expect(category[2][:data]).to include :donation_enforced
+          end
         end
       end
     end
@@ -101,10 +126,19 @@ RSpec.describe ItemsController do
   describe 'PUT update' do
     let(:action) do
       put :update, event_id: event.id, reservation_id: reservation.id, id: item.id,
-                   item: { description: item.description }
+                   item: { description: item.description, category_id: item.category.id }
     end
     it_behaves_like 'obey item code'
     it_behaves_like 'obey ownership'
+    context 'when donation is enabled' do
+      before { event.update donation_of_unsold_items_enabled: true }
+      context 'when category donation is enforced' do
+        before { item.category.update donation_enforced: true }
+        it 'sets item donation' do
+          expect { action }.to change { item.reload.donation }.to true
+        end
+      end
+    end
   end
 
   describe 'DELETE destroy' do

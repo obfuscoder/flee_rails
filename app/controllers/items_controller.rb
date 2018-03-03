@@ -48,11 +48,13 @@ class ItemsController < ApplicationController
 
   def init_categories
     @categories = current_client.categories.merge(Category.selectable).order(:name).map do |category|
-      [
+      element = [
         category.name,
-        category.id,
-        data: { donation_enforced: category.donation_enforced? }
+        category.id
       ]
+
+      element << { data: { donation_enforced: category.donation_enforced? } } if @event.donation_of_unsold_items_enabled
+      element
     end
   end
 
@@ -76,9 +78,9 @@ class ItemsController < ApplicationController
   end
 
   def enforce_donation(parameters)
-    return parameters unless current_client.donation_of_unsold_items && parameters['category_id'].present?
+    return parameters unless @reservation.event.donation_of_unsold_items_enabled && parameters['category_id'].present?
     category = current_client.categories.find parameters['category_id']
-    parameters['donation'] = '1' if category.donation_enforced
+    parameters['donation'] = true if category.donation_enforced
     parameters
   end
 

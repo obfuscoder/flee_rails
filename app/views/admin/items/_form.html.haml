@@ -2,10 +2,11 @@
   = f.error_notification
   .form-inputs
     = f.association :category, collection: @categories, include_blank: t('.category.blank')
-    %p.help-block#donation-enforced-hint= t('.donation.hint') if current_client.donation_of_unsold_items
+    - if @reservation.event.donation_of_unsold_items_enabled
+      %p.help-block#donation-enforced-hint= t('.donation.hint')
     = f.input :description
     = f.input :size
     = f.input :price, html5: false
-    = f.input :donation if current_client.donation_of_unsold_items
+    = f.input :donation if @reservation.event.donation_of_unsold_items_enabled
   .form-actions
     = f.button :submit

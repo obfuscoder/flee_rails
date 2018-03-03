@@ -57,13 +57,31 @@ module Admin
     end
 
     describe 'POST create' do
-      let(:new_item) { build(:item, reservation: reservation) }
-      before { post :create, reservation_id: reservation.id, item: new_item.attributes }
+      let(:new_item) { build :item, reservation: reservation }
+      let(:preparations) {}
+      before do
+        preparations
+        post :create, reservation_id: reservation.id, item: new_item.attributes
+      end
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
 
       it 'creates new item' do
         expect(Item.last.description).to eq new_item.description
+      end
+
+      context 'when donation is enabled' do
+        let(:preparations) { reservation.event.update donation_of_unsold_items_enabled: true }
+        [true, false].each do |donation|
+          context "when category donation_enforces is #{donation}" do
+            let(:donation_enforced) { donation }
+            let(:category) { create :category, donation_enforced: donation_enforced }
+            let(:new_item) { build :item, reservation: reservation, category: category }
+            it "creates new item with donation set to #{donation}" do
+              expect(Item.last.donation?).to eq donation_enforced
+            end
+          end
+        end
       end
     end
 
@@ -86,6 +104,18 @@ module Admin
       before { put :update, reservation_id: reservation.id, id: item.id, item: item.attributes }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
+
+      context 'when donation is enabled' do
+        let!(:reservation) { create :reservation, event: event }
+        let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+        context 'when category donation is enforced' do
+          let(:category) { create :category_with_enforced_donation }
+          let!(:item) { create :item_with_code, reservation: reservation, category: category }
+          it 'sets item donation' do
+            expect(item.reload.donation).to eq true
+          end
+        end
+      end
     end
 
     describe 'GET labels' do

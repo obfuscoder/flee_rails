@@ -14,13 +14,9 @@ RSpec.describe 'items/edit' do
 
   it_behaves_like 'a standard view'
 
-  it 'renders the edit item form' do
-    render
+  before { render }
 
-    expect(rendered).to have_css "form[action='#{event_reservation_item_path(event, reservation, item)}']"
-    expect(rendered).to have_select 'item_category_id'
-    expect(rendered).to have_field 'item_description'
-    expect(rendered).to have_field 'item_size'
-    expect(rendered).to have_field 'item_price'
+  it 'renders the form' do
+    expect(view).to render_template partial: 'items/_form'
   end
 end
