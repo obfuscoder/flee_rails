@@ -61,7 +61,6 @@ de:
   direct: Tischbasis
   "true": ja
   "false": nein
-  email_not_found: Es konnte kein Nutzer mit dieser eMail-Adresse gefunden werden. Bitte überprüfen Sie Ihre Eingabe oder registrieren Sie sich neu.
   attributes:
     created_at: Erstellt
     updated_at: Aktualisiert
@@ -610,6 +609,9 @@ de:
               invalid_email_address: >
                 Bitte geben Sie eine gültige %{attribute} ein. Nur mit korrekter %{attribute} ist eine Aktivierung
                 Ihres Zugangs möglich.
+              unknown: >
+                Es konnte kein Nutzer mit dieser eMail-Adresse gefunden werden.
+                Bitte überprüfen Sie Ihre Eingabe oder registrieren Sie sich neu.
             phone:
               invalid: >
                 Bitte geben Sie eine vollständige %{attribute} mit Vorwahl ein.

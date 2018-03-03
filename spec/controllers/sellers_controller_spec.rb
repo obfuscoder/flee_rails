@@ -124,9 +124,9 @@ RSpec.describe SellersController do
         post_it
         expect(response).to have_http_status :ok
       end
-      it 'sets appropriate alert message' do
+      it 'sets @seller with error info' do
         post_it
-        expect(flash[:alert]).to_not be_nil
+        expect(assigns(:seller).errors.messages).not_to be_empty
       end
       it 'does not send email' do
         expect(SellerMailer).not_to receive :registration
@@ -142,9 +142,9 @@ RSpec.describe SellersController do
         expect(response).to have_http_status :ok
       end
 
-      it 'sets appropriate alert message' do
+      it 'sets @seller with error info' do
         post_it
-        expect(flash[:alert]).to_not be_nil
+        expect(assigns(:seller).errors.messages).not_to be_empty
       end
 
       it 'does not send email' do

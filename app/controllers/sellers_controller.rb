@@ -45,7 +45,8 @@ class SellersController < ApplicationController
 
   def resend_activation
     if request.post?
-      resend_activation_for params[:seller][:email]
+      @seller = current_client.sellers.build resend_activation_params
+      resend_activation_for @seller
     else
       @seller = current_client.sellers.build
     end
@@ -100,22 +101,18 @@ class SellersController < ApplicationController
     end
   end
 
+  def resend_activation_for(seller)
+    return unless seller.valid? :resend_activation
+    seller = current_client.sellers.find_by email: seller.email
+    send_registration_mail(seller)
+    render :activation_resent
+  end
+
   def send_registration_mail(seller)
     SellerMailer.registration(seller).deliver_later
   end
 
-  def resend_activation_for(email)
-    errors = ValidatesEmailFormatOf.validate_email_format email
-    errors = [t('email_not_found')] unless errors.present? || send_activation_email_when_found(email)
-    return unless errors
-    @seller = current_client.sellers.build email: email
-    flash.now[:alert] = errors.join, ' '
-  end
-
-  def send_activation_email_when_found(email)
-    seller = current_client.sellers.find_by email: email
-    return unless seller
-    send_registration_mail(seller)
-    render :activation_resent
+  def resend_activation_params
+    params.require(:seller).permit :email
   end
 end

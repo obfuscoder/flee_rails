@@ -12,16 +12,20 @@ class Seller < ActiveRecord::Base
   has_many :suspensions, dependent: :delete_all
   has_many :emails, dependent: :delete_all
 
-  validates :client, :first_name, :last_name, :email, presence: true
-  validates :street, :zip_code, :city, :phone, presence: { on: :update }
-  validates :street, :zip_code, :city, :phone, presence: { on: :create }
+  validates :client, :email, presence: true
+  validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :update }
+  validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :create }
   validates :accept_terms, acceptance: { on: :create }
-  validates :email, uniqueness: { case_sensitive: false, scope: :client_id }
+
+  validates :email, uniqueness: { case_sensitive: false, scope: :client_id, on: :create }
+  validates :email, uniqueness: { case_sensitive: false, scope: :client_id, on: :update }
   validates_email_format_of :email
   validates :zip_code, format: { with: /\A\d{5}\z/, on: :update }
   validates :zip_code, format: { with: /\A\d{5}\z/, on: :create }
   validates :phone, format: { with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :update }
   validates :phone, format: { with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create }
+
+  validate :email_exists, on: :resend_activation
 
   scope :with_mailing, -> { where.has { mailing.eq true } }
   scope :active, -> { where.has { active.eq true } }
@@ -78,5 +82,10 @@ class Seller < ActiveRecord::Base
       city: nil,
       token: nil
     }
+  end
+
+  def email_exists
+    return if Seller.exists? email: email
+    errors.add :email, :unknown
   end
 end
