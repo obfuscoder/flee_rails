@@ -33,7 +33,9 @@ module Admin
     end
 
     describe 'GET new' do
+      before { preparations }
       before { get :new, reservation_id: reservation.id }
+      let(:preparations) {}
 
       describe 'response' do
         subject { response }
@@ -44,6 +46,13 @@ module Admin
       describe '@item' do
         subject { assigns :item }
         it { is_expected.to be_a_new Item }
+
+        [false, true].each do |donation_default|
+          context "when donation default setting is #{donation_default}" do
+            let(:preparations) { Client.first.update donation_of_unsold_items_default: donation_default }
+            its(:donation) { is_expected.to eq donation_default }
+          end
+        end
       end
     end
 

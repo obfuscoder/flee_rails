@@ -15,7 +15,7 @@ module Admin
     def show; end
 
     def new
-      @item = @reservation.items.build
+      @item = @reservation.items.build donation: current_client.donation_of_unsold_items_default
     end
 
     def create
