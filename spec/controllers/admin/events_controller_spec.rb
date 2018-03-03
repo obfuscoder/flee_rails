@@ -9,6 +9,29 @@ RSpec.describe Admin::EventsController do
 
   let(:event) { create :event_with_ongoing_reservation, confirmed: false }
 
+  describe 'GET index' do
+    before do
+      events
+      get :index
+    end
+    let(:events) { [event] }
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to render_template :index }
+      it { is_expected.to have_http_status :ok }
+    end
+
+    describe '@events' do
+      subject { assigns :events }
+      it { is_expected.to have(events.count).items }
+      context 'when event does not have any shopping times' do
+        let(:event) { create(:event).tap { |event| event.shopping_periods.clear } }
+        it { is_expected.to have(events.count).items }
+      end
+    end
+  end
+
   describe 'GET new' do
     before { get :new }
     describe 'response' do

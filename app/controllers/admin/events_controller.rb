@@ -9,7 +9,7 @@ module Admin
     end
 
     def index
-      @events = current_client.events.page(@page).joins(:shopping_periods).order(column_order).distinct
+      @events = current_client.events.page(@page).joining { shopping_periods.outer }.order(column_order).distinct
     end
 
     def new
