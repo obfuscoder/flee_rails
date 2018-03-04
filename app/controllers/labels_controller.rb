@@ -15,7 +15,7 @@ class LabelsController < ApplicationController
 
   def create
     selected_items = @reservation.items.where(id: params[:labels][:item])
-    pdf = create_label_document(selected_items)
+    pdf = CreateLabelDocument.new(current_client, selected_items).call
     send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'
   end
 end

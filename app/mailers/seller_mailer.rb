@@ -34,21 +34,21 @@ class SellerMailer < ActionMailer::Base
     mail_template(__method__)
   end
 
-  def reservation_closed(reservation, labels_pdf)
+  def reservation_closed(reservation)
     @reservation = reservation
     @seller = reservation.seller
     @event = reservation.event
     @client = @seller.client
-    attachments['etiketten.pdf'] = labels_pdf
+    attachments['etiketten.pdf'] = CreateLabelDocument.new(@client, reservation.items).call
     mail_template(__method__)
   end
 
-  def finished(reservation, receipt_pdf)
+  def finished(reservation)
     @reservation = reservation
     @seller = reservation.seller
     @event = reservation.event
     @client = @seller.client
-    attachments['rechnung.pdf'] = receipt_pdf
+    attachments['rechnung.pdf'] = CreateReceiptDocument.new(@reservation).call
     mail_template(__method__)
   end
 

@@ -24,18 +24,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def create_label_document(items)
-    items.without_label.each do |item|
-      item.create_code prefix: current_client.prefix
-      item.save! context: :generate_label
-    end
-    LabelDocument.new(label_decorators(items), with_donation: true).render
-  end
-
-  def label_decorators(items)
-    items.map { |item| LabelDecorator.new item }
-  end
-
   def current_seller
     @current_seller ||= (Seller.find session[:seller_id] if session[:seller_id])
     raise UnauthorizedError unless @current_seller

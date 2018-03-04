@@ -4,8 +4,9 @@ require 'rails_helper'
 
 RSpec.describe LabelDocument do
   let(:details) { 'Schuhe\nweiß\nGröße 10' }
-  let(:label) { double number: '12-34', price: '€ 2,90', details: details, code: '91020120348' }
+  let(:label) { double number: '12-34', price: '€ 2,90', details: details, code: '91020120348', donation?: donation }
   let(:labels) { [label] }
+  let(:donation) { true }
   subject(:document) { LabelDocument.new labels }
   describe '#render' do
     let(:output) { PDF::Inspector::Text.analyze(document.render).strings }
@@ -14,6 +15,7 @@ RSpec.describe LabelDocument do
       expect(output).to include label.price
       expect(output).to include label.details
       expect(output).to include label.code
+      expect(output).to include 'S'
     end
 
     context 'with characters outside of ascii range in details' do

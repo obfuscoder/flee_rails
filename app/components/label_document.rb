@@ -9,10 +9,9 @@ class LabelDocument < PdfDocument
   COLS = 3
   ROWS = 6
 
-  def initialize(labels, options = {})
+  def initialize(labels)
     super()
     @labels = labels
-    @with_donation = options.extract!(:with_donation).values.first
   end
 
   def render
@@ -46,7 +45,7 @@ class LabelDocument < PdfDocument
   def details_cell(label)
     top = bounds.top - header_line_height
     height = small_line_height * 3
-    if @with_donation && label.donation?
+    if label.donation?
       donation_cell(height, top)
       boxed_text(label.details, top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
     else

@@ -116,11 +116,13 @@ RSpec.describe SellerMailer do
   end
 
   describe '#reservation_closed' do
-    let(:reservation) { build :reservation }
+    let(:reservation) { build :reservation, items: items }
     let(:seller) { reservation.seller }
     let(:labels) { 'LABELS' }
+    let(:items) { build_list :item, 5 }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
-    subject(:mail) { SellerMailer.reservation_closed reservation, labels }
+    before { allow(CreateLabelDocument).to receive(:new).with(client, items).and_return double(call: labels) }
+    subject(:mail) { SellerMailer.reservation_closed reservation }
 
     it_behaves_like 'a mail with attachment'
 
@@ -132,7 +134,8 @@ RSpec.describe SellerMailer do
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
     let(:receipt) { 'RECEIPT' }
-    subject(:mail) { SellerMailer.finished reservation, receipt }
+    before { allow(CreateReceiptDocument).to receive(:new).with(reservation).and_return double(call: receipt) }
+    subject(:mail) { SellerMailer.finished reservation }
 
     it_behaves_like 'a mail with attachment'
 

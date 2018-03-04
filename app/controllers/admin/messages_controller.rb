@@ -15,11 +15,11 @@ module Admin
     end
 
     def reservation_closed
-      send_mails_and_redirect { |reservation| create_label_document(reservation.items) }
+      send_mails_and_redirect
     end
 
     def finished
-      send_mails_and_redirect { |reservation| create_receipt_document(reservation) }
+      send_mails_and_redirect
     end
 
     private
@@ -34,20 +34,12 @@ module Admin
     def send_mails_to_reservations(type, reservations)
       reservations.each do |reservation|
         begin
-          if block_given?
-            SellerMailer.send(type, reservation, yield(reservation)).deliver_now
-          else
-            SellerMailer.send(type, reservation).deliver_now
-          end
+          SellerMailer.send(type, reservation).deliver_now
         rescue StandardError => e
           logger.error e.message
           logger.error e.backtrace.join("\n")
         end
       end
-    end
-
-    def create_receipt_document(reservation)
-      ReceiptDocument.new(Receipt.new(reservation)).render
     end
   end
 end
