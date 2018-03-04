@@ -14,5 +14,5 @@ namespace :flee do
     end
   end
 
-  after 'deploy:published', 'flee:restart_worker'
+  after 'deploy:symlink:release', 'flee:restart_worker'
 end
