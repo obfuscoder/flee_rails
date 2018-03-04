@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226175532) do
+ActiveRecord::Schema.define(version: 20180304131048) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -55,6 +55,22 @@ ActiveRecord::Schema.define(version: 20180226175532) do
   add_index "clients", ["domain"], name: "index_clients_on_domain", unique: true
   add_index "clients", ["key"], name: "index_clients_on_key", unique: true
   add_index "clients", ["prefix"], name: "index_clients_on_prefix", unique: true
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "index_delayed_jobs_on_priority_and_run_at"
 
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -148,6 +164,7 @@ ActiveRecord::Schema.define(version: 20180226175532) do
     t.datetime "updated_at", null: false
     t.string   "category"
     t.integer  "event_id"
+    t.integer  "count"
   end
 
   add_index "messages", ["category", "event_id"], name: "index_messages_on_category_and_event_id", unique: true

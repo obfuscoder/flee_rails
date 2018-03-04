@@ -78,7 +78,7 @@ class Reservation < ActiveRecord::Base
 
   def max_reservations_per_seller
     return if event.nil?
-    max_reservations = event.max_reservations_per_seller || 1
+    max_reservations = event.max_reservations_per_seller
     reservations = event.reservations.where(seller: seller).where.not(id: id)
     return if reservations.count < max_reservations
     errors.add :event, :limit, limit: max_reservations

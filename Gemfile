@@ -60,6 +60,7 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'chartkick' # charts / graphics
 gem 'cocoon'
 gem 'config'
+gem 'delayed_job_active_record'
 gem 'groupdate' # for statistics grouped by date
 gem 'haml-rails'
 gem 'jbuilder'

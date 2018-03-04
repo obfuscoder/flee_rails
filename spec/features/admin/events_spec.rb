@@ -2,13 +2,12 @@
 
 require 'rails_helper'
 require 'features/admin/login'
+require 'features/mail_support'
 
 RSpec.feature 'admin events' do
   include_context 'login'
   let!(:events) { create_list :event_with_ongoing_reservation, 3 }
-  background do
-    click_on 'Termine'
-  end
+  background { click_on 'Termine' }
 
   scenario 'shows list of events with buttons for show, edit' do
     events.each do |event|
@@ -131,8 +130,8 @@ RSpec.feature 'admin events' do
       scenario 'send invitation to active sellers without reservation' do
         click_on_event
         click_on 'Reservierungseinladung verschicken'
-        expect(page).to have_content 'Es wurde(n) 1 Einladung(en) verschickt. Es gibt bereits 1 Reservierung(en).'
-        open_email active_seller.email
+        expect(page).to have_content 'Es wird eine Einladung verschickt. Es gibt bereits 1 Reservierung(en).'
+        send_and_open_email active_seller.email
         expect(current_email.subject).to eq 'Reservierung zum Flohmarkt startet in Kürze'
         expect(current_email.body).to have_link 'Verkäuferplatz reservieren'
       end
@@ -158,7 +157,7 @@ RSpec.feature 'admin events' do
         click_on_event
         click_on 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
         expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
-        open_email active_seller_with_reservation.email
+        send_and_open_email active_seller_with_reservation.email
         expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
         expect(current_email.body).to have_link 'Zum geschützten Bereich'
       end
@@ -195,7 +194,7 @@ RSpec.feature 'admin events' do
             click_on_event
             click_on 'Bearbeitungsabschlussmail verschicken'
             expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
-            open_email active_seller_with_reservation.email
+            send_and_open_email active_seller_with_reservation.email
           end
         end
 
@@ -264,7 +263,7 @@ RSpec.feature 'admin events' do
 
           describe 'sent email' do
             subject(:mail) do
-              open_email active_seller_with_reservation.email
+              send_and_open_email active_seller_with_reservation.email
               current_email
             end
             its(:subject) { is_expected.to eq 'Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns' }

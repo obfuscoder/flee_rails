@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'features/mail_support'
 
 RSpec.feature 'Registrations' do
   let(:email) { 'erika@mustermann.de' }
@@ -18,7 +19,7 @@ RSpec.feature 'Registrations' do
   end
 
   def open_mail_and_click_login_link
-    open_email email
+    send_and_open_email email
     expect(current_email.subject).to eq 'Registrierungsbestätigung'
     current_email.click_on 'Zum geschützten Bereich'
   end

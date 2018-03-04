@@ -60,7 +60,6 @@ class Event < ActiveRecord::Base
   def reservable_by?(seller, options = {})
     return false if seller.client.reservation_by_seller_forbidden && options[:context] != :admin
     return false if suspensions.find_by(seller: seller)
-    return reservations.where(seller: seller).empty? if max_reservations_per_seller.nil?
     reservations.where(seller: seller).count < max_reservations_per_seller
   end
 
@@ -70,6 +69,10 @@ class Event < ActiveRecord::Base
 
   def reservations_left
     [max_reservations - reservations.count, 0].max
+  end
+
+  def max_reservations_per_seller
+    self[:max_reservations_per_seller] || 1
   end
 
   def reservation_fee=(number)
@@ -82,7 +85,7 @@ class Event < ActiveRecord::Base
   end
 
   def past?
-    shopping_periods.last.max.past?
+    shopping_periods&.last&.max&.past?
   end
 
   def item_count

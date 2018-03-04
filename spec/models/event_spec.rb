@@ -280,4 +280,9 @@ RSpec.describe Event do
 
     it { is_expected.to eq [[category1.name, items1.count], [category2.name, items2.count]] }
   end
+
+  describe '#max_reservations_per_seller' do
+    subject { event.max_reservations_per_seller }
+    it { is_expected.to eq 1 }
+  end
 end

@@ -5,13 +5,9 @@ module Admin
     before_action { @event = current_client.events.find params[:event_id] }
 
     def invitation
-      sellers = current_client.sellers.merge(Seller.active.with_mailing.without_reservation_for(@event))
-      sellers.each do |seller|
-        SellerMailer.invitation(seller, @event).deliver_later if @event.reservable_by? seller
-      end
-      @event.messages.create! category: :invitation
+      count = SendInvitation.new(@event).call
       redirect_to admin_event_path(@event),
-                  notice: t('.success', count: sellers.count, reservation_count: @event.reservations.size)
+                  notice: t('.success', count: count, reservation_count: @event.reservations.size)
     end
 
     def reservation_closing
@@ -39,9 +35,9 @@ module Admin
       reservations.each do |reservation|
         begin
           if block_given?
-            SellerMailer.send(type, reservation, yield(reservation)).deliver_later
+            SellerMailer.send(type, reservation, yield(reservation)).deliver_now
           else
-            SellerMailer.send(type, reservation).deliver_later
+            SellerMailer.send(type, reservation).deliver_now
           end
         rescue StandardError => e
           logger.error e.message

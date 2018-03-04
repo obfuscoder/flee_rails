@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require 'features/admin/login'
+require 'features/mail_support'
 
 RSpec.feature 'admin emails' do
   include_context 'login'
@@ -33,7 +34,7 @@ RSpec.feature 'admin emails' do
       expect(page).to have_content '2 Mails wurden versendet.'
 
       selection.each do |seller|
-        open_email seller.email
+        send_and_open_email seller.email
         expect(current_email.subject).to eq subject
         expect(current_email.body).to include body
       end

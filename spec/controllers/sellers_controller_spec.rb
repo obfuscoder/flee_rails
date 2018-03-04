@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SellersController do
-  before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self)) }
+  before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_now: self)) }
 
   describe 'GET new' do
     before do
@@ -61,7 +61,7 @@ RSpec.describe SellersController do
           expect(seller).to be_a Seller
           mail
         end
-        expect(mail).to receive(:deliver_later).with no_args
+        expect(mail).to receive(:deliver_now).with no_args
         post :create, seller: attributes_for(:seller)
       end
     end
@@ -108,7 +108,7 @@ RSpec.describe SellersController do
       it 'sends registration email' do
         mail = double :mail
         expect(SellerMailer).to receive(:registration).with(seller).and_return mail
-        expect(mail).to receive(:deliver_later).with no_args
+        expect(mail).to receive(:deliver_now).with no_args
         post_it
       end
     end
@@ -190,7 +190,7 @@ RSpec.describe SellersController do
               create(:event).tap { |event| event.update messages: [create(:invitation_message, event: event)] }
             end
             it 'sends invitation mail to seller' do
-              expect(SellerMailer).to receive(:invitation) { double deliver_later: true }
+              expect(SellerMailer).to receive(:invitation) { double deliver_now: true }
               subject
             end
 

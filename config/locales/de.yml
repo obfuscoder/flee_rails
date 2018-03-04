@@ -427,7 +427,10 @@ de:
         success: '%{count} Mails wurden versendet.'
     messages:
       invitation:
-        success: Es wurde(n) %{count} Einladung(en) verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
+        success:
+          zero: Es wird keine Einladung verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
+          one: Es wird eine Einladung verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
+          other: Es werden %{count} Einladungen verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
       reservation_closing:
         success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
       reservation_closed:
