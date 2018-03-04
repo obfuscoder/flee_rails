@@ -8,11 +8,11 @@ namespace :flee do
         pid_file = File.join('tmp', 'pids', 'worker.pid')
         if File.exist? pid_file
           pid = File.read(pid_file)
-          system "kill #{pid}"
+          execute "kill #{pid}"
         end
       end
     end
   end
 
-  after 'deploy:symlink:release', 'flee:restart_worker'
+  before 'deploy:published', 'flee:restart_worker'
 end
