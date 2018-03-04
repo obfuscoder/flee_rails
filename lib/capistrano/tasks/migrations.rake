@@ -3,7 +3,7 @@
 namespace :flee do
   desc 'Backup database'
   task :backup do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence do
       within release_path do
         with rails_env: :production do
           execute :rake, 'db:backup'
