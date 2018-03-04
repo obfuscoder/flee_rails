@@ -6,17 +6,11 @@ namespace :flee do
     on roles(:app), in: :sequence do
       within release_path do
         pid_file = File.join release_path, 'tmp', 'pids', 'worker.pid'
-        info pid_file
         begin
-          info File.read(pid_file)
-        rescue
-          info 'File does not exist'
-        end
-        if File.exist? pid_file
-          pid = File.read pid_file
-          info "Killing worker process #{pid}"
-          puts "Killing worker process #{pid}"
-          execute "kill #{pid}"
+          execute "echo Killing process `cat #{pid_file}`"
+          execute "pkill -F #{pid_file}"
+        rescue SSHKit::Command::Failed
+          warn 'Restart of worker not possible. Killing existing worker failed.'
         end
       end
     end
