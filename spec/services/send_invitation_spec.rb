@@ -7,7 +7,7 @@ RSpec.describe SendInvitation do
   let(:event) { double :event, messages: messages }
   describe '#call' do
     subject(:action) { instance.call }
-    let(:mail) { double :mail, deliver_now: nil }
+    let(:mail) { double :mail, deliver_later: nil }
     let(:query) { double :query, invitable_sellers: sellers }
     let(:seller1) { double :seller1 }
     let(:seller2) { double :seller2 }
@@ -25,9 +25,12 @@ RSpec.describe SendInvitation do
       expect(messages).to have_received(:create).with(category: :invitation, count: sellers.count)
     end
 
-    it 'sends mails' do
+    it 'sends mails in background' do
       action
-      sellers.each { |s| expect(SellerMailer).to have_received(:invitation).with(s, event) }
+      sellers.each do |s|
+        expect(SellerMailer).to have_received(:invitation).with(s, event)
+      end
+      expect(mail).to have_received(:deliver_later).exactly(sellers.count).times
     end
   end
 end

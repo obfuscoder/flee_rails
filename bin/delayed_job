@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
-require 'delayed/command'
-Delayed::Command.new(ARGV).daemonize
+pid_file = Rails.root.join('tmp', 'pids', 'worker.pid')
+begin
+  File.open(pid_file, 'w') { |file| file.write Process.pid }
+  Delayed::Worker.new.start
+ensure
+  File.delete pid_file
+end
