@@ -11,13 +11,14 @@ module Admin
       subject(:action) { post :invitation, event_id: event.id }
       let(:event) { create :event }
       let(:count) { 3 }
+      let(:send_invitations) { double call: count }
       before do
-        allow(SendInvitation).to receive(:new).and_return(double(call: count))
+        allow(SendInvitations).to receive(:new).and_return(send_invitations)
         action
       end
 
       it 'sends invitation' do
-        expect(SendInvitation).to have_received(:new).with event
+        expect(SendInvitations).to have_received(:new).with event
       end
 
       describe 'response' do

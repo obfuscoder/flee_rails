@@ -2,12 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe SendInvitation do
-  subject(:instance) { described_class.new(event) }
+RSpec.describe SendInvitations do
+  subject(:instance) { described_class.new event }
   let(:event) { double :event, messages: messages }
   describe '#call' do
     subject(:action) { instance.call }
-    let(:mail) { double :mail, deliver_later: nil }
     let(:query) { double :query, invitable_sellers: sellers }
     let(:seller1) { double :seller1 }
     let(:seller2) { double :seller2 }
@@ -15,7 +14,7 @@ RSpec.describe SendInvitation do
     let(:messages) { double :messages, create: nil }
     before do
       allow(InvitationQuery).to receive(:new).with(event).and_return query
-      allow(SellerMailer).to receive(:invitation).and_return mail
+      allow(SendInvitationJob).to receive(:perform_later)
     end
 
     it { is_expected.to eq sellers.count }
@@ -28,9 +27,8 @@ RSpec.describe SendInvitation do
     it 'sends mails in background' do
       action
       sellers.each do |s|
-        expect(SellerMailer).to have_received(:invitation).with(s, event)
+        expect(SendInvitationJob).to have_received(:perform_later).with(s, event)
       end
-      expect(mail).to have_received(:deliver_later).exactly(sellers.count).times
     end
   end
 end

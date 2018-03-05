@@ -5,7 +5,7 @@ module Admin
     before_action { @event = current_client.events.find params[:event_id] }
 
     def invitation
-      count = SendInvitation.new(@event).call
+      count = SendInvitations.new(@event).call
       redirect_to admin_event_path(@event),
                   notice: t('.success', count: count, reservation_count: @event.reservations.size)
     end
