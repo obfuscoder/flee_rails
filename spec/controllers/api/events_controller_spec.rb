@@ -52,14 +52,15 @@ module Api
     describe 'POST transactions' do
       let(:event) { create :event }
       let(:transactions) { { key: :value } }
+      let(:importer) { double :importer, call: count }
+      let(:count) { 10 }
 
       before do
         prerequisites
-        allow(HandleTransactions).to receive(:new).with(event).and_return handle_transactions
+        allow(ImportTransactions).to receive(:new).with(event).and_return importer
         post :transactions, _json: transactions, format: :json
       end
 
-      let(:handle_transactions) { double call: nil }
       let(:token) { event.token }
       let(:prerequisites) do
         @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials token
@@ -87,8 +88,8 @@ module Api
         end
       end
 
-      it 'calls HandleTransactions with proper params' do
-        expect(handle_transactions).to have_received(:call).with(transactions)
+      it 'calls ImportTransactions with proper params' do
+        expect(importer).to have_received(:call).with transactions
       end
     end
   end

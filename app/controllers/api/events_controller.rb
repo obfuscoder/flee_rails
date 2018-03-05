@@ -12,7 +12,7 @@ module Api
     end
 
     def transactions
-      HandleTransactions.new(@event).call(params['_json'])
+      ImportTransactions.new(@event).call(params['_json'])
       render nothing: true
     end
 
@@ -23,10 +23,6 @@ module Api
         @event = current_client.events.find_by token: token
         @event.present?
       end
-    end
-
-    def handle_transactions(var)
-      HandleTransactions.new(@event).call(var)
     end
   end
 end
