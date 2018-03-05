@@ -31,7 +31,7 @@ RSpec.feature 'admin emails' do
         end
       end
       click_on 'Senden'
-      expect(page).to have_content '2 Mails wurden versendet.'
+      expect(page).to have_content 'Es werden 2 Mails verschickt.'
 
       selection.each do |seller|
         send_and_open_email seller.email

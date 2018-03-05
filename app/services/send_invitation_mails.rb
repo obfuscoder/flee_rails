@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SendInvitations
+class SendInvitationMails
   def initialize(event)
     @event = event
   end

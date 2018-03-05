@@ -11,86 +11,103 @@ module Admin
       subject(:action) { post :invitation, event_id: event.id }
       let(:event) { create :event }
       let(:count) { 3 }
-      let(:send_invitations) { double call: count }
+      let(:sender) { double call: count }
       before do
-        allow(SendInvitations).to receive(:new).and_return(send_invitations)
+        allow(SendInvitationMails).to receive(:new).and_return sender
         action
       end
 
       it 'sends invitation' do
-        expect(SendInvitations).to have_received(:new).with event
+        expect(SendInvitationMails).to have_received(:new).with event
+        expect(sender).to have_received :call
       end
 
       describe 'response' do
         subject { response }
+        it { is_expected.to redirect_to admin_event_path event }
+      end
 
-        it { is_expected.to redirect_to admin_event_path(event) }
+      describe 'flash[:notice]' do
+        subject { flash[:notice] }
+        it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :reservation_closing' do
       subject(:action) { post :reservation_closing, event_id: event.id }
-      let(:event) { create :event_with_ongoing_reservation }
-      let!(:reservations) { create_list :reservation, 5, event: event }
-
+      let(:event) { create :event }
+      let(:count) { 3 }
+      let(:sender) { double call: count }
       before do
-        allow(SellerMailer).to receive(:reservation_closing).and_return(double(deliver_now: nil))
-        event.reload
+        allow(SendReservationClosingMails).to receive(:new).and_return sender
         action
       end
 
-      it 'sends mail to all reservations' do
-        expect(SellerMailer).to have_received(:reservation_closing).with(instance_of(Reservation))
-                                                                   .exactly(reservations.count).times
+      it 'uses sender' do
+        expect(SendReservationClosingMails).to have_received(:new).with event
+        expect(sender).to have_received :call
       end
 
       describe 'response' do
         subject { response }
-        it { is_expected.to redirect_to admin_event_path(event) }
+        it { is_expected.to redirect_to admin_event_path event }
+      end
+
+      describe 'flash[:notice]' do
+        subject { flash[:notice] }
+        it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :reservation_closed' do
       subject(:action) { post :reservation_closed, event_id: event.id }
-      let(:event) { create :event_with_ongoing_reservation }
-      let!(:reservations) { create_list :reservation, 5, event: event }
-
+      let(:event) { create :event }
+      let(:count) { 3 }
+      let(:sender) { double call: count }
       before do
-        allow(SellerMailer).to receive(:reservation_closed).and_return(double(deliver_now: nil))
-        event.reload
+        allow(SendReservationClosedMails).to receive(:new).and_return sender
         action
       end
 
-      it 'sends mail to all reservations' do
-        expect(SellerMailer).to have_received(:reservation_closed).with(instance_of(Reservation))
-                                                                  .exactly(reservations.count).times
+      it 'uses sender' do
+        expect(SendReservationClosedMails).to have_received(:new).with event
+        expect(sender).to have_received :call
       end
 
       describe 'response' do
         subject { response }
-        it { is_expected.to redirect_to admin_event_path(event) }
+        it { is_expected.to redirect_to admin_event_path event }
+      end
+
+      describe 'flash[:notice]' do
+        subject { flash[:notice] }
+        it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :finished' do
       subject(:action) { post :finished, event_id: event.id }
-      let(:event) { create :event_with_ongoing_reservation }
-      let!(:reservations) { create_list :reservation, 5, event: event }
-
+      let(:event) { create :event }
+      let(:count) { 3 }
+      let(:sender) { double call: count }
       before do
-        allow(SellerMailer).to receive(:finished).and_return(double(deliver_now: nil))
-        event.reload
+        allow(SendFinishedMails).to receive(:new).and_return sender
         action
       end
 
-      it 'sends mail to all reservations' do
-        expect(SellerMailer).to have_received(:finished).with(instance_of(Reservation))
-                                                        .exactly(reservations.count).times
+      it 'uses sender' do
+        expect(SendFinishedMails).to have_received(:new).with event
+        expect(sender).to have_received :call
       end
 
       describe 'response' do
         subject { response }
-        it { is_expected.to redirect_to admin_event_path(event) }
+        it { is_expected.to redirect_to admin_event_path event }
+      end
+
+      describe 'flash[:notice]' do
+        subject { flash[:notice] }
+        it { is_expected.to include count.to_s }
       end
     end
   end

@@ -424,7 +424,10 @@ de:
 
             <code>[Text des Loginlinks]\({{login_link}})</code>
       create:
-        success: '%{count} Mails wurden versendet.'
+        success:
+          zero: Es wird keine Mail verschickt. Es wurde kein Empfänger gewählt.
+          one: Es wird eine Mail verschickt.
+          other: Es werden %{count} Mails verschickt.
     messages:
       invitation:
         success:
@@ -432,11 +435,14 @@ de:
           one: Es wird eine Einladung verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
           other: Es werden %{count} Einladungen verschickt. Es gibt bereits %{reservation_count} Reservierung(en).
       reservation_closing:
-        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
+        success: &success_notification
+          zero: Es wird keine Benachrichtigung verschickt. Es gibt keine Reservierung.
+          one: Es wird eine Benachrichtigung verschickt.
+          other: Es werden %{count} Benachrichtigungen verschickt.
       reservation_closed:
-        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
+        success: *success_notification
       finished:
-        success: Es wurde(n) %{count} Benachrichtigung(en) verschickt.
+        success: *success_notification
   activemodel:
     attributes:
       custom_email:

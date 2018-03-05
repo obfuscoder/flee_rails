@@ -156,7 +156,7 @@ RSpec.feature 'admin events' do
       scenario 'send reservation_closing mail to active sellers with reservation' do
         click_on_event
         click_on 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
-        expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+        expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
         send_and_open_email active_seller_with_reservation.email
         expect(current_email.subject).to eq 'Bearbeitungsfrist der Artikel für den Flohmarkt endet bald'
         expect(current_email.body).to have_link 'Zum geschützten Bereich'
@@ -193,7 +193,7 @@ RSpec.feature 'admin events' do
           Timecop.travel event.reservation_end + 1.hour do
             click_on_event
             click_on 'Bearbeitungsabschlussmail verschicken'
-            expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+            expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
             send_and_open_email active_seller_with_reservation.email
           end
         end
@@ -258,7 +258,7 @@ RSpec.feature 'admin events' do
           after { Timecop.return }
 
           it 'shows number of sent mails to reservations' do
-            expect(page).to have_content 'Es wurde(n) 1 Benachrichtigung(en) verschickt.'
+            expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
           end
 
           describe 'sent email' do
