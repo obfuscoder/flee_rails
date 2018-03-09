@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'validates_email_format_of/rspec_matcher'
 
 RSpec.describe Seller do
-  subject { build :seller }
+  subject(:seller) { build :seller }
 
   it { is_expected.to be_valid }
   it { is_expected.to belong_to :client }
@@ -105,28 +105,41 @@ RSpec.describe Seller do
   end
 
   describe '#destroy' do
-    before { subject.save }
+    before { seller.save }
+    subject(:action) { seller.destroy }
     it 'does not delete record' do
-      expect { subject.destroy }.not_to change { Seller.with_deleted.count }
+      expect { action }.not_to change { Seller.with_deleted.count }
     end
 
-    it 'destroys associated notifications, suspensions and emails'
+    it 'destroys associated notifications, suspensions and emails' do
+      create :notification, seller: seller
+      create :suspension, seller: seller
+      create :email, seller: seller
+      seller.reload
+      expect(seller.notifications).not_to be_empty
+      expect(seller.emails).not_to be_empty
+      expect(seller.suspensions).not_to be_empty
+      action
+      expect(seller.notifications).to be_empty
+      expect(seller.emails).to be_empty
+      expect(seller.suspensions).to be_empty
+    end
 
     it 'marks record as deleted' do
-      expect { subject.destroy }.to change { subject.deleted_at }.from(nil)
+      expect { action }.to change { seller.deleted_at }.from(nil)
     end
 
     it 'removes sensitive seller information' do
-      subject.destroy
-      expect(subject.email).to be_nil
-      expect(subject.first_name).to be_nil
-      expect(subject.last_name).to be_nil
-      expect(subject.street).to be_nil
-      expect(subject.city).to be_nil
-      expect(subject.phone).to be_nil
-      expect(subject.token).to be_nil
-      expect(subject.active).to be_nil
-      expect(subject.mailing).to be_nil
+      action
+      expect(seller.email).to be_nil
+      expect(seller.first_name).to be_nil
+      expect(seller.last_name).to be_nil
+      expect(seller.street).to be_nil
+      expect(seller.city).to be_nil
+      expect(seller.phone).to be_nil
+      expect(seller.token).to be_nil
+      expect(seller.active).to be_nil
+      expect(seller.mailing).to be_nil
     end
   end
 end

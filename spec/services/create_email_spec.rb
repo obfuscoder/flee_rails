@@ -26,6 +26,4 @@ RSpec.describe CreateEmail do
                                    seller: seller,
                                    sent: sent
   end
-
-  it 'attaches the mail to the seller of the current client'
 end
