@@ -17,7 +17,8 @@ RSpec.describe SendReservationClosingMails do
 
     it 'creates messages entry' do
       action
-      expect(messages).to have_received(:create).with category: :reservation_closing, count: reservations.count
+      expect(messages).to have_received(:create).with category: :reservation_closing,
+                                                      scheduled_count: reservations.count
     end
 
     it 'sends mails in background' do

@@ -7,7 +7,7 @@ class SendInvitationMails
 
   def call
     sellers = InvitationQuery.new(@event).invitable_sellers
-    @event.messages.create category: :invitation, count: sellers.count
+    @event.messages.create category: :invitation, scheduled_count: sellers.count
     sellers.each { |seller| SendInvitationJob.perform_later seller, @event }
     sellers.count
   end

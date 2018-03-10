@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180304131048) do
+ActiveRecord::Schema.define(version: 20180309153115) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",           null: false
@@ -160,11 +160,12 @@ ActiveRecord::Schema.define(version: 20180304131048) do
   add_index "message_templates", ["client_id"], name: "index_message_templates_on_client_id"
 
   create_table "messages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "category"
     t.integer  "event_id"
-    t.integer  "count"
+    t.integer  "scheduled_count"
+    t.integer  "sent_count"
   end
 
   add_index "messages", ["category", "event_id"], name: "index_messages_on_category_and_event_id", unique: true

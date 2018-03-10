@@ -232,6 +232,11 @@ de:
         title: Termin bearbeiten
       show:
         title: Termindetails
+        message_sent:
+          invitation: "%{sent_count} von %{scheduled_count} Reservierungseinladungen verschickt"
+          reservation_closing: "%{sent_count} von %{scheduled_count} Erinnerungsmails vor Bearbeitungsschluss verschickt"
+          reservation_closed: "%{sent_count} von %{scheduled_count} Bearbeitungsabschlussmails verschickt"
+          finished: "%{sent_count} von %{scheduled_count} Abschlussmails verschickt"
       stats:
         title: Terminstatistiken
       create:

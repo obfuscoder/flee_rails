@@ -21,7 +21,7 @@ RSpec.describe SendInvitationMails do
 
     it 'creates messages entry' do
       action
-      expect(messages).to have_received(:create).with category: :invitation, count: sellers.count
+      expect(messages).to have_received(:create).with category: :invitation, scheduled_count: sellers.count
     end
 
     it 'sends mails in background' do

@@ -6,7 +6,7 @@ class SendFinishedMails
   end
 
   def call
-    @event.messages.create category: :finished, count: @event.reservations.count
+    @event.messages.create category: :finished, scheduled_count: @event.reservations.count
     @event.reservations.each { |reservation| SendFinishedJob.perform_later reservation }
     @event.reservations.count
   end

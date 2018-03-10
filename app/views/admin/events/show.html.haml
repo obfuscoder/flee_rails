@@ -48,3 +48,7 @@
   - if !Message.exists?(event: @event, category: :finished) && @event.past?
     = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary, icon: :envelope
 %p
+- %i[invitation reservation_closing reservation_closed finished].each do |category|
+  - if message = @event.messages.find_by(category: category)
+    = t(".message_sent.#{category}", sent_count: message.sent_count, scheduled_count: message.scheduled_count)
+    %br
