@@ -232,6 +232,11 @@ de:
         title: Termin bearbeiten
       show:
         title: Termindetails
+        confirm:
+          send_finished: >
+            Es sind %{transaction_count} Transaktionen bekannt. Es sind %{sold_item_count} Artikel als verkauft markiert.
+            Stimmen diese Werte? Wenn nicht, laden Sie bitte alle Transaktionen hoch und warten Sie,
+            bis alle Transaktionen verarbeitet wurden, bevor Sie die Abschlussmail auslösen.
         message_sent:
           invitation: "%{sent_count} von %{scheduled_count} Reservierungseinladungen verschickt"
           reservation_closing: "%{sent_count} von %{scheduled_count} Erinnerungsmails vor Bearbeitungsschluss verschickt"

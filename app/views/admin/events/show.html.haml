@@ -46,7 +46,7 @@
   - if !Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
     = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary, icon: :envelope
   - if !Message.exists?(event: @event, category: :finished) && @event.past?
-    = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary, icon: :envelope
+    = link_to 'Abschlussmail verschicken', admin_event_messages_path(@event, :finished), method: :post, type: :primary, icon: :envelope, data: { confirm: t('.confirm.send_finished', transaction_count: @event.transactions.count, sold_item_count: @event.sold_item_count) }
 %p
 - %i[invitation reservation_closing reservation_closed finished].each do |category|
   - if message = @event.messages.find_by(category: category)
