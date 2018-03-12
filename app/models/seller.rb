@@ -70,6 +70,16 @@ class Seller < ActiveRecord::Base
     suspensions.find_by(event: event).present?
   end
 
+  def self.destroy_everything!(client)
+    Seller.unscoped { Email.joins(:seller).where(sellers: { client_id: client.id }).destroy_all }
+    Item.joins(reservation: :seller).where(sellers: { client_id: client.id }).destroy_all
+    Review.joins(reservation: :seller).where(sellers: { client_id: client.id }).destroy_all
+    Reservation.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
+    Notification.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
+    Suspension.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
+    Seller.unscoped.where(client_id: client.id).delete_all
+  end
+
   private
 
   def paranoia_destroy_attributes
