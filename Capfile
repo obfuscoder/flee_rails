@@ -9,6 +9,7 @@ require 'capistrano/rails'
 require 'capistrano/rvm'
 require 'capistrano/puma'
 require 'capistrano/deploy'
+require 'rollbar/capistrano3'
 
 require 'whenever/capistrano'
 

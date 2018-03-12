@@ -14,3 +14,7 @@ set :puma_threads, [1, 1]
 set :puma_workers, 4
 set :puma_bind, 'tcp://127.0.0.1:9292'
 set :rvm_ruby_string, :local
+
+set :rollbar_token, '720d6e5df892434d93f421801f1a9f82'
+set :rollbar_env, Proc.new { fetch :stage }
+set :rollbar_role, Proc.new { :app }

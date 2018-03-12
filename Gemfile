@@ -6,6 +6,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
 gem 'rails', '~> 4.2'
+gem 'rollbar'
 gem 'sass-rails'
 gem 'therubyracer' unless RUBY_PLATFORM.match?(/darwin/)
 gem 'uglifier'
