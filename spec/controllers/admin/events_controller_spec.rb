@@ -106,25 +106,23 @@ RSpec.describe Admin::EventsController do
 
   describe 'GET data' do
     let(:event) { create :event }
-    let!(:categories) { create_list :category, 5 }
-    let!(:stock_items) { create_list :stock_item, 4 }
-    before { get :data, id: event.id }
+    let(:creator) { double call: data }
+    let(:data) { 'data' }
+    before do
+      allow(CreateEventData).to receive(:new).and_return creator
+      get :data, id: event.id
+    end
+
+    it 'uses CreateEventData' do
+      expect(CreateEventData).to have_received(:new).with(Client.first)
+      expect(creator).to have_received(:call).with(event)
+    end
+
     describe 'response' do
       subject { response }
       it { is_expected.to have_http_status :ok }
       its(:content_type) { is_expected.to eq 'application/octet-stream' }
-    end
-
-    describe 'body' do
-      subject(:decoded_body) { JSON.parse ActiveSupport::Gzip.decompress(response.body), symbolize_names: true }
-      it do
-        is_expected.to include :id, :name, :price_precision, :commission_rate, :reservation_fee,
-                               :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
-      end
-      it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }
-
-      its([:stock_items]) { is_expected.to have(4).items }
-      its([:stock_items]) { is_expected.to all(include(:description, :price, :number, :code, :sold)) }
+      its(:body) { is_expected.to eq data }
     end
   end
 

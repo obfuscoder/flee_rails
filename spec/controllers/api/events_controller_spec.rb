@@ -6,41 +6,45 @@ module Api
   RSpec.describe EventsController do
     describe 'GET show' do
       let!(:event) { create :event }
-      let!(:categories) { create_list :category, 5 }
-      let!(:stock_items) { create_list :stock_item, 4 }
+      let(:creator) { double call: data }
+      let(:data) { 'data' }
       before do
         prerequisites
+        allow(CreateEventData).to receive(:new).and_return creator
         get :show, format: :json
       end
 
-      context 'with valid access token' do
+      context 'with authorization header' do
         let(:prerequisites) do
           @request.env['HTTP_AUTHORIZATION'] =
-            ActionController::HttpAuthentication::Token.encode_credentials event.token
-        end
-        describe 'response' do
-          subject { response }
-          it { is_expected.to have_http_status :ok }
-          its(:content_type) { is_expected.to eq 'application/json' }
+            ActionController::HttpAuthentication::Token.encode_credentials token
         end
 
-        describe '@event' do
-          subject { assigns :event }
-          it { is_expected.to eq event }
+        context 'with invalid access token' do
+          let(:token) { 'invalid' }
+          describe 'response' do
+            subject { response }
+            it { is_expected.to have_http_status :unauthorized }
+          end
         end
 
-        describe '@categories' do
-          subject { assigns :categories }
-          it { is_expected.to eq categories }
-        end
+        context 'with valid access token' do
+          let(:token) { event.token }
+          describe 'response' do
+            subject { response }
+            it { is_expected.to have_http_status :ok }
+            its(:content_type) { is_expected.to eq 'application/octet-stream' }
+            its(:body) { is_expected.to eq data }
+          end
 
-        describe '@stock_items' do
-          subject { assigns :stock_items }
-          it { is_expected.to eq stock_items }
+          it 'calls CreateEventData' do
+            expect(CreateEventData).to have_received(:new).with(Client.first)
+            expect(creator).to have_received(:call).with(event)
+          end
         end
       end
 
-      context 'with invalid access token' do
+      context 'without access token' do
         let(:prerequisites) {}
         describe 'response' do
           subject { response }

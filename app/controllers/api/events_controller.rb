@@ -7,8 +7,7 @@ module Api
     before_action :init_event
 
     def show
-      @categories = current_client.categories.all
-      @stock_items = current_client.stock_items.all
+      send_data CreateEventData.new(current_client).call(@event), filename: 'flohmarkthelfer.data'
     end
 
     def transactions
