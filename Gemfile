@@ -2,9 +2,12 @@
 
 source 'https://rubygems.org'
 
+gem 'awesome_print'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
+gem 'mysql2', group: :production
+gem 'puma'
 gem 'rails', '~> 4.2'
 gem 'rollbar'
 gem 'sass-rails'
@@ -12,12 +15,6 @@ gem 'therubyracer' unless RUBY_PLATFORM.match?(/darwin/)
 gem 'uglifier'
 
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
-gem 'mysql2', group: :production
-
-gem 'puma'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
 
 group :development do
   gem 'capistrano-rails'
@@ -29,22 +26,20 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-email'
+  gem 'capybara-selenium'
   gem 'fuubar'
   gem 'launchy'
   gem 'pdf-inspector'
-  gem 'poltergeist'
   gem 'rmagick'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'timecop'
 end
 
 group :test, :development do
-  gem 'awesome_print'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'

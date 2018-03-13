@@ -4,7 +4,6 @@ require 'rmagick'
 
 RSpec.describe 'Screenshots', js: true do
   def capture(name, options = {})
-    sleep 1
     file_path = "screenshots/#{name}.png"
     save_screenshot file_path, options
     puts "Captured #{file_path}"
@@ -21,12 +20,11 @@ RSpec.describe 'Screenshots', js: true do
   end
 
   it 'creates screenshots' do
-    admin = create :admin, email: 'admin@example.com'
     sellers = create_list :random_seller, 30
 
-    visit admin_path
-    fill_in 'eMail-Adresse', with: admin.email
-    fill_in 'Passwort', with: 'password'
+    visit 'http://demo.localhost:3000/admin'
+    fill_in 'eMail-Adresse', with: 'admin@flohmarkthelfer.de'
+    fill_in 'Passwort', with: 'admin'
     capture :admin_login, selector: 'div[role="main"]'
 
     click_on 'Anmelden'

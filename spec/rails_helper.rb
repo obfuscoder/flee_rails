@@ -5,8 +5,8 @@ require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'capybara/email/rspec'
-require 'capybara/poltergeist'
 require 'will_paginate/array'
+require 'selenium/webdriver'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
@@ -23,7 +23,6 @@ RSpec.configure do |config|
     end
   end
 
-  Capybara.javascript_driver = :poltergeist
   Capybara.app_host = 'http://demo.test.host'
 
   config.infer_spec_type_from_file_location!
@@ -39,3 +38,17 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu] }
+  )
+
+  Capybara::Selenium::Driver.new app, browser: :chrome, desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :chrome
