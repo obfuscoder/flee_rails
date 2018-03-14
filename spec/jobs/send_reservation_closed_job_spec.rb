@@ -15,4 +15,6 @@ RSpec.describe SendReservationClosedJob do
     expect(SellerMailer).to have_received(:reservation_closed).with reservation
     expect(mail).to have_received :deliver_now
   end
+
+  it 'increases sent_count in for associated message'
 end

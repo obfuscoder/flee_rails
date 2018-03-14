@@ -28,7 +28,7 @@ RSpec.describe 'admin/events/show' do
     context 'when invitation mail was sent' do
       let(:preparation) { create :invitation_message, event: event, scheduled_count: 100, sent_count: 30 }
       it { is_expected.not_to have_link href: admin_event_messages_path(event, :invitation) }
-      it { is_expected.to have_content '30 von 100 Reservierungseinladungen verschickt' }
+      it { is_expected.to have_content '100 Reservierungseinladungen verschickt' }
     end
 
     it { is_expected.not_to have_link href: admin_event_messages_path(event, :reservation_closing) }
@@ -40,7 +40,7 @@ RSpec.describe 'admin/events/show' do
       context 'when reservation closing mail was sent' do
         let(:preparation) { create :reservation_closing_message, event: event, scheduled_count: 100, sent_count: 30 }
         it { is_expected.not_to have_link href: admin_event_messages_path(event, :reservation_closing) }
-        it { is_expected.to have_content '30 von 100 Erinnerungsmails vor Bearbeitungsschluss verschickt' }
+        it { is_expected.to have_content '100 Erinnerungsmails vor Bearbeitungsschluss verschickt' }
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe 'admin/events/show' do
         end
 
         it { is_expected.not_to have_link href: admin_event_messages_path(event, :reservation_closed) }
-        it { is_expected.to have_content '10 von 80 Bearbeitungsabschlussmails verschickt' }
+        it { is_expected.to have_content '80 Bearbeitungsabschlussmails verschickt' }
       end
     end
   end
