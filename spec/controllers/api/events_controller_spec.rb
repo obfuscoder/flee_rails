@@ -86,9 +86,12 @@ module Api
 
         describe 'when using event token from different client' do
           let(:other_client) { create :client }
-          let(:other_event) { create :event, client: other_client }
-          let(:token) { other_event.token }
-          it { is_expected.to have_http_status :unauthorized }
+          let(:event) { create :event, client: other_client }
+          it { is_expected.to have_http_status :ok }
+
+          it 'calls ImportTransactions with proper params' do
+            expect(importer).to have_received(:call).with transactions
+          end
         end
       end
 

@@ -7,7 +7,7 @@ module Api
     before_action :init_event
 
     def show
-      send_data CreateEventData.new(current_client).call(@event), filename: 'flohmarkthelfer.data'
+      send_data CreateEventData.new(@event.client).call(@event), filename: 'flohmarkthelfer.data'
     end
 
     def transactions
@@ -19,7 +19,8 @@ module Api
 
     def init_event
       authenticate_or_request_with_http_token do |token, _options|
-        @event = current_client.events.find_by token: token
+        Rails.logger.info "Token: #{token}"
+        @event = Event.find_by token: token
         @event.present?
       end
     end
