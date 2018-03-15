@@ -6,8 +6,8 @@ RSpec.describe SendInvitationJob do
   subject(:action) { described_class.perform_now seller, event }
   let(:event) { double :event, messages: messages }
   let(:seller) { double :seller }
-  let(:messages) { double :messages }
   let(:mail) { double deliver_now: nil }
+  let(:messages) { double :messages }
   let(:message) { double :message, sent: nil }
   before do
     allow(messages).to receive(:find_by!).with(category: :invitation).and_return message

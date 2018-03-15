@@ -5,5 +5,6 @@ class SendFinishedJob < ActiveJob::Base
 
   def perform(reservation)
     SellerMailer.finished(reservation).deliver_now
+    reservation.event.messages.find_by!(category: :finished).sent
   end
 end

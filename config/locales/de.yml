@@ -238,10 +238,10 @@ de:
             Stimmen diese Werte? Wenn nicht, laden Sie bitte alle Transaktionen hoch und warten Sie,
             bis alle Transaktionen verarbeitet wurden, bevor Sie die Abschlussmail auslösen.
         message_sent:
-          invitation: "%{scheduled_count} Reservierungseinladungen verschickt"
-          reservation_closing: "%{scheduled_count} Erinnerungsmails vor Bearbeitungsschluss verschickt"
-          reservation_closed: "%{scheduled_count} Bearbeitungsabschlussmails verschickt"
-          finished: "%{scheduled_count} Abschlussmails verschickt"
+          invitation: "%{sent_count} von %{scheduled_count} Reservierungseinladungen verschickt"
+          reservation_closing: "%{sent_count} von %{scheduled_count} Erinnerungsmails vor Bearbeitungsschluss verschickt"
+          reservation_closed: "%{sent_count} von %{scheduled_count} Bearbeitungsabschlussmails verschickt"
+          finished: "%{sent_count} von %{scheduled_count} Abschlussmails verschickt"
       stats:
         title: Terminstatistiken
       create:
