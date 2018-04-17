@@ -24,7 +24,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '< 3' # locked due to capybara-email dependency <3
   gem 'capybara-email'
   gem 'capybara-selenium'
   gem 'fuubar'
