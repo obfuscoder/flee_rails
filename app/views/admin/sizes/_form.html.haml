@@ -1,0 +1,6 @@
+= simple_form_for([:admin, @category, @size]) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :value
+  .form-actions
+    = f.button :submit

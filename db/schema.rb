@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309153115) do
+ActiveRecord::Schema.define(version: 20180623142248) do
 
   create_table "categories", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "name"
     t.boolean  "donation_enforced"
     t.integer  "max_items_per_seller"
     t.datetime "deleted_at"
     t.integer  "parent_id"
     t.integer  "client_id"
+    t.integer  "size_option",          default: 0
   end
 
   add_index "categories", ["client_id"], name: "index_categories_on_client_id"
@@ -255,6 +256,16 @@ ActiveRecord::Schema.define(version: 20180309153115) do
   add_index "sellers", ["deleted_at"], name: "index_sellers_on_deleted_at"
   add_index "sellers", ["email", "client_id"], name: "index_sellers_on_email_and_client_id", unique: true, where: "deleted_at IS NULL"
   add_index "sellers", ["token"], name: "index_sellers_on_token", unique: true, where: "deleted_at IS NULL"
+
+  create_table "sizes", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "value"
+    t.integer  "category_id"
+  end
+
+  add_index "sizes", ["category_id"], name: "index_sizes_on_category_id"
+  add_index "sizes", ["value", "category_id"], name: "index_sizes_on_value_and_category_id", unique: true
 
   create_table "sold_stock_items", force: :cascade do |t|
     t.datetime "created_at",    null: false

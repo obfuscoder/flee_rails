@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/categories/index' do
-  let(:categories) { create_list :category, 5, max_items_per_seller: 4 }
+  let(:category_with_item_limit) { create :category, max_items_per_seller: 4 }
+  let(:category_with_size_fixed) { create :category_with_size_fixed }
+  let(:categories) { [category_with_item_limit, category_with_size_fixed] }
   before { assign :categories, categories.paginate }
 
   it_behaves_like 'a standard view'
@@ -12,6 +14,14 @@ RSpec.describe 'admin/categories/index' do
     render
     expect(rendered).to have_content 'max. Anzahl'
     expect(rendered).to have_content '4'
+  end
+
+  it 'shows column with size option and edit link' do
+    render
+    expect(rendered).to have_content 'Größenangaben'
+    expect(rendered).to have_content 'optional'
+    expect(rendered).to have_content 'feste Werte'
+    expect(rendered).to have_link href: admin_category_sizes_path(category_with_size_fixed)
   end
 
   it 'shows parent category' do

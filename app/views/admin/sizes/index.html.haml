@@ -1,0 +1,13 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= sort_link_to Size, :value
+    %th= link_to t('.new'), new_admin_category_size_path(@category), type: :primary, icon: :file
+
+  - @sizes.each do |item|
+    %tr
+      %td= item.value
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_category_size_path(@category, item), type: :primary, icon: :pencil
+        = icon_link_to t('destroy'), [:admin, @category, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
+%p= paginate @sizes

@@ -68,7 +68,9 @@ Rails.application.routes.draw do
     resources :sellers do
       resources :emails, only: [:index, :show]
     end
-    resources :categories
+    resources :categories do
+      resources :sizes
+    end
     resources :stock_items do
       collection do
         get :print, action: :print

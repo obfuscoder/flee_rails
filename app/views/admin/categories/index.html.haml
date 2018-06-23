@@ -7,6 +7,7 @@
     %th= Category.human_attribute_name :max_items_per_seller
     - if current_client.donation_of_unsold_items
       %th= Category.human_attribute_name :donation_enforced
+    %th= Category.human_attribute_name :size_option
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
   - @categories.each_with_index do |category, index|
@@ -17,7 +18,10 @@
       %td= category.max_items_per_seller
       - if current_client.donation_of_unsold_items
         %td= t(category.donation_enforced?.to_s)
+      %td= t('size_option.' + category.size_option)
       %td.btn-group
-        = icon_link_to t('edit'), edit_admin_category_path(category), type: :success, icon: :pencil
+        = icon_link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil
+        - if category.size_fixed?
+          = icon_link_to t('.list_sizes'), admin_category_sizes_path(category), type: :success, icon: :list
         = icon_link_to t('destroy'), [:admin, category], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
 %p= paginate @categories

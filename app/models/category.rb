@@ -7,9 +7,13 @@ class Category < ActiveRecord::Base
 
   belongs_to :client
   has_many :items, dependent: :restrict_with_error
+  has_many :sizes, dependent: :restrict_with_error
   has_many :children, class_name: Category, foreign_key: :parent_id,
                       dependent: :restrict_with_error, inverse_of: :parent
   belongs_to :parent, class_name: Category, inverse_of: :children
+
+  # in rails 5 there is _prefix to get rid of the 'size_'
+  enum size_option: %i[size_optional size_required size_fixed size_disabled]
 
   validates :client, presence: true
   validates :name, presence: true, uniqueness: { scope: :client_id }

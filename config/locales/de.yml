@@ -1,4 +1,9 @@
 de:
+  size_option:
+    size_optional: optional
+    size_required: Pflicht
+    size_disabled: deaktiviert
+    size_fixed: feste Werte
   message_categories:
     registration: Registrierungsbestätigung
     invitation: Reservierungseinladung
@@ -404,6 +409,7 @@ de:
       index:
         title: Kategorien
         new: Neue Kategorie
+        list_sizes: Werte für Größenangaben bearbeiten
         destroy:
           confirm: Sind Sie sicher, dass Sie diese Kategorie löschen wollen?
       new:
@@ -417,6 +423,23 @@ de:
       destroy:
         success: Kategorie gelöscht.
         failure: Kategorie kann nicht gelöscht werden.
+    sizes:
+      index:
+        title: Größenangaben
+        new: Neue Größenangabe
+        destroy:
+          confirm: Sind Sie sicher, dass Sie diesen Eintrag löschen wollen?
+      new:
+        title: Neue Größenangabe
+      edit:
+        title: Größenangabe bearbeiten
+      create:
+        success: Die Größenangabe wurde erfolgreich hinzugefügt.
+      update:
+        success: Die Größenangabe wurde erfolgreich aktualisiert.
+      destroy:
+        success: Größenangabe gelöscht.
+        failure: Größenangabe kann nicht gelöscht werden.
     emails:
       index:
         title: eMails
@@ -482,6 +505,7 @@ de:
       custom_email: Mail
       hardware: Gerät
       rental: Leihe
+      size: Größenangabe
     attributes:
       client:
         short_name: Kurzname (in Menüleiste sichtbar)
@@ -502,6 +526,7 @@ de:
         parent: Überkategorie
         donation_enforced: Spendenzwang
         max_items_per_seller: max. Anzahl
+        size_option: Größenangaben
       event:
         name: Name
         details: Details
@@ -605,6 +630,8 @@ de:
         category: Kategorie
         subject: Betreff
         body: Inhalt
+      size:
+        value: Wert
     errors:
       models:
         reservation:
