@@ -54,11 +54,11 @@ RSpec.describe ItemsController do
     end
 
     describe '@categories' do
+      subject(:categories) { assigns :categories }
       let(:preparations) do
         create :category, client: event.client
         create :category_with_enforced_donation, client: event.client
       end
-      subject(:categories) { assigns :categories }
       it { is_expected.to have(2).items }
       context 'when event donation is disabled' do
         it 'have donation enforced attributes' do
@@ -73,6 +73,29 @@ RSpec.describe ItemsController do
           categories.each do |category|
             expect(category[2][:data]).to include :donation_enforced
           end
+        end
+      end
+      %w[optional required disabled fixed].each do |option|
+        context "with category having size option #{option}" do
+          let(:size_option) { "size_#{option}" }
+          let(:preparations) { create :category, client: event.client, size_option: size_option }
+          describe 'data element of that category' do
+            subject(:data) { categories.first.last[:data] }
+            it { is_expected.to include size_option: size_option }
+          end
+        end
+      end
+
+      context 'with category having size option fixed' do
+        let(:category) do
+          create(:category, client: event.client, size_option: :size_fixed).tap do |category|
+            %w[XS S M L XL].each { |size| category.sizes.create value: size }
+          end
+        end
+        let(:preparations) { category }
+        describe 'data element of that category' do
+          subject(:data) { categories.first.last[:data] }
+          it { is_expected.to include sizes: 'XS|S|M|L|XL' }
         end
       end
     end

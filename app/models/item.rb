@@ -23,6 +23,8 @@ class Item < ActiveRecord::Base
   scope :sold, -> { where.has { sold.not_eq nil } }
   scope :for_client, ->(client) { joins(reservation: :event).where.has { reservation.event.client_id.eq client.id } }
 
+  attr_accessor :fixed_size # virtual attribute to allow fixed size selection
+
   def self.search(needle)
     return all if needle.nil?
     joins(:category).where.has { sift(:full_text_search, needle) | category.sift(:full_text_search, needle) }

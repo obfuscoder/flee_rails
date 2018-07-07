@@ -52,8 +52,10 @@ class ItemsController < ApplicationController
         category.name,
         category.id
       ]
-
-      element << { data: { donation_enforced: category.donation_enforced? } } if @event.donation_of_unsold_items_enabled
+      data = { size_option: category.size_option }
+      data[:sizes] = category.sizes.map(&:value).join('|')
+      data[:donation_enforced] = category.donation_enforced? if @event.donation_of_unsold_items_enabled
+      element << { data: data } unless data.empty?
       element
     end
   end

@@ -2,10 +2,10 @@
 
 module Admin
   class ItemsController < AdminController
-    before_action :init_categories, only: %i[edit new update create]
     before_action do
       @reservation = current_client.reservations.find params[:reservation_id]
     end
+    before_action :init_categories, only: %i[edit new update create]
     before_action :set_item, only: %i[show edit update destroy delete_code]
 
     def index
@@ -88,11 +88,15 @@ module Admin
 
     def init_categories
       @categories = current_client.categories.merge(Category.selectable).order(:name).map do |category|
-        [
-          category.name,
-          category.id,
-          data: { donation_enforced: category.donation_enforced? }
+        element = [
+            category.name,
+            category.id
         ]
+        data = { size_option: category.size_option }
+        data[:sizes] = category.sizes.map(&:value).join('|')
+        data[:donation_enforced] = category.donation_enforced? if @reservation.event.donation_of_unsold_items_enabled
+        element << { data: data } unless data.empty?
+        element
       end
     end
   end
