@@ -679,6 +679,8 @@ de:
               precision: muss ein Vielfaches von %{precision} sein
             category:
               limit: Die Anzahl der Artikel für die Kategorie %{category} ist pro Verkäufer auf %{limit} beschränkt.
+            size:
+              required: Die Größe muss bei dieser Kategorie angegeben werden.
         time_period:
           attributes:
             max:

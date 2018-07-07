@@ -17,6 +17,7 @@ class Item < ActiveRecord::Base
   validates :price, numericality: { greater_than: 0 }
   validate :price_divisible_by_precision
   validate :max_number_of_items_for_category, on: %i[create update]
+  validate :size_required_for_category, on: %i[create update]
 
   scope :without_label, -> { where.has { code.eq nil } }
   scope :with_label, -> { where.has { code.not_eq nil } }
@@ -72,6 +73,12 @@ class Item < ActiveRecord::Base
     return if items_with_category.count < most_limited_category.max_items_per_seller
     errors.add :category, :limit, limit: most_limited_category.max_items_per_seller,
                                   category: most_limited_category.name
+  end
+
+  def size_required_for_category
+    return if category.nil?
+    return unless category.size_required?
+    errors.add :size, :required
   end
 
   def create_number
