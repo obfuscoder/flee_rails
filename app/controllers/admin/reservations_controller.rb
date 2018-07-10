@@ -77,7 +77,7 @@ module Admin
     end
 
     def init_available_numbers
-      @available_numbers = [*1..500] - @event.reservations.pluck(:number)
+      @available_numbers = [*1..750] - @event.reservations.pluck(:number)
     end
 
     def set_event
