@@ -77,7 +77,7 @@ class Item < ActiveRecord::Base
 
   def size_required_for_category
     return if category.nil?
-    return unless category.size_required?
+    return unless category.size_required? && size.blank?
     errors.add :size, :required
   end
 
