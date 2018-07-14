@@ -56,6 +56,9 @@ Rails.application.routes.draw do
       end
       resources :suspensions
       resources :rentals
+      resources :support_types do
+        resources :supporters
+      end
       post 'messages/:action', to: 'messages#:action', as: :messages
       member do
         get :stats

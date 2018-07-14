@@ -11,6 +11,7 @@ RSpec.describe Event do
   it { is_expected.to validate_numericality_of(:max_reservations).is_greater_than 0 }
   it { is_expected.to belong_to :client }
   it { is_expected.to have_many :reservations }
+  it { is_expected.to have_many :support_types }
   it { is_expected.to have_many(:reviews).through(:reservations) }
   it { is_expected.to have_many(:items).through(:reservations) }
   it { is_expected.to have_many :notifications }

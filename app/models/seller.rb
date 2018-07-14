@@ -11,6 +11,7 @@ class Seller < ActiveRecord::Base
   has_many :notifications, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all
   has_many :emails, dependent: :delete_all
+  has_many :supporters, dependent: :delete_all
 
   validates :client, :email, presence: true
   validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :update }
@@ -77,6 +78,7 @@ class Seller < ActiveRecord::Base
     Reservation.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
     Notification.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
     Suspension.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
+    Supporter.joins(:seller).where(sellers: { client_id: client.id }).destroy_all
     Seller.unscoped.where(client_id: client.id).delete_all
   end
 

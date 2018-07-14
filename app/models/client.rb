@@ -46,6 +46,7 @@ class Client < ActiveRecord::Base
     Rental.joins(:event).where(events: { client_id: id }).destroy_all
     SoldStockItem.joins(:stock_item).where(stock_items: { client_id: id }).destroy_all
     TimePeriod.joins(:event).where(events: { client_id: id }).destroy_all
+    SupportType.joins(:event).where(events: { client_id: id }).destroy_all
     destroy!
   end
 

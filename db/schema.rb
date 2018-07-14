@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180623142248) do
+ActiveRecord::Schema.define(version: 20180708082121) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -302,6 +302,28 @@ ActiveRecord::Schema.define(version: 20180623142248) do
   end
 
   add_index "stock_message_templates", ["category"], name: "index_stock_message_templates_on_category", unique: true
+
+  create_table "support_types", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.text     "description"
+    t.integer  "capacity"
+    t.integer  "event_id"
+  end
+
+  add_index "support_types", ["event_id"], name: "index_support_types_on_event_id"
+
+  create_table "supporters", force: :cascade do |t|
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "support_type_id"
+    t.integer  "seller_id"
+  end
+
+  add_index "supporters", ["seller_id"], name: "index_supporters_on_seller_id"
+  add_index "supporters", ["support_type_id", "seller_id"], name: "index_supporters_on_support_type_id_and_seller_id", unique: true
+  add_index "supporters", ["support_type_id"], name: "index_supporters_on_support_type_id"
 
   create_table "suspensions", force: :cascade do |t|
     t.datetime "created_at", null: false

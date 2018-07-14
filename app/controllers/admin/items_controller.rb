@@ -89,8 +89,8 @@ module Admin
     def init_categories
       @categories = current_client.categories.merge(Category.selectable).order(:name).map do |category|
         element = [
-            category.name,
-            category.id
+          category.name,
+          category.id
         ]
         data = { size_option: category.size_option }
         data[:sizes] = category.sizes.map(&:value).join('|')

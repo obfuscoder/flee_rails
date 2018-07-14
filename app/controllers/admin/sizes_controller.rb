@@ -3,7 +3,7 @@
 module Admin
   class SizesController < AdminController
     before_action :set_category
-    before_action :set_size, only: %i[show edit update destroy]
+    before_action :set_size, only: %i[edit update destroy]
 
     def index
       @sizes = @category.sizes.page(@page).order column_order

@@ -476,6 +476,17 @@ de:
         success: *success_notification
       finished:
         success: *success_notification
+    support_types:
+      index:
+        title: Helferarten
+      new:
+        title: Helferart anlegen
+      edit:
+        title: Helferart bearbeiten
+      create:
+        success: Helferart erfolgreich angelegt
+      update:
+        success: Helferart erfolgreich aktualisiert
   activemodel:
     attributes:
       custom_email:
@@ -506,6 +517,7 @@ de:
       hardware: Gerät
       rental: Leihe
       size: Größenangabe
+      support_type: Helferart
     attributes:
       client:
         short_name: Kurzname (in Menüleiste sichtbar)
@@ -632,6 +644,10 @@ de:
         body: Inhalt
       size:
         value: Wert
+      support_type:
+        name: Name
+        description: Beschreibung
+        capacity: notwendige Helferzahl
     errors:
       models:
         reservation:

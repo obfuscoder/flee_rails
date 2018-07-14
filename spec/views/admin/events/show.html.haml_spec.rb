@@ -52,6 +52,8 @@ RSpec.describe 'admin/events/show' do
 
     it { is_expected.to have_link href: admin_event_rentals_path(event) }
 
+    it { is_expected.to have_link href: admin_event_support_types_path(event) }
+
     context 'when reservation end has past' do
       let(:additional_preparation) {}
       let(:preparation) do

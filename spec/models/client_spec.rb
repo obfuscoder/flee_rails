@@ -73,6 +73,8 @@ RSpec.describe Client do
     let!(:transaction) { create :purchase_transaction, event: event }
     let!(:transaction_item) { create :transaction_item, item: item, item_transaction: transaction }
     let!(:message_template) { create :message_template, client: client }
+    let!(:support_type) { create :support_type, event: event }
+    let!(:supporter) { create :supporter, support_type: support_type, seller: seller }
 
     before { client.destroy_everything! }
 
@@ -96,6 +98,8 @@ RSpec.describe Client do
       expect { suspension.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { time_period.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { message_template.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { supporter.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { support_type.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

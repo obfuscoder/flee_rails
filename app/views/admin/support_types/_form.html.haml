@@ -1,0 +1,8 @@
+= simple_form_for [:admin, @event, @support_type] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.input :capacity
+  .form-actions
+    = f.button :submit

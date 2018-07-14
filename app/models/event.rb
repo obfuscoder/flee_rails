@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   has_many :items, through: :reservations
   has_many :notifications, -> { order :id }, inverse_of: :event
   has_many :messages, dependent: :delete_all
+  has_many :support_types, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all
   has_many :rentals, dependent: :delete_all
   has_many :sold_stock_items, dependent: :delete_all
