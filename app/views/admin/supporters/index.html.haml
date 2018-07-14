@@ -1,0 +1,16 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= Seller.human_attribute_name :name
+    %th= Supporter.human_attribute_name :comments
+    %th= icon_link_to t('new'), new_admin_event_support_type_supporter_path(@event, @support_type), type: :primary, icon: :file
+  - @supporters.each_with_index do |supporter|
+    %tr
+      %td= link_to supporter.seller.name, admin_seller_path(supporter.seller)
+      %td= supporter.comments
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_event_support_type_supporter_path(@event, @support_type, supporter), type: :primary, icon: :pencil
+        = icon_link_to t('destroy'), admin_event_support_type_supporter_path(@event, @support_type, supporter), method: :delete,
+                                                                                                             type: :danger,
+                                                                                                             icon: :trash,
+                                                                                                             data: { confirm: t('sure') }

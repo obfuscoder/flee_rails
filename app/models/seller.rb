@@ -32,6 +32,7 @@ class Seller < ActiveRecord::Base
   scope :active, -> { where.has { active.eq true } }
   scope :without_reservation_for, ->(event) { where.not(id: event.reservations.map(&:seller_id)) }
   scope :search, ->(needle) { needle.nil? ? all : where.has { sift :full_text_search, needle } }
+  scope :available_for_support_type, ->(support_type) { where.not(id: support_type.supporters.map(&:seller_id)) }
 
   include Statistics
 

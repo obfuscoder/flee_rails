@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @event, @support_type, @supporter] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :seller, collection: @sellers
+    = f.input :comments
+  .form-actions
+    = f.button :submit

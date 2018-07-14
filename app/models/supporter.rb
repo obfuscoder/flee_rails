@@ -3,5 +3,5 @@
 class Supporter < ActiveRecord::Base
   belongs_to :support_type
   belongs_to :seller
-  validates :seller, uniqueness: { scope: :support_type_id }
+  validates :seller, presence: true, uniqueness: { scope: :support_type_id }
 end

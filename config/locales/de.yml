@@ -489,6 +489,19 @@ de:
         success: Helferart erfolgreich aktualisiert
       destroy:
         success: Helferart gelöscht
+    supporters:
+      index:
+        title: Helfer
+      new:
+        title: Helfer hinzufügen
+      edit:
+        title: Helfer bearbeiten
+      create:
+        success: Helfer erfolgreich hinzugefügt
+      update:
+        success: Helfer erfolgreich aktualisiert
+      destroy:
+        success: Helfer gelöscht
   activemodel:
     attributes:
       custom_email:
@@ -520,6 +533,7 @@ de:
       rental: Leihe
       size: Größenangabe
       support_type: Helferart
+      supporter: Helfer
     attributes:
       client:
         short_name: Kurzname (in Menüleiste sichtbar)
@@ -650,6 +664,9 @@ de:
         name: Name
         description: Beschreibung
         capacity: notwendige Helferzahl
+      supporter:
+        seller: Name
+        comments: Bemerkungen
     errors:
       models:
         reservation:

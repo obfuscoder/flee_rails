@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180708082121) do
+ActiveRecord::Schema.define(version: 20180714124233) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -319,6 +319,7 @@ ActiveRecord::Schema.define(version: 20180708082121) do
     t.datetime "updated_at",      null: false
     t.integer  "support_type_id"
     t.integer  "seller_id"
+    t.string   "comments"
   end
 
   add_index "supporters", ["seller_id"], name: "index_supporters_on_seller_id"
