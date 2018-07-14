@@ -136,4 +136,18 @@ RSpec.describe Admin::SupportTypesController do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    let(:support_type) { create :support_type, event: event }
+    before { delete :destroy, event_id: event.id, id: support_type.id }
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to redirect_to admin_event_support_types_path(event) }
+    end
+
+    it 'destroys the support type' do
+      expect { support_type.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+  end
 end

@@ -487,6 +487,8 @@ de:
         success: Helferart erfolgreich angelegt
       update:
         success: Helferart erfolgreich aktualisiert
+      destroy:
+        success: Helferart gelöscht
   activemodel:
     attributes:
       custom_email:

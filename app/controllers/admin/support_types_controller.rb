@@ -34,6 +34,12 @@ module Admin
       end
     end
 
+    def destroy
+      support_type = @event.support_types.find params[:id]
+      support_type.destroy
+      redirect_to admin_event_support_types_path(@event), notice: t('.success')
+    end
+
     private
 
     def init_event
