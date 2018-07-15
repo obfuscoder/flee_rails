@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionView::MissingTemplate, with: :not_acceptable
 
+  rescue_from ActionController::RoutingError, with: :not_acceptable
+
   def not_found
     render file: '/public/404', status: :not_found
   end
