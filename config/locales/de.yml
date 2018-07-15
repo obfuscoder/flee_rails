@@ -478,17 +478,17 @@ de:
         success: *success_notification
     support_types:
       index:
-        title: Helferarten
+        title: Helfergruppen
       new:
-        title: Helferart anlegen
+        title: Helfergruppe anlegen
       edit:
-        title: Helferart bearbeiten
+        title: Helfergruppe bearbeiten
       create:
-        success: Helferart erfolgreich angelegt
+        success: Helfergruppe erfolgreich angelegt
       update:
-        success: Helferart erfolgreich aktualisiert
+        success: Helfergruppe erfolgreich aktualisiert
       destroy:
-        success: Helferart gelöscht
+        success: Helfergruppe gelöscht
     supporters:
       index:
         title: Helfer
@@ -532,7 +532,7 @@ de:
       hardware: Gerät
       rental: Leihe
       size: Größenangabe
-      support_type: Helferart
+      support_type: Helfergruppe
       supporter: Helfer
     attributes:
       client:
