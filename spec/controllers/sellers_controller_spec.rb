@@ -88,9 +88,7 @@ RSpec.describe SellersController do
   end
 
   describe 'POST resend_activation' do
-    def post_it
-      post :resend_activation, seller: { email: email }
-    end
+    let(:post_it) { post :resend_activation, seller: { email: email } }
     context 'with known email' do
       let(:seller) { create :seller }
       let(:email) { seller.email }
@@ -115,6 +113,29 @@ RSpec.describe SellersController do
 
     context 'with unknown email' do
       let(:email) { 'unknown@email.com' }
+
+      it 'renders template resend_activation' do
+        post_it
+        expect(response).to render_template :resend_activation
+      end
+      it 'responds with :ok' do
+        post_it
+        expect(response).to have_http_status :ok
+      end
+      it 'sets @seller with error info' do
+        post_it
+        expect(assigns(:seller).errors.messages).not_to be_empty
+      end
+      it 'does not send email' do
+        expect(SellerMailer).not_to receive :registration
+        post_it
+      end
+    end
+
+    context 'with email associated with other client' do
+      let!(:client) { create :client }
+      let!(:seller) { create :seller, client: client }
+      let(:email) { seller.email }
 
       it 'renders template resend_activation' do
         post_it
