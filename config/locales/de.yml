@@ -575,7 +575,7 @@ de:
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
         token: Token
         reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
-        support_system_enabled: Helfersystem für Verkäufer
+        support_system_enabled: Helfersystem für Verkäufer freigeschaltet
       item:
         seller: Verkäufer
         category: Kategorie
