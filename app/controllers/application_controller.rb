@@ -18,9 +18,13 @@ class ApplicationController < ActionController::Base
     render file: '/public/401', status: :unauthorized
   end
 
+  rescue_from ActionView::MissingTemplate, with: :not_acceptable
+
   def not_found
     render file: '/public/404', status: :not_found
   end
+
+  def not_acceptable; end
 
   private
 
