@@ -6,9 +6,7 @@ RSpec.describe SellersController do
   before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_now: self)) }
 
   describe 'GET new' do
-    before do
-      get :new
-    end
+    before { get :new }
 
     it 'assigns a new Seller as @seller' do
       expect(assigns(:seller)).to be_a_new Seller
@@ -24,9 +22,7 @@ RSpec.describe SellersController do
         post :create, seller: build(:seller).attributes.merge(accept_terms: '1')
       end
 
-      before do
-        call_post
-      end
+      before { call_post }
 
       it 'increases the number of seller instances in the database' do
         expect { call_post }.to change { Seller.count }.by 1
@@ -41,9 +37,7 @@ RSpec.describe SellersController do
     end
 
     context 'with invalid params' do
-      before do
-        post :create, seller: { name: nil }
-      end
+      before { post :create, seller: { name: nil } }
 
       it 'assigns the not yet persisted instance to @seller' do
         expect(assigns(:seller)).to be_a_new Seller
@@ -235,27 +229,28 @@ RSpec.describe SellersController do
 
   describe 'GET show' do
     let(:seller) { create :seller }
-    subject { get :show }
+    subject(:action) { get :show }
 
     context 'without valid seller session' do
       it { is_expected.to have_http_status :unauthorized }
     end
 
     context 'with valid seller session' do
-      before do
-        session[:seller_id] = seller.id
-      end
+      before { session[:seller_id] = seller.id }
       it { is_expected.to render_template :show }
       it { is_expected.to have_http_status :ok }
-      it 'assigns the seller from the session to @seller' do
-        subject
-        expect(assigns(:seller)).to eq seller
+
+      describe '@seller' do
+        before { action }
+        subject { assigns :seller }
+        it { is_expected.to eq seller }
       end
-      it 'assigns events within reservation time to @events' do
-        event1 = create :event_with_ongoing_reservation
-        event2 = create :event_with_ongoing_reservation
-        subject
-        expect(assigns(:events)).to include event1, event2
+
+      describe '@events' do
+        let!(:event) { create :event_with_ongoing_reservation }
+        before { action }
+        subject { assigns :events }
+        it { is_expected.to include event }
       end
     end
   end

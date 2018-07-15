@@ -18,6 +18,8 @@
     = f.input :donation_of_unsold_items_enabled if current_client.donation_of_unsold_items
     = f.input :reservation_fee
     = f.input :reservation_fees_payed_in_advance
+    - if @event.client.support_system_enabled
+      = f.input :support_system_enabled
 
   .form-actions
     = f.button :submit

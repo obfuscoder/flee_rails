@@ -549,6 +549,7 @@ de:
         donation_of_unsold_items_default: Standardeinstellung für Spende bei Artikeleingabe
         reservation_by_seller_forbidden: Reservierungen nur im Verwaltungsbereich durchführbar
         reservation_numbers_assignable: Reservierungsnummern werden individuell vergeben
+        support_system_enabled: Helfersystem aktiviert
       category:
         name: Name
         parent: Überkategorie
@@ -574,6 +575,7 @@ de:
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
         token: Token
         reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
+        support_system_enabled: Helfersystem für Verkäufer
       item:
         seller: Verkäufer
         category: Kategorie

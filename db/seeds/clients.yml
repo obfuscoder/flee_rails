@@ -89,3 +89,4 @@
   commission_rate: 0.2
   reservation_fee: 2.0
   donation_of_unsold_items: true
+  support_system_enabled: true

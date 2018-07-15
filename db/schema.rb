@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180714124233) do
+ActiveRecord::Schema.define(version: 20180715103647) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180714124233) do
     t.boolean  "donation_of_unsold_items_default"
     t.boolean  "reservation_by_seller_forbidden"
     t.boolean  "reservation_numbers_assignable"
+    t.boolean  "support_system_enabled"
   end
 
   add_index "clients", ["domain"], name: "index_clients_on_domain", unique: true
@@ -114,6 +115,7 @@ ActiveRecord::Schema.define(version: 20180714124233) do
     t.boolean  "reservation_fees_payed_in_advance"
     t.integer  "client_id"
     t.integer  "number"
+    t.boolean  "support_system_enabled"
   end
 
   add_index "events", ["client_id"], name: "index_events_on_client_id"
