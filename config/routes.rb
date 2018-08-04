@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'pages/terms'
   get 'pages/deleted'
 
+  get 'oauth/callback'
+
   resources :events, only: [:show] do
     member do
       get :review

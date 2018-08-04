@@ -8,6 +8,7 @@
     %p= link_to "Zur Registrierung", new_seller_path, icon: :user, type: :primary
     %p Sie sind <strong>bereits registriert</strong> und möchten Ihre Zugangsinformationen nochmals per Mail erhalten:
     %p= link_to "Meine Zuganginformationen anfordern", resend_activation_seller_path, icon: :paperclip, type: :primary
+    %p= link_to 'Login mit NetID', @oauth_login_url
   .col-sm-4.hidden-xs.center-block
     = link_to 'http://flohmarkthelfer.de' do
       = image_tag 'logo.png', class: 'img-responsive'
