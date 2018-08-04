@@ -1,0 +1,11 @@
+- content_for :title, t('.title')
+%h3= @event.name
+%h4= shopping_time(@event)
+%h5= @support_type.name
+= simple_form_for @supporter, url: event_create_support_path(@event, @support_type) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :comments
+  .form-actions
+    = f.button :submit
+= link_to t('.back'), event_support_path(@event), type: :default

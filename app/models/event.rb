@@ -54,6 +54,12 @@ class Event < ActiveRecord::Base
   scope :with_sent, ->(category) { joining { messages }.where.has { messages.category == category.to_s } }
   scope :reservable, -> { within_reservation_time.with_available_reservations }
 
+  def self.in_need_of_support
+    where(support_system_enabled: true).joining { support_types }.select do |event|
+      event.support_types.any? { |support_type| support_type.capacity > support_type.supporters.count }
+    end
+  end
+
   def self.with_available_reservations
     joining { reservations.outer }.grouping { id }.when_having { reservations.id.count < max_reservations }
   end

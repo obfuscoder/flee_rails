@@ -18,7 +18,7 @@ RSpec.describe 'admin/supporters/_form' do
     before { render }
     subject { rendered }
 
+    it { is_expected.to have_field 'supporter_seller_id' }
     it { is_expected.to have_field 'supporter_comments' }
-    it { is_expected.to have_field 'supporter_seller' }
   end
 end

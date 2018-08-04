@@ -17,6 +17,11 @@ Rails.application.routes.draw do
       get :reserve
     end
 
+    get :support, to: 'support#index'
+    get 'support/:id/new', to: 'support#new', as: :new_support
+    post 'support/:id', to: 'support#create', as: :create_support
+    delete 'support/:id', to: 'support#destroy', as: :destroy_support
+
     resources :reservations, only: %i[create destroy edit update] do
       resources :items, except: :show do
         member do

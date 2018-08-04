@@ -210,6 +210,21 @@ de:
       success: >
         Sie wurden auf der Warteliste eingetragen.
         Sie erhalten automatisch eine Reservierung und eMail, sobald ein Verkäuferplatz freigeworden ist.
+  support:
+    index:
+      title: Helfergruppen
+      help: Helfer werden
+      unhelp: Als Helfer zurücktreten
+      delete:
+        confirm: Sind Sie sicher? Sie verlieren damit auch die Vorteile, die mit dieser Helferstelle verknüpft sind.
+      back: Zurück
+    destroy:
+      success: Helferstelle wurde freigegeben.
+    create:
+      success: Helferstelle erfolgreich eingetragen.
+    new:
+      title: Als Helfer eintragen
+      back: Zurück
   admin:
     unauthorized: Bitte melden Sie sich an.
     sessions:
@@ -667,7 +682,7 @@ de:
         description: Beschreibung
         capacity: notwendige Helferzahl
       supporter:
-        seller: Name
+        seller_id: Verkäufer
         comments: Bemerkungen
     errors:
       models:
@@ -954,11 +969,6 @@ de:
     precision:
       format:
         delimiter: ''
-  support:
-    array:
-      last_word_connector: ! ' und '
-      two_words_connector: ! ' und '
-      words_connector: ! ', '
   time:
     am: vormittags
     formats:

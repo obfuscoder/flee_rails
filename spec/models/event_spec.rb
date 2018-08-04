@@ -286,4 +286,16 @@ RSpec.describe Event do
     subject { event.max_reservations_per_seller }
     it { is_expected.to eq 1 }
   end
+
+  describe '#in_need_of_support' do
+    let!(:event_without_support) { create :event }
+    let!(:event_with_support) { create :event_with_support }
+    let!(:event_with_support_full) { create :event_with_support_full }
+    let!(:event_with_support_disabled) { create :event_with_support, support_system_enabled: false }
+    subject { Event.in_need_of_support }
+    it { is_expected.not_to include event_without_support }
+    it { is_expected.to include event_with_support }
+    it { is_expected.not_to include event_with_support_full }
+    it { is_expected.not_to include event_with_support_disabled }
+  end
 end

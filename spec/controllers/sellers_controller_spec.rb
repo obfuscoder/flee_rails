@@ -252,6 +252,13 @@ RSpec.describe SellersController do
         subject { assigns :events }
         it { is_expected.to include event }
       end
+
+      describe '@events_with_support' do
+        let!(:event) { create :event_with_support }
+        before { action }
+        subject { assigns :events_with_support }
+        it { is_expected.to include event }
+      end
     end
   end
 end

@@ -10,6 +10,8 @@ RSpec.describe 'sellers/show' do
   let(:reservation) {}
   let(:event) {}
   let(:preparations) {}
+  let(:event_with_support) {}
+  let!(:events_with_support) { assign :events_with_support, [event_with_support].compact }
 
   it_behaves_like 'a standard view'
 
@@ -175,5 +177,11 @@ RSpec.describe 'sellers/show' do
         expect(rendered).not_to have_link href: new_event_reservation_review_path(reservation.event, reservation)
       end
     end
+  end
+
+  context 'with event in need of support' do
+    let(:event_with_support) { create :event_with_support }
+    subject(:output) { rendered }
+    it { is_expected.to have_link href: event_support_path(event_with_support) }
   end
 end

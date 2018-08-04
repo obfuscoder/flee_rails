@@ -37,6 +37,26 @@ FactoryBot.define do
           end
         end
       end
+
+      factory :event_with_support do
+        support_system_enabled true
+        after :build do |event|
+          event.support_types << build(:support_type, event: event)
+        end
+
+        factory :event_with_support_disabled do
+          support_system_enabled false
+        end
+
+        factory :event_with_support_full do
+          after :build do |event|
+            event.support_types.each do |support_type|
+              create_list :supporter, support_type.capacity, support_type: support_type
+            end
+          end
+        end
+      end
+
       after :build do |event, evaluator|
         event.handover_periods << build(:handover_period, event: event, min: event.reservation_end + 1.hour)
         event.pickup_periods << build(:pickup_period, event: event, min: evaluator.shopping_time + 1.day)

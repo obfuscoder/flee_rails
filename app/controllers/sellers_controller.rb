@@ -4,6 +4,7 @@ class SellersController < ApplicationController
   def show
     @seller = current_seller
     @events = current_client.events.merge(Event.within_reservation_time)
+    @events_with_support = current_client.events.merge(Event.in_need_of_support)
   end
 
   def new

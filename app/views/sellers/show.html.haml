@@ -60,6 +60,14 @@
             bitte.
           - else
             Sie haben bereits die maximale Anzahl erlaubter Reservierungen für diesen Termin.
+- unless @events_with_support.empty?
+  %h3 Helfer
+  %p Bei den folgenden Terminen werden Helfer benötigt:
+  %ul
+    - @events_with_support.each do |event|
+      %li
+        = link_to "#{event.name} (#{shopping_time(event)})", event_support_path(event)
+
 %h3 Ihre Stammdaten
 %p
   %strong #{@seller.first_name} #{@seller.last_name}<br/>
