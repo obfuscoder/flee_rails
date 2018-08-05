@@ -18,6 +18,16 @@
         \- Verkäufernummer:
         %strong= reservation.number
         = link_to 'Artikel auflisten', admin_reservation_items_path(reservation), type: :primary, icon: :list
+- if @seller.supporters.present?
+  %h3 Helfer
+  %ul
+    - @seller.supporters.each do |supporter|
+      %li
+        = link_to supporter.support_type.event.name, admin_event_path(supporter.support_type.event)
+        \-
+        = link_to supporter.support_type.name, admin_event_support_type_supporters_path(supporter.support_type.event, supporter.support_type)
+        - if supporter.comments.present?
+          = "(#{supporter.comments})"
 %h3 Artikel
 %ul
   %li Gesamt: #{@seller.reservations.joins(:items).count}
