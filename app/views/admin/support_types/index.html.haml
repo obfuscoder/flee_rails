@@ -1,19 +1,16 @@
 - content_for :title, t('.title')
-%table.table.table-condensed.table-hover.table-striped
-  %tr
-    %th= SupportType.human_attribute_name :name
-    %th= SupportType.human_attribute_name :capacity
-    %th Helferzahl
-    %th= icon_link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
-  - @support_types.each_with_index do |support_type|
-    %tr
-      %td= support_type.name
-      %td= support_type.capacity
-      %td= support_type.supporters.count
-      %td.btn-group
-        = icon_link_to t('edit'), edit_admin_event_support_type_path(@event, support_type), type: :primary, icon: :pencil
-        = icon_link_to 'Helfer', admin_event_support_type_supporters_path(@event, support_type), type: :success, icon: :list
-        = icon_link_to t('destroy'), admin_event_support_type_path(@event, support_type), method: :delete,
-                                                                                          type: :danger,
-                                                                                          icon: :trash,
-                                                                                          data: { confirm: t('sure') }
+= link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
+.list-group
+  - @support_types.each do |support_type|
+    .list-group-item
+      %h3= support_type.name
+      %p= "#{support_type.supporters.count} von #{support_type.capacity} Plätzen belegt"
+      = markdown(support_type.description).html_safe
+      .btn-group
+        = link_to t('edit'), edit_admin_event_support_type_path(@event, support_type), type: :primary, icon: :pencil
+        = link_to 'Helfer', admin_event_support_type_supporters_path(@event, support_type), type: :success, icon: :list
+        = link_to t('destroy'), admin_event_support_type_path(@event, support_type), method: :delete,
+                                                                                  type: :danger,
+                                                                                  icon: :trash,
+                                                                                  data: { confirm: t('sure') }
+= link_to t('back'), admin_event_path(@event)

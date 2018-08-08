@@ -5,3 +5,5 @@
     = f.input :comments
   .form-actions
     = f.button :submit
+%br
+= link_to t('back'), admin_event_support_type_supporters_path(@event, @support_type)
