@@ -54,11 +54,6 @@ RSpec.describe 'admin/events/show' do
 
     it { is_expected.to have_link href: admin_event_support_types_path(event) }
 
-    context 'when support system is disabled' do
-      let(:preparation) { event.client.update support_system_enabled: false }
-      it { is_expected.not_to have_link href: admin_event_support_types_path(event) }
-    end
-
     context 'when reservation end has past' do
       let(:additional_preparation) {}
       let(:preparation) do

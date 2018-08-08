@@ -20,9 +20,5 @@ RSpec.describe 'admin/events/_form' do
     it { is_expected.to have_unchecked_field 'Reservierungsgebühr wird im Voraus bezahlt' }
 
     it { is_expected.to have_field 'event_support_system_enabled' }
-    context 'when support system is not enabled in client' do
-      let(:preparation) { event.client.update support_system_enabled: false }
-      it { is_expected.not_to have_field 'event_support_system_enabled' }
-    end
   end
 end

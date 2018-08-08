@@ -24,6 +24,5 @@ RSpec.describe 'admin/clients/edit' do
     it { is_expected.to have_field 'client_donation_of_unsold_items_default' }
     it { is_expected.to have_field 'client_reservation_by_seller_forbidden' }
     it { is_expected.to have_field 'client_reservation_numbers_assignable' }
-    it { is_expected.to have_field 'client_support_system_enabled' }
   end
 end
