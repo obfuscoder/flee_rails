@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
   private
 
   def old_password_correct
-    errors.add(:old_password, :incorrect) unless valid_password?(old_password)
+    # We cannot use valid_password?(old_password) as the salt and encrypted_password has been changed already.
+    # So we have to fetch the user from the database again and then use valid_password? on that instance.
+    errors.add(:old_password, :incorrect) unless User.find(id).valid_password?(old_password)
   end
 
   def password_differs_from_old_password
