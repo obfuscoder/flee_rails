@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808160158) do
+ActiveRecord::Schema.define(version: 20180816113014) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -396,6 +396,6 @@ ActiveRecord::Schema.define(version: 20180808160158) do
   end
 
   add_index "users", ["client_id"], name: "index_users_on_client_id"
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email", "client_id"], name: "index_users_on_email_and_client_id", unique: true
 
 end
