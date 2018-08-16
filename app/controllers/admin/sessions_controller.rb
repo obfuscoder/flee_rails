@@ -12,7 +12,7 @@ module Admin
 
     def create
       @user = current_client.users.build user_params
-      user = login(@user.email, @user.password)
+      user = login_user
       if user && user.client == current_client
         redirect_back_or_to admin_path
       else
@@ -28,6 +28,21 @@ module Admin
     end
 
     private
+
+    def login_user
+      store_current_client_in_current_thread
+      user = login(@user.email, @user.password)
+      remove_current_client_from_current_thread
+      user
+    end
+
+    def store_current_client_in_current_thread
+      Thread.current[:current_client] = current_client
+    end
+
+    def remove_current_client_from_current_thread
+      Thread.current[:current_client] = nil
+    end
 
     def user_params
       params.require(:user).permit :email, :password
