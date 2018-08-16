@@ -16,30 +16,10 @@ class User < ActiveRecord::Base
   validate :password_differs_from_old_password, on: :update
   validate :password_strength, on: :update
 
-  def self.find_by_credentials(credentials)
-    relation = nil
-
-    sorcery_config.username_attribute_names.each do |attribute|
-      if sorcery_config.downcase_username_before_authenticating
-        condition = arel_table[attribute].lower.eq(arel_table.lower(credentials[0]))
-      else
-        condition = arel_table[attribute].eq(credentials[0])
-      end
-
-      relation = if relation.nil?
-                   condition
-                 else
-                   relation.or(condition)
-                 end
-    end
-
-    current_client.users.where(relation).first
-  end
-
   private
 
   def old_password_correct
-    errors.add(:old_password, :incorrect) if User.authenticate(email, old_password).nil?
+    errors.add(:old_password, :incorrect) unless valid_password?(old_password)
   end
 
   def password_differs_from_old_password
