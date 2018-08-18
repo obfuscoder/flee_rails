@@ -23,5 +23,6 @@ RSpec.describe 'admin/support_types/index' do
     it { is_expected.to have_link href: edit_admin_event_support_type_path(event, support_type) }
     it { is_expected.to have_link href: admin_event_support_type_path(event, support_type) }
     it { is_expected.to have_link href: admin_event_support_type_supporters_path(event, support_type) }
+    it { is_expected.to have_link href: print_admin_event_support_types_path(event) }
   end
 end

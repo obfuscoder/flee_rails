@@ -1,6 +1,7 @@
 - content_for :title, t('.title')
 %h3= @event.name
 = link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
+= link_to t('print'), print_admin_event_support_types_path(@event), type: :success, icon: :print
 .list-group
   - @support_types.each do |support_type|
     .list-group-item

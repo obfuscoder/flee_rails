@@ -40,6 +40,11 @@ module Admin
       redirect_to admin_event_support_types_path(@event), notice: t('.success')
     end
 
+    def print
+      pdf = SupportTypesDocument.new(@event, @event.support_types).render
+      send_data pdf, filename: 'helfer.pdf', type: 'application/pdf'
+    end
+
     private
 
     def init_event

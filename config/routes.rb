@@ -62,6 +62,9 @@ Rails.application.routes.draw do
       resources :suspensions
       resources :rentals
       resources :support_types do
+        collection do
+          get :print
+        end
         resources :supporters
       end
       post 'messages/:action', to: 'messages#:action', as: :messages

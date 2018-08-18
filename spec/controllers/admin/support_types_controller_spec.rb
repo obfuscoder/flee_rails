@@ -150,4 +150,21 @@ RSpec.describe Admin::SupportTypesController do
       expect { support_type.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
+
+  describe 'GET print' do
+    let!(:support_types) { create_list :support_type, 5, event: event }
+    let(:document) { double render: pdf }
+    let(:pdf) { 'pdf content' }
+    before do
+      allow(SupportTypesDocument).to receive(:new).with(event, support_types).and_return document
+      get :print, event_id: event.id
+    end
+
+    describe 'response' do
+      subject { response }
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'application/pdf' }
+      its(:body) { is_expected.to eq pdf }
+    end
+  end
 end

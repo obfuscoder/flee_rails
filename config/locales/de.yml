@@ -1,4 +1,5 @@
 de:
+  print: Drucken
   size_option:
     size_optional: optional
     size_required: Pflicht
