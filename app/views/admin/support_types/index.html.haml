@@ -1,5 +1,6 @@
 - content_for :title, t('.title')
-%h3= @event.name
+-%h3= @event.name
+= link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
 .list-group
   - @support_types.each do |support_type|
     .list-group-item
@@ -14,6 +15,4 @@
                                                                                   type: :danger,
                                                                                   icon: :trash,
                                                                                   data: { confirm: t('sure') }
-= link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
-%p
 = link_to t('back'), admin_event_path(@event)
