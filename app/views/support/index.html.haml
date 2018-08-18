@@ -10,7 +10,7 @@
       - if supporter.present?
         %p Sie Sind bereits Helfer!
         - if supporter.comments.present?
-          %p= "Anmerkungen: #{supporter.comments}"
+          %p Anmerkungen: #{supporter.comments}
         = link_to t('.unhelp'), event_destroy_support_path(@event, support_type), type: :danger, method: :delete, icon: :leaf, data: { confirm: t('.delete.confirm') }
       - else
         - if support_type.capacity > support_type.supporters.count

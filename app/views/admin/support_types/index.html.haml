@@ -1,10 +1,11 @@
 - content_for :title, t('.title')
-= link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
+%h3= @event.name
 .list-group
   - @support_types.each do |support_type|
     .list-group-item
       %h3= support_type.name
-      %p= "#{support_type.supporters.count} von #{support_type.capacity} Plätzen belegt"
+      %p
+        %strong #{support_type.supporters.count} von #{support_type.capacity} Plätzen belegt
       = markdown(support_type.description).html_safe
       .btn-group
         = link_to t('edit'), edit_admin_event_support_type_path(@event, support_type), type: :primary, icon: :pencil
@@ -13,4 +14,6 @@
                                                                                   type: :danger,
                                                                                   icon: :trash,
                                                                                   data: { confirm: t('sure') }
+= link_to t('new'), new_admin_event_support_type_path(@event), type: :primary, icon: :file
+%p
 = link_to t('back'), admin_event_path(@event)

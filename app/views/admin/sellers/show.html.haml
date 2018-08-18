@@ -27,7 +27,7 @@
         \-
         = link_to supporter.support_type.name, admin_event_support_type_supporters_path(supporter.support_type.event, supporter.support_type)
         - if supporter.comments.present?
-          = "(#{supporter.comments})"
+          #{supporter.comments}
 %h3 Artikel
 %ul
   %li Gesamt: #{@seller.reservations.joins(:items).count}
