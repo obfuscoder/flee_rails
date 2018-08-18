@@ -42,7 +42,7 @@ module Admin
     private
 
     def init_sellers
-      @sellers = @event.client.sellers.merge(Seller.available_for_support_type(@support_type))
+      @sellers = @event.client.sellers.merge(Seller.available_for_support_type(@support_type)).order :first_name, :last_name
       @sellers << @supporter.seller if @supporter.present?
     end
 
