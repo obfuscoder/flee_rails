@@ -41,7 +41,8 @@ module Admin
 
     describe 'GET new' do
       before { get :new, event_id: event.id }
-      let(:query) { double suspensible_sellers: sellers }
+      let(:query) { double suspensible_sellers: suspensible_sellers }
+      let(:suspensible_sellers) { double order: sellers }
       let(:sellers) { double }
 
       describe 'response' do

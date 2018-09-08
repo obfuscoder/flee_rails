@@ -10,7 +10,7 @@ module Admin
     end
 
     def new
-      @sellers = query.suspensible_sellers
+      @sellers = query.suspensible_sellers.order :first_name, :last_name
     end
 
     def create
