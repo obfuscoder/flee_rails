@@ -10,10 +10,10 @@ FactoryBot.define do
     end
 
     sequence(:name) { |n| "Event #{n}" }
-    max_reservations 10
+    max_reservations { 10 }
     reservation_start { 1.day.from_now }
     reservation_end { shopping_time - 1.day }
-    reservation_fee 2
+    reservation_fee { 2 }
 
     after :build do |event, evaluator|
       event.shopping_periods << build(:shopping_period, event: event,
@@ -21,17 +21,17 @@ FactoryBot.define do
     end
 
     factory :event do
-      kind :commissioned
-      max_items_per_reservation 5
-      price_precision 0.1
-      commission_rate 0.2
+      kind { :commissioned }
+      max_items_per_reservation { 5 }
+      price_precision { 0.1 }
+      commission_rate { 0.2 }
 
       factory :event_with_ongoing_reservation do
         reservation_start { 1.day.ago }
         reservation_end { 1.day.from_now }
 
         factory :full_event do
-          max_reservations 1
+          max_reservations { 1 }
           after :create do |event|
             create :reservation, event: event
           end
@@ -39,13 +39,13 @@ FactoryBot.define do
       end
 
       factory :event_with_support do
-        support_system_enabled true
+        support_system_enabled { true }
         after :build do |event|
           event.support_types << build(:support_type, event: event)
         end
 
         factory :event_with_support_disabled do
-          support_system_enabled false
+          support_system_enabled { false }
         end
 
         factory :event_with_support_full do
@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     factory :direct_event do
-      kind :direct
+      kind { :direct }
     end
   end
 end

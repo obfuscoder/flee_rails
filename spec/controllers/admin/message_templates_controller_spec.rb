@@ -8,41 +8,47 @@ module Admin
     before { login_user create(:user) }
 
     describe 'GET index' do
-      before { get :index }
-
       subject { response }
+
+      before { get :index }
 
       it { is_expected.to render_template :index }
       it { is_expected.to have_http_status :ok }
 
       describe '@message_templates' do
         subject { assigns :message_templates }
+
         it { is_expected.to have(StockMessageTemplate.count).items }
       end
     end
 
     describe 'GET edit' do
       let(:message_template) { create :message_template }
+
       before { get :edit, id: message_template.id }
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :edit }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@message_template' do
         subject { assigns :message_template }
+
         it { is_expected.to eq message_template }
       end
     end
 
     describe 'DELETE destroy' do
       let(:message_template) { create :message_template }
+
       before { delete :destroy, id: message_template.id }
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_message_templates_path }
       end
 
@@ -52,18 +58,20 @@ module Admin
     end
 
     describe 'PUT update' do
-      let(:subject) { 'new subject' }
+      let(:mail_subject) { 'new subject' }
       let(:body) { 'new body' }
       let(:message_template) { create :message_template }
-      before { put :update, id: message_template.id, message_template: { subject: subject, body: body } }
+
+      before { put :update, id: message_template.id, message_template: { subject: mail_subject, body: body } }
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_message_templates_path }
       end
 
       it 'updates message template' do
-        expect(message_template.reload).to have_attributes(subject: subject, body: body)
+        expect(message_template.reload).to have_attributes(subject: mail_subject, body: body)
       end
     end
   end

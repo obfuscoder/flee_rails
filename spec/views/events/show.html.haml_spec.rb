@@ -9,15 +9,16 @@ RSpec.describe 'events/show' do
   let!(:items) { create_list :item, 4, reservation: reservation }
   let!(:sold_items) { create_list :sold_item, 6, reservation: reservation }
 
-  it_behaves_like 'a standard view'
-
   before do
     assign :event, event
     render
   end
 
+  it_behaves_like 'a standard view'
+
   describe 'rendered' do
     subject { rendered }
+
     it { is_expected.to have_content shopping_time(event) }
     it { is_expected.to have_content items.count + sold_items.count }
     it { is_expected.to have_content sold_items.count }

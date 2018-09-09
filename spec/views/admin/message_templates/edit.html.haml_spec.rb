@@ -8,8 +8,9 @@ RSpec.describe 'admin/message_templates/edit' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_field 'message_template_subject' }
     it { is_expected.to have_field 'message_template_body' }

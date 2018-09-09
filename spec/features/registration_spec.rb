@@ -3,9 +3,10 @@
 require 'rails_helper'
 require 'features/mail_support'
 
-RSpec.feature 'Registrations' do
+RSpec.describe 'Registrations' do
   let(:email) { 'erika@mustermann.de' }
   let(:seller) { Seller.find_by email: email }
+
   def fill_in_and_submit_registration_form
     fill_in 'Vorname', with: 'Erika'
     fill_in 'Nachname', with: 'Mustermann'
@@ -24,7 +25,7 @@ RSpec.feature 'Registrations' do
     current_email.click_on 'Zum geschützten Bereich'
   end
 
-  scenario 'User registers and follows login link in mail' do
+  it 'User registers and follows login link in mail' do
     visit 'http://demo.test.host'
     click_on 'Zur Registrierung'
     fill_in_and_submit_registration_form

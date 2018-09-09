@@ -6,6 +6,7 @@ RSpec.describe 'admin/items/_form' do
   let(:event) { create :event_with_ongoing_reservation }
   let(:reservation) { create :reservation, event: event }
   let(:item) { build :item, reservation: reservation }
+
   before do
     assign :reservation, reservation
     assign :item, item
@@ -13,9 +14,10 @@ RSpec.describe 'admin/items/_form' do
 
   it_behaves_like 'a standard partial'
 
-  context 'rendered' do
-    before { render }
+  describe 'rendered' do
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_field 'item_category_id' }
     it { is_expected.to have_field 'item_description' }
@@ -25,6 +27,7 @@ RSpec.describe 'admin/items/_form' do
     it { is_expected.not_to have_css '#donation-enforced-hint' }
     context 'when event donation is enabled' do
       let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+
       it { is_expected.to have_field 'item_donation' }
       it { is_expected.to have_css '#donation-enforced-hint' }
     end

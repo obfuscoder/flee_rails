@@ -5,7 +5,9 @@ require 'rails_helper'
 RSpec.describe 'admin/emails/index' do
   let(:emails) { create_list :email, 5, seller: seller }
   let(:seller) { create :seller }
+
   before { assign :emails, emails.paginate }
+
   before { assign :seller, seller }
 
   it_behaves_like 'a standard view'

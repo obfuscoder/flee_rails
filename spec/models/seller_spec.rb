@@ -24,7 +24,7 @@ RSpec.describe Seller do
   it { is_expected.to have_many :emails }
   it { is_expected.to have_many :supporters }
 
-  its(:to_s) { is_expected.to eq("#{subject.first_name} #{subject.last_name}") }
+  its(:to_s) { is_expected.to eq("#{seller.first_name} #{seller.last_name}") }
 
   describe '#zip_code' do
     [
@@ -33,15 +33,15 @@ RSpec.describe Seller do
       ' 12345', '12345 ', '-1234', '-12345'
     ].each do |invalid_value|
       it "is invalid with value #{invalid_value}" do
-        subject.zip_code = invalid_value
-        expect(subject).not_to be_valid
+        seller.zip_code = invalid_value
+        expect(seller).not_to be_valid
       end
     end
 
     [12_345, '12345', '99999', '00000'].each do |valid_value|
       it "is valid with value #{valid_value}" do
-        subject.zip_code = valid_value
-        expect(subject).to be_valid
+        seller.zip_code = valid_value
+        expect(seller).to be_valid
       end
     end
   end
@@ -53,8 +53,8 @@ RSpec.describe Seller do
       'abcd', '/ 2', ' 00000', '01345/-', '-1234', '-12345 /'
     ].each do |invalid_value|
       it "is invalid with value #{invalid_value}" do
-        subject.phone = invalid_value
-        expect(subject).not_to be_valid
+        seller.phone = invalid_value
+        expect(seller).not_to be_valid
       end
     end
 
@@ -63,8 +63,8 @@ RSpec.describe Seller do
       '+49 (1523) 378-9600', '+4915233789600'
     ].each do |valid_value|
       it "is valid with value #{valid_value}" do
-        subject.phone = valid_value
-        expect(subject).to be_valid
+        seller.phone = valid_value
+        expect(seller).to be_valid
       end
     end
   end
@@ -75,22 +75,22 @@ RSpec.describe Seller do
       'my email@example.com1', 'email123-€@example.com'
     ].each do |invalid_value|
       it "is invalid with value #{invalid_value}" do
-        subject.email = invalid_value
-        expect(subject).not_to be_valid
+        seller.email = invalid_value
+        expect(seller).not_to be_valid
       end
     end
 
     %w[valid@example.com valid_name@sub.domain.name nee.domain-works@company.berlin].each do |valid_value|
       it "is valid with value #{valid_value}" do
-        subject.email = valid_value
-        expect(subject).to be_valid
+        seller.email = valid_value
+        expect(seller).to be_valid
       end
     end
 
     it 'stores in lowercase' do
-      subject.email.upcase!
-      subject.save
-      expect(subject.email).to eq(subject.email.downcase)
+      seller.email.upcase!
+      seller.save
+      expect(seller.email).to eq(seller.email.downcase)
     end
   end
 
@@ -99,17 +99,19 @@ RSpec.describe Seller do
     let(:yet_another_seller) { create(:seller) }
 
     it 'is a unique random string' do
-      subject.save
-      expect(subject.token).not_to eq(another_seller.token)
-      expect(subject.token).not_to eq(yet_another_seller.token)
+      seller.save
+      expect(seller.token).not_to eq(another_seller.token)
+      expect(seller.token).not_to eq(yet_another_seller.token)
     end
   end
 
   describe '#destroy' do
-    before { seller.save }
     subject(:action) { seller.destroy }
+
+    before { seller.save }
+
     it 'does not delete record' do
-      expect { action }.not_to change { Seller.with_deleted.count }
+      expect { action }.not_to change { described_class.with_deleted.count }
     end
 
     it 'destroys associated notifications, suspensions and emails' do
@@ -127,7 +129,7 @@ RSpec.describe Seller do
     end
 
     it 'marks record as deleted' do
-      expect { action }.to change { seller.deleted_at }.from(nil)
+      expect { action }.to change(seller, :deleted_at).from(nil)
     end
 
     it 'removes sensitive seller information' do

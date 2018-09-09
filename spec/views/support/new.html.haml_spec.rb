@@ -18,8 +18,10 @@ RSpec.describe 'support/new' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
+
     it { is_expected.to have_link href: event_support_path(event) }
     it { is_expected.to have_field 'supporter_comments' }
   end

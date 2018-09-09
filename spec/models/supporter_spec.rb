@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe SupportType do
+RSpec.describe Supporter do
   subject(:supporter) { build :supporter }
 
   it { is_expected.to be_valid }

@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe CreateEmail do
   subject { described_class.new(message).call sent }
+
   before { allow(Seller).to receive(:find_by).with(email: seller.email).and_return seller }
+
   let(:message) do
     double :message, from: [from], to: [seller.email], subject: mail_subject,
                      message_id: message_id, text?: true, decoded: body

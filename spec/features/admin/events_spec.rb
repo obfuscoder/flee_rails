@@ -4,12 +4,13 @@ require 'rails_helper'
 require 'features/admin/login'
 require 'features/mail_support'
 
-RSpec.feature 'admin events' do
-  include_context 'login'
+RSpec.describe 'admin events' do
+  include_context 'when logging in'
   let!(:events) { create_list :event_with_ongoing_reservation, 3 }
-  background { click_on 'Termine' }
 
-  scenario 'shows list of events with buttons for show, edit' do
+  before { click_on 'Termine' }
+
+  it 'shows list of events with buttons for show, edit' do
     events.each do |event|
       expect(page).to have_content event.name
       expect(page).to have_link 'Anzeigen', href: admin_event_path(event)
@@ -17,7 +18,7 @@ RSpec.feature 'admin events' do
     end
   end
 
-  scenario 'new event' do
+  it 'new event' do
     click_on 'Neuer Termin'
     fill_in 'Name', with: 'Weihnachtsflohmarkt'
     fill_in 'Details', with: 'Kinderbetreuung, Kuchenbasar, viel Platz'
@@ -27,12 +28,12 @@ RSpec.feature 'admin events' do
     expect(page).to have_content 'Der Termin wurde erfolgreich hinzugefügt.'
   end
 
-  scenario 'price precision defaults to brand setting when creating event' do
+  it 'price precision defaults to brand setting when creating event' do
     click_on 'Neuer Termin'
     expect(find_field('Basis für Preisangaben').value).to eq '0.1'
   end
 
-  scenario 'seller fee prefilled with brand setting' do
+  it 'seller fee prefilled with brand setting' do
     click_on 'Neuer Termin'
     expect(find_field('event_reservation_fee').value).to eq '2.0'
   end
@@ -40,7 +41,8 @@ RSpec.feature 'admin events' do
   describe 'donation option' do
     context 'when disabled' do
       before { Client.first.update donation_of_unsold_items: false }
-      scenario 'donation option is not available when creating event' do
+
+      it 'donation option is not available when creating event' do
         click_on 'Neuer Termin'
         expect(page).not_to have_field 'Spenden nicht verkaufter Artikel aktiviert'
       end
@@ -48,25 +50,27 @@ RSpec.feature 'admin events' do
 
     context 'when enabled' do
       before { Client.first.update donation_of_unsold_items: true }
-      scenario 'donation option is preselected when creating event' do
+
+      it 'donation option is preselected when creating event' do
         click_on 'Neuer Termin'
         expect(find_field('Spenden nicht verkaufter Artikel aktiviert')).to be_checked
       end
     end
   end
 
-  scenario 'commission rate defaults to brand setting when creating event' do
+  it 'commission rate defaults to brand setting when creating event' do
     click_on 'Neuer Termin'
     expect(find_field('Umsatzanteil für Kommission').value).to eq '0.2'
   end
 
-  feature 'edit event' do
+  describe 'edit event' do
     let(:event) { events.first }
-    background do
+
+    before do
       click_link 'Bearbeiten', href: edit_admin_event_path(event)
     end
 
-    scenario 'changing event information' do
+    it 'changing event information' do
       new_name = 'Herbstflohmarkt'
       fill_in 'Name', with: new_name
       fill_in 'maximale Anzahl Reservierungen', with: 10
@@ -77,13 +81,14 @@ RSpec.feature 'admin events' do
     end
   end
 
-  feature 'show event' do
+  describe 'show event' do
     let(:event) { events.first }
+
     def click_on_event
       click_link 'Anzeigen', href: admin_event_path(event)
     end
 
-    scenario 'shows details about the event' do
+    it 'shows details about the event' do
       click_on_event
       expect(page).to have_content event.name
       expect(page).to have_content event.details
@@ -95,31 +100,32 @@ RSpec.feature 'admin events' do
 
     context 'when donation option is enabled' do
       before { Client.first.update donation_of_unsold_items: true }
+
       it 'shows donation option' do
         click_on_event
         expect(page).to have_content 'Spenden nicht verkaufter Artikel aktiviert'
       end
     end
 
-    scenario 'links to event edit' do
+    it 'links to event edit' do
       click_on_event
       click_on 'Bearbeiten'
-      expect(current_path).to eq edit_admin_event_path(event)
+      expect(page).to have_current_path(edit_admin_event_path(event))
     end
 
-    scenario 'links to reservations for that event' do
+    it 'links to reservations for that event' do
       click_on_event
       click_on 'Reservierungen'
-      expect(current_path).to eq admin_event_reservations_path(event)
+      expect(page).to have_current_path(admin_event_reservations_path(event))
     end
 
-    scenario 'links to reviews for that event' do
+    it 'links to reviews for that event' do
       click_on_event
       click_on 'Bewertungen'
-      expect(current_path).to eq admin_event_reviews_path(event)
+      expect(page).to have_current_path(admin_event_reviews_path(event))
     end
 
-    feature 'sending mailings' do
+    describe 'sending mailings' do
       let!(:inactive_seller) { create :seller, active: false }
       let!(:active_seller) { create :seller }
       let!(:active_seller_with_reservation) { create :seller }
@@ -127,7 +133,7 @@ RSpec.feature 'admin events' do
       let!(:reservation) { create :reservation, event: event, seller: active_seller_with_reservation }
       let!(:items) { create_list :item, 5, reservation: reservation }
 
-      scenario 'send invitation to active sellers without reservation' do
+      it 'send invitation to active sellers without reservation' do
         click_on_event
         click_on 'Reservierungseinladung verschicken'
         expect(page).to have_content 'Es wird eine Einladung verschickt. Es gibt bereits 1 Reservierung(en).'
@@ -138,7 +144,9 @@ RSpec.feature 'admin events' do
 
       context 'when reservation phase has passed' do
         before { Timecop.travel event.reservation_end + 1.hour }
+
         after { Timecop.return }
+
         it 'does not allow to send invitation mail' do
           click_on_event
           expect(page).not_to have_link 'Reservierungseinladung verschicken'
@@ -147,13 +155,14 @@ RSpec.feature 'admin events' do
 
       context 'when invitation mail was sent already' do
         let!(:message) { create :invitation_message, event: event }
+
         it 'does not allow to send invitation mail' do
           click_on_event
           expect(page).not_to have_link 'Reservierungseinladung verschicken'
         end
       end
 
-      scenario 'send reservation_closing mail to active sellers with reservation' do
+      it 'send reservation_closing mail to active sellers with reservation' do
         click_on_event
         click_on 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
         expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
@@ -164,7 +173,9 @@ RSpec.feature 'admin events' do
 
       context 'when reservation phase has not started yet' do
         before { Timecop.travel event.reservation_start - 1.hour }
+
         after { Timecop.return }
+
         it 'does not allow to send closing mail' do
           click_on_event
           expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
@@ -173,7 +184,9 @@ RSpec.feature 'admin events' do
 
       context 'when reservation phase has passed already' do
         before { Timecop.travel event.reservation_end + 1.hour }
+
         after { Timecop.return }
+
         it 'does not allow to send closing mail' do
           click_on_event
           expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
@@ -182,6 +195,7 @@ RSpec.feature 'admin events' do
 
       context 'when closing mail was sent already' do
         let!(:message) { create :reservation_closing_message, event: event }
+
         it 'does not allow to send closing mail' do
           click_on_event
           expect(page).not_to have_link 'Erinnerungsmail vor Bearbeitungsschluss verschicken'
@@ -193,9 +207,12 @@ RSpec.feature 'admin events' do
           Timecop.travel event.reservation_end + 1.hour do
             click_on_event
             click_on 'Bearbeitungsabschlussmail verschicken'
-            expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
             send_and_open_email active_seller_with_reservation.email
           end
+        end
+
+        it 'shows notification of sent mail' do
+          expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
         end
 
         it 'creates codes for all items of reservations' do
@@ -208,12 +225,12 @@ RSpec.feature 'admin events' do
 
         describe 'sent mail' do
           subject(:email) { current_email }
+
           its(:subject) { is_expected.to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt' }
-          its(:body) do
-            is_expected.to have_link 'Zum geschützten Bereich'
-          end
+          its(:body) { is_expected.to have_link 'Zum geschützten Bereich' }
           describe 'attached pdf' do
             subject(:attachment) { email.attachments[0] }
+
             let(:strings_from_attached_pdf) { PDF::Inspector::Text.analyze(attachment.body.decoded).strings }
 
             it 'contains all labels' do
@@ -227,7 +244,9 @@ RSpec.feature 'admin events' do
 
       context 'when reservation end was not reached yet' do
         before { Timecop.travel event.reservation_end - 1.hour }
+
         after { Timecop.return }
+
         it 'does not allow to send closed mail' do
           click_on_event
           expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
@@ -236,12 +255,14 @@ RSpec.feature 'admin events' do
 
       context 'when closed mail was sent already' do
         let!(:message) { create :reservation_closed_message, event: event }
+
         it 'does not allow to send closed mail' do
           click_on_event
           expect(page).not_to have_link 'Bearbeitungsabschlussmail verschicken'
         end
       end
-      feature 'finished mail' do
+
+      describe 'finished mail' do
         context 'when event has not passed yet' do
           it 'does not allow to send mail' do
             click_on_event
@@ -255,6 +276,7 @@ RSpec.feature 'admin events' do
             click_on_event
             click_on 'Abschlussmail verschicken'
           end
+
           after { Timecop.return }
 
           it 'shows number of sent mails to reservations' do
@@ -266,14 +288,15 @@ RSpec.feature 'admin events' do
               send_and_open_email active_seller_with_reservation.email
               current_email
             end
+
             its(:subject) { is_expected.to eq 'Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns' }
             it 'links to event review' do
               mail.click_on 'Zur Bewertung des Flohmarkts'
-              expect(current_path).to eq new_event_reservation_review_path(event, reservation)
+              expect(page).to have_current_path(new_event_reservation_review_path(event, reservation))
             end
             it 'links to event summary' do
               mail.click_on 'Zu den Flohmarktergebnissen'
-              expect(current_path).to eq event_path(event)
+              expect(page).to have_current_path(event_path(event))
             end
           end
         end

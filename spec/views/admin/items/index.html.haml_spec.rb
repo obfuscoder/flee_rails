@@ -7,6 +7,7 @@ RSpec.describe 'admin/items/index' do
   let(:reservation) { create :reservation, event: event }
   let(:item) { create :item, reservation: reservation }
   let(:item_with_code) { create :item_with_code, reservation: reservation }
+
   before do
     assign :reservation, reservation
     assign :items, [item, item_with_code]
@@ -20,8 +21,9 @@ RSpec.describe 'admin/items/index' do
   end
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_link 'Löschen', href: admin_reservation_item_path(reservation, item) }
     it { is_expected.not_to have_link 'Etikett freigeben', href: code_admin_reservation_item_path(reservation, item) }
@@ -41,6 +43,7 @@ RSpec.describe 'admin/items/index' do
 
     context 'when donation is enabled for event' do
       let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+
       it { is_expected.to have_text 'Spende wenn nicht verkauft' }
     end
   end

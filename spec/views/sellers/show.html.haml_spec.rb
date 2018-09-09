@@ -13,12 +13,12 @@ RSpec.describe 'sellers/show' do
   let(:event_with_support) {}
   let!(:events_with_support) { assign :events_with_support, [event_with_support].compact }
 
-  it_behaves_like 'a standard view'
-
   before do
     preparations
     render
   end
+
+  it_behaves_like 'a standard view'
 
   it 'shows seller information' do
     expect(rendered).to have_content seller.first_name
@@ -36,6 +36,7 @@ RSpec.describe 'sellers/show' do
 
   context 'with event' do
     let(:event) { create :event_with_ongoing_reservation }
+
     it 'links to reservation' do
       expect(rendered).to have_link href: event_reservations_path(event)
     end
@@ -45,6 +46,7 @@ RSpec.describe 'sellers/show' do
 
     context 'when seller is suspended' do
       let(:preparations) { create :suspension, event: event, seller: seller }
+
       it 'shows number of reservations left and max sellers' do
         expect(rendered).to have_content "#{event.reservations_left} von #{event.max_reservations} Plätzen frei"
       end
@@ -56,6 +58,7 @@ RSpec.describe 'sellers/show' do
 
     context 'when event is full' do
       let(:event) { create :full_event }
+
       it 'does not link to reservation' do
         expect(rendered).not_to have_link href: event_reservations_path(event)
       end
@@ -66,14 +69,17 @@ RSpec.describe 'sellers/show' do
 
         context 'when seller is suspended for that event' do
           let(:preparations) { create :suspension, event: event, seller: seller }
+
           it 'does not link to notification' do
             expect(rendered).not_to have_link href: event_notification_path(event)
           end
         end
       end
+
       context 'when seller is notified already' do
         let(:notification) { build :notification, seller: seller }
         let(:event) { create :full_event, notifications: [notification] }
+
         it 'does not link to notification' do
           expect(rendered).not_to have_link href: event_notification_path(event)
         end
@@ -126,6 +132,7 @@ RSpec.describe 'sellers/show' do
           expect(rendered).to match(/#{l(reservation.event.reservation_end, format: :long)}/)
         end
       end
+
       context 'with event kind direct' do
         let(:reservation) { create :ongoing_reservation_for_direct_event }
 
@@ -137,6 +144,7 @@ RSpec.describe 'sellers/show' do
 
     context 'with event date passed' do
       let(:preparations) { Timecop.travel reservation.event.shopping_periods.first.max + 1.hour }
+
       after { Timecop.return }
 
       it 'does not show reservation end date' do
@@ -151,6 +159,7 @@ RSpec.describe 'sellers/show' do
 
       context 'with review' do
         let(:reservation) { create(:reservation).tap(&:build_review) }
+
         it 'does not link to new event review page' do
           expect(rendered).not_to have_link href: new_event_reservation_review_path(reservation.event, reservation)
         end
@@ -163,6 +172,7 @@ RSpec.describe 'sellers/show' do
 
     context 'with reservation phase passed and event upcoming' do
       let(:preparations) { Timecop.travel reservation.event.reservation_end + 1.hour }
+
       after { Timecop.return }
 
       it 'does not show reservation end date' do
@@ -180,8 +190,10 @@ RSpec.describe 'sellers/show' do
   end
 
   context 'with event in need of support' do
-    let(:event_with_support) { create :event_with_support }
     subject(:output) { rendered }
+
+    let(:event_with_support) { create :event_with_support }
+
     it { is_expected.to have_link href: event_support_path(event_with_support) }
   end
 end

@@ -25,7 +25,7 @@ RSpec.describe SellersController do
       before { call_post }
 
       it 'increases the number of seller instances in the database' do
-        expect { call_post }.to change { Seller.count }.by 1
+        expect { call_post }.to change(Seller, :count).by 1
       end
 
       it 'assigns the new instance to @seller' do
@@ -50,20 +50,19 @@ RSpec.describe SellersController do
   describe 'POST create' do
     context 'with valid params' do
       it 'sends activation email with correct parameters' do
-        mail = double :mail
-        expect(SellerMailer).to receive :registration do |seller|
-          expect(seller).to be_a Seller
-          mail
-        end
-        expect(mail).to receive(:deliver_now).with no_args
+        mail = double :mail, deliver_now: nil
+        allow(SellerMailer).to receive(:registration).and_return mail
         post :create, seller: attributes_for(:seller)
+        expect(SellerMailer).to have_received(:registration) { |seller| expect(seller).to be_a Seller }
+        expect(mail).to have_received(:deliver_now).with no_args
       end
     end
 
     context 'with invalid params' do
       it 'does not send activation email' do
-        expect(SellerMailer).not_to receive :registration
+        allow(SellerMailer).to receive :registration
         post :create, seller: { name: nil }
+        expect(SellerMailer).not_to have_received :registration
       end
     end
   end
@@ -83,6 +82,7 @@ RSpec.describe SellersController do
 
   describe 'POST resend_activation' do
     let(:post_it) { post :resend_activation, seller: { email: email } }
+
     context 'with known email' do
       let(:seller) { create :seller }
       let(:email) { seller.email }
@@ -98,10 +98,11 @@ RSpec.describe SellersController do
       end
 
       it 'sends registration email' do
-        mail = double :mail
-        expect(SellerMailer).to receive(:registration).with(seller).and_return mail
-        expect(mail).to receive(:deliver_now).with no_args
+        mail = double :mail, deliver_now: nil
+        allow(SellerMailer).to receive(:registration).and_return mail
         post_it
+        expect(SellerMailer).to have_received(:registration).with(seller)
+        expect(mail).to have_received(:deliver_now).with no_args
       end
     end
 
@@ -121,8 +122,9 @@ RSpec.describe SellersController do
         expect(assigns(:seller).errors.messages).not_to be_empty
       end
       it 'does not send email' do
-        expect(SellerMailer).not_to receive :registration
+        allow(SellerMailer).to receive :registration
         post_it
+        expect(SellerMailer).not_to have_received :registration
       end
     end
 
@@ -144,8 +146,9 @@ RSpec.describe SellersController do
         expect(assigns(:seller).errors.messages).not_to be_empty
       end
       it 'does not send email' do
-        expect(SellerMailer).not_to receive :registration
+        allow(SellerMailer).to receive :registration
         post_it
+        expect(SellerMailer).not_to have_received :registration
       end
     end
 
@@ -163,57 +166,64 @@ RSpec.describe SellersController do
       end
 
       it 'does not send email' do
-        expect(SellerMailer).not_to receive :registration
+        allow(SellerMailer).to receive :registration
         post_it
+        expect(SellerMailer).not_to have_received :registration
       end
     end
   end
 
   describe 'GET login' do
-    let(:seller) { create :seller }
+    subject(:action) { get :login, token: token }
 
-    subject { get :login, token: token }
+    let(:seller) { create :seller }
 
     context 'with valid token' do
       let(:token) { seller.token }
+
       it { is_expected.to redirect_to seller_path }
       it 'resets session' do
         session[:foo] = :bar
-        expect { subject }.to change { session[:foo] }.to nil
+        expect { action }.to change { session[:foo] }.to nil
       end
 
       it 'stores seller id in session' do
-        expect { subject }.to change { session[:seller_id] }.to seller.id
+        expect { action }.to change { session[:seller_id] }.to seller.id
       end
 
       context 'when seller was not active' do
         let(:seller) { create :seller, active: false }
 
         it 'activates seller' do
-          expect { subject }.to change { seller.reload.active }.to true
+          expect { action }.to change { seller.reload.active }.to true
         end
 
         context 'with current event' do
           let!(:event) { create(:event) }
+
           it 'does not send invitation mail to seller' do
-            expect(SellerMailer).not_to receive :invitation
-            subject
+            allow(SellerMailer).to receive :invitation
+            action
+            expect(SellerMailer).not_to have_received :invitation
           end
 
           context 'when invitation has been sent already' do
             let!(:event) do
               create(:event).tap { |event| event.update messages: [create(:invitation_message, event: event)] }
             end
+
             it 'sends invitation mail to seller' do
-              expect(SellerMailer).to receive(:invitation) { double deliver_now: true }
-              subject
+              allow(SellerMailer).to receive(:invitation) { double deliver_now: true }
+              action
+              expect(SellerMailer).to have_received(:invitation) { double deliver_now: true }
             end
 
             context 'when event is not reservable by seller' do
               it 'does not send invitation mail to seller' do
-                expect(SellerMailer).not_to receive :invitation
+                allow(SellerMailer).to receive(:invitation)
                 allow_any_instance_of(Event).to receive(:reservable_by?).with(seller).and_return(false)
-                subject
+                action
+                expect(SellerMailer).not_to have_received :invitation
               end
             end
           end
@@ -223,13 +233,15 @@ RSpec.describe SellersController do
 
     context 'with unknown token' do
       let(:token) { 'unknown_token' }
+
       it { is_expected.to have_http_status :unauthorized }
     end
   end
 
   describe 'GET show' do
-    let(:seller) { create :seller }
     subject(:action) { get :show }
+
+    let(:seller) { create :seller }
 
     context 'without valid seller session' do
       it { is_expected.to have_http_status :unauthorized }
@@ -237,26 +249,35 @@ RSpec.describe SellersController do
 
     context 'with valid seller session' do
       before { session[:seller_id] = seller.id }
+
       it { is_expected.to render_template :show }
       it { is_expected.to have_http_status :ok }
 
       describe '@seller' do
-        before { action }
         subject { assigns :seller }
+
+        before { action }
+
         it { is_expected.to eq seller }
       end
 
       describe '@events' do
-        let!(:event) { create :event_with_ongoing_reservation }
-        before { action }
         subject { assigns :events }
+
+        let!(:event) { create :event_with_ongoing_reservation }
+
+        before { action }
+
         it { is_expected.to include event }
       end
 
       describe '@events_with_support' do
-        let!(:event) { create :event_with_support }
-        before { action }
         subject { assigns :events_with_support }
+
+        let!(:event) { create :event_with_support }
+
+        before { action }
+
         it { is_expected.to include event }
       end
     end

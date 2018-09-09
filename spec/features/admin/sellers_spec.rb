@@ -3,15 +3,16 @@
 require 'rails_helper'
 require 'features/admin/login'
 
-RSpec.feature 'admin sellers' do
-  include_context 'login'
+RSpec.describe 'admin sellers' do
+  include_context 'when logging in'
   let!(:sellers) { create_list :seller, 3 }
   let(:seller) { sellers.first }
-  background do
+
+  before do
     click_on 'Verkäufer'
   end
 
-  scenario 'shows list of sellers with buttons for show, edit and delete' do
+  it 'shows list of sellers with buttons for show, edit and delete' do
     sellers.each do |seller|
       expect(page).to have_content seller.name
       expect(page).to have_content seller.email
@@ -22,7 +23,7 @@ RSpec.feature 'admin sellers' do
     end
   end
 
-  scenario 'new seller' do
+  it 'new seller' do
     click_on 'Neuer Verkäufer'
     fill_in 'Vorname', with: 'Max'
     fill_in 'Nachname', with: 'Mustermann'
@@ -35,17 +36,17 @@ RSpec.feature 'admin sellers' do
     expect(page).to have_content 'Der Verkäufer wurde erfolgreich hinzugefügt.'
   end
 
-  scenario 'delete seller' do
+  it 'delete seller' do
     click_link 'Löschen', href: admin_seller_path(seller)
     expect(page).to have_content 'Verkäufer gelöscht.'
   end
 
-  feature 'edit seller' do
-    background do
+  describe 'edit seller' do
+    before do
       click_link 'Bearbeiten', href: edit_admin_seller_path(seller)
     end
 
-    scenario 'changing seller information' do
+    it 'changing seller information' do
       new_first_name = 'Maria'
       new_last_name = 'Musterfrau'
       new_name = "#{new_first_name} #{new_last_name}"
@@ -57,15 +58,16 @@ RSpec.feature 'admin sellers' do
     end
   end
 
-  feature 'show seller' do
+  describe 'show seller' do
     let!(:reservation) { create :reservation, seller: seller }
     let!(:items) { create_list :item, 5, reservation: reservation }
     let!(:other_items) { create_list :item, 2 }
-    background do
+
+    before do
       click_link 'Anzeigen', href: admin_seller_path(seller)
     end
 
-    scenario 'shows details about the seller' do
+    it 'shows details about the seller' do
       expect(page).to have_content seller.name
       expect(page).to have_content seller.street
       expect(page).to have_content seller.city
@@ -75,15 +77,16 @@ RSpec.feature 'admin sellers' do
       expect(page).to have_content items.count
     end
 
-    feature 'reservation items' do
+    describe 'reservation items' do
       let(:item) { items.first }
       let(:preparation) {}
-      background do
+
+      before do
         preparation
         click_link 'Artikel', href: admin_reservation_items_path(reservation)
       end
 
-      scenario 'lists all items' do
+      it 'lists all items' do
         expect(page).to have_link 'Löschen', count: items.count
         items.each do |item|
           expect(page).to have_content item.description
@@ -101,21 +104,21 @@ RSpec.feature 'admin sellers' do
         end
       end
 
-      scenario 'delete item' do
+      it 'delete item' do
         click_link 'Löschen', href: admin_reservation_item_path(reservation, item)
         expect(page).not_to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
         expect(page).to have_content 'Artikel gelöscht.'
       end
     end
 
-    scenario 'links to seller edit' do
+    it 'links to seller edit' do
       click_on 'Bearbeiten'
-      expect(current_path).to eq edit_admin_seller_path(seller)
+      expect(page).to have_current_path(edit_admin_seller_path(seller))
     end
 
-    scenario 'links to items for that seller and reservation' do
+    it 'links to items for that seller and reservation' do
       click_on 'Artikel auflisten'
-      expect(current_path).to eq admin_reservation_items_path(reservation)
+      expect(page).to have_current_path(admin_reservation_items_path(reservation))
     end
   end
 end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'features/admin/login'
 
-RSpec.feature 'admin home page' do
+RSpec.describe 'admin home page' do
   def create_sellers
     create :seller, active: false, created_at: 1.day.ago
     create :seller, created_at: 7.days.ago
@@ -17,40 +17,40 @@ RSpec.feature 'admin home page' do
     create_list :review, 2
   end
 
-  background do
+  before do
     create_sellers
     create_reviews
   end
 
-  include_context 'login'
+  include_context 'when logging in'
 
-  scenario 'shows summary of sellers' do
+  it 'shows summary of sellers' do
     expect(page).to have_content 'gesamt: 7'
     expect(page).to have_content 'aktiviert: 6'
   end
 
-  scenario 'shows summary of items' do
+  it 'shows summary of items' do
     expect(page).to have_content 'gesamt: 2'
     expect(page).to have_content 'Etiketten: 1'
   end
 
-  scenario 'shows summary of reviews' do
+  it 'shows summary of reviews' do
     expect(page).to have_content 'Bewertungen gesamt: 2'
   end
 
-  scenario 'shows graph of items per category' do
+  it 'shows graph of items per category' do
     expect(page).to have_content 'Artikel pro Kategorie'
   end
 
-  scenario 'shows graph of items created per day' do
+  it 'shows graph of items created per day' do
     expect(page).to have_content 'Neue Artikel pro Tag'
   end
 
-  scenario 'shows graph of sellers created per day' do
+  it 'shows graph of sellers created per day' do
     expect(page).to have_content 'Registrierungen pro Tag'
   end
 
-  scenario 'shows admin menu' do
+  it 'shows admin menu' do
     expect(page).to have_link 'Adminbereich'
     expect(page).to have_link 'Termine'
     expect(page).to have_link 'Kategorien'

@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Item do
-  subject { build(:item) }
+  subject(:item) { build(:item) }
+
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:reservation) }
   it { is_expected.to validate_presence_of(:category) }
@@ -19,25 +20,27 @@ RSpec.describe Item do
   it { is_expected.to have_many(:transaction_items).dependent(:restrict_with_error) }
 
   describe '#to_s' do
-    its(:to_s) { is_expected.to eq(subject.description) }
+    its(:to_s) { is_expected.to eq(item.description) }
 
     context 'without description' do
-      subject { Item.new }
+      subject(:instance) { described_class.new }
 
       it 'calls superclass' do
-        expect(subject.to_s).to eq(subject.class.superclass.instance_method(:to_s).bind(subject).call)
+        expect(instance.to_s).to eq(instance.class.superclass.instance_method(:to_s).bind(instance).call)
       end
     end
   end
 
   describe '#create_code' do
+    subject(:item) { build :item, reservation: reservation }
+
     let(:options) { {} }
     let(:preparations) {}
     let(:reservation) { create :reservation }
-    subject { build :item, reservation: reservation }
+
     before do
       preparations
-      subject.create_code options
+      item.create_code options
     end
 
     its(:code) { is_expected.to eq '010010019' }
@@ -45,18 +48,20 @@ RSpec.describe Item do
 
     context 'when label for other item was created already' do
       let(:preparations) { create :item_with_code, reservation: reservation }
+
       its(:number) { is_expected.to eq 2 }
     end
 
     context 'with prefix option' do
       let(:options) { { prefix: 'ABC' } }
+
       its(:code) { is_expected.to eq 'ABC010010019' }
     end
 
     context 'when code was deleted before' do
       let(:preparations) do
-        subject.create_code
-        subject.delete_code
+        item.create_code
+        item.delete_code
       end
 
       its(:number) { is_expected.to eq 2 }
@@ -77,8 +82,9 @@ RSpec.describe Item do
     context 'when limit has been reached' do
       let!(:existing_item) { create :item, category: category, reservation: reservation }
 
-      context 'on parent category' do
+      context 'with the limit being reached for the parent category' do
         let(:child_category) { create :category, parent: category }
+
         it 'does not allow to create additional items for the category' do
           expect do
             create :item, category: child_category, reservation: reservation
@@ -101,6 +107,7 @@ RSpec.describe Item do
 
       context 'when reservation cab ignore category limits' do
         let(:reservation) { create :reservation, category_limits_ignored: true }
+
         it 'allows to create additional items for the category' do
           expect { create :item, category: category, reservation: reservation }.not_to raise_error
         end

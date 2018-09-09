@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Event results' do
+RSpec.describe 'Event results' do
   let!(:seller) { create :seller }
   let!(:event) { create :event }
 
@@ -24,6 +24,7 @@ RSpec.feature 'Event results' do
     %i[visit_results_link login_and_open_event_results_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
+
         it 'shows seller home page' do
           expect(page).to have_content 'Verkäuferbereich'
         end
@@ -44,8 +45,9 @@ RSpec.feature 'Event results' do
     %i[visit_results_link login_and_navigate_to_event_results login_and_open_event_results_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
+
         it 'shows results page' do
-          expect(current_path).to eq event_path(event)
+          expect(page).to have_current_path(event_path(event))
         end
       end
     end
@@ -54,6 +56,7 @@ RSpec.feature 'Event results' do
   context 'without reservation' do
     context 'when event has passed' do
       before { Timecop.travel event.shopping_periods.first.max + 1.hour }
+
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'
@@ -61,6 +64,7 @@ RSpec.feature 'Event results' do
 
     context 'when event is ongoing' do
       before { Timecop.travel event.shopping_periods.first.max - 1.hour }
+
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'
@@ -72,13 +76,15 @@ RSpec.feature 'Event results' do
       event.reservation_start = 1.hour.ago
       create :reservation, event: event, seller: seller
     end
+
     context 'when event has passed' do
       before { Timecop.travel event.shopping_periods.first.max + 1.hour }
+
       after { Timecop.return }
 
       it_behaves_like 'an allowed action'
 
-      scenario 'show event results' do
+      it 'show event results' do
         login_and_navigate_to_event_results
         expect(page).to have_content 'Ergebnisse'
       end
@@ -86,6 +92,7 @@ RSpec.feature 'Event results' do
 
     context 'when event is ongoing' do
       before { Timecop.travel event.shopping_periods.first.max - 1.hour }
+
       after { Timecop.return }
 
       it_behaves_like 'a forbidden action'

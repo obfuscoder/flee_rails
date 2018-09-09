@@ -8,14 +8,17 @@ describe ReservationsController do
     let(:seller) { build :seller }
     let(:action) { get :create, event_id: event.id }
     let(:reservation) { create :reservation }
-    let(:creator) { double }
+    let(:creator) { double call: reservation }
     let(:options) { { host: 'demo.test.host', from: from } }
 
     before do
-      expect(subject).to receive(:current_seller).and_return seller
-      expect(CreateReservation).to receive(:new).and_return creator
-      expect(creator).to receive(:call).with(instance_of(Reservation)).and_return reservation
+      allow(controller).to receive(:current_seller).and_return seller
+      allow(CreateReservation).to receive(:new).and_return creator
       action
+    end
+
+    it 'calls creator with reservation' do
+      expect(creator).to have_received(:call).with(instance_of(Reservation))
     end
 
     it { is_expected.to redirect_to seller_path }
@@ -25,6 +28,7 @@ describe ReservationsController do
 
     context 'when reservation was not persisted' do
       let(:reservation) { build :reservation }
+
       it { is_expected.to redirect_to seller_path }
       it 'alerts about the failed reservation' do
         expect(flash[:alert]).to be_present

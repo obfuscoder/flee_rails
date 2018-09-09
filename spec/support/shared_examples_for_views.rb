@@ -10,7 +10,7 @@ RSpec.shared_examples 'a standard partial' do
   it 'does not contain missing translations' do
     render
 
-    @view.view_flow.content.each_value { |value| expect(value).not_to have_content 'translation missing' }
+    view.view_flow.content.each_value { |value| expect(value).not_to have_content 'translation missing' }
     expect(rendered).not_to have_content 'translation missing'
   end
 end

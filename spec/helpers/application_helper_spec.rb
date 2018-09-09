@@ -19,6 +19,7 @@ RSpec.describe ApplicationHelper do
     }.each do |host, expected_key|
       context "when request host is #{host}" do
         before { @request.host = host }
+
         its(:key) { is_expected.to eq expected_key }
       end
     end

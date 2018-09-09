@@ -14,7 +14,6 @@
 gesamt: #{current_client.events.joins(reservations: :review).count}
 %h3 Statistiken
 %h4 Artikel pro Kategorie
-= javascript_include_tag "//www.google.com/jsapi", "chartkick"
 = pie_chart current_client.categories.item_groups
 %h4 Neue Artikel pro Tag
 = column_chart @daily_items

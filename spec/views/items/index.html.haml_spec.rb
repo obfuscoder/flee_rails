@@ -7,6 +7,7 @@ RSpec.describe 'items/index' do
   let(:seller) { create :seller }
   let(:reservation) { create :reservation, seller: seller, event: event }
   let(:items) { create_list(:item, 50, reservation: reservation) }
+
   before do
     assign :items, items.paginate(page: 2)
     assign :seller, seller
@@ -15,9 +16,9 @@ RSpec.describe 'items/index' do
     allow_any_instance_of(ApplicationHelper).to receive(:sort_link_to) { |_, cls, attribute| "#{cls}.#{attribute}" }
   end
 
-  it_behaves_like 'a standard view'
-
   before { render }
+
+  it_behaves_like 'a standard view'
 
   it 'shows prices in €' do
     expect(rendered).to have_content '1,90 €'
@@ -34,6 +35,7 @@ RSpec.describe 'items/index' do
 
   context 'when item with label exists' do
     let(:items) { create_list(:item_with_code, 50, reservation: reservation) }
+
     it 'shows link to delete item code' do
       expect(rendered).to have_link 'Etikett freigeben'
     end
@@ -41,6 +43,7 @@ RSpec.describe 'items/index' do
 
   context 'when donation is enabled for the event' do
     let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+
     it 'shows donation column' do
       expect(rendered).to have_text 'Item.donation'
     end

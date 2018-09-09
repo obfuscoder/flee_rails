@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StockMessageTemplate do
-  subject(:stock_message_template) { StockMessageTemplate.first }
+  subject(:stock_message_template) { described_class.first }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of :category }

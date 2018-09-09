@@ -44,6 +44,7 @@ group :test, :development do
   gem 'faker'
   gem 'pry-rails'
   gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'sqlite3'
 end
 

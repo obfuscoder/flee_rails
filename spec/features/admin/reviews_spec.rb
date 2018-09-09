@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'features/admin/login'
 
-RSpec.feature 'admin event reviews' do
-  include_context 'login'
+RSpec.describe 'admin event reviews' do
+  include_context 'when logging in'
   let!(:event) { create :event_with_ongoing_reservation }
   let!(:reviews) do
     %i[good_review bad_review incomplete_review].map do |review|
@@ -12,13 +12,14 @@ RSpec.feature 'admin event reviews' do
       create review, reservation: reservation
     end
   end
-  background do
+
+  before do
     click_on 'Termine'
     click_on 'Anzeigen'
     click_on 'Bewertungen'
   end
 
-  scenario 'shows review summary' do
+  it 'shows review summary' do
     expect(page).to have_content 'Bewertungen'
     expect(page).to have_content 'Anzahl: 3'
     reviews.each do |review|

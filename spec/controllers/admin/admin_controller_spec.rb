@@ -6,7 +6,7 @@ module Admin
   RSpec.describe AdminController do
     include Sorcery::TestHelpers::Rails::Controller
     let(:user) { create :user }
-    before { login_user user }
+    let(:preparations) {}
 
     controller do
       def test
@@ -15,19 +15,17 @@ module Admin
     end
 
     before do
+      login_user user
       @routes.draw do
         get '/test', controller: 'admin/admin', action: :test
       end
-    end
-
-    before do
       preparations
       get :test
     end
-    let(:preparations) {}
 
     describe '@menu' do
       subject(:menu) { assigns :menu }
+
       it 'contains link to admin home page' do
         expect(menu.find { |e| e[:link] == admin_path }).not_to be_empty
       end

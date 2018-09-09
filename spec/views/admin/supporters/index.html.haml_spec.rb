@@ -6,6 +6,7 @@ RSpec.describe 'admin/supporters/index' do
   let(:event) { create :event }
   let(:support_type) { create :support_type, event: event }
   let(:supporter) { create :supporter, support_type: support_type }
+
   before do
     assign :event, event
     assign :support_type, support_type
@@ -15,8 +16,9 @@ RSpec.describe 'admin/supporters/index' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject(:output) { rendered }
+
+    before { render }
 
     it { is_expected.to have_content supporter.seller.name }
     it { is_expected.to have_content supporter.comments }

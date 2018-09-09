@@ -3,18 +3,18 @@
 require 'rails_helper'
 require 'features/admin/login'
 
-RSpec.feature 'admin login' do
+RSpec.describe 'admin login' do
   context 'when using correct credentials' do
-    include_context 'login'
+    include_context 'when logging in'
 
     it 'shows admin homepage' do
-      expect(current_path).to eq admin_path
+      expect(page).to have_current_path(admin_path)
     end
 
     it 'can logout again' do
       click_on 'Abmelden'
       expect(page).to have_content 'Erfolgreich abgemeldet'
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path(root_path)
       expect(page).not_to have_content 'Abmelden'
     end
 
@@ -22,6 +22,7 @@ RSpec.feature 'admin login' do
       let(:old_password) { 'password' }
       let(:new_password) { 'N3wP4ssword' }
       let(:password_repeat) { new_password }
+
       before do
         click_on 'Passwort ändern'
         fill_in 'user_old_password', with: old_password
@@ -36,6 +37,7 @@ RSpec.feature 'admin login' do
 
       context 'when not repeating the password' do
         let(:password_repeat) { 'differentpassword' }
+
         it 'can not change password' do
           expect(page).to have_content 'stimmt nicht überein'
         end
@@ -43,6 +45,7 @@ RSpec.feature 'admin login' do
 
       context 'when not providing old password' do
         let(:old_password) { '' }
+
         it 'can not change password' do
           expect(page).to have_content 'muss ausgefüllt werden'
         end
@@ -50,6 +53,7 @@ RSpec.feature 'admin login' do
 
       context 'when providing incorrect old password' do
         let(:old_password) { 'wrongpassword' }
+
         it 'can not change password' do
           expect(page).to have_content 'nicht korrekt'
         end
@@ -57,6 +61,7 @@ RSpec.feature 'admin login' do
 
       context 'when using old password as new password' do
         let(:new_password) { old_password }
+
         it 'can not change password' do
           expect(page).to have_content 'muss sich vom aktuellen Passwort unterscheiden'
         end
@@ -64,6 +69,7 @@ RSpec.feature 'admin login' do
 
       context 'when using weak password' do
         let(:new_password) { 'weakpassword' }
+
         it 'can not change password' do
           expect(page).to have_content 'muss mindestens 5 Zeichen lang sein und mindestens'
         end
@@ -72,12 +78,12 @@ RSpec.feature 'admin login' do
   end
 
   context 'when using incorrect credentials' do
-    include_context 'login' do
+    include_context 'when logging in' do
       let(:password) { 'wrongpassword' }
     end
 
     it 'stays on login page' do
-      expect(current_path).to eq admin_login_path
+      expect(page).to have_current_path(admin_login_path)
     end
 
     it 'shows login error' do

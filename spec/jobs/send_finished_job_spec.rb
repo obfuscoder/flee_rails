@@ -4,11 +4,13 @@ require 'rails_helper'
 
 RSpec.describe SendFinishedJob do
   subject(:action) { described_class.perform_now reservation }
+
   let(:event) { double :event, messages: messages }
   let(:reservation) { double :reservation, event: event }
   let(:mail) { double deliver_now: nil }
   let(:messages) { double :messages }
   let(:message) { double :message, sent: nil }
+
   before do
     allow(messages).to receive(:find_by!).with(category: :finished).and_return message
     allow(SellerMailer).to receive(:finished).and_return mail

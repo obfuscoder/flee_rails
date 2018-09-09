@@ -4,11 +4,13 @@ require 'rails_helper'
 
 RSpec.describe CreateLabelDocument do
   subject(:action) { described_class.new(client, items).call }
+
   let(:reservation) { create :reservation }
   let(:client) { Client.first }
   let(:items) { create_list :item, 5, reservation: reservation }
   let(:preparations) {}
   let(:document) { double render: nil }
+
   before do
     preparations
     allow(LabelDocument).to receive(:new).and_return document

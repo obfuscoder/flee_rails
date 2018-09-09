@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRailsVersion: 4.2
   DisplayCopNames: true
@@ -49,4 +51,34 @@ Style/FormatStringToken:
 
 # Time.zone is nil when executing rake tasks in production environment
 Rails/TimeZone:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 25
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+  - 'spec/views/**/*'
+  - 'spec/features/**/*'
+  - 'spec/requests/**/*'
+
+RSpec/ScatteredSetup:
+  Enabled: false
+
+RSpec/ImplicitSubject:
   Enabled: false

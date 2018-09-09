@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ImportTransactionJob do
   subject(:action) { described_class.perform_now event, transaction }
+
   let(:event) { create :event_with_ongoing_reservation }
   let(:reservation) { create :reservation, event: event }
   let(:category) { create :category }
@@ -18,6 +19,7 @@ RSpec.describe ImportTransactionJob do
       'date' => '2015-08-27T10:57:29.094+02'
     }
   end
+
   before do
     preparations
     action
@@ -38,6 +40,7 @@ RSpec.describe ImportTransactionJob do
 
   describe 'stored transaction' do
     subject(:stored_transaction) { event.transactions.first }
+
     it { is_expected.to be_purchase }
     its(:number) { is_expected.to eq transaction['id'] }
     its('items.count') { is_expected.to eq 5 }
@@ -70,6 +73,7 @@ RSpec.describe ImportTransactionJob do
 
     describe 'stored transaction' do
       subject(:stored_transaction) { event.transactions.first }
+
       it { is_expected.to be_refund }
       its(:number) { is_expected.to eq transaction['id'] }
       its('items.count') { is_expected.to eq 2 }

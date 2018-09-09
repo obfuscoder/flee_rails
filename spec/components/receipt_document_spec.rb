@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ReceiptDocument do
+  subject(:document) { described_class.new receipt }
+
   let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
   let(:seller) { create :seller }
   let(:reservation) { create :reservation, event: event, seller: seller }
@@ -10,9 +12,10 @@ RSpec.describe ReceiptDocument do
   let!(:returned_items) { create_list :item_with_code, 12, reservation: reservation }
   let!(:donated_items) { create_list :item_with_code, 5, reservation: reservation, donation: true }
   let(:receipt) { Receipt.new reservation.reload }
-  subject(:document) { ReceiptDocument.new receipt }
+
   describe '#render' do
     let(:output) { PDF::Inspector::Text.analyze(document.render).strings }
+
     it 'contains seller address' do
       expect(output).to include reservation.seller.name
       expect(output).to include reservation.seller.street
@@ -36,6 +39,7 @@ RSpec.describe ReceiptDocument do
         create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true,
                                                 reservation_fees_payed_in_advance: true
       end
+
       it 'does not include reservation fee' do
         expect(output).not_to include 'Reservierungsgebühr'
         expect(output).not_to include '-2,00 €'
@@ -45,6 +49,7 @@ RSpec.describe ReceiptDocument do
 
     context 'with chars outside of ascii space' do
       let(:seller) { create :seller, street: '丙' }
+
       it 'contains the chars' do
         expect(output).to include seller.street
       end

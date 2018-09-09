@@ -2,12 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Viewing and editing items' do
+RSpec.describe 'Viewing and editing items' do
   let(:reservation) { create :reservation }
   let(:seller) { reservation.seller }
   let!(:category) { create :category }
   let(:preparations) {}
-  background do
+
+  before do
     preparations
     visit login_seller_path(seller.token)
   end
@@ -15,19 +16,19 @@ RSpec.feature 'Viewing and editing items' do
   context 'when 1 item has been created' do
     let(:preparations) { create :item, reservation: reservation }
 
-    scenario 'shows number of items for reservation on seller page' do
+    it 'shows number of items for reservation on seller page' do
       expect(page).to have_content 'Sie haben bisher 1 Artikel angelegt.'
     end
   end
 
   context 'when visiting item overview page for reservation' do
-    background { click_on 'Artikel bearbeiten' }
+    before { click_on 'Artikel bearbeiten' }
 
-    scenario 'shows number of items' do
+    it 'shows number of items' do
       expect(page).to have_content 'Sie haben aktuell 0 Artikel angelegt.'
     end
 
-    scenario 'navigate back to seller home page' do
+    it 'navigate back to seller home page' do
       click_on 'Zur Hauptseite des gesicherten Bereichs'
       expect(page).to have_content 'Verkäuferbereich'
     end
@@ -52,6 +53,7 @@ RSpec.feature 'Viewing and editing items' do
 
       context 'when event price precision is 50 cent' do
         before { reservation.event.update price_precision: 0.5 }
+
         it 'shows error for price precision' do
           create_item
           expect(page).to have_content 'muss ein Vielfaches von 0,50 € sein'
@@ -60,6 +62,7 @@ RSpec.feature 'Viewing and editing items' do
 
       context 'when donation option is enabled' do
         before { reservation.event.update donation_of_unsold_items_enabled: true }
+
         it 'shows unchecked donation option' do
           create_item do
             expect(find_field('Spende wenn nicht verkauft')).not_to be_checked
@@ -69,6 +72,7 @@ RSpec.feature 'Viewing and editing items' do
 
         context 'when donation default option is enabled' do
           before { Client.first.update donation_of_unsold_items_default: true }
+
           it 'shows checked donation option' do
             create_item do
               expect(find_field('Spende wenn nicht verkauft')).to be_checked
@@ -86,6 +90,7 @@ RSpec.feature 'Viewing and editing items' do
 
         context 'when donation is enforced' do
           let!(:category) { create :category_with_enforced_donation }
+
           it 'does not allow to disable donation option' do
             create_item do
               uncheck 'Spende wenn nicht verkauft'
@@ -97,6 +102,7 @@ RSpec.feature 'Viewing and editing items' do
 
       context 'when donation option is disabled' do
         before { reservation.event.update donation_of_unsold_items_enabled: false }
+
         it 'does not show option to donate' do
           create_item do
             expect(page).not_to have_field 'Spende wenn nicht verkauft'
@@ -110,7 +116,7 @@ RSpec.feature 'Viewing and editing items' do
       let(:item) { items.first }
       let(:preparations) { items }
 
-      scenario 'shows overview of all items' do
+      it 'shows overview of all items' do
         expect(page).to have_content item.description
         expect(page).to have_content item.category.name
         expect(page).to have_content '1,90 €'
@@ -135,8 +141,10 @@ RSpec.feature 'Viewing and editing items' do
 
         context 'when donation option is enabled' do
           before { reservation.event.update donation_of_unsold_items_enabled: true }
+
           context 'when donation is enforced' do
             let!(:category) { create :category_with_enforced_donation }
+
             it 'does not allow to disable donation option' do
               update_action do
                 select category.name, from: 'Kategorie'
@@ -148,7 +156,7 @@ RSpec.feature 'Viewing and editing items' do
         end
       end
 
-      scenario 'delete item' do
+      it 'delete item' do
         expect(page).to have_content 'Sie haben aktuell 5 Artikel angelegt.'
         click_link 'Löschen', href: event_reservation_item_path(reservation.event, reservation, item)
         expect(page).to have_content 'Artikel wurde gelöscht.'
@@ -157,7 +165,8 @@ RSpec.feature 'Viewing and editing items' do
 
       context 'when item limit has been reached' do
         let(:preparations) { items && reservation.event.update(max_items_per_reservation: items.count) }
-        scenario 'does not allow to create additional items' do
+
+        it 'does not allow to create additional items' do
           expect(page).not_to have_link 'Artikel hinzufügen'
           expect(page).to have_content 'Sie können keine weiteren Artikel anlegen.'
         end

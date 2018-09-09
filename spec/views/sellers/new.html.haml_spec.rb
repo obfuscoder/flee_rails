@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'sellers/new' do
-  before(:each) do
+  before do
     assign(:seller, build(:seller))
   end
 

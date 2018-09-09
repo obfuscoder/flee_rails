@@ -5,6 +5,6 @@ FactoryBot.define do
     event
     sequence(:name) { |n| "Support type #{n}" }
     description { Faker::Lorem.paragraphs.join "\n\n" }
-    capacity 5
+    capacity { 5 }
   end
 end

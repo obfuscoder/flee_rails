@@ -2,9 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Seller edit area' do
+RSpec.describe 'Seller edit area' do
   let(:seller) { create :seller }
-  background do
+
+  before do
     visit login_seller_path(seller.token)
   end
 
@@ -12,8 +13,8 @@ RSpec.feature 'Seller edit area' do
     click_on 'Stammdaten bearbeiten'
   end
 
-  feature 'editing user information' do
-    background { navigate_to_seller_edit_page }
+  describe 'editing user information' do
+    before { navigate_to_seller_edit_page }
 
     def fill_out_seller_edit_form
       fill_in 'Vorname', with: 'Maximilian'
@@ -24,7 +25,7 @@ RSpec.feature 'Seller edit area' do
       fill_in 'Telefonnummer', with: '04711/815815'
     end
 
-    scenario 'user edits master data and saves changes' do
+    it 'user edits master data and saves changes' do
       fill_out_seller_edit_form
       click_on 'Änderungen speichern'
       expect(page).to have_content(/Stammdaten aktualisiert./)
@@ -33,7 +34,7 @@ RSpec.feature 'Seller edit area' do
       expect(seller.reload.first_name).to eq 'Maximilian'
     end
 
-    scenario 'user edits master data and aborts change' do
+    it 'user edits master data and aborts change' do
       expect do
         fill_out_seller_edit_form
         click_on 'Zurück ohne Speichern der Änderungen'
@@ -41,13 +42,15 @@ RSpec.feature 'Seller edit area' do
     end
   end
 
-  feature 'email blocking' do
-    background do
+  describe 'email blocking' do
+    before do
       preparation
       navigate_to_seller_edit_page
     end
+
     let(:preparation) {}
-    scenario 'user blocks emails' do
+
+    it 'user blocks emails' do
       click_on 'Ich möchte keine eMails mehr erhalten'
       expect(page).to have_content(/Die Mailbenachrichtigungen wurden für Sie deaktiviert./)
       expect(seller.reload.mailing).to eq false
@@ -55,7 +58,8 @@ RSpec.feature 'Seller edit area' do
 
     context 'when mail is blocked' do
       let(:preparation) { seller.update(mailing: false) }
-      scenario 'user unblocks emails' do
+
+      it 'user unblocks emails' do
         click_on 'Ich möchte in Zukunft eMail-Benachrichtigungen erhalten'
         expect(page).to have_content(/Die Mailbenachrichtigungen wurden für Sie aktiviert./)
         expect(seller.reload.mailing).to eq true
@@ -63,9 +67,10 @@ RSpec.feature 'Seller edit area' do
     end
   end
 
-  feature 'seller deletion' do
-    background { navigate_to_seller_edit_page }
-    scenario 'user deletes account' do
+  describe 'seller deletion' do
+    before { navigate_to_seller_edit_page }
+
+    it 'user deletes account' do
       expect do
         click_on 'Ich möchte mich abmelden und meine Daten löschen'
       end.to change(Seller, :count).by(-1)

@@ -5,7 +5,7 @@ FactoryBot.define do
     category
     reservation
     sequence(:description) { |n| "Description #{n}" }
-    price 1.9
+    price { 1.9 }
 
     factory :item_with_code do
       after :build do |item, _evaluator|
@@ -13,7 +13,7 @@ FactoryBot.define do
       end
 
       factory :sold_item do
-        sold Time.now
+        sold { Time.now }
       end
     end
 

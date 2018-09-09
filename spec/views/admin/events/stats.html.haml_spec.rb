@@ -38,12 +38,16 @@ RSpec.describe 'admin/events/stats' do
              double(amount: 73, stock_item: double(description: 'stock item 2'))
            ]
   end
+
   before { assign :event, event }
+
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
+    subject(:output) { rendered }
+
     before { render }
-    subject { rendered }
+
     it { is_expected.to have_content event.item_count }
     it { is_expected.to have_content event.items_with_label_count }
     it { is_expected.to have_content event.sold_item_count }
@@ -55,8 +59,8 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '#items_per_category_table' }
     it 'lists all categories' do
       event.items_per_category.each do |category_name, item_count|
-        is_expected.to have_content category_name
-        is_expected.to have_content item_count
+        expect(output).to have_content category_name
+        expect(output).to have_content item_count
       end
     end
 
@@ -65,8 +69,8 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '#sold_items_per_category_table' }
     it 'lists all categories of sold items' do
       event.sold_items_per_category.each do |category_name, item_count|
-        is_expected.to have_content category_name
-        is_expected.to have_content item_count
+        expect(output).to have_content category_name
+        expect(output).to have_content item_count
       end
     end
 
@@ -75,8 +79,8 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '#sold_stock_items_table' }
     it 'lists all sold stock items' do
       event.sold_stock_items.each do |sold_stock_item|
-        is_expected.to have_content sold_stock_item.amount
-        is_expected.to have_content sold_stock_item.stock_item.description
+        expect(output).to have_content sold_stock_item.amount
+        expect(output).to have_content sold_stock_item.stock_item.description
       end
     end
 
@@ -85,8 +89,8 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '#sellers_per_city_table' }
     it 'lists all seller counts per city' do
       event.sellers_per_city.each do |city, seller_count|
-        is_expected.to have_content city
-        is_expected.to have_content seller_count
+        expect(output).to have_content city
+        expect(output).to have_content seller_count
       end
     end
 
@@ -97,11 +101,11 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_css '.collapse#notifications_collapser' }
 
     it 'lists all seller names for the notifications' do
-      event.notifications.each { |notification| is_expected.to have_content notification.seller.name }
+      event.notifications.each { |notification| expect(output).to have_content notification.seller.name }
     end
 
     it 'lists all seller cities for the notifications' do
-      event.notifications.each { |notification| is_expected.to have_content notification.seller.city }
+      event.notifications.each { |notification| expect(output).to have_content notification.seller.city }
     end
   end
 end

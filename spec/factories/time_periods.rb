@@ -5,15 +5,15 @@ FactoryBot.define do
     min { 1.week.from_now }
     max { min + 2.hours }
     factory :shopping_period do
-      kind :shopping
+      kind { :shopping }
     end
 
     factory :handover_period do
-      kind :handover
+      kind { :handover }
     end
 
     factory :pickup_period do
-      kind :pickup
+      kind { :pickup }
     end
   end
 end

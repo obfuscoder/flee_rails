@@ -11,6 +11,6 @@ RSpec.describe Size do
   it { is_expected.to validate_uniqueness_of(:value).scoped_to(:category_id) }
 
   describe '#to_s' do
-    its(:to_s) { is_expected.to eq subject.value }
+    its(:to_s) { is_expected.to eq size.value }
   end
 end

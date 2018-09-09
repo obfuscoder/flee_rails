@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.shared_examples 'a mail body part' do
   it { is_expected.not_to match(/translation missing/) }
   it 'has expected contents' do
-    expected_contents.each { |content| expect(subject).to include content }
+    expected_contents.each { |content| is_expected.to include content }
   end
 
   it { is_expected.not_to match(/\{\{.+\}\}/) }
@@ -24,11 +24,13 @@ RSpec.shared_examples 'a mail multipart body' do
 
   describe 'text' do
     subject { body.parts.first.body }
+
     it_behaves_like 'a mail body part'
   end
 
   describe 'html' do
     subject { body.parts.last.body }
+
     it_behaves_like 'a mail body part'
   end
 end
@@ -38,6 +40,7 @@ RSpec.shared_examples 'a mail with attachment' do
 
   describe 'body' do
     subject(:body) { mail.parts[1].body }
+
     it_behaves_like 'a mail multipart body'
   end
 end
@@ -47,19 +50,22 @@ RSpec.shared_examples 'a mail' do
 
   describe 'body' do
     subject(:body) { mail.body }
+
     it_behaves_like 'a mail multipart body'
   end
 end
 
 RSpec.describe SellerMailer do
   let(:client) { Client.first }
+
   describe '#registration' do
+    subject(:mail) { described_class.registration seller }
+
     let(:seller) { build :seller }
     let(:expected_contents) do
       [seller.first_name, seller.street, seller.zip_code, seller.city,
        seller.phone, seller.email, login_seller_url(seller.token, host: client.domain)]
     end
-    subject(:mail) { SellerMailer.registration seller }
 
     it_behaves_like 'a mail'
 
@@ -68,6 +74,7 @@ RSpec.describe SellerMailer do
     context 'when custom message template is defined' do
       let!(:custom_message_template) { create :registration_message_template, body: 'registration body' }
       let(:expected_contents) { [custom_message_template.body] }
+
       it_behaves_like 'a mail'
 
       its(:subject) { is_expected.to eq custom_message_template.subject }
@@ -75,6 +82,8 @@ RSpec.describe SellerMailer do
   end
 
   describe '#invitation' do
+    subject(:mail) { described_class.invitation seller, event }
+
     let(:seller) { build :seller }
     let(:event) { build :event }
     let(:expected_contents) do
@@ -84,13 +93,13 @@ RSpec.describe SellerMailer do
         event.name
       ]
     end
-    subject(:mail) { SellerMailer.invitation seller, event }
 
     it_behaves_like 'a mail'
 
     context 'when custom message template is defined' do
       let!(:custom_message_template) { create :invitation_message_template, body: 'invitation body' }
       let(:expected_contents) { [custom_message_template.body] }
+
       it_behaves_like 'a mail'
 
       its(:subject) { is_expected.to eq custom_message_template.subject }
@@ -98,31 +107,35 @@ RSpec.describe SellerMailer do
   end
 
   describe '#reservation' do
+    subject(:mail) { described_class.reservation_closing reservation }
+
     let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
-    subject(:mail) { SellerMailer.reservation_closing reservation }
 
     it_behaves_like 'a mail'
   end
 
   describe '#reservation_closing' do
+    subject(:mail) { described_class.reservation_closing reservation }
+
     let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
-    subject(:mail) { SellerMailer.reservation_closing reservation }
 
     it_behaves_like 'a mail'
   end
 
   describe '#reservation_closed' do
+    subject(:mail) { described_class.reservation_closed reservation }
+
     let(:reservation) { build :reservation, items: items }
     let(:seller) { reservation.seller }
     let(:labels) { 'LABELS' }
     let(:items) { build_list :item, 5 }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
+
     before { allow(CreateLabelDocument).to receive(:new).with(client, items).and_return double(call: labels) }
-    subject(:mail) { SellerMailer.reservation_closed reservation }
 
     it_behaves_like 'a mail with attachment'
 
@@ -130,12 +143,14 @@ RSpec.describe SellerMailer do
   end
 
   describe '#finished' do
+    subject(:mail) { described_class.finished reservation }
+
     let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
     let(:receipt) { 'RECEIPT' }
+
     before { allow(CreateReceiptDocument).to receive(:new).with(reservation).and_return double(call: receipt) }
-    subject(:mail) { SellerMailer.finished reservation }
 
     it_behaves_like 'a mail with attachment'
 
@@ -143,11 +158,12 @@ RSpec.describe SellerMailer do
   end
 
   describe '#custom' do
+    subject(:mail) { described_class.custom seller, topic, content }
+
     let(:seller) { build :seller }
     let(:topic) { 'topic' }
     let(:content) { 'body' }
     let(:expected_contents) { [content] }
-    subject(:mail) { SellerMailer.custom seller, topic, content }
 
     it_behaves_like 'a mail'
 

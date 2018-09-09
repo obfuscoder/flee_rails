@@ -4,11 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'admin/clients/edit' do
   before { assign :client, build(:client) }
+
   it_behaves_like 'a standard view'
 
-  context 'rendered' do
-    before { render }
+  describe 'rendered' do
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_field 'client_name' }
     it { is_expected.to have_field 'client_short_name' }

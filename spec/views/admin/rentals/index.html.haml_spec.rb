@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'admin/rentals/index' do
   let(:rental) { create :rental }
   let(:event) { rental.event }
+
   before do
     assign :rentals, [rental]
     assign :event, event
@@ -13,8 +14,9 @@ RSpec.describe 'admin/rentals/index' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_content rental.amount }
     it { is_expected.to have_content rental.hardware.description }

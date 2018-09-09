@@ -6,13 +6,14 @@ module Admin
   RSpec.describe ItemsController do
     include Sorcery::TestHelpers::Rails::Controller
     let(:user) { create :user }
-    before { login_user user }
-
     let!(:reservation) { create :reservation }
     let!(:item) { create :item_with_code, reservation: reservation }
 
+    before { login_user user }
+
     describe 'DELETE delete_code' do
       before { delete :delete_code, reservation_id: reservation.id, id: item.id }
+
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
       it 'frees item number and code' do
         expect(item.reload.code).to be_nil
@@ -22,7 +23,9 @@ module Admin
 
     describe 'DELETE delete_all_codes' do
       let!(:another_item) { create :item_with_code, reservation: reservation }
+
       before { delete :delete_all_codes, reservation_id: reservation.id }
+
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
       it 'frees all item numbers and codes' do
         expect(item.reload.code).to be_nil
@@ -34,22 +37,27 @@ module Admin
 
     describe 'GET new' do
       before { preparations }
+
       before { get :new, reservation_id: reservation.id }
+
       let(:preparations) {}
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :new }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@item' do
         subject { assigns :item }
+
         it { is_expected.to be_a_new Item }
 
         [false, true].each do |donation_default|
           context "when donation default setting is #{donation_default}" do
             let(:preparations) { Client.first.update donation_of_unsold_items_default: donation_default }
+
             its(:donation) { is_expected.to eq donation_default }
           end
         end
@@ -59,6 +67,7 @@ module Admin
     describe 'POST create' do
       let(:new_item) { build :item, reservation: reservation }
       let(:preparations) {}
+
       before do
         preparations
         post :create, reservation_id: reservation.id, item: new_item.attributes
@@ -72,11 +81,13 @@ module Admin
 
       context 'when donation is enabled' do
         let(:preparations) { reservation.event.update donation_of_unsold_items_enabled: true }
+
         [true, false].each do |donation|
           context "when category donation_enforces is #{donation}" do
             let(:donation_enforced) { donation }
             let(:category) { create :category, donation_enforced: donation_enforced }
             let(:new_item) { build :item, reservation: reservation, category: category }
+
             it "creates new item with donation set to #{donation}" do
               expect(Item.last.donation?).to eq donation_enforced
             end
@@ -90,12 +101,14 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :edit }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@item' do
         subject { assigns :item }
+
         it { is_expected.to eq item }
       end
     end
@@ -108,9 +121,11 @@ module Admin
       context 'when donation is enabled' do
         let!(:reservation) { create :reservation, event: event }
         let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+
         context 'when category donation is enforced' do
           let(:category) { create :category_with_enforced_donation }
           let!(:item) { create :item_with_code, reservation: reservation, category: category }
+
           it 'sets item donation' do
             expect(item.reload.donation).to eq true
           end
@@ -123,12 +138,14 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :labels }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@items' do
         subject { assigns :items }
+
         it { is_expected.to eq reservation.items }
       end
     end
@@ -138,6 +155,7 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         its(:content_type) { is_expected.to eq 'application/pdf' }
         it { is_expected.to have_http_status :ok }
       end

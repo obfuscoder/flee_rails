@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/sellers/index' do
   let(:sellers) { create_list :seller, 25 }
+
   before { assign :sellers, sellers.paginate }
 
   it_behaves_like 'a standard view'

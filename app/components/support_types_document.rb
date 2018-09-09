@@ -3,7 +3,6 @@
 require 'barby/outputter/prawn_outputter'
 
 class SupportTypesDocument < PdfDocument
-
   COLS = 2
 
   def initialize(event, support_types)

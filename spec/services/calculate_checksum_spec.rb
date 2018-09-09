@@ -17,6 +17,7 @@ RSpec.describe CalculateChecksum do
   }.each do |number, expected_result|
     context "with input #{number.inspect}" do
       let(:number) { number }
+
       it { is_expected.to eq expected_result }
     end
   end

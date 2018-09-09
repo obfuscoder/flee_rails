@@ -7,5 +7,6 @@ RSpec.describe 'admin/emails/emails' do
     assign :email, CustomEmail.new
     assign :json, 'something'
   end
+
   it_behaves_like 'a standard view'
 end

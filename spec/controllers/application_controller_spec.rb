@@ -10,15 +10,18 @@ RSpec.describe ApplicationController do
       end
     end
     let(:event) { create :event_with_ongoing_reservation, max_reservations: 1 }
+
     context 'with two notifications' do
       let!(:notifications) { create_list :notification, 2, event: event }
+
       it 'creates reservation for first notification and keeps last notification' do
-        create_reservation = double :create_reservation
+        create_reservation = double :create_reservation, call: nil
         first_seller = notifications.first.seller
-        expect(CreateReservation).to receive(:new).and_return create_reservation
-        expect(Reservation).to receive(:new).with(event: event, seller: first_seller).and_call_original
-        expect(create_reservation).to receive(:call).with(instance_of(Reservation))
-        subject.perform_action event
+        allow(CreateReservation).to receive(:new).and_return create_reservation
+        allow(Reservation).to receive(:new).and_call_original
+        controller.perform_action event
+        expect(Reservation).to have_received(:new).with(event: event, seller: first_seller)
+        expect(create_reservation).to have_received(:call).with(instance_of(Reservation))
       end
     end
   end

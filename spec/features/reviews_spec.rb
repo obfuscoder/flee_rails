@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Reviews' do
+RSpec.describe 'Reviews' do
   let(:reservation) { create :reservation }
   let!(:seller) { reservation.seller }
   let!(:event) { reservation.event }
@@ -25,8 +25,9 @@ RSpec.feature 'Reviews' do
     %i[visit_review_link login_and_open_event_review_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
+
         it 'shows seller home page' do
-          expect(current_path).to eq seller_path
+          expect(page).to have_current_path(seller_path)
         end
 
         it 'shows error message that review is not possible' do
@@ -45,8 +46,9 @@ RSpec.feature 'Reviews' do
     %i[visit_review_link login_and_navigate_to_event_review login_and_open_event_review_directly].each do |action|
       context "when using action #{action}" do
         before { send(action) }
+
         it 'shows new review page' do
-          expect(current_path).to eq new_event_reservation_review_path(event, 1)
+          expect(page).to have_current_path(new_event_reservation_review_path(event, 1))
         end
       end
     end
@@ -54,11 +56,12 @@ RSpec.feature 'Reviews' do
 
   context 'when event has passed' do
     before { Timecop.travel event.shopping_periods.first.max + 1.hour }
+
     after { Timecop.return }
 
     it_behaves_like 'review is allowed'
 
-    scenario 'review event' do
+    it 'review event' do
       login_and_navigate_to_event_review
       expect(page).to have_content 'Bewertung'
       within('.review_registration') { choose '2' }
@@ -80,6 +83,7 @@ RSpec.feature 'Reviews' do
 
   context 'when event is ongoing' do
     before { Timecop.travel event.shopping_periods.first.max - 1.hour }
+
     after { Timecop.return }
 
     it_behaves_like 'review is not allowed'

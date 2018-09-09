@@ -21,9 +21,11 @@ RSpec.describe Client do
 
   describe '#host_match?' do
     subject { client.host_match? host }
+
     %w[www.key.test.host key.test.host somedomain.de].each do |host_name|
       context "when host is #{host_name}" do
         let(:host) { host_name }
+
         it { is_expected.to eq true }
       end
     end
@@ -31,24 +33,29 @@ RSpec.describe Client do
 
   describe '#short_name' do
     subject { client.short_name }
+
     it { is_expected.to eq client.name }
 
     context 'when short_name is empty' do
       before { client.short_name = '' }
+
       it { is_expected.to eq client.name }
     end
   end
 
   describe '#mail_from' do
     subject { client.mail_from }
+
     it { is_expected.to eq 'Flohmarkthelfer Test <key@test.host>' }
   end
 
   describe '#url' do
     subject { client.url }
+
     it { is_expected.to eq 'http://somedomain.de' }
     context 'when domain is not set' do
       before { client.domain = nil }
+
       it { is_expected.to eq 'http://key.test.host' }
     end
   end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'layouts/application' do
-  before { allow(view).to receive(:searchable?) { false } }
+  before { allow(view).to receive(:searchable?).and_return(false) }
 
   describe 'navigation bar' do
     before do
@@ -38,7 +38,8 @@ RSpec.describe 'layouts/application' do
     end
 
     context 'when searchable' do
-      before { allow(view).to receive(:searchable?) { true } }
+      before { allow(view).to receive(:searchable?).and_return(true) }
+
       it 'is shown' do
         render
         expect(rendered).to have_field 'Suche'

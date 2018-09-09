@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'mail request' do
   let(:mail_content) { File.binread(File.dirname(__FILE__) + '/registration_mail.txt') }
   let(:preparations) {}
+
   before do
     preparations
     post '/mail', mail_content, content_type: 'application/octet-stream'
@@ -12,6 +13,7 @@ RSpec.describe 'mail request' do
 
   describe 'response' do
     subject { response }
+
     context 'when sender is unknown' do
       it { is_expected.to have_http_status :not_found }
     end
@@ -19,6 +21,7 @@ RSpec.describe 'mail request' do
     context 'when sender is known' do
       let(:seller) { create :seller, email: 'erika.mustermann@flohmarkthelfer.de' }
       let(:preparations) { seller }
+
       it { is_expected.to have_http_status :no_content }
 
       describe 'received and stored mail' do

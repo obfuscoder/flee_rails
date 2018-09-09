@@ -9,9 +9,11 @@ module Admin
 
     describe 'POST :invitation' do
       subject(:action) { post :invitation, event_id: event.id }
+
       let(:event) { create :event }
       let(:count) { 3 }
       let(:sender) { double call: count }
+
       before do
         allow(SendInvitationMails).to receive(:new).and_return sender
         action
@@ -24,20 +26,24 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_event_path event }
       end
 
       describe 'flash[:notice]' do
         subject { flash[:notice] }
+
         it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :reservation_closing' do
       subject(:action) { post :reservation_closing, event_id: event.id }
+
       let(:event) { create :event }
       let(:count) { 3 }
       let(:sender) { double call: count }
+
       before do
         allow(SendReservationClosingMails).to receive(:new).and_return sender
         action
@@ -50,20 +56,24 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_event_path event }
       end
 
       describe 'flash[:notice]' do
         subject { flash[:notice] }
+
         it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :reservation_closed' do
       subject(:action) { post :reservation_closed, event_id: event.id }
+
       let(:event) { create :event }
       let(:count) { 3 }
       let(:sender) { double call: count }
+
       before do
         allow(SendReservationClosedMails).to receive(:new).and_return sender
         action
@@ -76,20 +86,24 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_event_path event }
       end
 
       describe 'flash[:notice]' do
         subject { flash[:notice] }
+
         it { is_expected.to include count.to_s }
       end
     end
 
     describe 'POST :finished' do
       subject(:action) { post :finished, event_id: event.id }
+
       let(:event) { create :event }
       let(:count) { 3 }
       let(:sender) { double call: count }
+
       before do
         allow(SendFinishedMails).to receive(:new).and_return sender
         action
@@ -102,11 +116,13 @@ module Admin
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to redirect_to admin_event_path event }
       end
 
       describe 'flash[:notice]' do
         subject { flash[:notice] }
+
         it { is_expected.to include count.to_s }
       end
     end

@@ -17,6 +17,7 @@ describe Suspension do
 
   describe '#search' do
     subject(:action) { described_class.search needle }
+
     let!(:suspension) { create :suspension, reason: reason, seller: seller }
     let(:seller) { create :seller, first_name: first_name }
     let(:needle) { 'needle' }
@@ -25,17 +26,20 @@ describe Suspension do
 
     context 'when reason contains needle' do
       let(:reason) { "foo #{needle} bar" }
+
       it { is_expected.to include suspension }
     end
 
     context 'when seller contains needle' do
       let(:first_name) { "foo #{needle} bar" }
+
       it { is_expected.to include suspension }
     end
 
     [nil, ''].each do |input|
       context "when needle is [#{input}" do
         let(:needle) { input }
+
         it { is_expected.to include suspension }
       end
     end

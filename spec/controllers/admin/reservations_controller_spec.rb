@@ -6,8 +6,6 @@ module Admin
   RSpec.describe ReservationsController do
     include Sorcery::TestHelpers::Rails::Controller
     let(:user) { create :user }
-    before { login_user user }
-
     let(:seller1) { create :seller, first_name: 'AAAAA', last_name: 'BBBB', email: 'zzz@bbb.de' }
     let(:seller2) { create :seller, first_name: 'ZZZZZ', last_name: 'EEEE', email: 'bbb@bbb.de' }
     let(:seller3) { create :seller, first_name: 'BBBBB', last_name: 'BBBB', email: 'aaa@bbb.de' }
@@ -15,40 +13,49 @@ module Admin
     let(:event) { create :event_with_ongoing_reservation }
     let!(:reservations) { sellers.map { |seller| create :reservation, event: event, seller: seller } }
 
+    before { login_user user }
+
     describe 'GET index' do
       let(:index_params) { { event_id: event.id }.merge params }
       let(:params) { {} }
+
       before { get :index, index_params }
 
       its(:searchable?) { is_expected.to eq true }
 
       describe '@reservations' do
         subject { assigns :reservations }
+
         its(:first) { is_expected.to eq reservations[0] }
 
         context 'when search parameter is given' do
           let(:params) { { search: 'bbbb' } }
+
           its(:count) { is_expected.to eq 2 }
         end
 
         context 'when sort parameter is set to email' do
           let(:params) { { sort: 'sellers.email' } }
+
           its(:first) { is_expected.to eq reservations[2] }
         end
 
         context 'when sort parameter is set to name' do
           let(:params) { { sort: 'sellers.name' } }
+
           its(:first) { is_expected.to eq reservations[0] }
         end
 
         context 'when direction parameter is set to desc' do
           context 'when sort parameter is set to email' do
             let(:params) { { sort: 'sellers.email', dir: 'desc' } }
+
             its(:first) { is_expected.to eq reservations[0] }
           end
 
           context 'when sort parameter is set to name' do
             let(:params) { { sort: 'sellers.name', dir: 'desc' } }
+
             its(:first) { is_expected.to eq reservations[1] }
           end
         end
@@ -57,35 +64,41 @@ module Admin
 
     describe 'GET new' do
       let!(:new_seller) { create :seller }
+      let(:preparations) {}
+
       before do
         preparations
         get :new, event_id: event.id
       end
-      let(:preparations) {}
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :new }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@reservation' do
         subject { assigns :reservation }
+
         it { is_expected.to be_a_new Reservation }
       end
 
       describe '@sellers' do
         subject { assigns :sellers }
+
         it { is_expected.to include new_seller }
 
         context 'when reservation by seller is forbidden' do
           let(:preparations) { new_seller.client.update reservation_by_seller_forbidden: true }
+
           it { is_expected.to include new_seller }
         end
       end
 
       describe '@available_numbers' do
         subject { assigns :available_numbers }
+
         it { is_expected.not_to include 3 }
         it { is_expected.to include 5 }
       end
@@ -93,29 +106,34 @@ module Admin
 
     describe 'GET new_bulk' do
       let!(:new_seller) { create :seller }
+      let(:preparations) {}
+
       before do
         preparations
         get :new_bulk, event_id: event.id
       end
-      let(:preparations) {}
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :new_bulk }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@reservation' do
         subject { assigns :reservation }
+
         it { is_expected.to be_a_new Reservation }
       end
 
       describe '@sellers' do
         subject { assigns :sellers }
+
         it { is_expected.to include new_seller }
 
         context 'when reservation by seller is forbidden' do
           let(:preparations) { event.client.update reservation_by_seller_forbidden: true }
+
           it { is_expected.to include new_seller }
         end
       end
@@ -161,23 +179,28 @@ module Admin
 
       context 'when reservation could not be created' do
         let(:reservation) { event.reservations.create }
+
         describe 'response' do
           subject { response }
+
           it { is_expected.to render_template :new }
         end
 
         describe '@reservation' do
           subject { assigns :reservation }
+
           it { is_expected.to be_a_new Reservation }
         end
 
         describe '@sellers' do
           subject { assigns :sellers }
+
           it { is_expected.to include new_seller }
         end
 
         describe '@available_numbers' do
           subject { assigns :available_numbers }
+
           it { is_expected.to include number }
         end
       end
@@ -211,6 +234,7 @@ module Admin
 
       context 'when reservations were not persisted' do
         let(:reservation) { build :reservation }
+
         it { is_expected.to redirect_to admin_event_reservations_path }
         it 'notifies about the reservations count' do
           expect(flash[:notice]).to be_present
@@ -221,14 +245,19 @@ module Admin
     describe 'GET edit' do
       let(:reservation) { create :reservation }
       let(:action) { get :edit, event_id: reservation.event.id, id: reservation.id }
+
       before { action }
+
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :edit }
         it { is_expected.to have_http_status :ok }
       end
+
       describe '@reservation' do
         subject { assigns :reservation }
+
         it { is_expected.to eq reservation }
       end
     end
@@ -237,6 +266,7 @@ module Admin
       let(:reservation) { create :reservation }
       let(:event) { reservation.event }
       let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42', category_limits_ignored: true } }
+
       before { put :update, event_id: event.id, id: reservation.id, reservation: params }
 
       it 'redirects to index path' do

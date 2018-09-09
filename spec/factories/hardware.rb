@@ -3,18 +3,18 @@
 FactoryBot.define do
   factory :hardware do
     sequence(:description) { |n| "Hardware #{n}" }
-    price 5
+    price { 5 }
 
     factory :scanner do
-      description 'Scanner'
+      description { 'Scanner' }
     end
 
     factory :router do
-      description 'Router'
+      description { 'Router' }
     end
 
     factory :repeater do
-      description 'Repeater'
+      description { 'Repeater' }
     end
   end
 end

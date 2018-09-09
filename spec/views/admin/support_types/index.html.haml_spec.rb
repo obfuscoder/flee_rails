@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'admin/support_types/index' do
   let(:event) { create :event }
   let(:support_type) { create :support_type, event: event }
+
   before do
     assign :support_types, [support_type]
     assign :event, event
@@ -13,8 +14,9 @@ RSpec.describe 'admin/support_types/index' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject(:output) { rendered }
+
+    before { render }
 
     it { is_expected.to have_content support_type.name }
     it { is_expected.to have_content support_type.capacity }

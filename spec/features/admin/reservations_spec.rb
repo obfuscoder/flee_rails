@@ -3,19 +3,20 @@
 require 'rails_helper'
 require 'features/admin/login'
 
-RSpec.feature 'admin event reservations' do
-  include_context 'login'
+RSpec.describe 'admin event reservations' do
+  include_context 'when logging in'
   let(:event) { create :event_with_ongoing_reservation, max_reservations: 5 }
   let!(:sellers) { create_list :seller, 4 }
   let(:number_of_reservations) { 3 }
   let!(:reservations) { create_list :reservation, number_of_reservations, event: event }
-  background do
+
+  before do
     click_on 'Termine'
     click_on 'Anzeigen'
     click_on 'Reservierungen'
   end
 
-  scenario 'shows list of reservations with delete action and link to seller show' do
+  it 'shows list of reservations with delete action and link to seller show' do
     reservations.each do |reservation|
       expect(page).to have_content reservation.number
       expect(page).to have_link reservation.seller.name, href: admin_seller_path(reservation.seller)
@@ -25,7 +26,7 @@ RSpec.feature 'admin event reservations' do
     end
   end
 
-  feature 'new reservation' do
+  describe 'new reservation' do
     shared_examples 'create reservations for selected sellers' do
       before do
         click_on 'Neue Reservierung'
@@ -53,6 +54,7 @@ RSpec.feature 'admin event reservations' do
 
     context 'when reservation period has not started yet' do
       before { Timecop.travel event.reservation_start - 1.hour }
+
       after { Timecop.return }
 
       it_behaves_like 'create reservations for selected sellers' do
@@ -61,14 +63,9 @@ RSpec.feature 'admin event reservations' do
     end
   end
 
-  scenario 'free reservation' do
+  it 'free reservation' do
     click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
     expect(page).to have_content 'Die Reservierung wurde gelöscht'
     expect(page).not_to have_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
-  end
-
-  context 'with sellers on notification list' do
-    let(:selection) { sellers.take(2) }
-    let!(:notifications) { selection.map { |seller| create :notification, event: event, seller: seller } }
   end
 end

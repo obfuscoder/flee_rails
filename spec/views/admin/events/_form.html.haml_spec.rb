@@ -4,16 +4,19 @@ require 'rails_helper'
 
 RSpec.describe 'admin/events/_form' do
   let(:event) { build :event }
+  let(:preparation) {}
+
   before do
     preparation
     assign :event, event
   end
-  let(:preparation) {}
+
   it_behaves_like 'a standard partial'
 
-  context 'rendered' do
-    before { render }
+  describe 'rendered' do
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_field 'Termin steht fest' }
     it { is_expected.to have_field 'Reservierungen pro Verkäufer' }

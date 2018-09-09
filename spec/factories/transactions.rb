@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :base_transaction, class: :transaction do
     event
-    number SecureRandom.uuid
+    number { SecureRandom.uuid }
 
     factory :purchase_transaction, aliases: [:transaction] do
       after :build, &:purchase!

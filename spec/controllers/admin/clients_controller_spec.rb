@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Admin::ClientsController do
   include Sorcery::TestHelpers::Rails::Controller
   let(:user) { create :user }
+
   before { login_user user }
 
   describe 'GET edit' do
@@ -14,13 +15,17 @@ RSpec.describe Admin::ClientsController do
     it { is_expected.to render_template :edit }
 
     describe '@client' do
-      before { action }
       subject { assigns :client }
+
+      before { action }
+
       it { is_expected.to eq user.client }
     end
   end
 
   describe 'PUT update' do
+    subject(:action) { put :update, client: client_params }
+
     let(:client_params) do
       {
         name: 'name',
@@ -39,8 +44,6 @@ RSpec.describe Admin::ClientsController do
         reservation_numbers_assignable: '1'
       }
     end
-
-    subject(:action) { put :update, client: client_params }
 
     it { is_expected.to redirect_to admin_path }
 

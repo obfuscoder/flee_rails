@@ -12,6 +12,7 @@ RSpec.describe EventsController do
   describe 'GET show' do
     context 'when event belongs to other client' do
       let(:event) { create :event_with_ongoing_reservation, client: create(:client) }
+
       it 'throws exception' do
         expect { get :show, id: event.id }.to raise_error ActiveRecord::RecordNotFound
       end
@@ -26,12 +27,14 @@ RSpec.describe EventsController do
 
       describe 'response' do
         subject { response }
+
         it { is_expected.to render_template :show }
         it { is_expected.to have_http_status :ok }
       end
 
       describe '@event' do
         subject { assigns :event }
+
         it { is_expected.to eq event }
       end
     end
@@ -43,16 +46,20 @@ RSpec.describe EventsController do
         get :review, id: event.id
       end
     end
+
     describe 'response' do
       subject { response }
+
       it { is_expected.to redirect_to new_event_reservation_review_path(event, reservation) }
     end
   end
 
   describe 'GET reserve' do
     before { get :reserve, id: event.id }
+
     describe 'response' do
       subject { response }
+
       it { is_expected.to redirect_to event_reservations_create_path(event) }
     end
   end

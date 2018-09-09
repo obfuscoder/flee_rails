@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/reservations/edit' do
   let(:reservation) { create :reservation }
+
   before do
     assign :event, reservation.event
     assign :reservation, reservation

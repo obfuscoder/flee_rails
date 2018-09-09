@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.feature 'labels generation' do
+RSpec.describe 'labels generation' do
   let(:seller) { create :seller }
   let!(:category) { create :category }
   let(:preparations) {}
   let(:strings_from_rendered_pdf) { PDF::Inspector::Text.analyze(page.body).strings }
 
-  background do
+  before do
     preparations
     visit login_seller_path(seller.token)
     click_on 'Artikel bearbeiten'
@@ -26,6 +26,7 @@ RSpec.feature 'labels generation' do
     let(:items) { create_list :item, 5, reservation: reservation }
     let(:preparations) { items }
     let(:make_selection) {}
+
     before do
       click_on 'Etiketten drucken'
       make_selection
@@ -42,8 +43,10 @@ RSpec.feature 'labels generation' do
 
     context 'when donation option is enabled' do
       before { Client.first.update donation_of_unsold_items: true }
+
       context 'when item is being donated' do
         let(:preparations) { items.first.update donation: true }
+
         it 'contains donation label' do
           expect(strings_from_rendered_pdf).to include 'S'
         end

@@ -6,6 +6,7 @@ RSpec.describe 'admin/reservations/index' do
   let(:reservation) { create :reservation }
   let(:event) { reservation.event }
   let(:preparations) {}
+
   before do
     preparations
     assign :reservations, [reservation].paginate
@@ -15,8 +16,9 @@ RSpec.describe 'admin/reservations/index' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_content '20%' }
     it { is_expected.to have_content '2,00 €' }
@@ -27,6 +29,7 @@ RSpec.describe 'admin/reservations/index' do
 
     context 'when reservation numbers are assignable' do
       let(:preparations) { Client.first.update reservation_numbers_assignable: true }
+
       it { is_expected.to have_link 'Neue Reservierung', href: new_admin_event_reservation_path(event) }
     end
   end

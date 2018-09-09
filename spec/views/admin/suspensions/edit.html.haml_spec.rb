@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/suspensions/edit' do
   let(:suspension) { create :suspension }
+
   before do
     assign :event, suspension.event
     assign :suspension, suspension
@@ -12,8 +13,9 @@ RSpec.describe 'admin/suspensions/edit' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do
-    before { render }
     subject { rendered }
+
+    before { render }
 
     it { is_expected.to have_field 'Grund' }
   end

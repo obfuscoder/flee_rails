@@ -9,10 +9,10 @@ FactoryBot.define do
     zip_code { Faker::Address.zip }
     city { Faker::Address.city }
     phone { Faker::PhoneNumber.phone_number }
-    mailing true
+    mailing { true }
     email { Faker::Internet.email }
     sequence(:token) { |n| "token#{n}" }
-    active true
+    active { true }
 
     factory :random_seller do
       created_at { Faker::Time.between 10.days.ago, Time.now }

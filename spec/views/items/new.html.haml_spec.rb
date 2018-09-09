@@ -7,9 +7,9 @@ RSpec.describe 'items/new' do
   let(:item) { assign :item, build(:item) }
   let!(:reservation) { assign :reservation, item.reservation }
 
-  it_behaves_like 'a standard view'
-
   before { render }
+
+  it_behaves_like 'a standard view'
 
   it 'renders the form' do
     expect(view).to render_template partial: 'items/_form'

@@ -11,6 +11,7 @@ RSpec.describe Message do
 
   describe '#sent' do
     subject(:action) { message.sent }
+
     it { is_expected.to eq true }
 
     it 'stores increased sent_count' do
@@ -21,6 +22,7 @@ RSpec.describe Message do
 
     context 'when sent_count is 5' do
       let(:message) { build :message, sent_count: 5 }
+
       it { is_expected.to eq true }
 
       it 'stores increased sent_count' do
