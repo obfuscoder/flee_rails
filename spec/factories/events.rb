@@ -40,6 +40,7 @@ FactoryBot.define do
 
       factory :event_with_support do
         support_system_enabled { true }
+        supporters_can_retire { true }
         after :build do |event|
           event.support_types << build(:support_type, event: event)
         end

@@ -67,7 +67,7 @@ module Admin
                                     :price_precision, :commission_rate, :reservation_fee,
                                     :reservation_fees_payed_in_advance,
                                     :donation_of_unsold_items_enabled,
-                                    :support_system_enabled,
+                                    :support_system_enabled, :supporters_can_retire,
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,

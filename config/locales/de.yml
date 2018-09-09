@@ -221,6 +221,7 @@ de:
       back: Zurück
     destroy:
       success: Helferstelle wurde freigegeben.
+      cannot_retire: Sie können nicht selbstständig als Helfer zurücktreten. Kontaktieren Sie uns bitte zur Klärung.
     create:
       success: Helferstelle erfolgreich eingetragen.
     new:
@@ -591,6 +592,7 @@ de:
         token: Token
         reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
         support_system_enabled: Helfersystem für Verkäufer freigeschaltet
+        supporters_can_retire: Helfer können sich wieder austragen
       item:
         seller: Verkäufer
         category: Kategorie

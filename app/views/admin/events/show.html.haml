@@ -30,6 +30,8 @@
     %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
   %dt= Event.human_attribute_name :support_system_enabled
   %dd= t(@event.support_system_enabled?.to_s)
+  %dt= Event.human_attribute_name :supporters_can_retire
+  %dd= t(@event.supporters_can_retire?.to_s)
 
 .btn-group
   = link_to 'Bearbeiten', edit_admin_event_path(@event), type: :primary, icon: :pencil

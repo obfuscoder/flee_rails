@@ -8,10 +8,17 @@
       = markdown(support_type.description).html_safe
       - supporter = support_type.supporters.find { |supporter| supporter.seller == @seller }
       - if supporter.present?
-        %p Sie Sind bereits Helfer!
-        - if supporter.comments.present?
-          %p Anmerkungen: #{supporter.comments}
-        = link_to t('.unhelp'), event_destroy_support_path(@event, support_type), type: :danger, method: :delete, icon: :leaf, data: { confirm: t('.delete.confirm') }
+        %p
+          %strong Sie Sind bereits Helfer!
+          - if supporter.comments.present?
+            %p Anmerkungen: #{supporter.comments}
+          - if @event.supporters_can_retire?
+            %p= link_to t('.unhelp'), event_destroy_support_path(@event, support_type), type: :danger,
+                                                                                        method: :delete,
+                                                                                        icon: :leaf,
+                                                                                        data: { confirm: t('.delete.confirm') }
+          - else
+            %strong Sollten Sie als Helfer zurücktreten wollen, kontaktieren Sie uns bitte!
       - else
         - if support_type.capacity > support_type.supporters.count
           = link_to t('.help'), event_new_support_path(@event, support_type), type: :primary, icon: :leaf

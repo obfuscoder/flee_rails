@@ -39,6 +39,16 @@ RSpec.describe 'support/index' do
 
       it { is_expected.not_to have_link href: event_new_support_path(event, support_type) }
       it { is_expected.to have_link href: event_destroy_support_path(event, support_type) }
+
+      context 'when supporters cannot retire' do
+        let(:preparations) do
+          event.update! supporters_can_retire: false
+          create :supporter, seller: seller, support_type: support_type
+        end
+
+        it { is_expected.not_to have_link href: event_new_support_path(event, support_type) }
+        it { is_expected.not_to have_link href: event_destroy_support_path(event, support_type) }
+      end
     end
   end
 end

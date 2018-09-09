@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180816113014) do
+ActiveRecord::Schema.define(version: 20180909110119) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20180816113014) do
     t.integer  "client_id"
     t.integer  "number"
     t.boolean  "support_system_enabled"
+    t.boolean  "supporters_can_retire"
   end
 
   add_index "events", ["client_id"], name: "index_events_on_client_id"

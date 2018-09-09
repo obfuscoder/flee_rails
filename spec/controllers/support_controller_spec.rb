@@ -77,8 +77,10 @@ RSpec.describe SupportController do
   describe 'DELETE destroy' do
     let(:support_type) { event.support_types.first }
     let(:supporter) { create :supporter, support_type: support_type, seller: seller }
+    let(:preparations) {}
 
     before do
+      preparations
       supporter
       delete :destroy, event_id: event.id, id: support_type.id
     end
@@ -89,8 +91,36 @@ RSpec.describe SupportController do
       it { is_expected.to redirect_to event_support_path(event) }
     end
 
+    describe 'flash' do
+      subject { flash }
+
+      its([:notice]) { is_expected.not_to be_nil }
+      its([:alert]) { is_expected.to be_nil }
+    end
+
     it 'destroys supporter' do
       expect { supporter.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+
+    context 'when supporters cannot retire' do
+      let(:preparations) { event.update! supporters_can_retire: false }
+
+      it 'does not destroy supporter' do
+        expect { supporter.reload }.not_to raise_error ActiveRecord::RecordNotFound
+      end
+
+      describe 'response' do
+        subject { response }
+
+        it { is_expected.to redirect_to event_support_path(event) }
+      end
+
+      describe 'flash' do
+        subject { flash }
+
+        its([:alert]) { is_expected.not_to be_nil }
+        its([:notice]) { is_expected.to be_nil }
+      end
     end
   end
 

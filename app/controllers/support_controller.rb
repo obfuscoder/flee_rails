@@ -13,10 +13,14 @@ class SupportController < ApplicationController
   end
 
   def destroy
-    @support_type = @event.support_types.find params[:id]
-    supporter = @support_type.supporters.find_by seller: @seller
-    supporter.destroy if supporter.present?
-    redirect_to event_support_path(@event), notice: t('.success')
+    if @event.supporters_can_retire?
+      @support_type = @event.support_types.find params[:id]
+      supporter = @support_type.supporters.find_by seller: @seller
+      supporter.destroy if supporter.present?
+      redirect_to event_support_path(@event), notice: t('.success')
+    else
+      redirect_to event_support_path(@event), alert: t('.cannot_retire')
+    end
   end
 
   def create

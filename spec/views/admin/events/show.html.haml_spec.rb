@@ -53,13 +53,9 @@ RSpec.describe 'admin/events/show' do
     end
 
     it { is_expected.not_to have_link href: admin_event_messages_path(event, :reservation_closed) }
-
     it { is_expected.to have_link href: data_admin_event_path(event, format: :json) }
-
     it { is_expected.to have_link href: admin_event_suspensions_path(event) }
-
     it { is_expected.to have_link href: admin_event_rentals_path(event) }
-
     it { is_expected.to have_link href: admin_event_support_types_path(event) }
 
     context 'when reservation end has past' do
