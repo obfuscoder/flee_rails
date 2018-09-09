@@ -77,11 +77,13 @@ RSpec.describe SupportController do
   describe 'DELETE destroy' do
     let(:support_type) { event.support_types.first }
     let(:supporter) { create :supporter, support_type: support_type, seller: seller }
+    let(:notification_mailer) { double deliver_later: nil }
     let(:preparations) {}
 
     before do
       preparations
       supporter
+      allow(NotificationMailer).to receive(:supporter_destroyed).and_return notification_mailer
       delete :destroy, event_id: event.id, id: support_type.id
     end
 
@@ -102,11 +104,20 @@ RSpec.describe SupportController do
       expect { supporter.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
+    it 'sends notification mail' do
+      expect(NotificationMailer).to have_received(:supporter_destroyed).with(support_type, seller)
+      expect(notification_mailer).to have_received(:deliver_later)
+    end
+
     context 'when supporters cannot retire' do
       let(:preparations) { event.update! supporters_can_retire: false }
 
       it 'does not destroy supporter' do
-        expect { supporter.reload }.not_to raise_error ActiveRecord::RecordNotFound
+        expect { supporter.reload }.not_to raise_error
+      end
+
+      it 'does not send notification mail' do
+        expect(NotificationMailer).not_to have_received(:supporter_destroyed)
       end
 
       describe 'response' do
@@ -126,8 +137,12 @@ RSpec.describe SupportController do
 
   describe 'POST create' do
     let(:support_type) { event.support_types.first }
+    let(:notification_mailer) { double deliver_later: nil }
 
-    before { post :create, event_id: event.id, id: support_type.id, supporter: { comments: 'lorem ipsum' } }
+    before do
+      allow(NotificationMailer).to receive(:supporter_created).and_return notification_mailer
+      post :create, event_id: event.id, id: support_type.id, supporter: { comments: 'lorem ipsum' }
+    end
 
     describe 'response' do
       subject { response }
@@ -137,6 +152,11 @@ RSpec.describe SupportController do
 
     it 'creates supporter' do
       expect(support_type.supporters.find_by(seller: seller)).to be_present
+    end
+
+    it 'sends notification mail' do
+      expect(NotificationMailer).to have_received(:supporter_created).with(instance_of(Supporter))
+      expect(notification_mailer).to have_received(:deliver_later)
     end
   end
 end

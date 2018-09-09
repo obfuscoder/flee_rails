@@ -986,3 +986,23 @@ de:
   will_paginate:
     previous_label: Zurück
     next_label: Weiter
+  notification_mailer:
+    supporter_created:
+      subject: Flohmarkthelfer - Neuer Helfer
+      body: |
+        Es hat sich ein Verkäufer als Helfer eingetragen:
+
+            Termin: {{ event_name }}
+            Datum: {{ event_shopping_time }}
+            Helfergruppe: {{ support_type_name }}
+            Verkäufer: {{ seller_name }} ({{ seller_email }})
+            Bemerkungen: {{ supporter_comments }}
+    supporter_destroyed:
+      subject: Flohmarkthelfer - Helfer zurückgetreten
+      body: |
+        Es hat sich ein Helfer wieder ausgetragen:
+
+            Termin: {{ event_name }}
+            Datum: {{ event_shopping_time }}
+            Helfergruppe: {{ support_type_name }}
+            Verkäufer: {{ seller_name }} ({{ seller_email }})

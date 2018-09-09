@@ -5,9 +5,11 @@ class DataExtractor
     @data = data
   end
 
-  delegate :first_name, :last_name, :street, :zip_code, :city, :phone, :email, to: :seller, prefix: true
+  delegate :name, :first_name, :last_name, :street, :zip_code, :city, :phone, :email, to: :seller, prefix: true
   delegate :name, :max_reservations, :max_items_per_reservation, :max_reservations_per_seller, to: :event, prefix: true
   delegate :number, to: :reservation, prefix: true
+  delegate :comments, to: :supporter, prefix: true
+  delegate :name, to: :support_type, prefix: true
 
   def registration_info
     <<~DATA
@@ -75,6 +77,14 @@ class DataExtractor
 
   def reservation
     @data[:reservation]
+  end
+
+  def supporter
+    @data[:supporter]
+  end
+
+  def support_type
+    @data[:support_type]
   end
 
   def urls

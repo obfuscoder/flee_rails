@@ -16,7 +16,10 @@ class SupportController < ApplicationController
     if @event.supporters_can_retire?
       @support_type = @event.support_types.find params[:id]
       supporter = @support_type.supporters.find_by seller: @seller
-      supporter.destroy if supporter.present?
+      if supporter.present?
+        supporter.destroy
+        NotificationMailer.supporter_destroyed(@support_type, @seller).deliver_later
+      end
       redirect_to event_support_path(@event), notice: t('.success')
     else
       redirect_to event_support_path(@event), alert: t('.cannot_retire')
@@ -25,7 +28,8 @@ class SupportController < ApplicationController
 
   def create
     @support_type = @event.support_types.find params[:id]
-    @support_type.supporters.create seller: @seller, comments: params[:supporter][:comments]
+    supporter = @support_type.supporters.create! seller: @seller, comments: params[:supporter][:comments]
+    NotificationMailer.supporter_created(supporter).deliver_later
     redirect_to event_support_path(@event), notice: t('.success')
   end
 

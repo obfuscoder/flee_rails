@@ -1,58 +1,18 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require_relative 'shared_examples_for_mailers'
 
-RSpec.shared_examples 'a mail body part' do
-  it { is_expected.not_to match(/translation missing/) }
-  it 'has expected contents' do
-    expected_contents.each { |content| is_expected.to include content }
-  end
+RSpec.shared_examples 'a seller mail' do
+  let(:to) { seller.email }
 
-  it { is_expected.not_to match(/\{\{.+\}\}/) }
+  it_behaves_like 'a mail'
 end
 
-RSpec.shared_examples 'a mail with headers' do
-  its(:from) { is_expected.to eq [client.mail_address] }
-  its(:class) { is_expected.to eq ActionMailer::MessageDelivery }
-  its(:to) { is_expected.to eq [seller.email] }
-  its(:subject) { is_expected.not_to match(/translation missing/) }
-end
+RSpec.shared_examples 'a seller mail with attachment' do
+  let(:to) { seller.email }
 
-RSpec.shared_examples 'a mail multipart body' do
-  it { is_expected.to be_multipart }
-  its(:parts) { is_expected.to have(2).elements }
-
-  describe 'text' do
-    subject { body.parts.first.body }
-
-    it_behaves_like 'a mail body part'
-  end
-
-  describe 'html' do
-    subject { body.parts.last.body }
-
-    it_behaves_like 'a mail body part'
-  end
-end
-
-RSpec.shared_examples 'a mail with attachment' do
-  it_behaves_like 'a mail with headers'
-
-  describe 'body' do
-    subject(:body) { mail.parts[1].body }
-
-    it_behaves_like 'a mail multipart body'
-  end
-end
-
-RSpec.shared_examples 'a mail' do
-  it_behaves_like 'a mail with headers'
-
-  describe 'body' do
-    subject(:body) { mail.body }
-
-    it_behaves_like 'a mail multipart body'
-  end
+  it_behaves_like 'a mail with attachment'
 end
 
 RSpec.describe SellerMailer do
@@ -67,7 +27,7 @@ RSpec.describe SellerMailer do
        seller.phone, seller.email, login_seller_url(seller.token, host: client.domain)]
     end
 
-    it_behaves_like 'a mail'
+    it_behaves_like 'a seller mail'
 
     its(:subject) { is_expected.to eq 'Registrierungsbestätigung' }
 
@@ -75,7 +35,7 @@ RSpec.describe SellerMailer do
       let!(:custom_message_template) { create :registration_message_template, body: 'registration body' }
       let(:expected_contents) { [custom_message_template.body] }
 
-      it_behaves_like 'a mail'
+      it_behaves_like 'a seller mail'
 
       its(:subject) { is_expected.to eq custom_message_template.subject }
     end
@@ -94,13 +54,13 @@ RSpec.describe SellerMailer do
       ]
     end
 
-    it_behaves_like 'a mail'
+    it_behaves_like 'a seller mail'
 
     context 'when custom message template is defined' do
       let!(:custom_message_template) { create :invitation_message_template, body: 'invitation body' }
       let(:expected_contents) { [custom_message_template.body] }
 
-      it_behaves_like 'a mail'
+      it_behaves_like 'a seller mail'
 
       its(:subject) { is_expected.to eq custom_message_template.subject }
     end
@@ -113,7 +73,7 @@ RSpec.describe SellerMailer do
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
 
-    it_behaves_like 'a mail'
+    it_behaves_like 'a seller mail'
   end
 
   describe '#reservation_closing' do
@@ -123,7 +83,7 @@ RSpec.describe SellerMailer do
     let(:seller) { reservation.seller }
     let(:expected_contents) { [login_seller_url(seller.token, host: client.domain), reservation.number] }
 
-    it_behaves_like 'a mail'
+    it_behaves_like 'a seller mail'
   end
 
   describe '#reservation_closed' do
@@ -137,7 +97,7 @@ RSpec.describe SellerMailer do
 
     before { allow(CreateLabelDocument).to receive(:new).with(client, items).and_return double(call: labels) }
 
-    it_behaves_like 'a mail with attachment'
+    it_behaves_like 'a seller mail with attachment'
 
     it { expect(mail.parts[0].body).to eq labels }
   end
@@ -152,7 +112,7 @@ RSpec.describe SellerMailer do
 
     before { allow(CreateReceiptDocument).to receive(:new).with(reservation).and_return double(call: receipt) }
 
-    it_behaves_like 'a mail with attachment'
+    it_behaves_like 'a seller mail with attachment'
 
     it { expect(mail.parts[0].body).to eq receipt }
   end
@@ -165,13 +125,13 @@ RSpec.describe SellerMailer do
     let(:content) { 'body' }
     let(:expected_contents) { [content] }
 
-    it_behaves_like 'a mail'
+    it_behaves_like 'a seller mail'
 
     context 'when body contains a login link placeholder' do
       let(:content) { '{{login_link}}' }
       let(:expected_contents) { [login_seller_url(seller.token, host: client.domain)] }
 
-      it_behaves_like 'a mail'
+      it_behaves_like 'a seller mail'
     end
   end
 end

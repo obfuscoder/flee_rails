@@ -5,7 +5,7 @@
 
     Sie haben sich auf unserer Webseite mit den folgenden Daten registriert:
 
-    {{ registration_info }}
+        {{ registration_info }}
 
     Um Ihre Registrierung abzuschließen, klicken Sie bitte auf den folgenden Link:
 
@@ -27,8 +27,8 @@
     Wir freuen uns, Ihnen mitteilen zu können, dass die Reservierung von Verkäuferplätzen
     für den folgenden Flohmarkt in Kürze startet:
 
-    Flohmarkt: {{ event_name }}
-    Termin: {{ event_shopping_time }}
+        Flohmarkt: {{ event_name }}
+        Termin: {{ event_shopping_time }}
 
     Die Möglichkeit zur Reservierung wird am {{ event_reservation_start }} freigeschaltet.
 
@@ -56,8 +56,8 @@
 
     Sie haben erfolgreich eine Reservierung für den folgenden Flohmarkt erhalten:
 
-    Flohmarkt: {{ event_name }}
-    Termin: {{ event_shopping_time }}
+        Flohmarkt: {{ event_name }}
+        Termin: {{ event_shopping_time }}
 
     Ihre Reservierungsnummer ist {{ reservation_number }}.
     Sie können ab sofort über den Zugang zu Ihrem geschützten Bereich Artikel anlegen und Etiketten drucken.
@@ -81,8 +81,8 @@
 
     Die Vorbereitungen für den folgenden Flohmarkt sind bald abgeschlossen:
 
-    Flohmarkt: {{ event_name }}
-    Termin: {{ event_shopping_time }}
+        Flohmarkt: {{ event_name }}
+        Termin: {{ event_shopping_time }}
 
     Denken Sie bitte daran, Ihre Artikel bis zum {{ event_reservation_end }} komplett einzugeben.
     Danach sind keine weiteren Artikel mehr erzeugbar.
@@ -107,8 +107,8 @@
 
     Die Vorbereitungen für den folgenden Flohmarkt sind abgeschlossen:
 
-    Flohmarkt: {{ event_name }}
-    Termin: {{ event_shopping_time }}
+        Flohmarkt: {{ event_name }}
+        Termin: {{ event_shopping_time }}
 
     Die Bearbeitung Ihrer Artikel ist damit nicht mehr möglich.
     Für alle noch in Bearbeitung befindlichen Artikel wurden ebenfalls Etiketten erzeugt.
@@ -135,8 +135,8 @@
 
     der folgende Flohmarkt ist beendet:
 
-    Flohmarkt: {{ event_name }}
-    Termin: {{ event_shopping_time }}
+        Flohmarkt: {{ event_name }}
+        Termin: {{ event_shopping_time }}
 
     Vielen Dank für Ihre Teilnahme als Verkäufer. Sie haben zu einer großartigen Spende beigetragen.
     Wir hoffen, dass es für Sie genau so ein tolles und erfolgreiches Ergebnis war, wie für uns.
