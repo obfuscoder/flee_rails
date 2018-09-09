@@ -17,7 +17,7 @@ Received: by flohmarkthelfer.de (Postfix, from userid 1000) id AE0EFD7C002F; Mon
   7 Aug 2017 20:14:30 +0200 (CEST)
 Date: Mon, 07 Aug 2017 20:14:30 +0200
 From: Erika Mustermann <erika.mustermann@flohmarkthelfer.de>
-To: info@flohmarkthelfer.de
+To: demo@test.host
 Message-ID: <5988ae06a99b4_406e25ae68040458@flohmarkthelfer.mail>
 Subject: RE: Registrierungsbestätigung
 Mime-Version: 1.0

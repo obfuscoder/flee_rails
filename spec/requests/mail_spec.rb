@@ -32,7 +32,7 @@ RSpec.describe 'mail request' do
                                          seller: seller,
                                          subject: 'RE: Registrierungsbestätigung',
                                          message_id: '5988ae06a99b4_406e25ae68040458@flohmarkthelfer.mail',
-                                         to: 'info@flohmarkthelfer.de',
+                                         to: 'demo@test.host',
                                          sent: false
         end
         its(:body) { is_expected.to include '[Zum geschützten Bereich]' }
