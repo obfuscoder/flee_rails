@@ -5,12 +5,13 @@ require 'rails_helper'
 RSpec.describe CreateEmail do
   subject(:action) { described_class.new(message).call sent }
 
-  before { allow(Client).to receive(:find_by).and_return client }
+  before { allow(Client).to receive(:find_by).and_return found_client }
 
   let(:message) do
     double :message, from: [from], to: [seller.email], subject: mail_subject,
                      message_id: message_id, text?: true, decoded: body
   end
+  let(:found_client) { client }
   let(:seller) { build :seller }
   let(:client) { double :client, sellers: sellers }
   let(:sellers) { double :sellers, where: [seller] }
@@ -43,6 +44,7 @@ RSpec.describe CreateEmail do
 
   context 'when from address is client key related' do
     let(:from) { 'demo@test.host' }
+    let(:found_client) { nil }
 
     it 'performs client lookup based on key' do
       action

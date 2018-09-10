@@ -19,11 +19,7 @@ class CreateEmail
   private
 
   def find_client(mail_address)
-    if mail_address.domain == Settings.domain
-      Client.find_by key: mail_address.local
-    else
-      Client.find_by mail_address: mail_address.address
-    end
+    Client.find_by(mail_address: mail_address.address) || Client.find_by(key: mail_address.local)
   end
 
   def body(message)
