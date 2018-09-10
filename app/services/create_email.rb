@@ -8,10 +8,10 @@ class CreateEmail
   def call(sent)
     orga_mail = Mail::Address.new(sent ? @message.from.first : @message.to.first)
     client = find_client(orga_mail)
-    raise ActiveRecord::RecordNotFound unless client
+    return unless client
     seller_mail = sent ? @message.to.first : @message.from.first
     seller = client.sellers.where(email: seller_mail).first
-    raise ActiveRecord::RecordNotFound unless seller
+    return unless seller
     Email.create! kind: :custom, seller: seller, sent: sent, message_id: @message.message_id,
                   subject: @message.subject, to: @message.to.first, from: @message.from.first, body: body(@message)
   end

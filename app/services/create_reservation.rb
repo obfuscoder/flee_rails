@@ -20,6 +20,6 @@ class CreateReservation
   end
 
   def send_reservation_mail(reservation)
-    SellerMailer.reservation(reservation).deliver_now
+    SellerMailer.reservation(reservation).deliver_later
   end
 end

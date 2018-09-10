@@ -15,7 +15,7 @@ RSpec.describe 'mail request' do
     subject { response }
 
     context 'when sender is unknown' do
-      it { is_expected.to have_http_status :not_found }
+      it { is_expected.to have_http_status :no_content }
     end
 
     context 'when sender is known' do

@@ -15,7 +15,7 @@ RSpec.describe CreateReservation do
     let(:relevant_notifications) { double :relevant_notifications, destroy_all: nil }
     let(:options) { {} }
 
-    before { allow(SellerMailer).to receive(:reservation).and_return double(deliver_now: true) }
+    before { allow(SellerMailer).to receive(:reservation).and_return double(deliver_later: true) }
 
     it 'saves the reservation' do
       action
@@ -26,11 +26,11 @@ RSpec.describe CreateReservation do
 
     context 'when reservation was persisted' do
       it 'sends reservation confirmation mail' do
-        mailer = double deliver_now: nil
+        mailer = double deliver_later: nil
         allow(SellerMailer).to receive(:reservation).and_return mailer
         action
         expect(SellerMailer).to have_received(:reservation).with(reservation)
-        expect(mailer).to have_received(:deliver_now)
+        expect(mailer).to have_received(:deliver_later)
       end
     end
 

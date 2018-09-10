@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SellersController do
-  before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_now: self)) }
+  before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self)) }
 
   describe 'GET new' do
     before { get :new }
@@ -50,11 +50,11 @@ RSpec.describe SellersController do
   describe 'POST create' do
     context 'with valid params' do
       it 'sends activation email with correct parameters' do
-        mail = double :mail, deliver_now: nil
+        mail = double :mail, deliver_later: nil
         allow(SellerMailer).to receive(:registration).and_return mail
         post :create, seller: attributes_for(:seller)
         expect(SellerMailer).to have_received(:registration) { |seller| expect(seller).to be_a Seller }
-        expect(mail).to have_received(:deliver_now).with no_args
+        expect(mail).to have_received(:deliver_later).with no_args
       end
     end
 
@@ -98,11 +98,11 @@ RSpec.describe SellersController do
       end
 
       it 'sends registration email' do
-        mail = double :mail, deliver_now: nil
+        mail = double :mail, deliver_later: nil
         allow(SellerMailer).to receive(:registration).and_return mail
         post_it
         expect(SellerMailer).to have_received(:registration).with(seller)
-        expect(mail).to have_received(:deliver_now).with no_args
+        expect(mail).to have_received(:deliver_later).with no_args
       end
     end
 
@@ -213,9 +213,9 @@ RSpec.describe SellersController do
             end
 
             it 'sends invitation mail to seller' do
-              allow(SellerMailer).to receive(:invitation) { double deliver_now: true }
+              allow(SellerMailer).to receive(:invitation) { double deliver_later: true }
               action
-              expect(SellerMailer).to have_received(:invitation) { double deliver_now: true }
+              expect(SellerMailer).to have_received(:invitation) { double deliver_later: true }
             end
 
             context 'when event is not reservable by seller' do

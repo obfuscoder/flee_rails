@@ -98,7 +98,7 @@ class SellersController < ApplicationController
     current_client.events.merge(
       Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation)
     ).each do |event|
-      SellerMailer.invitation(seller, event).deliver_now if event.reservable_by?(seller)
+      SellerMailer.invitation(seller, event).deliver_later if event.reservable_by?(seller)
     end
   end
 
@@ -110,7 +110,7 @@ class SellersController < ApplicationController
   end
 
   def send_registration_mail(seller)
-    SellerMailer.registration(seller).deliver_now
+    SellerMailer.registration(seller).deliver_later
   end
 
   def resend_activation_params
