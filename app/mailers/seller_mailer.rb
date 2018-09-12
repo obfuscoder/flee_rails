@@ -55,10 +55,12 @@ class SellerMailer < ActionMailer::Base
   def custom(seller, subject, body)
     @seller = seller
     @client = seller.client
-    body = body.gsub '{{login_link}}', login_seller_url(seller.token, host: @client.domain)
-    mail subject: subject do |format|
-      format.text { render plain: body }
-      format.html { render html: markdown(body).html_safe }
+    body = body.gsub(/{{\s*login_link\s*}}/, '{{ login_url }}')
+    generator = MessageGenerator.new(seller: @seller, urls: urls)
+    message = generator.generate(OpenStruct.new(subject: subject, body: body))
+    mail subject: message.subject do |format|
+      format.text { render plain: message.body }
+      format.html { render html: markdown(message.body).html_safe }
     end
   end
 

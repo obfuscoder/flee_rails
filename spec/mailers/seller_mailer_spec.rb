@@ -127,9 +127,19 @@ RSpec.describe SellerMailer do
 
     it_behaves_like 'a seller mail'
 
-    context 'when body contains a login link placeholder' do
-      let(:content) { '{{login_link}}' }
-      let(:expected_contents) { [login_seller_url(seller.token, host: client.domain)] }
+    ['{{login_link}}', '{{ login_link }}', '{{ login_url }}'].each do |placeholder|
+      context "when body contains the login url placeholder #{placeholder}" do
+        let(:content) { placeholder }
+        let(:expected_contents) { [login_seller_url(seller.token, host: client.domain)] }
+
+        it_behaves_like 'a seller mail'
+      end
+    end
+
+    context 'when seller specific placeholders are used' do
+      let(:properties) { %w[name first_name last_name street zip_code city phone email] }
+      let(:content) { properties.map { |property| "{{ seller_#{property} }}" }.join '\n' }
+      let(:expected_contents) { properties.map { |property| seller.send property } }
 
       it_behaves_like 'a seller mail'
     end
