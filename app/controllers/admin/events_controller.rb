@@ -53,7 +53,10 @@ module Admin
       send_data CreateEventData.new(current_client).call(@event), filename: 'flohmarkthelfer.data'
     end
 
-    def bill; end
+    def bill
+      send_data @event.bill.document, filename: "rechnung_flohmarkthelfer_#{@event.bill.number}.pdf",
+                                      type: 'application/pdf'
+    end
 
     private
 

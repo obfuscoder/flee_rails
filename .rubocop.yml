@@ -54,6 +54,9 @@ Style/FormatStringToken:
 Rails/TimeZone:
   Enabled: false
 
+Rails/Date:
+  Enabled: false
+
 RSpec/ExampleLength:
   Max: 25
 

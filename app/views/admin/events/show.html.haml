@@ -42,6 +42,8 @@
   = link_to 'Helferverwaltung', admin_event_support_types_path(@event), type: :primary, icon: :leaf
   = link_to 'Daten herunterladen', data_admin_event_path(@event, format: :json), type: :primary, icon: :download
   = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart
+  - if @event.bill.present?
+    = link_to 'Rechnung', bill_admin_event_path(@event), type: :primary, icon: :euro
 %p
 .btn-group
   - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?

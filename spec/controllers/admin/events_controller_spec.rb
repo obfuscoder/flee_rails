@@ -167,4 +167,19 @@ RSpec.describe Admin::EventsController do
       end
     end
   end
+
+  describe 'GET bill' do
+    let(:event) { create(:billable_event).tap(&:create_bill) }
+    let(:bill) { event.bill }
+
+    before { get :bill, id: event.id }
+
+    describe 'response' do
+      subject { response }
+
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'application/pdf' }
+      its(:body) { is_expected.to eq bill.document }
+    end
+  end
 end

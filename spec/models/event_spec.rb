@@ -168,7 +168,7 @@ RSpec.describe Event do
 
   describe 'item counts' do
     let(:item_count) { 5 }
-    let(:event) { create :event_with_ongoing_reservation }
+    let(:event) { create :event_with_ongoing_reservation, number: 5 }
     let(:reservation) { create :reservation, event: event }
     let!(:items) { create_list :item, item_count, reservation: reservation }
 

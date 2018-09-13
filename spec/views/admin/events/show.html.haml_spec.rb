@@ -76,5 +76,11 @@ RSpec.describe 'admin/events/show' do
         it { is_expected.to have_content '10 von 80 Bearbeitungsabschlussmails verschickt' }
       end
     end
+
+    context 'when bill is available' do
+      let(:event) { create(:billable_event).tap(&:create_bill) }
+
+      it { is_expected.to have_link href: bill_admin_event_path(event) }
+    end
   end
 end

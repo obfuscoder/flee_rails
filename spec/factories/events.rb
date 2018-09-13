@@ -36,6 +36,17 @@ FactoryBot.define do
             create :reservation, event: event
           end
         end
+
+        factory :billable_event do
+          after :build do |event|
+            reservation = build :reservation, event: event
+            event.reservations << reservation
+            reservation.items << build_list(:sold_item, 10, reservation: reservation)
+            event.rentals << build(:rental, event: event, hardware: Hardware.first)
+            event.rentals << build(:rental, event: event, hardware: Hardware.second)
+            event.rentals << build(:rental, event: event, hardware: Hardware.third, amount: 4)
+          end
+        end
       end
 
       factory :event_with_support do

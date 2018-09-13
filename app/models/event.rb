@@ -3,6 +3,7 @@
 class Event < ActiveRecord::Base
   enum kind: %i[commissioned direct]
   belongs_to :client
+  has_one :bill, dependent: :destroy
   has_many :reservations, -> { order :id }, inverse_of: :event
   has_many :reviews, through: :reservations
   has_many :items, through: :reservations
@@ -125,7 +126,7 @@ class Event < ActiveRecord::Base
   end
 
   def system_fees
-    revenue / 100
+    number == 1 ? 0 : revenue / 100
   end
 
   def total_fees

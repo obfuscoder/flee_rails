@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909110119) do
+ActiveRecord::Schema.define(version: 20180912180541) do
+
+  create_table "bills", force: :cascade do |t|
+    t.integer  "event_id"
+    t.string   "number"
+    t.binary   "document"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bills", ["event_id"], name: "index_bills_on_event_id"
+  add_index "bills", ["number"], name: "index_bills_on_number", unique: true
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at",                       null: false
@@ -40,10 +51,10 @@ ActiveRecord::Schema.define(version: 20180909110119) do
     t.string   "logo"
     t.string   "address"
     t.string   "invoice_address"
-    t.string   "intro"
-    t.string   "outro"
+    t.text     "intro"
+    t.text     "outro"
     t.string   "mail_address"
-    t.string   "terms"
+    t.text     "terms"
     t.decimal  "reservation_fee",                  precision: 4, scale: 2
     t.decimal  "commission_rate",                  precision: 3, scale: 2
     t.decimal  "price_precision",                  precision: 3, scale: 2

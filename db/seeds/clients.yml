@@ -4,6 +4,10 @@
   address: |
     Beispielstraße 4711
     12345 Musterstadt
+  invoice_address: |
+    Maria Mustermann
+    Beispielstraße 123
+    54321 Musterstadt
   intro: |
     Dies ist der **Demobereich** von Flohmarkthelfer. Sie können sich im
     [Verwaltungsbereich](http://demo.flohmarkthelfer.de/admin) als Organisationsteam testweise mit den
