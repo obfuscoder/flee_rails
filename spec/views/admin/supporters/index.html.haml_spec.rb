@@ -10,7 +10,7 @@ RSpec.describe 'admin/supporters/index' do
   before do
     assign :event, event
     assign :support_type, support_type
-    assign :supporters, [supporter]
+    assign :supporters, [supporter].paginate
   end
 
   it_behaves_like 'a standard view'

@@ -37,7 +37,7 @@ RSpec.describe Admin::SupportersController do
     describe '@supporters' do
       subject { assigns :supporters }
 
-      it { is_expected.to eq supporters }
+      it { is_expected.to have(supporters.count).items }
     end
   end
 

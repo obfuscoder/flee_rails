@@ -14,4 +14,5 @@
                                                                                                              type: :danger,
                                                                                                              icon: :trash,
                                                                                                              data: { confirm: t('sure') }
+%p= paginate @supporters
 = link_to t('back'), admin_event_support_types_path(@event)

@@ -8,7 +8,7 @@ module Admin
     before_action :init_sellers, only: %i[new edit]
 
     def index
-      @supporters = @support_type.supporters
+      @supporters = @support_type.supporters.joins(:seller).search(params[:search]).page(@page).order(column_order)
     end
 
     def new
@@ -62,6 +62,14 @@ module Admin
 
     def supporter_params
       params.require(:supporter).permit :seller_id, :comments
+    end
+
+    def column_order
+      'sellers.first_name, sellers.last_name'
+    end
+
+    def searchable?
+      action_name == 'index'
     end
   end
 end
