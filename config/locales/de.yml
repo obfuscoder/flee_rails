@@ -217,6 +217,11 @@ de:
             Es sind %{transaction_count} Transaktionen bekannt. Es sind %{sold_item_count} Artikel als verkauft markiert.
             Stimmen diese Werte? Wenn nicht, laden Sie bitte alle Transaktionen hoch und warten Sie,
             bis alle Transaktionen verarbeitet wurden, bevor Sie die Abschlussmail auslösen.
+          download: >
+            Es sind bisher nur %{label_count} Etiketten von %{item_count} Artikel erzeugt worden.
+            Sollten Sie gerade die Bearbeitungsabschlussmail ausgelöst haben und die kompletten Daten herunterladen wollen,
+            warten Sie bitte noch einige Minuten, bis alle Mails verschickt und alle Etiketten erzeugt wurden.
+            Wollen Sie dennoch schon jetzt die Daten herunterladen? Es werden nur die Artikel mit Etiketten enthalten sein.
         message_sent:
           invitation: "%{sent_count} von %{scheduled_count} Reservierungseinladungen verschickt"
           reservation_closing: "%{sent_count} von %{scheduled_count} Erinnerungsmails vor Bearbeitungsschluss verschickt"

@@ -40,7 +40,7 @@
   = link_to 'Leihgeräte', admin_event_rentals_path(@event), type: :primary, icon: :shopping_cart
   = link_to 'Statistiken', stats_admin_event_path(@event), type: :primary, icon: :signal
   = link_to 'Helferverwaltung', admin_event_support_types_path(@event), type: :primary, icon: :leaf
-  = link_to 'Daten herunterladen', data_admin_event_path(@event, format: :json), type: :primary, icon: :download
+  = link_to 'Daten herunterladen', data_admin_event_path(@event, format: :json), { type: :primary, icon: :download }.merge(@event.item_count > @event.items_with_label_count ? { data: { confirm: t('.confirm.download', item_count: @event.item_count, label_count: @event.items_with_label_count) } } : {})
   = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart
   - if @event.bill.present?
     = link_to 'Rechnung', bill_admin_event_path(@event), type: :primary, icon: :euro
