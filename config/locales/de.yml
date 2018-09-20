@@ -700,6 +700,8 @@ de:
               limit: Die Anzahl der Artikel für die Kategorie %{category} ist pro Verkäufer auf %{limit} beschränkt.
             size:
               required: Die Größe muss bei dieser Kategorie angegeben werden.
+              fixed: Die angegebene Größe ist keine der zur Auswahl stehenden.
+              disabled: Es darf keine Größe für diese Kartegorie angegeben werden.
         time_period:
           attributes:
             max:

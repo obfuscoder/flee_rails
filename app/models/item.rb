@@ -18,6 +18,8 @@ class Item < ActiveRecord::Base
   validate :price_divisible_by_precision
   validate :max_number_of_items_for_category, on: %i[create update]
   validate :size_required_for_category, on: %i[create update]
+  validate :allowed_size_for_category, on: %i[create update]
+  validate :size_disabled_for_category, on: %i[create update]
 
   scope :without_label, -> { where.has { code.eq nil } }
   scope :with_label, -> { where.has { code.not_eq nil } }
@@ -75,11 +77,24 @@ class Item < ActiveRecord::Base
                                   category: most_limited_category.name
   end
 
+  def allowed_size_for_category
+    return if category.nil?
+    return unless category.size_fixed? && category.sizes.include?(size)
+    errors.add :size, :fixed
+  end
+
   def size_required_for_category
     return if category.nil?
     return unless category.size_required? && size.blank?
     errors.add :size, :required
   end
+
+  def size_disabled_for_category
+    return if category.nil?
+    return unless category.size_disabled? && size.present?
+    errors.add :size, :disabled
+  end
+
 
   def create_number
     self.number = reservation.reload.increase_label_counter
