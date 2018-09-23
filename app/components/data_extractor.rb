@@ -10,6 +10,7 @@ class DataExtractor
   delegate :number, to: :reservation, prefix: true
   delegate :comments, to: :supporter, prefix: true
   delegate :name, to: :support_type, prefix: true
+  delegate :number, to: :bill, prefix: true
 
   def registration_info
     <<~DATA
@@ -85,6 +86,10 @@ class DataExtractor
 
   def support_type
     @data[:support_type]
+  end
+
+  def bill
+    @data[:bill]
   end
 
   def urls

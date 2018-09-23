@@ -973,3 +973,15 @@ de:
             Datum: {{ event_shopping_time }}
             Helfergruppe: {{ support_type_name }}
             Verkäufer: {{ seller_name }} ({{ seller_email }})
+    bill:
+      subject: Flohmarkthelfer - Rechnung {{ bill_number }}
+      body: |
+        Sehr geehrte Damen und Herren,
+
+        im Anhang finden Sie die Rechnung für den vergangenen Termin.
+
+            Termin: {{ event_name }}
+            Datum: {{ event_shopping_time }}
+
+        Viele Grüße,
+        Ihr Flohmarkthelfer-Team

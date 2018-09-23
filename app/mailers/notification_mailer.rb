@@ -22,13 +22,26 @@ class NotificationMailer < ActionMailer::Base
     mail_template(__method__)
   end
 
+  def bill(event)
+    @event = event
+    @bill = event.bill
+    @client = @event.client
+    attachments["flohmarkthelfer_rechnung_#{@bill.number}.pdf"] = event.bill.document
+    mail_template(__method__, from: Settings.bill.issuer.email)
+  end
+
   private
 
-  def mail_template(category)
+  def mail_template(category, options = {})
     template = fetch_template(category)
-    generator = MessageGenerator.new(event: @event, support_type: @support_type, seller: @seller, supporter: @supporter)
+    generator = MessageGenerator.new event: @event,
+                                     support_type: @support_type,
+                                     seller: @seller,
+                                     supporter: @supporter,
+                                     bill: @bill
     message = generator.generate(template)
-    mail to: @client.mail_from, from: @client.mail_from, subject: message.subject do |format|
+    from = options[:from] || @client.mail_from
+    mail to: @client.mail_from, from: from, subject: message.subject do |format|
       format.text { render plain: message.body }
       format.html { render html: markdown(message.body).html_safe }
     end
