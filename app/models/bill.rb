@@ -30,7 +30,7 @@ class Bill < ActiveRecord::Base
                              amount: (event.number == 1 ? 0 : '1 %'),
                              sum: event.system_fees)]
     event.rentals.each do |rental|
-      result << OpenStruct.new(description: "Leihgebühr #{rental.hardware.description}",
+      result << OpenStruct.new(description: "Verleih #{rental.hardware.description}",
                                price: rental.hardware.price,
                                amount: rental.amount,
                                sum: rental.hardware.price * rental.amount)
