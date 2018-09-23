@@ -27,7 +27,7 @@ class NotificationMailer < ActionMailer::Base
     @bill = event.bill
     @client = @event.client
     attachments["flohmarkthelfer_rechnung_#{@bill.number}.pdf"] = event.bill.document
-    mail_template(__method__, from: Settings.bill.issuer.email)
+    mail_template(__method__, from: Settings.bill.issuer.email, bcc: Settings.bill.issuer.email)
   end
 
   private
@@ -41,7 +41,9 @@ class NotificationMailer < ActionMailer::Base
                                      bill: @bill
     message = generator.generate(template)
     from = options[:from] || @client.mail_from
-    mail to: @client.mail_from, from: from, subject: message.subject do |format|
+    mail_options = { to: @client.mail_from, from: from, subject: message.subject }
+    mail_options[:bcc] = options[:bcc] if options[:bcc].present?
+    mail mail_options do |format|
       format.text { render plain: message.body }
       format.html { render html: markdown(message.body).html_safe }
     end
