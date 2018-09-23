@@ -95,7 +95,6 @@ class Item < ActiveRecord::Base
     errors.add :size, :disabled
   end
 
-
   def create_number
     self.number = reservation.reload.increase_label_counter
   end
