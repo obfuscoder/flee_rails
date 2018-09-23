@@ -55,6 +55,7 @@ class Event < ActiveRecord::Base
   scope :with_sent, ->(category) { joining { messages }.where.has { messages.category == category.to_s } }
   scope :reservable, -> { within_reservation_time.with_available_reservations }
   scope :past, -> { joining { shopping_periods }.where.has { shopping_periods.max < 2.days.ago } }
+  scope :wiihtout_bill, -> { where.not(bill) }
 
   def self.in_need_of_support
     where(support_system_enabled: true).joining { support_types }.select do |event|

@@ -31,9 +31,9 @@ class Bill < ActiveRecord::Base
                              sum: event.system_fees)]
     if event.number == 1
       result << OpenStruct.new(description: 'Einrichtungsgebühr',
-                               price: 50.0,
+                               price: setup_fee,
                                amount: 1,
-                               sum: 50.0)
+                               sum: setup_fee)
     end
     event.rentals.each do |rental|
       result << OpenStruct.new(description: "Verleih #{rental.hardware.description}",
@@ -45,10 +45,14 @@ class Bill < ActiveRecord::Base
   end
 
   def total
-    event.total_fees
+    event.number == 1 ? event.total_fees + setup_fee : event.total_fees
   end
 
   private
+
+  def setup_fee
+    50.0
+  end
 
   def create_number
     return if event.nil? || number.present?
