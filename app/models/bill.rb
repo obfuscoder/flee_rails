@@ -29,6 +29,12 @@ class Bill < ActiveRecord::Base
                              price: event.revenue,
                              amount: (event.number == 1 ? 0 : '1 %'),
                              sum: event.system_fees)]
+    if event.number == 1
+      result << OpenStruct.new(description: 'Einrichtungsgebühr',
+                               price: 50.0,
+                               amount: 1,
+                               sum: 50.0)
+    end
     event.rentals.each do |rental|
       result << OpenStruct.new(description: "Verleih #{rental.hardware.description}",
                                price: rental.hardware.price,

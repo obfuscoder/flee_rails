@@ -67,12 +67,19 @@ RSpec.describe Bill do
                                        amount: 0,
                                        sum: 0
       end
+
+      its(:second) do
+        is_expected.to have_attributes description: 'Einrichtungsgebühr',
+                                       price: 50,
+                                       amount: 1,
+                                       sum: 50
+      end
     end
 
     it 'contains rentals' do
       event.rentals.each_with_index do |rental, index|
         item = action[index + 1]
-        expect(item).to have_attributes description: "Leihgebühr #{rental.hardware.description}",
+        expect(item).to have_attributes description: "Verleih #{rental.hardware.description}",
                                         price: 5.0,
                                         amount: rental.amount,
                                         sum: 5.0 * rental.amount
