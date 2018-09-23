@@ -5,7 +5,8 @@ set :repo_url, 'https://github.com/obfuscoder/flee_rails'
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml',
                                                  'config/secrets.yml',
-                                                 'config/puma.rb')
+                                                 'config/puma.rb',
+                                                 'config/settings.local.yml')
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp', 'backup', 'public/download', 'public/docs')
 
