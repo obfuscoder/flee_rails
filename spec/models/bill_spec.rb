@@ -95,7 +95,7 @@ RSpec.describe Bill do
     context 'when event is first for client' do
       let(:event_number) { 1 }
 
-      it { is_expected.to eq 30 }
+      it { is_expected.to eq 80 }
     end
   end
 end
