@@ -36,6 +36,7 @@ class Event < ActiveRecord::Base
             presence: { if: -> { kind == :commissioned } }
   validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_reservations, numericality: { greater_than: 0, only_integer: true }
+  validates :reservation_start, :reservation_end, presence: true
 
   with_options if: :commissioned? do
     validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }

@@ -2,6 +2,7 @@
 
 module TimePeriodsHelper
   def period(periods, options = {})
+    return '' if periods.empty?
     if options[:exact] != false
       exact_periods(periods)
     else

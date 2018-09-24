@@ -14,6 +14,12 @@ RSpec.describe TimePeriodsHelper do
 
     it { is_expected.to eq 'Sa, 10. Februar 2007 15:30 - 17:30 Uhr' }
 
+    context 'when periods are empty' do
+      let(:argument) { [] }
+
+      it { is_expected.to eq '' }
+    end
+
     context 'when max is on a different day' do
       let(:max) { min + 1.day + 2.hours }
 
