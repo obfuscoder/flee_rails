@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get 'pages/privacy'
   get 'pages/terms'
   get 'pages/deleted'
+  get '/oauth/login'
+  get '/oauth/connect'
+  get '/oauth/callback'
 
   resources :events, only: [:show] do
     member do

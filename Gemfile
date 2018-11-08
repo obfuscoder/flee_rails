@@ -69,7 +69,7 @@ gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'redcarpet' # markdown
 gem 'simple_form'
-gem 'sorcery'
+gem 'sorcery', path: '~/sorcery'
 gem 'underscore-rails'
 gem 'validates_email_format_of'
 gem 'whenever', require: false # cron

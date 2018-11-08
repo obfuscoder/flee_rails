@@ -2,7 +2,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -76,8 +76,8 @@ Rails.application.config.sorcery.configure do |config|
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce] .
   # Default: `[]`
   #
-  # config.external_providers =
 
+  config.external_providers = [:openid]
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -85,6 +85,12 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.ca_file =
 
+
+  config.openid.site = 'https://localhost:8443'
+  config.openid.key = 'a66f4528-000e-4474-bfea-0c73793018f7'
+  config.openid.secret = 'secret'
+  config.openid.callback_url = 'https://broker-qa.netid.de/callback?provider=openid'
+  config.openid.user_info_mapping = { given_name: 'first_name', last_name: 'last_name', email: 'email', phone: 'phone', email_verified: 'active' }
 
   # For information about LinkedIn API:
   # - user info fields go to https://developer.linkedin.com/documents/profile-fields
@@ -436,7 +442,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-    # user.authentications_class =
+    user.authentications_class = Authentication
 
 
     # User's identifier in authentications class.

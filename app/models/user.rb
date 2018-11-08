@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   belongs_to :client
 
+  has_many :authentications
+
   validates :email, uniqueness: { scope: :client_id }
   validates :password, confirmation: { on: :update }
   validates :client, presence: true
