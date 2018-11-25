@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class SellerMailer < ActionMailer::Base
-  helper :events
-
   include MarkdownHelper
+  include EventsHelper
 
   def registration(seller)
     @seller = seller
@@ -15,6 +14,14 @@ class SellerMailer < ActionMailer::Base
     @reservation = reservation
     @seller = reservation.seller
     @event = reservation.event
+    @client = @seller.client
+    mail_template(__method__)
+  end
+
+  def reservation_failed(notification)
+    @seller = notification.seller
+    @event = notification.event
+    @position = waiting_list_position(@event, @seller)
     @client = @seller.client
     mail_template(__method__)
   end
@@ -68,7 +75,8 @@ class SellerMailer < ActionMailer::Base
 
   def mail_template(category)
     template = fetch_template(category)
-    generator = MessageGenerator.new(event: @event, reservation: @reservation, seller: @seller, urls: urls)
+    generator = MessageGenerator.new(event: @event, reservation: @reservation, seller: @seller,
+                                     position: @position, urls: urls)
     message = generator.generate(template)
     mail to: @seller.email, from: @client.mail_from, subject: message.subject do |format|
       format.text { render plain: message.body }

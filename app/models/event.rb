@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
   scope :with_sent, ->(category) { joining { messages }.where.has { messages.category == category.to_s } }
   scope :reservable, -> { within_reservation_time.with_available_reservations }
   scope :past, -> { joining { shopping_periods }.where.has { shopping_periods.max < 2.days.ago } }
-  scope :wiihtout_bill, -> { where.not(bill) }
+  scope :without_bill, -> { where.not(bill) }
 
   def self.in_need_of_support
     where(support_system_enabled: true).joining { support_types }.select do |event|
@@ -69,9 +69,13 @@ class Event < ActiveRecord::Base
   end
 
   def reservable_by?(seller, options = {})
-    return false if seller.client.reservation_by_seller_forbidden && options[:context] != :admin
-    return false if suspensions.find_by(seller: seller)
-    reservations.where(seller: seller).count < max_reservations_per_seller
+    !suspensions.find_by(seller: seller) && (
+      options[:context] == :admin ||
+      seller.client.reservation_by_seller_allowed? &&
+      !max_reservations_reached_for?(seller) &&
+      reservations_left? &&
+      !notifications.find_by(seller: seller)
+    )
   end
 
   def reviewed_by?(seller)
@@ -80,6 +84,10 @@ class Event < ActiveRecord::Base
 
   def reservations_left
     [max_reservations - reservations.count, 0].max
+  end
+
+  def reservations_left?
+    reservations_left.positive?
   end
 
   def max_reservations_per_seller
@@ -184,6 +192,10 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+  def max_reservations_reached_for?(seller)
+    reservations.where(seller: seller).count >= max_reservations_per_seller
+  end
 
   def create_number
     return if client.nil? || number.present?

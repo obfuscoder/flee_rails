@@ -13,7 +13,7 @@ describe ReservationsController do
 
     before do
       allow(controller).to receive(:current_seller).and_return seller
-      allow(CreateReservation).to receive(:new).and_return creator
+      allow(CreateReservationOrder).to receive(:new).and_return creator
       action
     end
 
@@ -22,16 +22,18 @@ describe ReservationsController do
     end
 
     it { is_expected.to redirect_to seller_path }
-    it 'notifies about the reservation' do
+    it 'notifies about the created reservation order' do
       expect(flash[:notice]).to be_present
     end
 
-    context 'when reservation was not persisted' do
-      let(:reservation) { build :reservation }
+    context 'when returned reservation had errors' do
+      let(:error_message) { 'some error' }
+      let(:reservation) { double errors: double(any?: true, full_messages: [error_message]) }
 
       it { is_expected.to redirect_to seller_path }
       it 'alerts about the failed reservation' do
         expect(flash[:alert]).to be_present
+        expect(flash[:alert]).to include error_message
       end
     end
   end

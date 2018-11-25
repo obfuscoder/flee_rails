@@ -126,8 +126,11 @@ de:
       item: Artikel
   reservations:
     create: &create_reservation
-      success: Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet %{number}.
-      failure: "Die Reservierung konnte nicht durchgeführt werden. Grund: %{reason}"
+      success: |
+        Die Reservierungsanfrage wird verarbeitet.
+        Sobald diese verarbeitet wurde, erhalten Sie eine Mail mit Ihrer Reservierungsnummer.
+        Sollte zum Zeitpunkt der Verarbeitung kein Platz mehr zur Verfügung stehen, werden Sie automatisch auf die Warteliste gesetzt.
+      failure: "Die Reservierungsanfrage konnte nicht verarbeitet werden. Grund: %{reason}"
     destroy:
       success: Ihre Reservierung wurde freigegeben.
   sellers:

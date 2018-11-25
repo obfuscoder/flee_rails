@@ -16,6 +16,6 @@ module EventsHelper
   end
 
   def waiting_list_position(event, seller)
-    event.notifications.order(:id).pluck(:seller_id).index(seller.id) + 1
+    event.notifications.pluck(:seller_id).index(seller.id) + 1
   end
 end

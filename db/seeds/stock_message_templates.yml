@@ -74,6 +74,32 @@
 
     Viele Grüße,
     Ihr Flohmarkt-Team
+- category: reservation_failed
+  subject: Reservierungsanfrage verarbeitet - Warteliste
+  body: |
+    Sehr geehrter Flohmarkt Teilnehmer/sehr geehrte Teilnehmerin,
+
+    Ihre Reservierungsanfrage für den folgenden Flohmarkt wurde verarbeitet:
+
+        Flohmarkt: {{ event_name }}
+        Datum: {{ event_shopping_time }}
+
+    Leider waren zum Zeitpunkt der Verarbeitung bereits alle Plätze vergeben.
+    Sie wurden daher automatisch in die Warteliste eingetragen.
+    Sie stehen momentan in der Warteliste an {{ position }}. Stelle.
+
+    Sobald ein Reservierungsplatz für Sie frei wird,
+    erhalten Sie automatisch eine Reservierungsbestätigung mit Ihrer Reservierungsnummer.
+
+    Sollten Sie kein Interesse mehr an der Teilnahme haben, können Sie sich aus der Warteliste
+    in Ihrem geschützten Bereich austragen.
+
+    Ihren geschützten Bereich erreichen Sie über folgenden Link:
+
+    [Zum geschützten Bereich]({{ login_url }})
+
+    Viele Grüße,
+    Ihr Flohmarkt-Team
 - category: reservation_closing
   subject: Bearbeitungsfrist der Artikel für den Flohmarkt endet bald
   body: |

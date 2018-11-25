@@ -50,6 +50,10 @@ class Client < ActiveRecord::Base
     destroy!
   end
 
+  def reservation_by_seller_allowed?
+    !reservation_by_seller_forbidden
+  end
+
   private
 
   def key_based_domain

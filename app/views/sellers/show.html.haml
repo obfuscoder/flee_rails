@@ -40,10 +40,10 @@
           %br
           #{event.reservations_left} von #{event.max_reservations} Plätzen frei
           %br
-          - if event.reservable_by?(@seller) && event.reservations_left > 0
-            Sie können sich einen Verkäuferplatz reservieren.
+          - if event.reservable_by?(@seller)
+            Sie können eine Reservierungsanfrage stellen.
             %br
-            = link_to 'Verkäuferplatz reservieren', event_reservations_path(event), method: :post, type: :primary, icon: :ok_circle
+            = link_to 'Reservierungsanfrage stellen', event_reservations_path(event), method: :post, type: :primary, icon: :ok_circle
           - elsif @seller.suspended_for?(event)
             Sie können aufgrund einer Sperre keine Reservierung durchführen. Grund der Sperre:
             = @seller.suspensions.find_by(event: event).reason
@@ -58,6 +58,8 @@
             Um eine Reservierung zu erhalten,
             =mail_to(current_client.mail_address, 'kontaktieren Sie uns')
             bitte.
+          - elsif @seller.notifications.any? { |notification| notification.event == event }
+            Ihre Reservierungsanfrage wird verarbeitet.
           - else
             Sie haben bereits die maximale Anzahl erlaubter Reservierungen für diesen Termin.
 - unless @events_with_support.empty?

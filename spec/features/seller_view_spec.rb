@@ -29,17 +29,16 @@ RSpec.describe 'Seller view area' do
     let(:preparation) { event }
 
     it 'can make a reservation' do
-      click_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
-      expect(page).to have_content 'Die Reservierung war erfolgreich. Ihre Reservierungsnummer lautet 1.'
-      expect(page).to have_content 'Sie haben die Reservierungsnummer 1'
-      expect(page).to have_link 'Reservierung freigeben', href: event_reservation_path(event, event.reservations.first)
+      click_link 'Reservierungsanfrage stellen', href: event_reservations_path(event)
+      expect(page).to have_content 'Die Reservierungsanfrage wird verarbeitet.'
+      expect(page).to have_content 'Ihre Reservierungsanfrage wird verarbeitet.'
     end
 
     context 'when reservation period is not yet reached' do
       let(:event) { create :event_with_ongoing_reservation, reservation_start: 1.hour.from_now }
 
       it 'reservation is not possible' do
-        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
+        expect(page).not_to have_link 'Reservierungsanfrage stellen', href: event_reservations_path(event)
       end
     end
 
@@ -47,7 +46,7 @@ RSpec.describe 'Seller view area' do
       let(:event) { create :event_with_ongoing_reservation, reservation_end: 1.hour.ago }
 
       it 'reservation is not possible' do
-        expect(page).not_to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
+        expect(page).not_to have_link 'Reservierungsanfrage stellen', href: event_reservations_path(event)
       end
     end
 
@@ -73,7 +72,7 @@ RSpec.describe 'Seller view area' do
       it 'can free reservation' do
         click_link 'Reservierung freigeben', href: event_reservation_path(event, reservation)
         expect(page).to have_content 'Ihre Reservierung wurde freigegeben.'
-        expect(page).to have_link 'Verkäuferplatz reservieren', href: event_reservations_path(event)
+        expect(page).to have_link 'Reservierungsanfrage stellen', href: event_reservations_path(event)
       end
     end
   end

@@ -96,6 +96,10 @@ class DataExtractor
     @data[:urls]
   end
 
+  def position
+    @data[:position]
+  end
+
   def l(text)
     ApplicationController.helpers.localize text
   end
