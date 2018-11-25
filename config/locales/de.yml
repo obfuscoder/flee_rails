@@ -9,6 +9,7 @@ de:
     registration: Registrierungsbestätigung
     invitation: Reservierungseinladung
     reservation: Reservierungsbestätigung
+    reservation_failed: Reservierungsverarbeitung - Warteliste
     reservation_closing: Erinnerungsmail vor Bearbeitungsschluss
     reservation_closed: Bearbeitungsabschlussmail
     finished: Abschlussmail
