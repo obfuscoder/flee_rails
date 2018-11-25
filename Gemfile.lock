@@ -444,6 +444,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (~> 4.2)
+  rake
   redcarpet
   rmagick
   rollbar

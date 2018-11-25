@@ -9,6 +9,7 @@ gem 'jquery-tablesorter'
 gem 'mysql2', '< 0.5', group: :production
 gem 'puma'
 gem 'rails', '~> 4.2'
+gem 'rake'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'therubyracer' unless RUBY_PLATFORM.match?(/darwin/)
