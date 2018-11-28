@@ -6,7 +6,7 @@ gem 'awesome_print'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
-gem 'mysql2', '< 0.5', group: :production
+gem 'mysql2'
 gem 'puma'
 gem 'rails', '~> 4.2'
 gem 'rake'
