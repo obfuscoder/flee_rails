@@ -35,7 +35,7 @@ RSpec.describe 'admin home page' do
   end
 
   it 'shows summary of reviews' do
-    expect(page).to have_content 'Bewertungen gesamt: 2'
+    expect(page).to have_content "Bewertungen\ngesamt: 2"
   end
 
   it 'shows graph of items per category' do
