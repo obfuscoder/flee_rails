@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Client do
-  subject(:client) { create :client, key: 'key', domain: 'somedomain.de', name: 'Flohmarkthelfer Test' }
+  subject(:client) { create :client, key: 'key', name: 'Flohmarkthelfer Test' }
 
   it { is_expected.to be_valid }
   it { is_expected.to have_many :events }
@@ -22,7 +22,7 @@ RSpec.describe Client do
   describe '#host_match?' do
     subject { client.host_match? host }
 
-    %w[www.key.test.host key.test.host somedomain.de].each do |host_name|
+    %w[www.key.test.host key.test.host].each do |host_name|
       context "when host is #{host_name}" do
         let(:host) { host_name }
 
@@ -52,12 +52,7 @@ RSpec.describe Client do
   describe '#url' do
     subject { client.url }
 
-    it { is_expected.to eq 'http://somedomain.de' }
-    context 'when domain is not set' do
-      before { client.domain = nil }
-
-      it { is_expected.to eq 'http://key.test.host' }
-    end
+    it { is_expected.to eq 'https://key.test.host' }
   end
 
   describe '#destroy_everything!' do

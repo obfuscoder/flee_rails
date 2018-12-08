@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180923173129) do
+ActiveRecord::Schema.define(version: 20181208115133) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "event_id"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20180923173129) do
     t.datetime "updated_at",                                               null: false
     t.string   "key"
     t.string   "prefix"
-    t.string   "domain"
     t.string   "name"
     t.string   "short_name"
     t.string   "logo"
@@ -64,7 +63,6 @@ ActiveRecord::Schema.define(version: 20180923173129) do
     t.boolean  "reservation_numbers_assignable"
   end
 
-  add_index "clients", ["domain"], name: "index_clients_on_domain", unique: true
   add_index "clients", ["key"], name: "index_clients_on_key", unique: true
   add_index "clients", ["prefix"], name: "index_clients_on_prefix", unique: true
 

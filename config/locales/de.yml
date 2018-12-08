@@ -21,7 +21,7 @@ de:
 
       Es können Platzhalter sowohl in der Betreffzeile als auch im Inhalt der Mail benutzt werden,
       die beim Verschicken der Mails mit den tatsächlichen Daten ersetzt werden.
-      Die zur Verfügung stehenden Platzhalter finden Sie [in der Anleitung](http://flohmarkthelfer.de/docs/index.html#_platzhalter).
+      Die zur Verfügung stehenden Platzhalter finden Sie [in der Anleitung](https://flohmarkthelfer.de/docs/index.html#_platzhalter).
   commissioned: Kommissionsbasis
   direct: Tischbasis
   "true": ja
@@ -441,7 +441,7 @@ de:
 
             <code>[Text des Loginlinks]\({{ login_url }})</code>
 
-            Ebenso stehen die [Platzhalter für Veräuferdaten](http://flohmarkthelfer.de/docs/index.html#_verk%C3%A4uferdaten) zur Verfügung.
+            Ebenso stehen die [Platzhalter für Veräuferdaten](https://flohmarkthelfer.de/docs/index.html#_verk%C3%A4uferdaten) zur Verfügung.
       create:
         success:
           zero: Es wird keine Mail verschickt. Es wurde kein Empfänger gewählt.

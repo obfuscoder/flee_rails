@@ -11,12 +11,11 @@ class Client < ActiveRecord::Base
 
   validates :key, uniqueness: { case_sensitive: false }, presence: true
   validates :prefix, uniqueness: true
-  validates :domain, uniqueness: { case_sensitive: false }
   validates :terms, presence: true
   validates :name, presence: true
 
   def host_match?(host)
-    host.ends_with?(domain) || host.ends_with?(key_based_domain)
+    host.ends_with?(domain)
   end
 
   def mail_from
@@ -31,12 +30,8 @@ class Client < ActiveRecord::Base
     self[:mail_address] || "#{key}@#{Settings.domain}"
   end
 
-  def domain
-    self[:domain] || key_based_domain
-  end
-
   def url
-    "http://#{domain}"
+    "https://#{domain}"
   end
 
   def destroy_everything!
@@ -54,9 +49,7 @@ class Client < ActiveRecord::Base
     !reservation_by_seller_forbidden
   end
 
-  private
-
-  def key_based_domain
+  def domain
     "#{key}.#{Settings.domain}"
   end
 end

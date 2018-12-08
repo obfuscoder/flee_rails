@@ -116,7 +116,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/pages/my_basar', to: redirect('http://flohmarkthelfer.de')
+  get '/pages/my_basar', to: redirect('https://flohmarkthelfer.de')
 
   get '*unmatched_route', to: 'application#not_found'
 end

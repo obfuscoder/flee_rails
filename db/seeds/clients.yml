@@ -10,7 +10,7 @@
     54321 Musterstadt
   intro: |
     Dies ist der **Demobereich** von Flohmarkthelfer. Sie können sich im
-    [Verwaltungsbereich](http://demo.flohmarkthelfer.de/admin) als Organisationsteam testweise mit den
+    [Verwaltungsbereich](/admin) als Organisationsteam testweise mit den
     folgenden Daten anmelden:
 
     eMail-Adresse: `admin@flohmarkthelfer.de`
