@@ -75,6 +75,7 @@ module Admin
 
     def enforce_donation(parameters)
       return parameters unless @reservation.event.donation_of_unsold_items_enabled && parameters['category_id'].present?
+
       category = current_client.categories.find parameters['category_id']
       parameters['donation'] = true if category.donation_enforced
       parameters

@@ -30,6 +30,7 @@ class Item < ActiveRecord::Base
 
   def self.search(needle)
     return all if needle.nil?
+
     joins(:category).where.has { sift(:full_text_search, needle) | category.sift(:full_text_search, needle) }
   end
 
@@ -62,6 +63,7 @@ class Item < ActiveRecord::Base
 
   def price_divisible_by_precision
     return if reservation.nil? || reservation.event.nil? || price.nil?
+
     precision = reservation.event.price_precision
     errors.add :price, :precision, precision: number_to_currency(precision) if price.remainder(precision).nonzero?
   end
@@ -69,10 +71,13 @@ class Item < ActiveRecord::Base
   def max_number_of_items_for_category
     return if reservation.blank?
     return if reservation.category_limits_ignored?
+
     most_limited_category = category.try(:most_limited_category)
     return unless category.present? && most_limited_category.present?
+
     items_with_category = reservation.items.where(category: most_limited_category.self_and_descendants).where.not id: id
     return if items_with_category.count < most_limited_category.max_items_per_seller
+
     errors.add :category, :limit, limit: most_limited_category.max_items_per_seller,
                                   category: most_limited_category.name
   end
@@ -80,18 +85,21 @@ class Item < ActiveRecord::Base
   def allowed_size_for_category
     return if category.nil?
     return unless category.size_fixed? && category.sizes.include?(size)
+
     errors.add :size, :fixed
   end
 
   def size_required_for_category
     return if category.nil?
     return unless category.size_required? && size.blank?
+
     errors.add :size, :required
   end
 
   def size_disabled_for_category
     return if category.nil?
     return unless category.size_disabled? && size.present?
+
     errors.add :size, :disabled
   end
 

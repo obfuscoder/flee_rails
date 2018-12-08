@@ -32,6 +32,7 @@ module ApplicationHelper
   def handle_type(ops)
     type = ops.delete :type
     return if type.nil?
+
     ops[:class] = "btn btn-#{type}"
   end
 

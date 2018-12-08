@@ -9,6 +9,7 @@ class Suspension < ActiveRecord::Base
 
   def self.search(needle)
     return all if needle.blank?
+
     joins(:seller).where.has { sift(:full_text_search, needle) | seller.sift(:full_text_search, needle) }
   end
 

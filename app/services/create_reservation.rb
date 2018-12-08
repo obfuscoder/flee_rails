@@ -20,8 +20,8 @@ class CreateReservation
       if reservation.save(save_options)
         notification&.destroy
         send_reservation_mail reservation
-      else
-        send_reservation_failed_mail notification if notification
+      elsif notification
+        send_reservation_failed_mail notification
       end
       reservation
     end

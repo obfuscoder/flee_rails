@@ -5,6 +5,7 @@ class ImportTransactionJob < ActiveJob::Base
 
   def perform(event, transaction_data)
     return if event.transactions.find_by(number: transaction_data['id']).present?
+
     ActiveRecord::Base.transaction do
       transaction = event.transactions.create! number: transaction_data['id'],
                                                created_at: Time.zone.parse(transaction_data['date']),

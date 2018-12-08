@@ -7,6 +7,7 @@ class Supporter < ActiveRecord::Base
 
   def self.search(needle)
     return all if needle.nil?
+
     joins(:seller).where.has { sift(:full_text_search, needle) | seller.sift(:full_text_search, needle) }
   end
 

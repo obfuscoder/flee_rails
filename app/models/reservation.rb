@@ -78,20 +78,24 @@ class Reservation < ActiveRecord::Base
 
   def max_reservations_per_seller
     return if event.nil?
+
     max_reservations = event.max_reservations_per_seller
     reservations = event.reservations.where(seller: seller).where.not(id: id)
     return if reservations.count < max_reservations
+
     errors.add :event, :limit, limit: max_reservations
   end
 
   def not_suspended
     return if event.nil? || seller.nil?
+
     suspension = event.suspensions.find_by(seller: seller)
     errors.add :event, :suspended, reason: suspension.reason if suspension
   end
 
   def reservation_allowed_by_seller
     return if event.nil?
+
     errors.add :base, :forbidden if event.client.reservation_by_seller_forbidden?
   end
 end

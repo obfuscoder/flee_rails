@@ -70,8 +70,10 @@ class SellersController < ApplicationController
     reset_session
     sellers = current_client.sellers
     raise UnauthorizedError if sellers.nil?
+
     seller = sellers.find_by token: params[:token]
     raise UnauthorizedError if seller.blank?
+
     activate_seller(seller)
     session[:seller_id] = seller.id
   end
@@ -94,6 +96,7 @@ class SellersController < ApplicationController
 
   def activate_seller(seller)
     return if seller.active
+
     seller.update active: true
     current_client.events.merge(
       Event.reservation_not_yet_ended.without_reservation_for(seller).with_sent(:invitation)
@@ -104,6 +107,7 @@ class SellersController < ApplicationController
 
   def resend_activation_for(seller)
     return unless seller.valid? :resend_activation
+
     seller = current_client.sellers.find_by email: seller.email
     send_registration_mail(seller)
     render :activation_resent

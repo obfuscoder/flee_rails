@@ -99,6 +99,7 @@ class Seller < ActiveRecord::Base
 
   def email_exists
     return if Seller.exists? email: email, client: client
+
     errors.add :email, :unknown
   end
 end

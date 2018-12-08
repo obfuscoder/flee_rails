@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   def current_seller
     @current_seller ||= (Seller.find session[:seller_id] if session[:seller_id])
     raise UnauthorizedError unless @current_seller
+
     @current_seller
   end
 
@@ -55,6 +56,7 @@ class ApplicationController < ActionController::Base
   def auto_reserve(event)
     reservation_count = event.reservations.count
     return unless reservation_count < event.max_reservations
+
     event.notifications.order(:id).limit(event.max_reservations - reservation_count).each do |notification|
       CreateReservation.new.call Reservation.new(event: event, seller: notification.seller)
     end
@@ -87,6 +89,7 @@ class ApplicationController < ActionController::Base
     column_name = @sort
     direction = @dir
     return "#{column_name} #{direction}" if column_name.include? '.'
+
     { column_name => direction }
   end
 

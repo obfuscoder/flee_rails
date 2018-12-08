@@ -3,6 +3,7 @@
 module MarkdownHelper
   def markdown(text)
     return if text.nil?
+
     @markdown ||= Redcarpet::Markdown.new MarkdownWithImageTagRenderer
     @markdown.render(text).html_safe
   end

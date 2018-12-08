@@ -56,6 +56,7 @@ class Bill < ActiveRecord::Base
 
   def create_number
     return if event.nil? || number.present?
+
     date_part = date.strftime '%Y%m'
     max_number = Bill.maximum :number
     number_part = max_number&.start_with?(date_part) ? max_number[7..9].to_i + 1 : 1
@@ -64,6 +65,7 @@ class Bill < ActiveRecord::Base
 
   def create_document
     return if event.nil? || number.nil? || document.present?
+
     self.document = BillDocument.new(self).render
   end
 end

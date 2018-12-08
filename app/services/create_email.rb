@@ -9,9 +9,11 @@ class CreateEmail
     orga_mail = Mail::Address.new(sent ? @message.from.first : @message.to.first)
     client = find_client(orga_mail)
     return unless client
+
     seller_mail = sent ? @message.to.first : @message.from.first
     seller = client.sellers.where(email: seller_mail).first
     return unless seller
+
     Email.create! kind: :custom, seller: seller, sent: sent, message_id: @message.message_id,
                   subject: @message.subject, to: @message.to.first, from: @message.from.first, body: body(@message)
   end
@@ -28,11 +30,13 @@ class CreateEmail
 
   def strip_four_byte_chars(text)
     return nil if text.nil?
+
     text.each_char.select { |c| c.bytes.count < 4 }.join('')
   end
 
   def find_text(message)
     return message if message.text?
+
     find_text_part(message.parts) if message.multipart?
   end
 

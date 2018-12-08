@@ -3,6 +3,7 @@
 module TimePeriodsHelper
   def period(periods, options = {})
     return '' if periods.empty?
+
     if options[:exact] != false
       exact_periods(periods)
     else
@@ -12,6 +13,7 @@ module TimePeriodsHelper
 
   def exact_periods(periods)
     return exact_period periods.first if periods.length == 1
+
     day_periods = periods.group_by { |period| period.min.to_date }
     strings = day_periods.map do |date, time_periods|
       times = time_periods.map { |period| time_period period }.join ' und '
