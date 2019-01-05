@@ -37,6 +37,10 @@ class ApplicationController < ActionController::Base
     @current_seller
   end
 
+  def current_seller?
+    @current_seller || (Seller.find session[:seller_id] if session[:seller_id])
+  end
+
   def only_with_reservation
     redirect_to seller_path, alert: t('.error.no_reservation') if
         current_seller.reservations.where(event: @event).empty?

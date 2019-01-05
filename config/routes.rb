@@ -5,11 +5,14 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   get 'pages/index'
-  get 'pages/contact'
   get 'pages/imprint'
   get 'pages/privacy'
   get 'pages/terms'
   get 'pages/deleted'
+
+  get 'contact/show'
+  post 'contact/submit'
+  get 'contact/submitted'
 
   resources :events, only: [:show] do
     member do
@@ -115,8 +118,5 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  get '/pages/my_basar', to: redirect('https://flohmarkthelfer.de')
-
   get '*unmatched_route', to: 'application#not_found'
 end

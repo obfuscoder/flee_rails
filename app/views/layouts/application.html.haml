@@ -28,10 +28,11 @@
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             - @menu ||= [{ title: 'Hauptseite', link: root_path, icon: :home },
-                         { title: 'Hilfe/Kontakt', link: pages_contact_path, icon: :question_sign },
+                         { title: 'Hilfe', link: 'https://flohmarkthelfer.de/docs/', icon: :question_sign },
+                         { title: 'Kontakt', link: contact_show_path, icon: :envelope },
                          { title: 'Impressum', link: pages_imprint_path, icon: :info_sign },
                          { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
-                         { title: 'Teilnahmebedingungen', link: pages_terms_path, icon: :certificate },
+                         { title: 'Bedingungen', link: pages_terms_path, icon: :certificate },
                          { title: 'Ihr Flohmarkt', link: 'https://flohmarkthelfer.de', icon: :heart }]
             = render partial: 'layouts/menu_item', collection: @menu, as: :item
           - if searchable?

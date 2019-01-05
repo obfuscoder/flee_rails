@@ -25,7 +25,8 @@
           = link_to current_client.short_name.html_safe, root_path, class: 'navbar-brand'
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            - @menu = [{ title: 'Hilfe/Kontakt', link: pages_contact_path, icon: :question_sign },
+            - @menu = [{ title: 'Hilfe', link: 'https://flohmarkthelfer.de/docs/', icon: :question_sign },
+                       { title: 'Kontakt', link: contact_show_path, icon: :question_sign },
                        { title: 'Impressum', link: pages_imprint_path, icon: :info_sign },
                        { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
                        { title: 'AGBs', link: pages_terms_path, icon: :certificate },

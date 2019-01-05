@@ -47,7 +47,7 @@ RSpec.describe PagesController do
     end
   end
 
-  %w[home contact imprint privacy].each do |page_name|
+  %w[home imprint privacy].each do |page_name|
     describe "GET #{page_name}" do
       before do
         request.host = 'demo.test.host'

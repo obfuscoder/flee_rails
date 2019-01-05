@@ -66,6 +66,22 @@ class DataExtractor
     ApplicationController.helpers.number_to_currency(event.reservation_fee)
   end
 
+  def name
+    @data[:name]
+  end
+
+  def email
+    @data[:email]
+  end
+
+  def subject
+    @data[:subject]
+  end
+
+  def body
+    @data[:body]
+  end
+
   private
 
   def seller

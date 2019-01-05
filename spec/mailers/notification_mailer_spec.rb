@@ -47,4 +47,15 @@ RSpec.describe NotificationMailer do
 
     its(:subject) { is_expected.to include 'Helfer zurückgetreten' }
   end
+
+  describe '#contact' do
+    subject(:mail) { described_class.contact contact.to_options.merge(client: client) }
+
+    let(:contact) { build :contact }
+    let(:expected_contents) { [contact.email, contact.name, contact.topic] }
+
+    it_behaves_like 'a notification mail'
+
+    its(:subject) { is_expected.to include 'Kontaktanfrage' }
+  end
 end

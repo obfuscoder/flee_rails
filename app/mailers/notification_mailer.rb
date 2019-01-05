@@ -30,6 +30,16 @@ class NotificationMailer < ActionMailer::Base
     mail_template(__method__, from: Settings.bill.issuer.email, bcc: Settings.bill.issuer.email)
   end
 
+  def contact(options)
+    @client = options[:client]
+    @seller = options[:seller]
+    @email = options[:email]
+    @name = options[:name]
+    @body = options[:body]
+    @subject = options[:subject]
+    mail_template(__method__)
+  end
+
   private
 
   def mail_template(category, options = {})
@@ -38,7 +48,11 @@ class NotificationMailer < ActionMailer::Base
                                      support_type: @support_type,
                                      seller: @seller,
                                      supporter: @supporter,
-                                     bill: @bill
+                                     bill: @bill,
+                                     email: @email,
+                                     name: @name,
+                                     body: @body,
+                                     subject: @subject
     message = generator.generate(template)
     from = options[:from] || @client.mail_from
     mail_options = { to: @client.mail_from, from: from, subject: message.subject }

@@ -61,6 +61,13 @@ de:
         create: Leihe anlegen
       client:
         update: Systemeinstellungen aktualisieren
+      contact:
+        create: Nachricht senden
+  contact:
+    show:
+      title: Kontakt
+    submitted:
+      title: Kontaktaufnahme erhalten
   reviews:
     new:
       title: Bewertung
@@ -502,6 +509,11 @@ de:
         without_reservation: Ohne Reservierung für
         notification: auf Warteliste
         notification_event: für Termin
+      contact:
+        topic: Betreff
+        body: Inhalt
+        name: Ihr Name
+        email: Ihre eMail-Adresse
   activerecord:
     models:
       category: Kategorie
@@ -986,6 +998,23 @@ de:
 
             Termin: {{ event_name }}
             Datum: {{ event_shopping_time }}
+
+        Viele Grüße,
+        Ihr Flohmarkthelfer-Team
+    contact:
+      subject: Flohmarkthelfer - Kontaktanfrage
+      body: |
+        Es wurde eine Kontaktanfrage über das Onlinesystem gestellt.
+
+        Von: {{ name }} ({{ email }})
+
+        Betreff: {{ subject }}
+
+        Inhalt:
+
+        ------------------------------------------------------------
+        {{ body }}
+        ------------------------------------------------------------
 
         Viele Grüße,
         Ihr Flohmarkthelfer-Team

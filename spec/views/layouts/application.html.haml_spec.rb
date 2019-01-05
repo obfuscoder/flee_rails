@@ -14,8 +14,8 @@ RSpec.describe 'layouts/application' do
       expect(rendered).to have_link href: root_path
     end
 
-    it 'links to contact page' do
-      expect(rendered).to have_link href: pages_contact_path
+    it 'links to contact controller' do
+      expect(rendered).to have_link href: contact_show_path
     end
 
     it 'links to imprint page' do

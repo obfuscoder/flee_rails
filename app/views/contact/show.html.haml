@@ -1,0 +1,16 @@
+- content_for :title, t('.title')
+%p Sollten Sie Fragen oder Anregungen haben, nutzen Sie bitte das folgende Formular, um mit uns Kontakt aufzunehmen:
+= simple_form_for @contact, url: contact_submit_path do |f|
+  = f.error_notification
+  .form-inputs
+    - if @seller.present?
+      %p
+        %strong Absender:
+        #{@seller.name} (#{@seller.email})
+    - else
+      = f.input :name, as: :string, required: true
+      = f.input :email, as: :string, required: true
+    = f.input :topic, as: :string
+    = f.input :body, as: :text, input_html: { rows: 15 }
+  .form-actions
+    = f.button :submit
