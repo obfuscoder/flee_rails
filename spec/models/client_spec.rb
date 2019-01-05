@@ -77,6 +77,7 @@ RSpec.describe Client do
     let!(:message_template) { create :message_template, client: client }
     let!(:support_type) { create :support_type, event: event }
     let!(:supporter) { create :supporter, support_type: support_type, seller: seller }
+    let!(:size) { create :size, category: category }
 
     before { client.destroy_everything! }
 
@@ -102,6 +103,7 @@ RSpec.describe Client do
       expect { message_template.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { supporter.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { support_type.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { size.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end
