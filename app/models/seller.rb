@@ -7,11 +7,13 @@ class Seller < ActiveRecord::Base
 
   belongs_to :client
 
-  has_many :reservations, dependent: :restrict_with_error
+  # !! we must not specify dependent option as it would delete reservations/supports associations on soft delete
+  # we should move away from 'paranoid' to 'paper_trail' or 'discard' to fix this
+  has_many :reservations
   has_many :notifications, dependent: :delete_all
   has_many :suspensions, dependent: :delete_all
   has_many :emails, dependent: :delete_all
-  has_many :supporters, dependent: :delete_all
+  has_many :supporters
 
   validates :client, :email, presence: true
   validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :update }

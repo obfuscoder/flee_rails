@@ -5,11 +5,12 @@ class Category < ActiveRecord::Base
 
   acts_as_paranoid
 
+  # !! we must not specify dependent option as it would delete reservations/supports associations on soft delete
+  # we should move away from 'paranoid' to 'paper_trail' or 'discard' to fix this
   belongs_to :client
-  has_many :items, dependent: :restrict_with_error
-  has_many :sizes, dependent: :restrict_with_error
-  has_many :children, class_name: Category, foreign_key: :parent_id,
-                      dependent: :restrict_with_error, inverse_of: :parent
+  has_many :items
+  has_many :sizes
+  has_many :children, class_name: Category, foreign_key: :parent_id, inverse_of: :parent
   belongs_to :parent, class_name: Category, inverse_of: :children
 
   # in rails 5 there is _prefix to get rid of the 'size_'
