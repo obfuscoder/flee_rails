@@ -16,16 +16,6 @@ RSpec.describe 'admin event reservations' do
     click_on 'Reservierungen'
   end
 
-  it 'shows list of reservations with delete action and link to seller show' do
-    reservations.each do |reservation|
-      expect(page).to have_content reservation.number
-      expect(page).to have_link reservation.seller.name, href: admin_seller_path(reservation.seller)
-      expect(page).to have_content reservation.seller.city
-      expect(page).to have_content reservation.seller.email
-      expect(page).to have_link 'Löschen', href: admin_event_reservation_path(event, reservation)
-    end
-  end
-
   describe 'new reservation' do
     shared_examples 'create reservations for selected sellers' do
       before do
@@ -36,9 +26,6 @@ RSpec.describe 'admin event reservations' do
 
       it 'creates reservations for selected sellers' do
         expect(page).to have_content "#{selection.count} Reservierungen erfolgreich durchgeführt"
-        selection.each do |seller|
-          expect(page).to have_link 'Löschen', href: admin_event_reservation_path(event, seller.reservations.first)
-        end
       end
     end
 
@@ -61,11 +48,5 @@ RSpec.describe 'admin event reservations' do
         let(:selection) { sellers.take(2) }
       end
     end
-  end
-
-  it 'free reservation' do
-    click_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
-    expect(page).to have_content 'Die Reservierung wurde gelöscht'
-    expect(page).not_to have_link 'Löschen', href: admin_event_reservation_path(event, reservations.first)
   end
 end

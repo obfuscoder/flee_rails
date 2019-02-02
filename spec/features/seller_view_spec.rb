@@ -64,16 +64,5 @@ RSpec.describe 'Seller view area' do
         expect(page).to have_content 'Sie stehen auf der Warteliste'
       end
     end
-
-    context 'with reservation' do
-      let(:reservation) { create :reservation, event: event, seller: seller }
-      let(:preparation) { reservation }
-
-      it 'can free reservation' do
-        click_link 'Reservierung freigeben', href: event_reservation_path(event, reservation)
-        expect(page).to have_content 'Ihre Reservierung wurde freigegeben.'
-        expect(page).to have_link 'Reservierungsanfrage stellen', href: event_reservations_path(event)
-      end
-    end
   end
 end

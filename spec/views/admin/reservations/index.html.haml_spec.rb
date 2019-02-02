@@ -22,7 +22,8 @@ RSpec.describe 'admin/reservations/index' do
 
     it { is_expected.to have_content '20%' }
     it { is_expected.to have_content '2,00 €' }
-    it { is_expected.to have_link 'Löschen', href: admin_event_reservation_path(event, reservation) }
+    it { is_expected.to have_css "a[data-link='#{admin_event_reservation_path(event, reservation)}']" }
+    it { is_expected.to have_css '#confirm-modal' }
     it { is_expected.to have_link 'Neue Reservierungen', href: new_bulk_admin_event_reservations_path(event) }
     it { is_expected.to have_link 'Bearbeiten', href: edit_admin_event_reservation_path(event, reservation) }
     it { is_expected.to have_link 'Artikel', href: admin_reservation_items_path(reservation) }

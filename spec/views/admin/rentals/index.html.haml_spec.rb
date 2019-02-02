@@ -20,7 +20,8 @@ RSpec.describe 'admin/rentals/index' do
 
     it { is_expected.to have_content rental.amount }
     it { is_expected.to have_content rental.hardware.description }
-    it { is_expected.to have_link 'Löschen', href: admin_event_rental_path(event, rental) }
+    it { is_expected.to have_css "a[data-link='#{admin_event_rental_path(event, rental)}']" }
+    it { is_expected.to have_css '#confirm-modal' }
     it { is_expected.to have_link 'Neue Leihe', href: new_admin_event_rental_path(event) }
     it { is_expected.to have_link 'Bearbeiten', href: edit_admin_event_rental_path(event, rental) }
   end

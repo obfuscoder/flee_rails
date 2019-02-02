@@ -114,7 +114,8 @@ RSpec.describe 'sellers/show' do
 
     context 'with reservation phase ongoing' do
       it 'allows deletion of reservation' do
-        expect(rendered).to have_link href: event_reservation_path(reservation.event, reservation)
+        expect(rendered).to have_css "a[data-link='#{event_reservation_path(reservation.event, reservation)}']"
+        expect(rendered).to have_css '#confirm-modal'
       end
 
       it 'does not link to event statistics page' do

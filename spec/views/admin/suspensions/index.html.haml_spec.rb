@@ -19,7 +19,8 @@ RSpec.describe 'admin/suspensions/index' do
     before { render }
 
     it { is_expected.to have_content suspension.reason }
-    it { is_expected.to have_link 'Löschen', href: admin_event_suspension_path(event, suspension) }
+    it { is_expected.to have_css "a[data-link='#{admin_event_suspension_path(event, suspension)}']" }
+    it { is_expected.to have_css '#confirm-modal' }
     it { is_expected.to have_link 'Neue Sperre', href: new_admin_event_suspension_path(event) }
     it { is_expected.to have_link 'Bearbeiten', href: edit_admin_event_suspension_path(event, suspension) }
   end

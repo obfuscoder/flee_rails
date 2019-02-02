@@ -9,5 +9,6 @@
       %td= item.value
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_category_size_path(@category, item), type: :primary, icon: :pencil
-        = icon_link_to t('destroy'), [:admin, @category, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
+        = destroy_icon_link_to admin_category_size_path(@category, item)
 %p= paginate @sizes
+= render '/confirm', locals: { type: :danger }

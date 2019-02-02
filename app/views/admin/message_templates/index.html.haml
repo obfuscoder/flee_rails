@@ -10,4 +10,5 @@
       %td= message_template.subject
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_message_template_path(message_template), type: :primary, icon: :pencil
-        = icon_link_to t('.destroy.action'), admin_message_template_path(message_template), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+        = destroy_icon_link_to admin_message_template_path(message_template), name: t('.destroy.action'), icon: :repeat
+= render '/confirm', locals: { message: t('.destroy.confirm'), type: :danger }

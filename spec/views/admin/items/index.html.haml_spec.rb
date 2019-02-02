@@ -25,7 +25,8 @@ RSpec.describe 'admin/items/index' do
 
     before { render }
 
-    it { is_expected.to have_link 'Löschen', href: admin_reservation_item_path(reservation, item) }
+    it { is_expected.to have_css "a[data-link='#{admin_reservation_item_path(reservation, item)}']" }
+    it { is_expected.to have_css '#confirm-modal' }
     it { is_expected.not_to have_link 'Etikett freigeben', href: code_admin_reservation_item_path(reservation, item) }
     it do
       is_expected.to have_link 'Etikett freigeben', href: code_admin_reservation_item_path(reservation, item_with_code)

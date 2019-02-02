@@ -36,6 +36,8 @@ de:
   destroy: Löschen
   delete_code: Etikett freigeben
   sure: Sind Sie sicher?
+  confirm: Ja
+  abort: Abbrechen
   back: Zurück
   position: '#'
   helpers:

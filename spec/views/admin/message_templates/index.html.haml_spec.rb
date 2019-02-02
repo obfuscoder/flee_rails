@@ -16,6 +16,7 @@ RSpec.describe 'admin/message_templates/index' do
 
     it { is_expected.to have_content message_template.subject }
     it { is_expected.to have_link href: edit_admin_message_template_path(message_template) }
-    it { is_expected.to have_link 'Zurücksetzen', href: admin_message_template_path(message_template) }
+    it { is_expected.to have_css "a[data-link='#{admin_message_template_path(message_template)}']" }
+    it { is_expected.to have_css '#confirm-modal' }
   end
 end

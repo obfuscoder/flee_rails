@@ -15,10 +15,15 @@ RSpec.describe 'admin/sellers/index' do
     render
   end
 
-  it 'links to emails for each seller' do
+  it 'shows list of first 10 sellers with buttons for show, edit and delete' do
     render
     sellers.take(10).each do |seller|
-      expect(rendered).to have_link href: admin_seller_emails_path(seller)
+      expect(rendered).to have_content seller.name
+      expect(rendered).to have_content seller.email
+      expect(rendered).to have_content seller.reservations.joins(:items).count
+      expect(rendered).to have_link href: admin_seller_path(seller)
+      expect(rendered).to have_link href: edit_admin_seller_path(seller)
+      expect(rendered).to have_css "a[data-link='#{admin_seller_path(seller)}']"
     end
   end
 end

@@ -12,7 +12,5 @@
       %td= rental.amount
       %td
         = icon_link_to t('edit'), edit_admin_event_rental_path(@event, rental), type: :primary, icon: :pencil
-        = icon_link_to t('destroy'), [:admin, @event, rental], method: :delete,
-                                                            type: :danger,
-                                                            icon: :trash,
-                                                            data: { confirm: t('sure') }
+        = destroy_icon_link_to admin_event_rental_path(@event, rental)
+= render '/confirm', locals: { type: :danger }

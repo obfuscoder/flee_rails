@@ -156,13 +156,6 @@ RSpec.describe 'Viewing and editing items' do
         end
       end
 
-      it 'delete item' do
-        expect(page).to have_content 'Sie haben aktuell 5 Artikel angelegt.'
-        click_link 'Löschen', href: event_reservation_item_path(reservation.event, reservation, item)
-        expect(page).to have_content 'Artikel wurde gelöscht.'
-        expect(page).to have_content 'Sie haben aktuell 4 Artikel angelegt.'
-      end
-
       context 'when item limit has been reached' do
         let(:preparations) { items && reservation.event.update(max_items_per_reservation: items.count) }
 

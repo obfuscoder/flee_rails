@@ -23,9 +23,10 @@
       %td.btn-group
         - if item.code.nil?
           = icon_link_to t('edit'), edit_admin_reservation_item_path(@reservation, item), type: :primary, icon: :pencil
-          = icon_link_to t('destroy'), admin_reservation_item_path(@reservation, item), method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+          = destroy_icon_link_to admin_reservation_item_path(@reservation, item), message: t('.destroy.confirm')
         - if item.number.present?
           = icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
 = link_to 'Alle Etiketten freigeben', codes_admin_reservation_items_path(@reservation), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_all_codes.confirm') }
 - unless @items.empty?
   = link_to 'Etiketten drucken', labels_admin_reservation_items_path(@reservation), type: :primary, icon: :print
+= render '/confirm', locals: { type: :danger }

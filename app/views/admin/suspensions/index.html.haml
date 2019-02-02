@@ -14,8 +14,6 @@
       %td= suspension.reason
       %td
         = icon_link_to t('edit'), edit_admin_event_suspension_path(@event, suspension), type: :primary, icon: :pencil
-        = icon_link_to t('destroy'), [:admin, suspension.event, suspension], method: :delete,
-                                                                             type: :danger,
-                                                                             icon: :trash,
-                                                                             data: { confirm: t('sure') }
+        = destroy_icon_link_to admin_event_suspension_path(suspension.event, suspension)
 %p= paginate @suspensions, event_id: @event.id
+= render '/confirm', locals: { type: :danger }

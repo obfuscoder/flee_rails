@@ -23,5 +23,6 @@
         = icon_link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil
         - if category.size_fixed?
           = icon_link_to t('.list_sizes'), admin_category_sizes_path(category), type: :success, icon: :list
-        = icon_link_to t('destroy'), [:admin, category], method: :delete, type: :danger, icon: :trash, data: { confirm: t('sure') }
+        = icon_link_to t('destroy'), '#', type: :danger, icon: :trash, data: { toggle: 'modal', target: '#confirm-modal', link: admin_category_path(category) }
 %p= paginate @categories
+= render '/confirm', locals: { yes: 'Ja, Kategorie löschen', type: :danger }

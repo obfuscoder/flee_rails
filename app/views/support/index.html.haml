@@ -13,10 +13,7 @@
           - if supporter.comments.present?
             %p Anmerkungen: #{supporter.comments}
           - if @event.supporters_can_retire?
-            %p= link_to t('.unhelp'), event_destroy_support_path(@event, support_type), type: :danger,
-                                                                                        method: :delete,
-                                                                                        icon: :leaf,
-                                                                                        data: { confirm: t('.delete.confirm') }
+            %p= destroy_link_to event_destroy_support_path(@event, support_type), name: t('.unhelp'), icon: :leaf, message: t('.delete.confirm')
           - else
             %strong Sollten Sie als Helfer zurücktreten wollen, kontaktieren Sie uns bitte!
       - else
@@ -25,3 +22,4 @@
         - else
           %p Hierfür werden keine Helfer mehr benötigt.
 = link_to t('.back'), seller_path, type: :default
+= render '/confirm', locals: { type: :danger }

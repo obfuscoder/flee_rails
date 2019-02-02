@@ -1,0 +1,7 @@
+#confirm-modal.modal.fade(tabindex="-1" role="dialog" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      #confirm-message.modal-body= locals[:message] || t('sure')
+      .modal-footer
+        = link_to (locals[:yes] || t('confirm')), '#', method: :delete, id: 'confirm-link', type: (locals[:type] || :primary)
+        %button.btn.btn-default(data-dismiss="modal")= locals[:no] || t('abort')

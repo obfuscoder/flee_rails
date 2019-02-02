@@ -66,17 +66,4 @@ RSpec.describe 'Seller edit area' do
       end
     end
   end
-
-  describe 'seller deletion' do
-    before { navigate_to_seller_edit_page }
-
-    it 'user deletes account' do
-      expect do
-        click_on 'Ich möchte mich abmelden und meine Daten löschen'
-      end.to change(Seller, :count).by(-1)
-      expect(page).to have_content(/Daten gelöscht/)
-      visit login_seller_path(seller.token)
-      expect(page).to have_content(/Anmeldung fehlgeschlagen/)
-    end
-  end
 end

@@ -38,7 +38,9 @@ RSpec.describe 'support/index' do
       let(:preparations) { create :supporter, seller: seller, support_type: support_type }
 
       it { is_expected.not_to have_link href: event_new_support_path(event, support_type) }
-      it { is_expected.to have_link href: event_destroy_support_path(event, support_type) }
+
+      it { is_expected.to have_css "a[data-link='#{event_destroy_support_path(event, support_type)}']" }
+      it { is_expected.to have_css '#confirm-modal' }
 
       context 'when supporters cannot retire' do
         let(:preparations) do

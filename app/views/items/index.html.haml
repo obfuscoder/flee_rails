@@ -35,7 +35,7 @@
         - if item.code.nil?
           - unless @event.reservation_end.past?
             = icon_link_to t('edit'), edit_event_reservation_item_path(@event, @reservation, item), type: :primary, icon: :pencil
-            = icon_link_to t('destroy'), [@event, @reservation, item], method: :delete, type: :danger, icon: :trash, data: { confirm: t('.destroy.confirm') }
+            = destroy_icon_link_to event_reservation_item_path(@event, @reservation, item), message: t('.destroy.confirm')
         - else
           Etikett erzeugt
           - unless @event.reservation_end.past?
@@ -44,3 +44,4 @@
 - unless @items.empty?
   = link_to 'Etiketten drucken', event_reservation_labels_path(@event, @reservation), type: :primary, icon: :print
 %p= link_to 'Zur Hauptseite des gesicherten Bereichs', seller_path, type: :default
+= render '/confirm', locals: { type: :danger }

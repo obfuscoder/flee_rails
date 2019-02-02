@@ -10,9 +10,7 @@
       %td= supporter.comments
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_event_support_type_supporter_path(@event, @support_type, supporter), type: :primary, icon: :pencil
-        = icon_link_to t('destroy'), admin_event_support_type_supporter_path(@event, @support_type, supporter), method: :delete,
-                                                                                                             type: :danger,
-                                                                                                             icon: :trash,
-                                                                                                             data: { confirm: t('sure') }
+        = destroy_icon_link_to admin_event_support_type_supporter_path(@event, @support_type, supporter)
 %p= paginate @supporters
 = link_to t('back'), admin_event_support_types_path(@event)
+= render '/confirm', locals: { type: :danger }

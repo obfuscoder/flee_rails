@@ -12,8 +12,6 @@
       .btn-group
         = link_to t('edit'), edit_admin_event_support_type_path(@event, support_type), type: :primary, icon: :pencil
         = link_to 'Helfer', admin_event_support_type_supporters_path(@event, support_type), type: :success, icon: :list
-        = link_to t('destroy'), admin_event_support_type_path(@event, support_type), method: :delete,
-                                                                                  type: :danger,
-                                                                                  icon: :trash,
-                                                                                  data: { confirm: t('sure') }
+        = destroy_link_to admin_event_support_type_path(@event, support_type)
 = link_to t('back'), admin_event_path(@event)
+= render '/confirm', locals: { type: :danger }

@@ -16,7 +16,7 @@ RSpec.describe 'admin categories' do
     categories.each do |category|
       expect(page).to have_content category.name
       expect(page).to have_link 'Bearbeiten', href: edit_admin_category_path(category)
-      expect(page).to have_link 'Löschen', href: admin_category_path(category)
+      expect(page).to have_link 'Löschen'
     end
   end
 
@@ -43,11 +43,6 @@ RSpec.describe 'admin categories' do
       expect(page).to have_content 'Spendenzwang'
       expect(page).to have_content 'ja'
     end
-  end
-
-  it 'delete category' do
-    click_link nil, href: admin_category_path(category)
-    expect(page).to have_content 'Kategorie gelöscht.'
   end
 
   it 'edit category' do

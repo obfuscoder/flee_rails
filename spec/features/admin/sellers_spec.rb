@@ -12,17 +12,6 @@ RSpec.describe 'admin sellers' do
     click_on 'Verkäufer'
   end
 
-  it 'shows list of sellers with buttons for show, edit and delete' do
-    sellers.each do |seller|
-      expect(page).to have_content seller.name
-      expect(page).to have_content seller.email
-      expect(page).to have_content seller.reservations.joins(:items).count
-      expect(page).to have_link 'Anzeigen', href: admin_seller_path(seller)
-      expect(page).to have_link 'Bearbeiten', href: edit_admin_seller_path(seller)
-      expect(page).to have_link 'Löschen', href: admin_seller_path(seller)
-    end
-  end
-
   it 'new seller' do
     click_on 'Neuer Verkäufer'
     fill_in 'Vorname', with: 'Max'
@@ -34,11 +23,6 @@ RSpec.describe 'admin sellers' do
     fill_in 'eMail-Adresse', with: 'max@mustermann.name'
     click_on 'Registrieren'
     expect(page).to have_content 'Der Verkäufer wurde erfolgreich hinzugefügt.'
-  end
-
-  it 'delete seller' do
-    click_link 'Löschen', href: admin_seller_path(seller)
-    expect(page).to have_content 'Verkäufer gelöscht.'
   end
 
   describe 'edit seller' do
@@ -86,15 +70,6 @@ RSpec.describe 'admin sellers' do
         click_link 'Artikel', href: admin_reservation_items_path(reservation)
       end
 
-      it 'lists all items' do
-        expect(page).to have_link 'Löschen', count: items.count
-        items.each do |item|
-          expect(page).to have_content item.description
-          expect(page).to have_content item.category.name
-          expect(page).to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
-        end
-      end
-
       context 'when label for item exists' do
         let(:item_with_code) { create :item_with_code, reservation: reservation }
         let(:preparation) { item_with_code }
@@ -102,12 +77,6 @@ RSpec.describe 'admin sellers' do
         it 'shows code' do
           expect(page).to have_content item.code
         end
-      end
-
-      it 'delete item' do
-        click_link 'Löschen', href: admin_reservation_item_path(reservation, item)
-        expect(page).not_to have_link 'Löschen', href: admin_reservation_item_path(reservation, item)
-        expect(page).to have_content 'Artikel gelöscht.'
       end
     end
 
