@@ -65,7 +65,8 @@ module Admin
     end
 
     describe 'POST create' do
-      let(:new_item) { build :item, reservation: reservation }
+      let(:category) { create :category }
+      let(:new_item) { build :item, reservation: reservation, category: category }
       let(:preparations) {}
 
       before do

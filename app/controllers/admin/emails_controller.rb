@@ -36,7 +36,7 @@ module Admin
     end
 
     def set_view_vars
-      @sellers = current_client.sellers.merge(Seller.with_mailing)
+      @sellers = current_client.sellers.merge(Seller.with_mailing).order(:first_name, :last_name)
       @events = current_client.events
       @json = build_selection_map.to_json
     end

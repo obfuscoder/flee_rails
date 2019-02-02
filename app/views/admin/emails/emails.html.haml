@@ -4,7 +4,7 @@
   .form-inputs
     = f.input :subject
     = f.input :body, as: :text, input_html: { class: 'markdown_editor', rows: 15 }, hint: markdown(t('.body.hint')).html_safe
-    = f.input :sellers, collection: @sellers, include_hidden: false, input_html: { multiple: true }
+    = f.input :sellers, collection: @sellers, label_method: :label_for_selects, include_hidden: false, input_html: { multiple: true }
     = f.input :active, options_for_inline_radios_with_three_state.merge(input_html: { data: { update: true } })
     = f.input :reservation, options_for_inline_radios_with_three_state.merge(input_html: { data: { ref: 'custom_email_reservation_event', update: true } })
     = f.input :reservation_event, collection: @events, disabled: true, include_blank: false, input_html: { data: { update: true } }
