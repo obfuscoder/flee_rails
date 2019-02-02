@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require: rubocop-rspec
 
 AllCops:
@@ -86,3 +88,9 @@ RSpec/ScatteredSetup:
 
 RSpec/ImplicitSubject:
   Enabled: false
+
+# we cannot specify dependent: :destroy as this would destroy relations also during soft deletes
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/category.rb'
+    - 'app/models/seller.rb'
