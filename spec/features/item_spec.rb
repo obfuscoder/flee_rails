@@ -48,7 +48,7 @@ RSpec.describe 'Viewing and editing items' do
         create_item
         expect(page).to have_content 'Artikel wurde gespeichert.'
         expect(page).to have_content 'Sie haben aktuell 1 Artikel angelegt.'
-        expect(page).to have_content 'Sie können noch 4 Artikel anlegen.'
+        expect(page).to have_content 'Sie können noch 49 Artikel anlegen.'
       end
 
       context 'when event price precision is 50 cent' do

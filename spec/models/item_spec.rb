@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Item do
-  subject(:item) { build(:item) }
+  subject(:item) { build :item }
 
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:reservation) }
@@ -116,6 +116,27 @@ RSpec.describe Item do
           item = create :item, reservation: reservation
           expect { item.update! category: category }.not_to raise_error
         end
+      end
+    end
+  end
+
+  describe '#item_count_for_reservation' do
+    let(:max_items) { 5 }
+    let(:reservation) { create :reservation, max_items: max_items }
+
+    context 'when item limit is not yet reached' do
+      it 'allows to create item' do
+        expect { create :item, reservation: reservation }.not_to raise_error
+      end
+    end
+
+    context 'when item limit has been reached' do
+      let!(:existing_items) { create_list :item, max_items, reservation: reservation }
+
+      it 'does not allow to create additional items' do
+        expect do
+          create :item, reservation: reservation
+        end.to raise_error ActiveRecord::RecordInvalid
       end
     end
   end

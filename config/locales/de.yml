@@ -712,6 +712,8 @@ de:
                 einen Kleinbuchstaben und eine Ziffer enthalten.
         item:
           attributes:
+            base:
+              limit_reached: Maximale Artikelanzahl erreicht.
             price:
               precision: muss ein Vielfaches von %{precision} sein
             category:

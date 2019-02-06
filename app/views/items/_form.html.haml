@@ -1,5 +1,6 @@
 = simple_form_for([@event, @reservation, @item]) do |f|
   = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
   .form-inputs
     = f.association :category, collection: @categories, include_blank: t('.category.blank')
     - if @event.donation_of_unsold_items_enabled

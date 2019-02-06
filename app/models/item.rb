@@ -17,6 +17,7 @@ class Item < ActiveRecord::Base
   validates :price, numericality: { greater_than: 0 }
   validate :price_divisible_by_precision
   validate :max_number_of_items_for_category, on: %i[create update]
+  validate :item_count_for_reservation, on: :create
   validate :size_required_for_category, on: %i[create update]
   validate :allowed_size_for_category, on: %i[create update]
   validate :size_disabled_for_category, on: %i[create update]
@@ -80,6 +81,12 @@ class Item < ActiveRecord::Base
 
     errors.add :category, :limit, limit: most_limited_category.max_items_per_seller,
                                   category: most_limited_category.name
+  end
+
+  def item_count_for_reservation
+    return if reservation.blank?
+
+    errors.add :base, :limit_reached if reservation.items.count >= reservation.max_items
   end
 
   def allowed_size_for_category

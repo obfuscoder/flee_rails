@@ -22,7 +22,7 @@ FactoryBot.define do
 
     factory :event do
       kind { :commissioned }
-      max_items_per_reservation { 5 }
+      max_items_per_reservation { 50 }
       price_precision { 0.1 }
       commission_rate { 0.2 }
 
