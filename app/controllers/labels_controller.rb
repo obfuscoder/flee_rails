@@ -14,6 +14,8 @@ class LabelsController < ApplicationController
   end
 
   def create
+    return redirect_to event_reservation_labels_path(@event, @reservation) if params[:labels].nil?
+
     selected_items = @reservation.items.where(id: params[:labels][:item])
     pdf = CreateLabelDocument.new(current_client, selected_items).call
     send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'
