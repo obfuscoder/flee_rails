@@ -269,37 +269,6 @@ RSpec.describe 'admin events' do
             expect(page).not_to have_link 'Abschlussmail verschicken'
           end
         end
-
-        context 'when event has passed' do
-          before do
-            Timecop.travel event.shopping_periods.first.max + 1.hour
-            click_on_event
-            click_on 'Abschlussmail verschicken'
-          end
-
-          after { Timecop.return }
-
-          it 'shows number of sent mails to reservations' do
-            expect(page).to have_content 'Es wird eine Benachrichtigung verschickt.'
-          end
-
-          describe 'sent email' do
-            subject(:mail) do
-              send_and_open_email active_seller_with_reservation.email
-              current_email
-            end
-
-            its(:subject) { is_expected.to eq 'Flohmarktergebnisse verfügbar - Bitte bewerten Sie uns' }
-            it 'links to event review' do
-              mail.click_on 'Zur Bewertung des Flohmarkts'
-              expect(page).to have_current_path(new_event_reservation_review_path(event, reservation))
-            end
-            it 'links to event summary' do
-              mail.click_on 'Zu den Flohmarktergebnissen'
-              expect(page).to have_current_path(event_path(event))
-            end
-          end
-        end
       end
     end
   end

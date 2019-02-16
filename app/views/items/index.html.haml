@@ -39,7 +39,7 @@
         - else
           Etikett erzeugt
           - unless @event.reservation_end.past?
-            %span= icon_link_to t('delete_code'), code_event_reservation_item_path(@event, @reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
+            %span= destroy_icon_link_to code_event_reservation_item_path(@event, @reservation, item), name: t('delete_code'), message: t('.delete_code.confirm'), type: :warning, icon: :tag
 %p= paginate @items, event_id: @event.id, reservation_id: @reservation.id
 - unless @items.empty?
   = link_to 'Etiketten drucken', event_reservation_labels_path(@event, @reservation), type: :primary, icon: :print

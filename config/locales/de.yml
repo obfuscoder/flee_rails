@@ -363,9 +363,9 @@ de:
           confirm: Wollen Sie wirklich das Etikett freigeben?
         delete_all_codes:
           confirm: |
-            Wenn Etiketten freigegeben werden, könnten diese Nummern für den Verkäufer wieder bei anderen Artikeln
+            Wenn Etiketten freigegeben werden, könnten diese Nummern bereits vom Verkäufer für Artikel
             verwendet werden. Bitte vergewissern Sie sich, dass der Verkäufer keine der bereits erzeugten Etiketten
-            verwendet. Wollen Sie wirklich alle Etikett freigeben?
+            verwendet. Wollen Sie wirklich alle Etiketten freigeben?
       labels:
         title: Etiketten drucken
         item: Artikel

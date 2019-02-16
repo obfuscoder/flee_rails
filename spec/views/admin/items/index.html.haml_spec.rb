@@ -27,12 +27,18 @@ RSpec.describe 'admin/items/index' do
 
     it { is_expected.to have_css "a[data-link='#{admin_reservation_item_path(reservation, item)}']" }
     it { is_expected.to have_css '#confirm-modal' }
-    it { is_expected.not_to have_link 'Etikett freigeben', href: code_admin_reservation_item_path(reservation, item) }
-    it do
-      is_expected.to have_link 'Etikett freigeben', href: code_admin_reservation_item_path(reservation, item_with_code)
+
+    it 'has no icon link to destroy item code for items which have no code yet' do
+      is_expected.not_to have_css "a[data-link='#{code_admin_reservation_item_path(reservation, item)}']"
     end
 
-    it { is_expected.to have_link 'Alle Etiketten freigeben', href: codes_admin_reservation_items_path(reservation) }
+    it 'has link for destroying label for item with label' do
+      is_expected.to have_css "a[data-link='#{code_admin_reservation_item_path(reservation, item_with_code)}']"
+    end
+
+    it 'has link to destroy all item codes' do
+      is_expected.to have_css "a[data-link='#{codes_admin_reservation_items_path(reservation)}']"
+    end
 
     it { is_expected.to have_link 'Artikel hinzufügen', href: new_admin_reservation_item_path(reservation) }
 

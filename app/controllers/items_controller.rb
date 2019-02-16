@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   before_action :init_categories, only: %i[edit new update create]
 
   def index
-    @items = @reservation.items.search(params[:search]).page(@page).joins(:category).order(column_order)
+    @items = @reservation.items.search(params[:search]).page(@page).order(column_order)
   end
 
   def new

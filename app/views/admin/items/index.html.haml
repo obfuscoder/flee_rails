@@ -25,8 +25,9 @@
           = icon_link_to t('edit'), edit_admin_reservation_item_path(@reservation, item), type: :primary, icon: :pencil
           = destroy_icon_link_to admin_reservation_item_path(@reservation, item), message: t('.destroy.confirm')
         - if item.number.present?
-          = icon_link_to t('delete_code'), code_admin_reservation_item_path(@reservation, item), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_code.confirm') }
-= link_to 'Alle Etiketten freigeben', codes_admin_reservation_items_path(@reservation), method: :delete, type: :warning, icon: :tag, data: { confirm: t('.delete_all_codes.confirm') }
+          = confirm_icon_link_to code_admin_reservation_item_path(@reservation, item), name: t('delete_code'), method: :delete, type: :warning, icon: :tag, message: t('.delete_code.confirm')
+= confirm_link_to codes_admin_reservation_items_path(@reservation), name: 'Alle Etiketten freigeben', method: :delete, type: :warning, icon: :tag, message: t('.delete_all_codes.confirm')
 - unless @items.empty?
   = link_to 'Etiketten drucken', labels_admin_reservation_items_path(@reservation), type: :primary, icon: :print
+
 = render '/confirm', locals: { type: :danger }

@@ -12,20 +12,30 @@ module ApplicationHelper
     link_to '', options, html_options, &block
   end
 
-  def destroy_icon_link_to(link, name: t('destroy'), message: nil, type: :danger, icon: :trash, &block)
+  def confirm_icon_link_to(link, name:, message:, type:, icon:, method: :post, &block)
     data = { toggle: 'modal',
              target: '#confirm-modal',
              link: link,
-             message: message }.compact
+             message: message,
+             verb: method }.compact
     icon_link_to(name, '#', type: type, icon: icon, data: data, &block)
   end
 
-  def destroy_link_to(link, name: t('destroy'), message: nil, type: :danger, icon: :trash, &block)
+  def confirm_link_to(link, name:, message:, type:, icon:, method: :post, &block)
     data = { toggle: 'modal',
              target: '#confirm-modal',
              link: link,
-             message: message }.compact
+             message: message,
+             verb: method }.compact
     link_to(name, '#', type: type, icon: icon, data: data, &block)
+  end
+
+  def destroy_icon_link_to(link, name: t('destroy'), message: nil, type: :danger, icon: :trash, &block)
+    confirm_icon_link_to(link, name: name, message: message, type: type, icon: icon, method: :delete, &block)
+  end
+
+  def destroy_link_to(link, name: t('destroy'), message: nil, type: :danger, icon: :trash, &block)
+    confirm_link_to(link, name: name, message: message, type: type, icon: icon, method: :delete, &block)
   end
 
   def link_to(name = nil, options = nil, html_options = nil, &block)

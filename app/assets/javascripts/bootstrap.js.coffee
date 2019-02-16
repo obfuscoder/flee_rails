@@ -9,3 +9,6 @@ $(document).on 'ready', ->
 
     message = target.data('message') || target.parent().data('message')
     $('#confirm-message').text(message) if message
+
+    method = target.data('verb') || target.parent().data('verb')
+    $('#confirm-link').data('method', method) if method
