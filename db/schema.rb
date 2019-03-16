@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316133253) do
+ActiveRecord::Schema.define(version: 20190316150141) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "event_id"
@@ -248,8 +248,8 @@ ActiveRecord::Schema.define(version: 20190316133253) do
   add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id"
 
   create_table "sellers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "street"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 20190316133253) do
     t.boolean  "active"
     t.datetime "deleted_at"
     t.integer  "client_id"
+    t.integer  "default_reservation_number"
   end
 
   add_index "sellers", ["client_id"], name: "index_sellers_on_client_id"

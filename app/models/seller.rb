@@ -19,6 +19,8 @@ class Seller < ActiveRecord::Base
   validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :update }
   validates :first_name, :last_name, :street, :zip_code, :city, :phone, presence: { on: :create }
   validates :accept_terms, acceptance: { on: :create }
+  validates :default_reservation_number, uniqueness: { scope: :client_id, allow_nil: true }
+  validates :default_reservation_number, numericality: { greater_than: 0, less_than: 1000, allow_nil: true }
 
   validates :email, uniqueness: { case_sensitive: false, scope: :client_id, on: :create }
   validates :email, uniqueness: { case_sensitive: false, scope: :client_id, on: :update }
@@ -29,6 +31,7 @@ class Seller < ActiveRecord::Base
   validates :phone, format: { with: %r(\A\(?(\+ ?49|0)[ \(\)/\-\d]{5,30}[0-9]\z), on: :create }
 
   validate :email_exists, on: :resend_activation
+  validate :default_reservation_number_in_range
 
   scope :with_mailing, -> { where.has { mailing.eq true } }
   scope :active, -> { where.has { active.eq true } }
@@ -103,5 +106,14 @@ class Seller < ActiveRecord::Base
     return if Seller.exists? email: email, client: client
 
     errors.add :email, :unknown
+  end
+
+  def default_reservation_number_in_range
+    return if default_reservation_number.nil? || client.nil?
+
+    auto_start = client.auto_reservation_numbers_start || 1
+    return if default_reservation_number < auto_start
+
+    errors.add :default_reservation_number, :out_of_range
   end
 end

@@ -601,6 +601,7 @@ de:
         phone: Telefonnummer
         item_count: Artikelzahl
         active: aktiv
+        default_reservation_number: Standardreservierungsnummer
       reservation:
         seller: Verkäufer
         event: Termin
@@ -702,6 +703,10 @@ de:
                 Beispiele: 07232/1234567, +49 7232 / 1234567, 072321234567, 07232/1234-567
             zip_code:
               invalid: Die %{attribute} muss aus 5 Ziffern bestehen.
+            default_reservation_number:
+              out_of_range: >
+                Die Standard-Reservierungsnummer darf nicht im Bereich
+                der automatisch vergebenen Reservierungsnummern liegen.
         user:
           attributes:
             old_password:

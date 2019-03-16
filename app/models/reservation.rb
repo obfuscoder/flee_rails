@@ -41,7 +41,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def increase_label_counter
-    self.label_counter = [label_counter.to_i, Settings.number_start.to_i].max + 1
+    self.label_counter = label_counter.to_i + 1
     save!
     label_counter
   end
@@ -63,7 +63,7 @@ class Reservation < ActiveRecord::Base
   def create_number
     return if event.nil? || number.present?
 
-    current_max = [event.reservations.maximum(:number) || 0, Settings.number_start.to_i].max
+    current_max = [event.reservations.maximum(:number) || 0, (event.client.auto_reservation_numbers_start || 1) - 1].max
 
     self.number = current_max + 1
   end

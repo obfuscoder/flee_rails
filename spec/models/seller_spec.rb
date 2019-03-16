@@ -17,7 +17,11 @@ RSpec.describe Seller do
   it { is_expected.to validate_presence_of :phone }
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive.scoped_to(:client_id) }
+  it { is_expected.to validate_uniqueness_of(:default_reservation_number).scoped_to(:client_id).allow_nil }
   it { is_expected.to validate_acceptance_of(:accept_terms).on(:create) }
+  it do
+    is_expected.to validate_numericality_of(:default_reservation_number).is_less_than(1000).is_greater_than(0).allow_nil
+  end
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many :notifications }
   it { is_expected.to have_many :suspensions }
@@ -25,6 +29,21 @@ RSpec.describe Seller do
   it { is_expected.to have_many :supporters }
 
   its(:to_s) { is_expected.to eq("#{seller.first_name} #{seller.last_name}") }
+
+  describe '#default_reservation_number' do
+    let(:default_reservation_number) { 300 }
+
+    { nil => false, 200 => false, 400 => true }.each do |auto_number_start, valid|
+      context "when client#auto_reservation_numbers_start is #{auto_number_start}" do
+        before do
+          seller.client.update! auto_reservation_numbers_start: auto_number_start
+          seller.update default_reservation_number: default_reservation_number
+        end
+
+        its(:valid?) { is_expected.to eq valid }
+      end
+    end
+  end
 
   describe '#zip_code' do
     [

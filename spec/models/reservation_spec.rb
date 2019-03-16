@@ -28,6 +28,18 @@ RSpec.describe Reservation do
     its(:seller) { is_expected.not_to be_nil }
   end
 
+  describe '#number' do
+    subject(:reservation) { create :reservation }
+
+    its(:number) { is_expected.to eq 1 }
+
+    context 'when #auto_reservation_numbers_start of client is 200' do
+      before { Client.first.update! auto_reservation_numbers_start: 200 }
+
+      its(:number) { is_expected.to eq 200 }
+    end
+  end
+
   context 'when seller is suspended for the event' do
     let!(:suspension) { create :suspension, event: reservation.event, seller: reservation.seller }
 
