@@ -6,6 +6,7 @@ before_install:
   - sudo apt-get install -y libxml2-dev libmagickwand-dev
   - gem update --system
   - gem install bundler
+dist: xenial
 addons:
   code_climate:
     repo_token: 59839d806c4f412e3a7c754a292c59c7b51e3a3b075c401240c5d2ae56d6cd09
