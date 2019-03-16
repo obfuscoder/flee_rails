@@ -9,7 +9,8 @@ class Reservation < ActiveRecord::Base
   include Statistics
 
   validates :seller, :event, :number, presence: true
-  validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :event_id }
+  validates :number, numericality: { greater_than: 0, less_than: 1000, only_integer: true },
+                     uniqueness: { scope: :event_id }
 
   with_options on: :create do
     validate :within_reservation_period

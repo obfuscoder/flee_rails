@@ -9,7 +9,7 @@ RSpec.describe Item do
   it { is_expected.to validate_presence_of(:reservation) }
   it { is_expected.to validate_presence_of(:category) }
   it { is_expected.to validate_presence_of(:description) }
-  it { is_expected.to validate_length_of(:description).is_at_most(200) }
+  it { is_expected.to validate_length_of(:description).is_at_most(250) }
   it { is_expected.to validate_length_of(:size).is_at_most(30) }
   it { is_expected.to validate_presence_of(:price) }
   it { is_expected.to validate_numericality_of(:price).is_greater_than(0) }

@@ -12,7 +12,7 @@ RSpec.describe Reservation do
 
   it { is_expected.to validate_presence_of(:seller) }
   it { is_expected.to validate_presence_of(:event) }
-  it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
+  it { is_expected.to validate_numericality_of(:number).is_greater_than(0).is_less_than(1000) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:event_id) }
 
   its(:to_s) { is_expected.to eq("#{reservation.event.name} - #{reservation.number}") }
