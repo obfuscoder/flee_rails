@@ -18,6 +18,11 @@ RSpec.describe Client do
   it { is_expected.to validate_presence_of :key }
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :terms }
+  it do
+    is_expected.to validate_numericality_of(:auto_reservation_numbers_start).is_less_than_or_equal_to(700)
+                                                                            .is_greater_than(0)
+                                                                            .allow_nil
+  end
 
   describe '#host_match?' do
     subject { client.host_match? host }

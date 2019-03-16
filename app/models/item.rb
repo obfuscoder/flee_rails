@@ -10,7 +10,7 @@ class Item < ActiveRecord::Base
   include Statistics
 
   validates :category, :description, :price, :reservation, presence: true
-  validates :description, length: { maximum: 200 }
+  validates :description, length: { maximum: 250 }
   validates :size, length: { maximum: 30 }
   validates :code, uniqueness: { allow_nil: true }
   validates :number, numericality: { greater_than: 0, only_integer: true },
