@@ -46,7 +46,11 @@ group :test, :development do
   gem 'pry-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
-  gem 'sqlite3'
+
+  # sqlite3 version 1.4.0+ is not compatible with latest rails 4.
+  # See https://github.com/sparklemotion/sqlite3-ruby/issues/249
+  # and https://github.com/rails/rails/issues/35161
+  gem 'sqlite3', '< 1.4.0'
 end
 
 gem 'baby_squeel' # database query DSL

@@ -10,8 +10,8 @@ class Category < ActiveRecord::Base
   belongs_to :client
   has_many :items
   has_many :sizes
-  has_many :children, class_name: Category, foreign_key: :parent_id, inverse_of: :parent
-  belongs_to :parent, class_name: Category, inverse_of: :children
+  has_many :children, class_name: 'Category', foreign_key: :parent_id, inverse_of: :parent
+  belongs_to :parent, class_name: 'Category', inverse_of: :children
 
   # in rails 5 there is _prefix to get rid of the 'size_'
   enum size_option: %i[size_optional size_required size_fixed size_disabled]
