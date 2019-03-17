@@ -61,11 +61,21 @@ class Reservation < ActiveRecord::Base
   private
 
   def create_number
-    return if event.nil? || number.present?
+    return if event.nil? || number.present? || seller.nil?
 
-    current_max = [event.reservations.maximum(:number) || 0, (event.client.auto_reservation_numbers_start || 1) - 1].max
+    self.number = default_reservation_number_usable? ? seller.default_reservation_number : next_available_number
+  end
 
-    self.number = current_max + 1
+  def next_available_number
+    next_available_number = (event.reservations.maximum(:number) || 0) + 1
+    auto_number_start = event.client.auto_reservation_numbers_start || 1
+    [next_available_number, auto_number_start].max
+  end
+
+  def default_reservation_number_usable?
+    seller.default_reservation_number.present? && event.client.auto_reservation_numbers_start.present? &&
+      seller.default_reservation_number < event.client.auto_reservation_numbers_start &&
+      !event.reservations.exists?(number: seller.default_reservation_number)
   end
 
   def within_reservation_period

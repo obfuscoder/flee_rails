@@ -29,14 +29,29 @@ RSpec.describe Reservation do
   end
 
   describe '#number' do
-    subject(:reservation) { create :reservation }
+    subject(:reservation) { create :reservation, seller: seller, event: event }
+
+    let(:seller) { create :seller }
+    let(:event) { create :event_with_ongoing_reservation }
 
     its(:number) { is_expected.to eq 1 }
 
-    context 'when #auto_reservation_numbers_start of client is 200' do
+    context 'when Client#auto_reservation_numbers_start is 200' do
       before { Client.first.update! auto_reservation_numbers_start: 200 }
 
       its(:number) { is_expected.to eq 200 }
+
+      context 'when Seller#default_reservation_number is 100' do
+        let(:seller) { create :seller, default_reservation_number: 100 }
+
+        its(:number) { is_expected.to eq 100 }
+
+        context 'when there is already another reservation with number 100' do
+          let!(:other_reservation) { create :reservation, event: event, number: 100 }
+
+          its(:number) { is_expected.to eq 200 }
+        end
+      end
     end
   end
 
