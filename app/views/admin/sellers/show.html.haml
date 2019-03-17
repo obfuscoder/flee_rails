@@ -9,6 +9,10 @@
   Tel.: #{@seller.phone}
   %br
   Mail: #{@seller.email}
+- if @seller.default_reservation_number.present?
+  %p
+    Standardreservierungsnummer:
+    = @seller.default_reservation_number
 - if @seller.reservations.present?
   %h3 Reservierungen
   %ul

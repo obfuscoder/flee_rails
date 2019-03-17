@@ -4,12 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'admin/events/_form' do
   let(:event) { build :event }
-  let(:preparation) {}
 
-  before do
-    preparation
-    assign :event, event
-  end
+  before { assign :event, event }
 
   it_behaves_like 'a standard partial'
 

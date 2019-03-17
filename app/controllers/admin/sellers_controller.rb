@@ -47,7 +47,9 @@ module Admin
     private
 
     def seller_params
-      params.require(:seller).permit :first_name, :last_name, :street, :zip_code, :city, :email, :phone
+      params.require(:seller).permit :first_name, :last_name, :street,
+                                     :zip_code, :city, :email, :phone,
+                                     :default_reservation_number
     end
 
     def column_order
