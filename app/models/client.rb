@@ -13,7 +13,9 @@ class Client < ActiveRecord::Base
   validates :prefix, uniqueness: true
   validates :terms, presence: true
   validates :name, presence: true
-  validates :auto_reservation_numbers_start, numericality: { greater_than: 0, less_than_or_equal_to: 700, allow_nil: true }
+  validates :auto_reservation_numbers_start, numericality: { greater_than: 0,
+                                                             less_than_or_equal_to: 700,
+                                                             allow_nil: true }
 
   def host_match?(host)
     host.ends_with?(domain)
