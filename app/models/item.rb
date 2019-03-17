@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
 
   validates :category, :description, :price, :reservation, presence: true
   validates :description, length: { maximum: 250 }
-  validates :size, length: { maximum: 30 }
+  validates :size, length: { maximum: 50 }
   validates :code, uniqueness: { allow_nil: true }
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
