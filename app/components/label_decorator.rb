@@ -5,8 +5,12 @@ class LabelDecorator
     @item = item
   end
 
+  def reservation
+    @item.reservation.number.to_s
+  end
+
   def number
-    "#{@item.reservation.number} - #{@item.number}"
+    @item.number.to_s
   end
 
   def price

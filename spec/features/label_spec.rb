@@ -17,7 +17,8 @@ RSpec.describe 'labels generation' do
   def check_pdf_for_label(item)
     expect(strings_from_rendered_pdf).to include item.description
     expect(strings_from_rendered_pdf).to include item.category.name
-    expect(strings_from_rendered_pdf).to include "#{item.reservation.number} - #{item.number}"
+    expect(strings_from_rendered_pdf).to include item.reservation.number.to_s
+    expect(strings_from_rendered_pdf).to include item.number.to_s
     expect(strings_from_rendered_pdf).to include item.code
   end
 

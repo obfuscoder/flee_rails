@@ -53,8 +53,10 @@ class LabelDocument < PdfDocument
     end
   end
 
+  FONT_NAME = 'freesans'
+
   def donation_cell(height, top)
-    font 'freesans', style: :bold, size: 30 do
+    font FONT_NAME, style: :bold, size: 30 do
       boxed_text('S', top, bounds.left, height, bounds.width / 5)
     end
   end
@@ -73,7 +75,7 @@ class LabelDocument < PdfDocument
   end
 
   def header_cells(label)
-    font 'freesans', style: :bold, size: 20 do
+    font FONT_NAME, style: :bold, size: 20 do
       number_header_cell label
       price_header_cell label
     end
@@ -84,7 +86,10 @@ class LabelDocument < PdfDocument
   end
 
   def number_header_cell(label)
-    boxed_text(label.number, bounds.top, bounds.left, header_line_height, bounds.width / 2)
+    boxed_text(label.reservation, bounds.top, bounds.left, header_line_height, bounds.width / 4)
+    font FONT_NAME, style: :normal do
+      boxed_text(label.number, bounds.top, bounds.left + bounds.width / 4, header_line_height, bounds.width / 4)
+    end
   end
 
   def next_cell(cell)

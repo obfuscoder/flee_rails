@@ -7,7 +7,8 @@ RSpec.describe LabelDecorator do
 
   let(:item) { create :item_with_code }
 
-  its(:number) { is_expected.to eq "#{item.reservation.number} - #{item.number}" }
+  its(:reservation) { is_expected.to eq item.reservation.number.to_s }
+  its(:number) { is_expected.to eq item.number.to_s }
   its(:price) { is_expected.to eq '1,90 €' }
   its(:details) { is_expected.to eq "#{item.category}\n#{item.description}" }
   its(:code) { is_expected.to eq item.code }
