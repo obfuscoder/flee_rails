@@ -38,8 +38,6 @@ RSpec.describe 'admin/sellers/show' do
                                                                               supporter.support_type)
     end
     it { is_expected.to have_link href: edit_admin_seller_path(seller) }
-    it do
-      is_expected.to have_content default_reservation_number
-    end
+    it { is_expected.to have_content default_reservation_number }
   end
 end

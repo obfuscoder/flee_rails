@@ -8,6 +8,7 @@ module Admin
 
     def new
       @seller = current_client.sellers.build
+      init_available_numbers
     end
 
     def create
@@ -21,6 +22,7 @@ module Admin
 
     def edit
       @seller = current_client.sellers.find params[:id]
+      init_available_numbers
     end
 
     def update
@@ -45,6 +47,13 @@ module Admin
     end
 
     private
+
+    def init_available_numbers
+      return if current_client.auto_reservation_numbers_start.blank?
+
+      reserved_numbers = current_client.sellers.where.not(id: @seller.id).pluck(:default_reservation_number)
+      @available_numbers = [*1..current_client.auto_reservation_numbers_start - 1] - reserved_numbers
+    end
 
     def seller_params
       params.require(:seller).permit :first_name, :last_name, :street,
