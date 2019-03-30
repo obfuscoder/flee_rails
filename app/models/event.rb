@@ -69,13 +69,14 @@ class Event < ActiveRecord::Base
   end
 
   def reservable_by?(seller, options = {})
-    !suspensions.find_by(seller: seller) && (
-      options[:context] == :admin ||
-      seller.client.reservation_by_seller_allowed? &&
+    reservations_left? && notifiable_by?(seller, options)
+  end
+
+  def notifiable_by?(seller, options = {})
+    !suspensions.find_by(seller: seller) &&
+      (options[:context] == :admin || seller.client.reservation_by_seller_allowed?) &&
       !max_reservations_reached_for?(seller) &&
-      reservations_left? &&
       !notifications.find_by(seller: seller)
-    )
   end
 
   def reviewed_by?(seller)
