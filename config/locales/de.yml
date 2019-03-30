@@ -346,6 +346,9 @@ de:
         title: Verkäufer anlegen
       edit:
         title: Verkäufer bearbeiten
+      form:
+        default_reservation_number:
+          blank: "[Keine]"
       show:
         title: Verkäuferdetails
       create:

@@ -9,7 +9,7 @@
     = f.input :phone
     = f.input :email
     - if @seller.client.auto_reservation_numbers_start.present?
-      = f.input :default_reservation_number, collection: @available_numbers, include_blank: false
+      = f.input :default_reservation_number, collection: @available_numbers, include_blank: t('.default_reservation_number.blank')
 
   .form-actions
     = f.button :submit
