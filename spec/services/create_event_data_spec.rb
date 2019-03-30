@@ -25,7 +25,7 @@ RSpec.describe CreateEventData do
       subject(:json) { JSON.parse ActiveSupport::Gzip.decompress(action), symbolize_names: true }
 
       it do
-        is_expected.to include :id, :name, :price_precision, :commission_rate, :reservation_fee,
+        is_expected.to include :id, :number, :token, :name, :price_precision, :commission_rate, :reservation_fee,
                                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
       end
       it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }
