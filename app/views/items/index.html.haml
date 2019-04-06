@@ -9,7 +9,13 @@
       Sie können keine weiteren Artikel anlegen.
     - else
       Sie können noch #{@reservation.max_items-@items.count} Artikel anlegen.
-      = link_to 'Artikel hinzufügen', new_event_reservation_item_path(@event, @reservation), type: :primary, icon: :file
+- if @event.reservation_end.future? && @items.count < @reservation.max_items
+  %p
+    = link_to 'Artikel hinzufügen', new_event_reservation_item_path(@event, @reservation), type: :primary, icon: :file
+  - if @reservation.previous?
+    %p
+      Sie können auch nicht verkaufte
+      = link_to 'Artikel vergangener Termine importieren.', import_event_reservation_path(@event, @reservation)
 
 %table.table.table-condensed.table-hover.table-striped
   %tr

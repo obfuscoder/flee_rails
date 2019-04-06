@@ -58,6 +58,14 @@ class Reservation < ActiveRecord::Base
     self[:max_items] || event.try(:max_items_per_reservation)
   end
 
+  def previous?
+    previous.any?
+  end
+
+  def previous
+    seller.reservations.where.not(event: event)
+  end
+
   private
 
   def create_number

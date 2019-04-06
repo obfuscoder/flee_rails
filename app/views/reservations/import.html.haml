@@ -1,0 +1,5 @@
+- content_for :title, t('.title')
+Aus welcher Reservierung wollen Sie Artikel übernehmen?
+- @reservations.each do |reservation|
+  %p= link_to reservation, event_reservation_import_from_path(@event, @reservation, reservation)
+%p= link_to t('back'), event_reservation_items_path(@event, @reservation), type: :default

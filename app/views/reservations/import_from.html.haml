@@ -1,0 +1,10 @@
+- content_for :title, t('.title')
+%p Wählen Sie bitte die Artikel aus, die Sie übernehmen wollen:
+= simple_form_for :import, url: import_event_reservation_path(@event, @reservation) do |f|
+  = f.input :from_reservation, as: :hidden, input_html: { value: @from_reservation.id }
+  = f.error_notification
+  .form-inputs
+    = f.input :item, label: t('.item'), collection: @items, as: :check_boxes, value_method: :first, label_method: :second, include_hidden: false
+  .form-actions
+    = f.button :submit, t('.submit')
+%p= link_to t('back'), event_reservation_items_path(@event, @reservation), type: :default

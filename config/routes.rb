@@ -25,12 +25,18 @@ Rails.application.routes.draw do
     post 'support/:id', to: 'support#create', as: :create_support
     delete 'support/:id', to: 'support#destroy', as: :destroy_support
 
-    resources :reservations, only: %i[create destroy edit update] do
+    resources :reservations, only: %i[create destroy] do
       resources :items, except: :show do
         member do
           delete :code, action: :delete_code
         end
       end
+      member do
+        get :import
+        post :import
+      end
+      get 'import/:id', to: 'reservations#import_from', as: :import_from
+
       resources :labels, only: %i[index create]
       resource :review
     end

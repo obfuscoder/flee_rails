@@ -58,6 +58,10 @@ class Item < ActiveRecord::Base
     self[:price] = number
   end
 
+  def copy_to(reservation)
+    reservation.items.create category: category, description: description, size: size, price: price, donation: donation
+  end
+
   private
 
   def append_checksum(code)

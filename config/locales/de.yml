@@ -143,6 +143,15 @@ de:
       failure: "Die Reservierungsanfrage konnte nicht verarbeitet werden. Grund: %{reason}"
     destroy:
       success: Ihre Reservierung wurde freigegeben.
+    import:
+      title: Artikel importieren
+      success:
+        one: Ein Artikel erfolgreich importiert
+        other: '%{count} Artikel erfolgreich importiert'
+    import_from:
+      title: Artikel importieren
+      item: Artikel
+      submit: Importieren
   sellers:
     new:
       title: Registrierung
@@ -189,7 +198,6 @@ de:
       unhelp: Als Helfer zurücktreten
       delete:
         confirm: Sind Sie sicher? Sie verlieren damit auch die Vorteile, die mit dieser Helferstelle verknüpft sind.
-      back: Zurück
     destroy:
       success: Helferstelle wurde freigegeben.
       cannot_retire: Sie können nicht selbstständig als Helfer zurücktreten. Kontaktieren Sie uns bitte zur Klärung.
@@ -197,7 +205,6 @@ de:
       success: Helferstelle erfolgreich eingetragen.
     new:
       title: Als Helfer eintragen
-      back: Zurück
   admin:
     unauthorized: Bitte melden Sie sich an.
     sessions:

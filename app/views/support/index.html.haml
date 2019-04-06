@@ -21,5 +21,5 @@
           = link_to t('.help'), event_new_support_path(@event, support_type), type: :primary, icon: :leaf
         - else
           %p Hierfür werden keine Helfer mehr benötigt.
-= link_to t('.back'), seller_path, type: :default
+= link_to t('back'), seller_path, type: :default
 = render '/confirm', locals: { type: :danger }

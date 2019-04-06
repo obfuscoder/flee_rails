@@ -142,4 +142,17 @@ RSpec.describe Item do
       end
     end
   end
+
+  describe '#copy_to' do
+    subject { item.copy_to reservation }
+
+    let(:reservation) { create :reservation }
+
+    it { is_expected.to be_a described_class }
+    its(:description) { is_expected.to eq item.description }
+    its(:category) { is_expected.to eq item.category }
+    its(:size) { is_expected.to eq item.size }
+    its(:price) { is_expected.to eq item.price }
+    its(:reservation) { is_expected.to eq reservation }
+  end
 end

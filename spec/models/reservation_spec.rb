@@ -233,4 +233,43 @@ RSpec.describe Reservation do
       end
     end
   end
+
+  describe '#previous?' do
+    subject(:action) { reservation.previous? }
+
+    let(:seller) { create :seller }
+    let(:reservation) { create :reservation, seller: seller }
+
+    it { is_expected.to eq false }
+
+    context 'when previous reservations exist' do
+      let!(:previous_reservation) do
+        Timecop.freeze 1.year.ago do
+          create :reservation, seller: seller
+        end
+      end
+
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe '#previous' do
+    subject(:action) { reservation.previous }
+
+    let(:seller) { create :seller }
+    let(:reservation) { create :reservation, seller: seller }
+
+    it { is_expected.to be_empty }
+
+    context 'when previous reservations exist' do
+      let!(:previous_reservation) do
+        Timecop.freeze 1.year.ago do
+          create :reservation, seller: seller
+        end
+      end
+
+      it { is_expected.to have(1).element }
+      it { is_expected.to include previous_reservation }
+    end
+  end
 end
