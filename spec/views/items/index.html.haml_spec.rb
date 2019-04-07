@@ -10,8 +10,10 @@ RSpec.describe 'items/index' do
   let(:reservation) { create :reservation, seller: seller, event: event }
   let(:items) { create_list(:item, 50, reservation: reservation) }
   let(:preparations) {}
+  let(:client_setup) {}
 
   before do
+    client_setup
     preparations
     assign :items, items.paginate(page: 2)
     assign :seller, seller
@@ -60,6 +62,12 @@ RSpec.describe 'items/index' do
     let(:previous_items) { create_list :item_with_code, 5, reservation: previous_reservation }
     let(:previous_sold_items) { create_list :sold_item, 5, reservation: previous_reservation }
 
-    it { is_expected.to have_link href: import_event_reservation_path(event, reservation) }
+    it { is_expected.not_to have_link href: import_event_reservation_path(event, reservation) }
+
+    context 'when item import is allowed' do
+      let(:client_setup) { Client.first.update import_items_allowed: true }
+
+      it { is_expected.to have_link href: import_event_reservation_path(event, reservation) }
+    end
   end
 end

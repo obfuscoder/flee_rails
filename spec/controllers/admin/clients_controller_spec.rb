@@ -41,7 +41,9 @@ RSpec.describe Admin::ClientsController do
         donation_of_unsold_items: '1',
         donation_of_unsold_items_default: '1',
         reservation_by_seller_forbidden: '1',
-        reservation_numbers_assignable: '1'
+        reservation_numbers_assignable: '1',
+        auto_reservation_numbers_start: '100',
+        import_items_allowed: '1'
       }
     end
 
@@ -54,7 +56,9 @@ RSpec.describe Admin::ClientsController do
                                                     donation_of_unsold_items: true,
                                                     donation_of_unsold_items_default: true,
                                                     reservation_by_seller_forbidden: true,
-                                                    reservation_numbers_assignable: true
+                                                    reservation_numbers_assignable: true,
+                                                    auto_reservation_numbers_start: 100,
+                                                    import_items_allowed: true
     end
   end
 end

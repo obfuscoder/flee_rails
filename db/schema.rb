@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316150141) do
+ActiveRecord::Schema.define(version: 20190407095519) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "event_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20190316150141) do
     t.boolean  "reservation_by_seller_forbidden"
     t.boolean  "reservation_numbers_assignable"
     t.integer  "auto_reservation_numbers_start"
+    t.boolean  "import_items_allowed"
   end
 
   add_index "clients", ["key"], name: "index_clients_on_key", unique: true

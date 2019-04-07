@@ -26,7 +26,7 @@ module Admin
                                      :price_precision, :reservation_fee, :commission_rate,
                                      :donation_of_unsold_items, :donation_of_unsold_items_default,
                                      :reservation_by_seller_forbidden, :reservation_numbers_assignable,
-                                     :auto_reservation_numbers_start
+                                     :auto_reservation_numbers_start, :import_items_allowed
     end
 
     def deny_remote_request_for_demo
