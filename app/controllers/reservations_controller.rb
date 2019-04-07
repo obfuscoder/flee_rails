@@ -22,7 +22,7 @@ class ReservationsController < ApplicationController
     if request.post?
       @from_reservation = current_seller.reservations.find params[:import][:from_reservation]
       items = @from_reservation.items.find params[:import][:item]
-      items_copied = items.count { |item| item.copy_to(@reservation).persisted? }
+      items_copied = items.count { |item| ImportItem.new(item).call(@reservation).persisted? }
       redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success', count: items_copied)
     else
       @reservations = @reservation.previous

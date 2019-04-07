@@ -15,7 +15,7 @@ RSpec.describe Item do
   it { is_expected.to validate_numericality_of(:price).is_greater_than(0) }
   it { is_expected.to validate_numericality_of(:number).is_greater_than(0) }
   it { is_expected.to validate_uniqueness_of(:number).scoped_to(:reservation_id) }
-  it { is_expected.to validate_uniqueness_of(:code) }
+  it { is_expected.to validate_uniqueness_of(:code).scoped_to(:reservation_id) }
   it { is_expected.to belong_to(:category) }
   it { is_expected.to belong_to(:reservation) }
   it { is_expected.to have_many(:item_transactions).through(:transaction_items) }
@@ -141,18 +141,5 @@ RSpec.describe Item do
         end.to raise_error ActiveRecord::RecordInvalid
       end
     end
-  end
-
-  describe '#copy_to' do
-    subject { item.copy_to reservation }
-
-    let(:reservation) { create :reservation }
-
-    it { is_expected.to be_a described_class }
-    its(:description) { is_expected.to eq item.description }
-    its(:category) { is_expected.to eq item.category }
-    its(:size) { is_expected.to eq item.size }
-    its(:price) { is_expected.to eq item.price }
-    its(:reservation) { is_expected.to eq reservation }
   end
 end

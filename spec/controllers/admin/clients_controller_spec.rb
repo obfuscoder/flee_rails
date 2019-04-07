@@ -43,7 +43,8 @@ RSpec.describe Admin::ClientsController do
         reservation_by_seller_forbidden: '1',
         reservation_numbers_assignable: '1',
         auto_reservation_numbers_start: '100',
-        import_items_allowed: '1'
+        import_items_allowed: '1',
+        import_item_code_enabled: '1'
       }
     end
 
@@ -58,7 +59,8 @@ RSpec.describe Admin::ClientsController do
                                                     reservation_by_seller_forbidden: true,
                                                     reservation_numbers_assignable: true,
                                                     auto_reservation_numbers_start: 100,
-                                                    import_items_allowed: true
+                                                    import_items_allowed: true,
+                                                    import_item_code_enabled: true
     end
   end
 end

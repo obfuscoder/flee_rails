@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
   validates :category, :description, :price, :reservation, presence: true
   validates :description, length: { maximum: 250 }
   validates :size, length: { maximum: 50 }
-  validates :code, uniqueness: { allow_nil: true }
+  validates :code, uniqueness: { scope: :reservation_id }, allow_nil: true
   validates :number, numericality: { greater_than: 0, only_integer: true },
                      uniqueness: { scope: :reservation_id },
                      allow_nil: true
@@ -56,10 +56,6 @@ class Item < ActiveRecord::Base
   def price=(number)
     number.tr!(',', '.') if number.is_a? String
     self[:price] = number
-  end
-
-  def copy_to(reservation)
-    reservation.items.create category: category, description: description, size: size, price: price, donation: donation
   end
 
   private

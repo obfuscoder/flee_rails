@@ -561,6 +561,7 @@ de:
         reservation_numbers_assignable: Reservierungsnummern werden individuell vergeben
         auto_reservation_numbers_start: Start für automatische Reservierungsnummernvergabe
         import_items_allowed: Artikelimport aus älteren Reservierungen erlaubt
+        import_item_code_enabled: Artikelcode beim Import behalten
       category:
         name: Name
         parent: Überkategorie

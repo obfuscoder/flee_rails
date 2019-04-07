@@ -28,5 +28,6 @@ RSpec.describe 'admin/clients/edit' do
     it { is_expected.to have_field 'client_reservation_numbers_assignable' }
     it { is_expected.to have_field 'client_auto_reservation_numbers_start' }
     it { is_expected.to have_field 'client_import_items_allowed' }
+    it { is_expected.to have_field 'client_import_item_code_enabled' }
   end
 end
