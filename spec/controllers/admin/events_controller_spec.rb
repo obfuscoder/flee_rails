@@ -182,4 +182,22 @@ RSpec.describe Admin::EventsController do
       its(:body) { is_expected.to eq bill.document }
     end
   end
+
+  describe 'GET report' do
+    before do
+      allow(CreateEventReport).to receive(:new).with(event).and_return create_event_report
+      get :report, id: event.id
+    end
+
+    let(:create_event_report) { double call: report }
+    let(:report) { 'the report' }
+
+    describe 'response' do
+      subject { response }
+
+      it { is_expected.to have_http_status :ok }
+      its(:content_type) { is_expected.to eq 'text/plain' }
+      its(:body) { is_expected.to eq report }
+    end
+  end
 end

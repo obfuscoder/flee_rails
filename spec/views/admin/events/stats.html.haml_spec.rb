@@ -107,5 +107,7 @@ RSpec.describe 'admin/events/stats' do
     it 'lists all seller cities for the notifications' do
       event.notifications.each { |notification| expect(output).to have_content notification.seller.city }
     end
+
+    it { is_expected.to have_link href: report_admin_event_path(event) }
   end
 end

@@ -2,7 +2,7 @@
 
 module Admin
   class EventsController < AdminController
-    before_action :init_event, only: %i[edit update show stats data bill]
+    before_action :init_event, only: %i[edit update show stats data bill report]
 
     def init_event
       @event = current_client.events.find params[:id]
@@ -56,6 +56,10 @@ module Admin
     def bill
       send_data @event.bill.document, filename: "rechnung_flohmarkthelfer_#{@event.bill.number}.pdf",
                                       type: 'application/pdf'
+    end
+
+    def report
+      send_data CreateEventReport.new(@event).call, filename: 'artikelliste.txt', type: 'text/plain'
     end
 
     private

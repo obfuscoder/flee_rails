@@ -1,5 +1,6 @@
 - content_for :title, t('.title')
 %h3 Artikel
+%p= link_to 'Artikelliste herunterladen', report_admin_event_path(@event), type: :primary, icon: :list_alt
 %ul
   %li
     gesamt: #{@event.item_count}
