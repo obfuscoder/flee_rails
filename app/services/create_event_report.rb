@@ -14,7 +14,8 @@ class CreateEventReport
         item.description,
         item.size,
         I18n.t('gender.' + item.gender),
-        item.price].join("\t")
+        item.price
+      ].join("\t")
     end
     header = %w[Reservierungsnummer Artikelnummer Kategorie Beschreibung Größe Geschlecht Preis].join("\t")
     ([header] + items).join("\n")
