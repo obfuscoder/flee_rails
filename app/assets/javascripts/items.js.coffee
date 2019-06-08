@@ -13,6 +13,14 @@ itemEditCategorySelected = ->
   else
     $('#donation-enforced-hint').removeClass('show')
 
+  gender = $(selector).attr('data-gender') == 'true'
+  $('.item_gender input').prop('disabled', !gender)
+  if gender
+    $('.item_gender .radio').removeClass('disabled')
+  else
+    $('.item_gender .radio').addClass('disabled')
+    $('.item_gender .radio input').prop('checked', false)
+
   size_option = $(selector).attr('data-size-option') || 'size_optional'
   value = switch
     when $('#item_size').is(':visible')

@@ -6,5 +6,6 @@
     = f.input :max_items_per_seller
     = f.input :donation_enforced if current_client.donation_of_unsold_items
     = f.input :size_option, as: :radio_buttons, collection: Category.size_options.map { |k,v| [t('size_option.' + k), k] }
+    = f.input :gender
   .form-actions
     = f.button :submit

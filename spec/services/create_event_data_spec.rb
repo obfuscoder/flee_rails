@@ -6,7 +6,8 @@ RSpec.describe CreateEventData do
   subject(:instance) { described_class.new client }
 
   let(:client) { Client.first }
-  let!(:categories) { create_list :category, 7 }
+  let!(:categories) { create_list :category, 6 }
+  let!(:category_with_gender) { create :category, gender: true }
   let!(:stock_items) { create_list :stock_item, 4 }
 
   describe '#call' do
@@ -16,6 +17,10 @@ RSpec.describe CreateEventData do
     let!(:reservations) { create_list :reservation, 2, event: event }
     let!(:items1) { create_list :item_with_code, 3, reservation: reservations.first, category: categories.first }
     let!(:items2) { create_list :item_with_code, 2, reservation: reservations.second, category: categories.second }
+    let!(:items3) do
+      create_list :item_with_code, 2, reservation: reservations.second,
+                                      category: category_with_gender, gender: :female
+    end
     let!(:items_without_code) { create_list :item, 2, reservation: reservations.second, category: categories.last }
     let!(:sold_stock_items) { event.sold_stock_items.create stock_item: stock_items.first, amount: 2 }
 
@@ -49,10 +54,10 @@ RSpec.describe CreateEventData do
       its([:reservations]) { is_expected.to have(2).items }
       its([:reservations]) { is_expected.to all(include(:id, :number, :seller_id, :fee, :commission_rate)) }
 
-      its([:items]) { is_expected.to have(5).items }
+      its([:items]) { is_expected.to have(7).items }
       its([:items]) do
         is_expected.to all(include(:id, :category_id, :reservation_id, :description,
-                                   :number, :code, :sold, :donation, :size, :price))
+                                   :number, :code, :sold, :donation, :size, :price, :gender))
       end
     end
   end

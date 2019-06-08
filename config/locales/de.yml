@@ -1,5 +1,9 @@
 de:
   print: Drucken
+  gender:
+    male: Junge
+    female: Mädchen
+    both: beide
   size_option:
     size_optional: optional
     size_required: Pflicht
@@ -568,6 +572,7 @@ de:
         donation_enforced: Spendenzwang
         max_items_per_seller: max. Anzahl
         size_option: Größenangaben
+        gender: Geschlecht
       event:
         name: Name
         details: Details
@@ -594,6 +599,7 @@ de:
         category: Kategorie
         description: Beschreibung
         size: Größe
+        gender: Geschlecht
         price: Preis
         donation: Spende wenn nicht verkauft
         number: Nummer
@@ -740,6 +746,8 @@ de:
               required: Die Größe muss bei dieser Kategorie angegeben werden.
               fixed: Die angegebene Größe ist keine der zur Auswahl stehenden.
               disabled: Es darf keine Größe für diese Kartegorie angegeben werden.
+            gender:
+              required: Das Geschlecht muss bei dieser Kategorie angegeben werden.
         time_period:
           attributes:
             max:

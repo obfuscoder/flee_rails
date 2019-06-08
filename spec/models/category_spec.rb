@@ -28,6 +28,18 @@ RSpec.describe Category do
     end
   end
 
+  describe '#gender?' do
+    subject(:action) { category.gender? }
+
+    it { is_expected.to eq false }
+
+    context 'when gender is set' do
+      before { category.gender = true }
+
+      it { is_expected.to eq true }
+    end
+  end
+
   describe '#descendants' do
     subject(:action) { category.descendants }
 

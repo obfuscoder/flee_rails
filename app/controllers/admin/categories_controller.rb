@@ -44,7 +44,12 @@ module Admin
     private
 
     def category_params
-      params.require(:category).permit :name, :donation_enforced, :max_items_per_seller, :parent_id, :size_option
+      params.require(:category).permit :name,
+                                       :donation_enforced,
+                                       :max_items_per_seller,
+                                       :parent_id,
+                                       :size_option,
+                                       :gender
     end
 
     def set_category

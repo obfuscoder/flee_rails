@@ -9,6 +9,9 @@ class Item < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   include Statistics
 
+  # in rails 5 there is _prefix to get rid of the 'size_'
+  enum gender: %i[male female both]
+
   validates :category, :description, :price, :reservation, presence: true
   validates :description, length: { maximum: 250 }
   validates :size, length: { maximum: 50 }
@@ -23,6 +26,7 @@ class Item < ActiveRecord::Base
   validate :size_required_for_category, on: %i[create update]
   validate :allowed_size_for_category, on: %i[create update]
   validate :size_disabled_for_category, on: %i[create update]
+  validate :gender_required_for_category, on: %i[create update]
 
   scope :without_label, -> { where.has { code.eq nil } }
   scope :with_label, -> { where.has { code.not_eq nil } }
@@ -43,7 +47,7 @@ class Item < ActiveRecord::Base
 
   def delete_code
     self.number = self.code = nil
-    save!
+    save! context: :delete_code
   end
 
   def create_code(options = {})
@@ -110,6 +114,13 @@ class Item < ActiveRecord::Base
     return unless category.size_disabled? && size.present?
 
     errors.add :size, :disabled
+  end
+
+  def gender_required_for_category
+    return if category.nil?
+    return unless category.gender? && gender.blank?
+
+    errors.add :gender, :required
   end
 
   def create_number

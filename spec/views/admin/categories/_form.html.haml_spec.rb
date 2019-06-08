@@ -26,5 +26,7 @@ RSpec.describe 'admin/categories/_form' do
 
       it { is_expected.to have_checked_field('category_size_option_size_disabled') }
     end
+
+    it { is_expected.to have_field('category_gender') }
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe LabelDocument do
 
   let(:details) { 'Schuhe\nweiß\nGröße 10' }
   let(:label) do
-    double :label, reservation: '12', number: '34',
+    double :label, reservation: '12', number: '34', gender?: false,
                    price: '€ 2,90', details: details, code: '91020120348', donation?: donation
   end
   let(:labels) { [label] }

@@ -47,7 +47,10 @@ class LabelDocument < PdfDocument
     height = small_line_height * 3
     if label.donation?
       donation_cell(height, top)
-      boxed_text(label.details, top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
+      details_next_to_donation(height, label, top)
+    elsif label.gender?
+      boxed_text(label.details, top, bounds.left, height, bounds.width * 4 / 5)
+      gender_cell(label.gender, height, top)
     else
       boxed_text(label.details, top, bounds.left, height, bounds.width)
     end
@@ -59,6 +62,21 @@ class LabelDocument < PdfDocument
     font FONT_NAME, style: :bold, size: 30 do
       boxed_text('S', top, bounds.left, height, bounds.width / 5)
     end
+  end
+
+  def gender_cell(gender, height, top)
+    current_line_width = line_width
+    self.line_width = 3
+    center_point = [bounds.right - bounds.width / 5 / 2, top - height / 2]
+    width = bounds.width / 5
+    radius = [height, width].min * 0.2
+    stroke do
+      circle center_point, radius
+
+      female_part(center_point, radius) if %i[female both].include? gender
+      male_part(center_point, radius) if %i[male both].include? gender
+    end
+    self.line_width = current_line_width
   end
 
   def boxed_text(text, top, left, height, width)
@@ -101,5 +119,37 @@ class LabelDocument < PdfDocument
 
   def next_row(row)
     (row + 1) % ROWS
+  end
+
+  private
+
+  def details_next_to_donation(height, label, top)
+    if label.gender?
+      boxed_text(label.details, top, bounds.left + bounds.width / 5, height, bounds.width * 3 / 5)
+      gender_cell(label.gender, height, top)
+    else
+      boxed_text(label.details, top, bounds.left + bounds.width / 5, height, bounds.width * 4 / 5)
+    end
+  end
+
+  def female_part(center_point, radius)
+    vertical_line center_point.second - radius, center_point.second - radius * 2.7, at: center_point.first
+    horizontal_line center_point.first - radius * 0.7, center_point.first + radius * 0.7,
+                    at: center_point.second - radius * 1.9
+  end
+
+  def male_part(center_point, radius)
+    width = 0.7
+    length = 1.8
+
+    left = center_point.first + radius * width
+    bottom = center_point.second + radius * width
+    right = center_point.first + radius * length
+    top = center_point.second + radius * length
+
+    line [left, bottom], [right, top]
+    move_to [left, top]
+    line_to [right, top]
+    line_to [right, bottom]
   end
 end

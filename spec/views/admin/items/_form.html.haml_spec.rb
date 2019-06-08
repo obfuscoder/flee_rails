@@ -23,6 +23,9 @@ RSpec.describe 'admin/items/_form' do
     it { is_expected.to have_field 'item_description' }
     it { is_expected.to have_field 'item_size' }
     it { is_expected.to have_field 'item_price' }
+    it { is_expected.to have_field 'item_gender_female' }
+    it { is_expected.to have_field 'item_gender_male' }
+    it { is_expected.to have_field 'item_gender_both' }
     it { is_expected.not_to have_field 'item_donation' }
     it { is_expected.not_to have_css '#donation-enforced-hint' }
     context 'when event donation is enabled' do

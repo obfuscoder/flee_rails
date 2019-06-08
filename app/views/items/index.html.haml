@@ -38,13 +38,12 @@
       - if @event.donation_of_unsold_items_enabled
         %td= t((item.donation ? true:false).to_s)
       %td.btn-group
-        - if item.code.nil?
-          - unless @event.reservation_end.past?
+        - unless @event.reservation_end.past?
+          - if item.code.nil?
             = icon_link_to t('edit'), edit_event_reservation_item_path(@event, @reservation, item), type: :primary, icon: :pencil
             = destroy_icon_link_to event_reservation_item_path(@event, @reservation, item), message: t('.destroy.confirm')
-        - else
-          Etikett erzeugt
-          - unless @event.reservation_end.past?
+          - else
+            Etikett erzeugt
             %span= destroy_icon_link_to code_event_reservation_item_path(@event, @reservation, item), name: t('delete_code'), message: t('.delete_code.confirm'), type: :warning, icon: :tag
 %p= paginate @items, event_id: @event.id, reservation_id: @reservation.id
 - unless @items.empty?

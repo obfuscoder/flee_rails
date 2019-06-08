@@ -28,4 +28,14 @@ class LabelDecorator
   def donation?
     @item.donation?
   end
+
+  def gender?
+    @item.category.gender?
+  end
+
+  def gender
+    return nil unless gender?
+
+    @item.gender.to_sym
+  end
 end

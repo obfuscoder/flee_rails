@@ -70,7 +70,7 @@ module Admin
     end
 
     def item_params
-      enforce_donation params.require(:item).permit(:category_id, :description, :size, :price, :donation)
+      enforce_donation params.require(:item).permit(:category_id, :description, :size, :price, :donation, :gender)
     end
 
     def enforce_donation(parameters)
@@ -95,6 +95,7 @@ module Admin
         ]
         data = { size_option: category.size_option }
         data[:sizes] = category.sizes.map(&:value).join('|')
+        data[:gender] = category.gender?
         data[:donation_enforced] = category.donation_enforced? if @reservation.event.donation_of_unsold_items_enabled
         element << { data: data } unless data.empty?
         element

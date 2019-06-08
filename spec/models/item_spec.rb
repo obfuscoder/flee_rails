@@ -142,4 +142,22 @@ RSpec.describe Item do
       end
     end
   end
+
+  context 'with category#gender' do
+    subject(:item) { build :item, category: category }
+
+    let(:category) { create :category, gender: true }
+
+    it { is_expected.not_to be_valid }
+    its(:gender?) { is_expected.to eq false }
+
+    context 'with gender set to female' do
+      subject(:item) { build :item, category: category, gender: :female }
+
+      it { is_expected.to be_valid }
+      its(:female?) { is_expected.to eq true }
+
+      its(:gender?) { is_expected.to eq true }
+    end
+  end
 end

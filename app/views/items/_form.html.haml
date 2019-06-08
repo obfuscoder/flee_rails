@@ -8,6 +8,7 @@
     = f.input :description
     = f.input :size
     = f.input :fixed_size, collection: [], label: false
+    = f.input :gender, as: :radio_buttons, collection: Item.genders.map { |k,v| [t('gender.' + k), k] }
     = f.input :price, html5: false
     = f.input :donation if @event.donation_of_unsold_items_enabled
   .form-actions
