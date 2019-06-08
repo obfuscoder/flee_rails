@@ -1,8 +1,12 @@
 inherit_from: .rubocop_todo.yml
 
-require: rubocop-rspec
+require:
+  - rubocop-performance
+#  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
+  TargetRubyVersion: 2.5
   TargetRailsVersion: 4.2
   DisplayCopNames: true
   Exclude:

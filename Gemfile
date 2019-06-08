@@ -45,6 +45,8 @@ group :test, :development do
   gem 'faker'
   gem 'pry-rails'
   gem 'rubocop'
+  gem 'rubocop-performance'
+  # gem 'rubocop-rails', # currently broken
   gem 'rubocop-rspec'
 
   # sqlite3 version 1.4.0+ is not compatible with latest rails 4.
