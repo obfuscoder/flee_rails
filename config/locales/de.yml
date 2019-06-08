@@ -572,7 +572,7 @@ de:
         donation_enforced: Spendenzwang
         max_items_per_seller: max. Anzahl
         size_option: Größenangaben
-        gender: Geschlecht
+        gender: geschlechtsspezifisch
       event:
         name: Name
         details: Details
