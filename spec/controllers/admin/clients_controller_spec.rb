@@ -44,7 +44,8 @@ RSpec.describe Admin::ClientsController do
         reservation_numbers_assignable: '1',
         auto_reservation_numbers_start: '100',
         import_items_allowed: '1',
-        import_item_code_enabled: '1'
+        import_item_code_enabled: '1',
+        precise_bill_amounts: '1'
       }
     end
 
@@ -60,7 +61,11 @@ RSpec.describe Admin::ClientsController do
                                                     reservation_numbers_assignable: true,
                                                     auto_reservation_numbers_start: 100,
                                                     import_items_allowed: true,
-                                                    import_item_code_enabled: true
+                                                    import_item_code_enabled: true,
+                                                    precise_bill_amounts: true,
+                                                    price_precision: 1.0,
+                                                    reservation_fee: 10.0,
+                                                    commission_rate: 0.5
     end
   end
 end

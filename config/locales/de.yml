@@ -264,7 +264,8 @@ de:
         price_precision:
           hint: >
             Alle Preise dürfen nur ein Vielfaches dieses Werts in € sein.
-            Ebenso werden in der Abrechnung alle Auszahlungsbeträge auf diesen Wert abgerundet.
+            In der Abrechnung werden alle Auszahlungsbeträge auf diesen Wert abgerundet,
+            außer die Option für Cent-genaue Rechnungsbeträge ist ausgewählt
         commission_rate:
           hint: &commission_rate_hint >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
@@ -566,6 +567,7 @@ de:
         auto_reservation_numbers_start: Start für automatische Reservierungsnummernvergabe
         import_items_allowed: Artikelimport aus älteren Reservierungen erlaubt
         import_item_code_enabled: Artikelcode beim Import behalten
+        precise_bill_amounts: Cent-genaue Rechnungsbeträge
       category:
         name: Name
         parent: Überkategorie
@@ -594,6 +596,7 @@ de:
         reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
         support_system_enabled: Helfersystem für Verkäufer freigeschaltet
         supporters_can_retire: Helfer können sich wieder austragen
+        precise_bill_amounts: Cent-genaue Rechnungsbeträge
       item:
         seller: Verkäufer
         category: Kategorie

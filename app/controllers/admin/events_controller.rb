@@ -15,6 +15,7 @@ module Admin
     def new
       date = 1.month.from_now.at_midday
       @event = current_client.events.build price_precision: current_client.price_precision,
+                                           precise_bill_amounts: current_client.precise_bill_amounts,
                                            commission_rate: current_client.commission_rate,
                                            reservation_fee: current_client.reservation_fee,
                                            kind: :commissioned,
@@ -71,7 +72,8 @@ module Admin
     def event_params
       params.require(:event).permit :name, :details, :max_reservations, :kind, :confirmed,
                                     :max_items_per_reservation, :max_reservations_per_seller,
-                                    :price_precision, :commission_rate, :reservation_fee,
+                                    :price_precision, :precise_bill_amounts,
+                                    :commission_rate, :reservation_fee,
                                     :reservation_fees_payed_in_advance,
                                     :donation_of_unsold_items_enabled,
                                     :support_system_enabled, :supporters_can_retire,

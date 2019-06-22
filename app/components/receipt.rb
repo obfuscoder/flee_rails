@@ -3,13 +3,9 @@
 class Receipt
   def initialize(reservation)
     @reservation = reservation
-
-    commission_cut_sum =
-      (sold_items_sum * (1 - reservation.commission_rate) / reservation.event.price_precision).floor *
-      reservation.event.price_precision
-    @payout = commission_cut_sum
+    @commission_cut = -round(sold_items_sum * reservation.commission_rate)
+    @payout = sold_items_sum + @commission_cut
     @payout -= reservation.fee unless event.reservation_fees_payed_in_advance
-    @commission_cut = commission_cut_sum - sold_items_sum
   end
 
   attr_reader :reservation, :commission_cut, :payout
@@ -48,5 +44,15 @@ class Receipt
 
   def reservation_fee
     - @reservation.fee
+  end
+
+  private
+
+  def round(value)
+    if event.precise_bill_amounts
+      value.round(2)
+    else
+      (value / event.price_precision).ceil * reservation.event.price_precision
+    end
   end
 end
