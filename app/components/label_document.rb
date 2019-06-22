@@ -16,8 +16,16 @@ class LabelDocument < PdfDocument
 
   def render
     define_grid columns: COLS, rows: ROWS, gutter: 5
+    current_reservation = nil
     cell = [0, 0]
     @labels.each do |label|
+      if current_reservation != label.reservation
+        if current_reservation
+          cell = [0, 0]
+          start_new_page
+        end
+        current_reservation = label.reservation
+      end
       label_cell(cell, label)
       cell = next_cell(cell)
       start_new_page if cell == [0, 0]

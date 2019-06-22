@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_one :bill, dependent: :destroy
   has_many :reservations, -> { order :id }, inverse_of: :event
   has_many :reviews, through: :reservations
-  has_many :items, through: :reservations
+  has_many :items, -> { order 'reservations.number' }, through: :reservations
   has_many :notifications, -> { order :id }, inverse_of: :event
   has_many :messages, dependent: :delete_all
   has_many :support_types, dependent: :delete_all

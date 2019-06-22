@@ -34,7 +34,7 @@ class LabelDecorator
   end
 
   def gender
-    return nil unless gender?
+    return nil unless gender? && @item.gender
 
     @item.gender.to_sym
   end

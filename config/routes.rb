@@ -82,6 +82,7 @@ Rails.application.routes.draw do
         get :data
         get :bill
         get :report
+        get :labels
       end
     end
     resource :client, only: [:edit, :update]

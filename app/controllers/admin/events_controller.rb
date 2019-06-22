@@ -2,7 +2,7 @@
 
 module Admin
   class EventsController < AdminController
-    before_action :init_event, only: %i[edit update show stats data bill report]
+    before_action :init_event, only: %i[edit update show stats data bill report labels]
 
     def init_event
       @event = current_client.events.find params[:id]
@@ -61,6 +61,11 @@ module Admin
 
     def report
       send_data CreateEventReport.new(@event).call, filename: 'artikelliste.txt', type: 'text/plain'
+    end
+
+    def labels
+      pdf = CreateLabelDocument.new(current_client, @event.items.includes(:category, :reservation)).call
+      send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'
     end
 
     private
