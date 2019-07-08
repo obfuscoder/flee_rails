@@ -38,6 +38,8 @@ FactoryBot.define do
         end
 
         factory :billable_event do
+          transient { shopping_time { 1.day.ago } }
+
           after :build do |event|
             reservation = build :reservation, event: event
             event.reservations << reservation

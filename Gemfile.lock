@@ -75,10 +75,10 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano3-puma (4.0.0)
+    capistrano3-puma (3.1.1)
       capistrano (~> 3.7)
       capistrano-bundler
-      puma (~> 4.0)
+      puma (~> 3.4)
     capybara (3.25.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -227,7 +227,6 @@ GEM
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
-    nio4r (2.4.0)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
@@ -264,8 +263,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (3.1.1)
-    puma (4.0.0)
-      nio4r (~> 2.0)
+    puma (3.12.1)
     rack (1.6.11)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -449,7 +447,7 @@ DEPENDENCIES
   prawn
   prawn-table
   pry-rails
-  puma
+  puma (< 4.0)
   rails (~> 4.2)
   rake
   redcarpet
@@ -476,4 +474,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
