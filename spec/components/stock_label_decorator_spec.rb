@@ -12,4 +12,5 @@ RSpec.describe StockLabelDecorator do
   its(:details) { is_expected.to eq stock_item.description }
   its(:code) { is_expected.to eq stock_item.code }
   its(:donation?) { is_expected.to be false }
+  its(:reservation) { is_expected.to eq nil }
 end

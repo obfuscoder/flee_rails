@@ -24,4 +24,8 @@ class StockLabelDecorator
   def donation?
     false
   end
+
+  def reservation
+    nil
+  end
 end
