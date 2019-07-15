@@ -10,7 +10,7 @@ class ContactController < ApplicationController
   def submit
     @contact = Contact.new contact_params.merge(client: current_client, seller: @seller)
     if @contact.valid?
-      NotificationMailer.contact(@contact.to_options).deliver_later
+      NotificationMailer.contact(@contact.to_options).deliver_now
       redirect_to contact_submitted_path
     else
       render :show
