@@ -25,6 +25,10 @@ class StockLabelDecorator
     false
   end
 
+  def gender?
+    false
+  end
+
   def reservation
     nil
   end

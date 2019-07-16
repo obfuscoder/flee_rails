@@ -10,7 +10,11 @@ RSpec.describe LabelDocument do
     double :label, reservation: '12', number: '34', gender?: false,
                    price: '€ 2,90', details: details, code: '91020120348', donation?: donation
   end
-  let(:labels) { [label] }
+  let(:stock_label) do
+    double :label, reservation: nil, number: '47', gender?: false,
+           price: '€ 2,10', details: 'Tasche', code: '4711', donation?: false
+  end
+  let(:labels) { [label, stock_label] }
   let(:donation) { true }
 
   describe '#render' do
@@ -23,6 +27,13 @@ RSpec.describe LabelDocument do
       expect(output).to include label.details
       expect(output).to include label.code
       expect(output).to include 'S'
+    end
+
+    it 'contains stock label information' do
+      expect(output).to include stock_label.number
+      expect(output).to include stock_label.price
+      expect(output).to include stock_label.details
+      expect(output).to include stock_label.code
     end
 
     context 'with characters outside of ascii range in details' do
