@@ -71,9 +71,7 @@ module Admin
     end
 
     def init_sellers
-      @sellers = current_client.sellers.merge(Seller.active).order(:first_name, :last_name).select do |seller|
-        @event.reservable_by? seller, context: :admin
-      end
+      @sellers = current_client.sellers.merge(Seller.active).order(:first_name, :last_name)
     end
 
     def init_available_numbers

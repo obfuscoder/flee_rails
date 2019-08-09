@@ -68,14 +68,13 @@ class Event < ActiveRecord::Base
     joining { reservations.outer }.grouping { id }.when_having { reservations.id.count < max_reservations }
   end
 
-  def reservable_by?(seller, options = {})
-    (reservations_left? && client.reservation_by_seller_allowed? || options[:context] == :admin) &&
-      can_add_to_notifications?(seller, options)
+  def reservable_by?(seller)
+    reservations_left? && client.reservation_by_seller_allowed? &&
+      can_add_to_notifications?(seller)
   end
 
-  def notifiable_by?(seller, options = {})
-    (options[:context] == :admin || seller.client.reservation_by_seller_allowed?) &&
-      can_add_to_notifications?(seller, options)
+  def notifiable_by?(seller)
+    seller.client.reservation_by_seller_allowed? && can_add_to_notifications?(seller)
   end
 
   def reviewed_by?(seller)
@@ -194,8 +193,8 @@ class Event < ActiveRecord::Base
 
   private
 
-  def can_add_to_notifications?(seller, options)
-    (!max_reservations_reached_for?(seller) || options[:context] == :admin) &&
+  def can_add_to_notifications?(seller)
+    !max_reservations_reached_for?(seller) &&
       !suspensions.find_by(seller: seller) &&
       !notifications.find_by(seller: seller)
   end

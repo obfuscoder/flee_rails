@@ -36,7 +36,7 @@ RSpec.describe ContactController do
       post :submit, contact: contact_params
     end
 
-    let(:notification_mailer) { double deliver_later: nil }
+    let(:notification_mailer) { double deliver_now: nil }
     let(:email) { Faker::Internet.email }
     let(:name) { Faker::Name.name }
     let(:contact) { build :contact }
@@ -48,7 +48,7 @@ RSpec.describe ContactController do
                                                                                 name: name,
                                                                                 subject: contact.topic,
                                                                                 body: contact.body))
-      expect(notification_mailer).to have_received(:deliver_later)
+      expect(notification_mailer).to have_received(:deliver_now)
     end
 
     context 'with invalid input' do
@@ -71,7 +71,7 @@ RSpec.describe ContactController do
                                                                                   name: seller.name,
                                                                                   subject: contact.topic,
                                                                                   body: contact.body))
-        expect(notification_mailer).to have_received(:deliver_later)
+        expect(notification_mailer).to have_received(:deliver_now)
       end
     end
   end

@@ -5,8 +5,8 @@ require 'features/admin/login'
 
 RSpec.describe 'admin event reviews' do
   include_context 'when logging in'
-  let!(:event) { create :event_with_ongoing_reservation }
-  let!(:reviews) do
+  let(:event) { create :billable_event }
+  let(:reviews) do
     %i[good_review bad_review incomplete_review].map do |review|
       reservation = create :reservation, event: event
       create review, reservation: reservation
@@ -14,6 +14,9 @@ RSpec.describe 'admin event reviews' do
   end
 
   before do
+    Timecop.travel event.reservation_start do
+      reviews
+    end
     click_on 'Termine'
     click_on 'Anzeigen'
     click_on 'Bewertungen'

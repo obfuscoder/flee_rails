@@ -84,12 +84,6 @@ RSpec.describe Event do
       let(:seller) { create :seller, client: client }
 
       it { is_expected.to eq false }
-
-      context 'with context admin' do
-        subject { event.reservable_by? seller, context: :admin }
-
-        it { is_expected.to eq true }
-      end
     end
   end
 

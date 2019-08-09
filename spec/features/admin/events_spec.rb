@@ -120,9 +120,11 @@ RSpec.describe 'admin events' do
     end
 
     it 'links to reviews for that event' do
-      click_on_event
-      click_on 'Bewertungen'
-      expect(page).to have_current_path(admin_event_reviews_path(event))
+      Timecop.travel event.shopping_periods.last.max + 1.hour do
+        click_on_event
+        click_on 'Bewertungen'
+        expect(page).to have_current_path(admin_event_reviews_path(event))
+      end
     end
 
     describe 'sending mailings' do
