@@ -18,6 +18,7 @@ RSpec.describe ImportTransactions do
     before { allow(ImportTransactionJob).to receive :perform_later }
 
     it { is_expected.to eq count }
+
     it 'calls ImportTransctionJob with each transaction' do
       action
       transactions.each do |transaction|

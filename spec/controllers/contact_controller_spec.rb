@@ -43,6 +43,7 @@ RSpec.describe ContactController do
     let(:contact_params) { { email: email, name: name, topic: contact.topic, body: contact.body } }
 
     it { expect(response).to redirect_to contact_submitted_path }
+
     it 'sends email' do
       expect(NotificationMailer).to have_received(:contact).with(hash_including(email: email,
                                                                                 name: name,

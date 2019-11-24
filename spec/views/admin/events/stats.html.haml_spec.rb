@@ -57,6 +57,7 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_link 'Tabelle anzeigen', href: '#items_per_category_table_collapser' }
     it { is_expected.to have_css '.collapse#items_per_category_table_collapser' }
     it { is_expected.to have_css '#items_per_category_table' }
+
     it 'lists all categories' do
       event.items_per_category.each do |category_name, item_count|
         expect(output).to have_content category_name
@@ -67,6 +68,7 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_link 'Tabelle anzeigen', href: '#sold_items_per_category_table_collapser' }
     it { is_expected.to have_css '.collapse#sold_items_per_category_table_collapser' }
     it { is_expected.to have_css '#sold_items_per_category_table' }
+
     it 'lists all categories of sold items' do
       event.sold_items_per_category.each do |category_name, item_count|
         expect(output).to have_content category_name
@@ -77,6 +79,7 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_link 'Tabelle anzeigen', href: '#sold_stock_items_table_collapser' }
     it { is_expected.to have_css '.collapse#sold_stock_items_table_collapser' }
     it { is_expected.to have_css '#sold_stock_items_table' }
+
     it 'lists all sold stock items' do
       event.sold_stock_items.each do |sold_stock_item|
         expect(output).to have_content sold_stock_item.amount
@@ -87,6 +90,7 @@ RSpec.describe 'admin/events/stats' do
     it { is_expected.to have_link 'Tabelle anzeigen', href: '#sellers_per_city_table_collapser' }
     it { is_expected.to have_css '.collapse#sellers_per_city_table_collapser' }
     it { is_expected.to have_css '#sellers_per_city_table' }
+
     it 'lists all seller counts per city' do
       event.sellers_per_city.each do |city, seller_count|
         expect(output).to have_content city

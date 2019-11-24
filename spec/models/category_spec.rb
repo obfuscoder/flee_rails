@@ -44,6 +44,7 @@ RSpec.describe Category do
     subject(:action) { category.descendants }
 
     it { is_expected.to eq [] }
+
     context 'with child' do
       let(:child) { build :category }
 
@@ -67,14 +68,17 @@ RSpec.describe Category do
     subject(:action) { category.possible_parents }
 
     it { is_expected.to be_empty }
+
     context 'when category is persisted' do
       let(:category) { create :category }
 
       it { is_expected.to be_empty }
+
       context 'with other category' do
         let(:other_category) { create :category }
 
         it { is_expected.to include other_category }
+
         context 'with child' do
           let(:child) { create :category }
 
@@ -102,6 +106,7 @@ RSpec.describe Category do
     subject { category.self_and_parents }
 
     it { is_expected.to have(1).element }
+
     context 'when category has parent' do
       let(:category) { create :category, parent: parent }
       let(:parent) { create :category }
@@ -118,6 +123,7 @@ RSpec.describe Category do
     let(:category) { create :category }
 
     it { is_expected.to eq nil }
+
     context 'when category has item limit' do
       let(:category) { create :category, max_items_per_seller: 3 }
 
@@ -129,6 +135,7 @@ RSpec.describe Category do
       let(:parent) { create :category, max_items_per_seller: 4 }
 
       it { is_expected.to eq parent }
+
       context 'when own limit is higher' do
         let(:category) { create :category, parent: parent, max_items_per_seller: 6 }
 

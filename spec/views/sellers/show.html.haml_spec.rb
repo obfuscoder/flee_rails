@@ -40,6 +40,7 @@ RSpec.describe 'sellers/show' do
     it 'links to reservation' do
       expect(rendered).to have_link href: event_reservations_path(event)
     end
+
     it 'shows number of reservations left and max sellers' do
       expect(rendered).to have_content "#{event.reservations_left} von #{event.max_reservations} Plätzen frei"
     end
@@ -62,6 +63,7 @@ RSpec.describe 'sellers/show' do
       it 'does not link to reservation' do
         expect(rendered).not_to have_link href: event_reservations_path(event)
       end
+
       context 'when seller is not notified yet' do
         it 'links to notification' do
           expect(rendered).to have_link href: event_notification_path(event)

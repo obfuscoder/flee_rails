@@ -15,6 +15,7 @@ module Admin
       before { delete :delete_code, reservation_id: reservation.id, id: item.id }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
+
       it 'frees item number and code' do
         expect(item.reload.code).to be_nil
         expect(item.reload.number).to be_nil
@@ -27,6 +28,7 @@ module Admin
       before { delete :delete_all_codes, reservation_id: reservation.id }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
+
       it 'frees all item numbers and codes' do
         expect(item.reload.code).to be_nil
         expect(item.reload.number).to be_nil

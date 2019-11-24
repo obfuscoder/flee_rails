@@ -2,7 +2,7 @@ inherit_from: .rubocop_todo.yml
 
 require:
   - rubocop-performance
-#  - rubocop-rails
+  - rubocop-rails
   - rubocop-rspec
 
 AllCops:
@@ -19,7 +19,7 @@ Rails:
   Enabled: true
 
 Metrics/ClassLength:
-  Max: 165
+  Max: 170
 
 Metrics/LineLength:
   Max: 120

@@ -34,6 +34,7 @@ RSpec.describe CreateEventData do
                                :commission_rate, :reservation_fee,
                                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
       end
+
       it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }
 
       describe '[:stock_items]' do
@@ -48,6 +49,7 @@ RSpec.describe CreateEventData do
       its([:categories]) { is_expected.to all(include(:id, :name)) }
 
       its([:sellers]) { is_expected.to have(2).items }
+
       its([:sellers]) do
         is_expected.to all(include(:id, :first_name, :last_name, :street, :zip_code, :city, :phone, :email))
       end
@@ -56,6 +58,7 @@ RSpec.describe CreateEventData do
       its([:reservations]) { is_expected.to all(include(:id, :number, :seller_id, :fee, :commission_rate)) }
 
       its([:items]) { is_expected.to have(7).items }
+
       its([:items]) do
         is_expected.to all(include(:id, :category_id, :reservation_id, :description,
                                    :number, :code, :sold, :donation, :size, :price, :gender))

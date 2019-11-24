@@ -236,6 +236,7 @@ module Admin
         let(:reservation) { build :reservation }
 
         it { is_expected.to redirect_to admin_event_reservations_path }
+
         it 'notifies about the reservations count' do
           expect(flash[:notice]).to be_present
         end

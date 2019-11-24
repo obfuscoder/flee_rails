@@ -35,6 +35,7 @@ RSpec.describe 'mail request' do
                                          to: 'demo@test.host',
                                          sent: false
         end
+
         its(:body) { is_expected.to include '[Zum geschützten Bereich]' }
       end
     end

@@ -24,6 +24,7 @@ describe ReservationsController do
     end
 
     it { is_expected.to redirect_to seller_path }
+
     it 'notifies about the created reservation order' do
       expect(flash[:notice]).to be_present
     end
@@ -33,6 +34,7 @@ describe ReservationsController do
       let(:reservation) { double errors: double(any?: true, full_messages: [error_message]) }
 
       it { is_expected.to redirect_to seller_path }
+
       it 'alerts about the failed reservation' do
         expect(flash[:alert]).to be_present
         expect(flash[:alert]).to include error_message

@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'a mail body part' do
   it { is_expected.not_to match(/translation missing/) }
+
   it 'has expected contents' do
     expected_contents.each { |content| is_expected.to include content }
   end

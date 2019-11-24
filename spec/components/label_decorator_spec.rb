@@ -28,6 +28,7 @@ RSpec.describe LabelDecorator do
   end
 
   its(:gender?) { is_expected.to eq false }
+
   context 'when category has gender enabled' do
     let(:category) { create :category, gender: true }
     let(:item) { create :item_with_code, category: category, gender: :female }

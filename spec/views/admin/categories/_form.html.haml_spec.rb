@@ -17,10 +17,12 @@ RSpec.describe 'admin/categories/_form' do
 
     it { is_expected.to have_field 'max. Anzahl', with: '4' }
     it { is_expected.to have_select('Überkategorie', with_options: parents.map(&:name)) }
+
     Category.size_options.keys.each do |option|
       it { is_expected.to have_field('category_size_option_' + option) }
     end
     it { is_expected.to have_checked_field('category_size_option_size_optional') }
+
     context 'with category with disabled size option' do
       let(:category) { build :category_with_size_disabled }
 

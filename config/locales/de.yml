@@ -1002,6 +1002,8 @@ de:
   will_paginate:
     previous_label: Zurück
     next_label: Weiter
+    container_aria_label: Seiten
+    page_aria_label: "Seite %{page}"
   notification_mailer:
     supporter_created:
       subject: Flohmarkthelfer - Neuer Helfer

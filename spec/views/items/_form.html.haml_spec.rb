@@ -31,6 +31,7 @@ RSpec.describe 'items/_form' do
     it { is_expected.to have_field 'item_gender_both' }
     it { is_expected.not_to have_field 'item_donation' }
     it { is_expected.not_to have_css '#donation-enforced-hint' }
+
     context 'when event donation is enabled' do
       let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
 

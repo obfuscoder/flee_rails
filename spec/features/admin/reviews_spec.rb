@@ -14,12 +14,11 @@ RSpec.describe 'admin event reviews' do
   end
 
   before do
-    Timecop.travel event.reservation_start do
-      reviews
+    Timecop.travel event.pickup_periods.last.max do
+      click_on 'Termine'
+      click_on 'Anzeigen'
+      click_on 'Bewertungen'
     end
-    click_on 'Termine'
-    click_on 'Anzeigen'
-    click_on 'Bewertungen'
   end
 
   it 'shows review summary' do

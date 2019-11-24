@@ -31,6 +31,7 @@ RSpec.describe SellersController do
       it 'assigns the new instance to @seller' do
         expect(assigns(:seller)).to eq Seller.last
       end
+
       it { expect(assigns(:seller)).to be_persisted }
       it { expect(response).to render_template :create }
       it { expect(response).to have_http_status :ok }
@@ -42,6 +43,7 @@ RSpec.describe SellersController do
       it 'assigns the not yet persisted instance to @seller' do
         expect(assigns(:seller)).to be_a_new Seller
       end
+
       it { expect(response).to render_template :new }
       it { expect(response).to have_http_status :ok }
     end
@@ -113,14 +115,17 @@ RSpec.describe SellersController do
         post_it
         expect(response).to render_template :resend_activation
       end
+
       it 'responds with :ok' do
         post_it
         expect(response).to have_http_status :ok
       end
+
       it 'sets @seller with error info' do
         post_it
         expect(assigns(:seller).errors.messages).not_to be_empty
       end
+
       it 'does not send email' do
         allow(SellerMailer).to receive :registration
         post_it
@@ -137,14 +142,17 @@ RSpec.describe SellersController do
         post_it
         expect(response).to render_template :resend_activation
       end
+
       it 'responds with :ok' do
         post_it
         expect(response).to have_http_status :ok
       end
+
       it 'sets @seller with error info' do
         post_it
         expect(assigns(:seller).errors.messages).not_to be_empty
       end
+
       it 'does not send email' do
         allow(SellerMailer).to receive :registration
         post_it
@@ -182,6 +190,7 @@ RSpec.describe SellersController do
       let(:token) { seller.token }
 
       it { is_expected.to redirect_to seller_path }
+
       it 'resets session' do
         session[:foo] = :bar
         expect { action }.to change { session[:foo] }.to nil

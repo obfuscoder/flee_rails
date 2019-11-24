@@ -33,10 +33,12 @@ RSpec.describe 'admin/sellers/show' do
     it { is_expected.to have_content supporter.support_type.name }
     it { is_expected.to have_content supporter.support_type.event.name }
     it { is_expected.to have_link href: admin_event_path(supporter.support_type.event) }
+
     it do
       is_expected.to have_link href: admin_event_support_type_supporters_path(supporter.support_type.event,
                                                                               supporter.support_type)
     end
+
     it { is_expected.to have_link href: edit_admin_seller_path(seller) }
     it { is_expected.to have_content default_reservation_number }
   end

@@ -22,6 +22,7 @@ RSpec.describe CreateEmail do
   let(:message_id) { 'message id' }
 
   it { is_expected.to be_persisted.and be_an Email }
+
   it do
     is_expected.to have_attributes body: body,
                                    subject: mail_subject,

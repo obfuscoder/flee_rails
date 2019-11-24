@@ -14,6 +14,7 @@ RSpec.describe MessageGenerator do
   let(:template_message) { double subject: 'testsubject {{ event_name }}', body: t('hints.messages') }
 
   its(:subject) { is_expected.to eq "testsubject #{event.name}" }
+
   describe 'result body' do
     subject(:body) { action.body.gsub('{{ platzhalter }}', '') }
 

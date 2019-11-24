@@ -20,6 +20,7 @@ RSpec.describe NotificationsController do
           it 'does not create another notification' do
             expect { post :create, event_id: event.id }.not_to change(Notification, :count)
           end
+
           it 'redirects to seller view' do
             expect(post(:create, event_id: event.id)).to redirect_to seller_path
           end
@@ -31,6 +32,7 @@ RSpec.describe NotificationsController do
             post :create, event_id: event.id
             expect(Notification.find_by(event: event, seller: seller)).not_to be_nil
           end
+
           it 'redirects to seller view' do
             expect(post(:create, event_id: event.id)).to redirect_to seller_path
           end

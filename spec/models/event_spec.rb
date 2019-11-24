@@ -65,6 +65,7 @@ RSpec.describe Event do
       before { create :reservation, event: event, seller: seller }
 
       it { is_expected.to eq false }
+
       context 'when event allows two reservations per seller' do
         let(:event) { create :event_with_ongoing_reservation, max_reservations_per_seller: 2 }
 

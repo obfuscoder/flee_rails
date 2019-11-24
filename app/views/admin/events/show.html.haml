@@ -48,8 +48,8 @@
     = link_to 'Etiketten drucken', labels_admin_event_path(@event), type: :primary, icon: :print
   - if @event.past?
     = link_to 'Bewertungen', admin_event_reviews_path(@event), type: :primary, icon: :heart
-    - if @event.bill.present?
-      = link_to 'Rechnung', bill_admin_event_path(@event), type: :primary, icon: :euro
+  - if @event.bill.present?
+    = link_to 'Rechnung', bill_admin_event_path(@event), type: :primary, icon: :euro
 %p
 .btn-group
   - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?

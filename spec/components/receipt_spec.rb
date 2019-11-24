@@ -18,9 +18,9 @@ RSpec.describe Receipt do
   its(:sold_items) { is_expected.to eq sold_items }
   its(:returned_items) { is_expected.to eq returned_items }
   its(:donated_items) { is_expected.to eq donated_items }
-  its(:reservation_fee) { is_expected.to eq -event.reservation_fee }
+  its(:reservation_fee) { is_expected.to eq(-event.reservation_fee) }
   its(:sold_items_sum) { is_expected.to eq 73.5 }
-  its(:commission_cut) { is_expected.to eq -15 }
+  its(:commission_cut) { is_expected.to eq(-15) }
   its(:payout) { is_expected.to eq 56.5 }
 
   context 'when precise_bill_amounts is true' do
@@ -30,7 +30,7 @@ RSpec.describe Receipt do
                                               precise_bill_amounts: true
     end
 
-    its(:commission_cut) { is_expected.to eq -18.38 }
+    its(:commission_cut) { is_expected.to eq(-18.38) }
     its(:payout) { is_expected.to eq 53.12 }
   end
 end

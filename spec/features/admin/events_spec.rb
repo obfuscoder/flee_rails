@@ -120,7 +120,7 @@ RSpec.describe 'admin events' do
     end
 
     it 'links to reviews for that event' do
-      Timecop.travel event.shopping_periods.last.max + 1.hour do
+      Timecop.freeze event.pickup_periods.last.max do
         click_on_event
         click_on 'Bewertungen'
         expect(page).to have_current_path(admin_event_reviews_path(event))
@@ -230,6 +230,7 @@ RSpec.describe 'admin events' do
 
           its(:subject) { is_expected.to eq 'Flohmarkt Vorbereitungen abgeschlossen - Artikel festgelegt' }
           its(:body) { is_expected.to have_link 'Zum geschützten Bereich' }
+
           describe 'attached pdf' do
             subject(:attachment) { email.attachments[0] }
 

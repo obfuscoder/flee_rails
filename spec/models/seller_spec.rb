@@ -19,9 +19,11 @@ RSpec.describe Seller do
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive.scoped_to(:client_id) }
   it { is_expected.to validate_uniqueness_of(:default_reservation_number).scoped_to(:client_id).allow_nil }
   it { is_expected.to validate_acceptance_of(:accept_terms).on(:create) }
+
   it do
     is_expected.to validate_numericality_of(:default_reservation_number).is_less_than(1000).is_greater_than(0).allow_nil
   end
+
   it { is_expected.to have_many :reservations }
   it { is_expected.to have_many :notifications }
   it { is_expected.to have_many :suspensions }

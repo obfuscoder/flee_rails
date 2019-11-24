@@ -66,6 +66,7 @@ RSpec.describe ItemsController do
       end
 
       it { is_expected.to have(2).items }
+
       context 'when event donation is disabled' do
         it 'have donation enforced attributes' do
           categories.each do |category|

@@ -59,6 +59,7 @@ RSpec.describe Reservation do
     let!(:suspension) { create :suspension, event: reservation.event, seller: reservation.seller }
 
     it { is_expected.not_to be_valid }
+
     context 'when validated' do
       before { reservation.valid? }
 
@@ -66,6 +67,7 @@ RSpec.describe Reservation do
         subject(:messages) { reservation.errors.messages }
 
         it { is_expected.to have_key :event }
+
         describe 'error message for event' do
           subject { messages[:event][0] }
 
@@ -84,6 +86,7 @@ RSpec.describe Reservation do
     let(:event) { create :event_with_ongoing_reservation, client: client }
 
     it { is_expected.not_to be_valid }
+
     context 'when validated' do
       before { reservation.valid? }
 

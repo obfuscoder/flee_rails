@@ -28,6 +28,7 @@ RSpec.describe Admin::EventsController do
       subject { assigns :events }
 
       it { is_expected.to have(events.count).items }
+
       context 'when event does not have any shopping times' do
         let(:event) { create(:event).tap { |event| event.shopping_periods.clear } }
 
