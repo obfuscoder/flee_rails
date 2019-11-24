@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Seller < ActiveRecord::Base
+class Seller < ApplicationRecord
   acts_as_paranoid
 
   attr_accessor :accept_terms
@@ -42,7 +42,7 @@ class Seller < ActiveRecord::Base
   include Statistics
 
   before_validation do
-    email.try(:downcase!)
+    email&.downcase!
   end
 
   before_create do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MessageTemplate < ActiveRecord::Base
+class MessageTemplate < ApplicationRecord
   belongs_to :client
 
   validates :category, uniqueness: { scope: :client_id }, presence: true

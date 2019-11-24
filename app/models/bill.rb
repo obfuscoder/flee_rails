@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Bill < ActiveRecord::Base
+class Bill < ApplicationRecord
   belongs_to :event
 
   validates :event, :number, :document, presence: true

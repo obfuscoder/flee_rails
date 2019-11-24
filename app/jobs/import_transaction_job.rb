@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImportTransactionJob < ActiveJob::Base
+class ImportTransactionJob < ApplicationJob
   queue_as :default
 
   def perform(event, transaction_data)

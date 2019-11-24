@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Client < ActiveRecord::Base
+class Client < ApplicationRecord
   has_many :events, dependent: :delete_all
   has_many :categories, dependent: :delete_all
   has_many :sellers, dependent: :delete_all

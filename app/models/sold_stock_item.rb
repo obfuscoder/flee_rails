@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SoldStockItem < ActiveRecord::Base
+class SoldStockItem < ApplicationRecord
   belongs_to :event
   belongs_to :stock_item
 

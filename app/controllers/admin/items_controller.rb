@@ -3,6 +3,8 @@
 module Admin
   class ItemsController < AdminController
     before_action do
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @reservation = current_client.reservations.find params[:reservation_id]
     end
     before_action :init_categories, only: %i[edit new update create]
@@ -29,10 +31,14 @@ module Admin
     end
 
     def edit
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @item = @reservation.items.find params[:id]
     end
 
     def update
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @item = @reservation.items.find params[:id]
       if @item.update item_params
         redirect_to admin_reservation_items_path(@reservation), notice: t('.success')
@@ -64,6 +70,8 @@ module Admin
     end
 
     def create_labels
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       selected_items = @reservation.items.where(id: params[:labels][:item])
       pdf = CreateLabelDocument.new(current_client, selected_items).call
       send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'

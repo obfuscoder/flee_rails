@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StockItem < ActiveRecord::Base
+class StockItem < ApplicationRecord
   belongs_to :client
 
   has_many :sold_stock_items, dependent: :restrict_with_error

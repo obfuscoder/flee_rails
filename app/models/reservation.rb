@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Reservation < ActiveRecord::Base
+class Reservation < ApplicationRecord
   belongs_to :seller, -> { with_deleted }, inverse_of: :reservations
   belongs_to :event
   has_many :items, dependent: :destroy

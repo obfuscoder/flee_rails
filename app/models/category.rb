@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   extend ActiveModel::Translation
 
   acts_as_paranoid

@@ -9,10 +9,14 @@ module Admin
     end
 
     def edit
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @message_template = current_client.message_templates.find params[:id]
     end
 
     def update
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @message_template = current_client.message_templates.find params[:id]
       if @message_template.update message_template_params
         redirect_to admin_message_templates_path, notice: t('.success')

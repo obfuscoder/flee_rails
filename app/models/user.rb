@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   authenticates_with_sorcery!
 
   attr_accessor :old_password

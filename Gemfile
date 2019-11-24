@@ -8,12 +8,37 @@ gem 'jquery-rails'
 gem 'jquery-tablesorter'
 gem 'mysql2'
 gem 'puma'
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.0.0'
 gem 'rake'
 gem 'rollbar'
 gem 'sass-rails'
 gem 'therubyracer' unless RUBY_PLATFORM.match?(/darwin/)
 gem 'uglifier'
+gem 'baby_squeel' # database query DSL
+gem 'barby' # pdf barcodes
+gem 'bootstrap-multiselect-rails'
+gem 'bootstrap-sass'
+gem 'bootstrap-will_paginate'
+gem 'bootstrap3-datetimepicker-rails'
+gem 'chartkick' # charts / graphics
+gem 'cocoon'
+gem 'config'
+gem 'delayed_job_active_record'
+gem 'groupdate' # for statistics grouped by date
+gem 'haml-rails'
+gem 'jbuilder'
+gem 'mail', '<2.7' # breaking changes in parsing emails
+gem 'maildown'
+gem 'momentjs-rails'
+gem 'paranoia' # soft delete records
+gem 'prawn' # pdf generation
+gem 'prawn-table'
+gem 'redcarpet' # markdown
+gem 'simple_form'
+gem 'sorcery'
+gem 'underscore-rails'
+gem 'validates_email_format_of'
+gem 'whenever', require: false # cron
 
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 
@@ -35,6 +60,7 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'timecop'
@@ -49,34 +75,9 @@ group :test, :development do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
 
-  # sqlite3 version 1.4.0+ is not compatible with latest rails 4.
+  # sqlite3 version 1.4.0+ is not compatible with latest rails 4 or 5.0.
   # See https://github.com/sparklemotion/sqlite3-ruby/issues/249
   # and https://github.com/rails/rails/issues/35161
+  # and https://github.com/rails/rails/issues/35153
   gem 'sqlite3', '< 1.4.0'
 end
-
-gem 'baby_squeel' # database query DSL
-gem 'barby' # pdf barcodes
-gem 'bootstrap-multiselect-rails'
-gem 'bootstrap-sass'
-gem 'bootstrap-will_paginate'
-gem 'bootstrap3-datetimepicker-rails'
-gem 'chartkick' # charts / graphics
-gem 'cocoon'
-gem 'config'
-gem 'delayed_job_active_record'
-gem 'groupdate' # for statistics grouped by date
-gem 'haml-rails'
-gem 'jbuilder'
-gem 'mail', '<2.7' # breaking changes in parsing emails
-gem 'maildown'
-gem 'momentjs-rails'
-gem 'paranoia', '< 2.2' # soft delete records, 2.2+ is for rails 5
-gem 'prawn' # pdf generation
-gem 'prawn-table'
-gem 'redcarpet' # markdown
-gem 'simple_form'
-gem 'sorcery'
-gem 'underscore-rails'
-gem 'validates_email_format_of'
-gem 'whenever', require: false # cron

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TimePeriod < ActiveRecord::Base
+class TimePeriod < ApplicationRecord
   belongs_to :event
 
   validate :min_before_max

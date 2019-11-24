@@ -26,6 +26,8 @@ module Admin
     end
 
     def show
+      # TODO: RAILS 5.0 - check if params can still be read
+      # see https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#actioncontroller-parameters-no-longer-inherits-from-hashwithindifferentaccess
       @email = @seller.emails.find params[:id]
     end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Rental < ActiveRecord::Base
+class Rental < ApplicationRecord
   belongs_to :event
   belongs_to :hardware
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SendInvitationJob < ActiveJob::Base
+class SendInvitationJob < ApplicationJob
   queue_as :default
 
   def perform(seller, event)

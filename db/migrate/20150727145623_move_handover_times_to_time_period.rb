@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class MoveHandoverTimesToTimePeriod < ActiveRecord::Migration
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
     has_many :handover_periods, -> { where kind: :handover }, class_name: 'TimePeriod'
   end
-  class TimePeriod < ActiveRecord::Base; end
+  class TimePeriod < ApplicationRecord; end
 
   def up
     Event.find_each do |event|

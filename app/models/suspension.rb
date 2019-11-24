@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Suspension < ActiveRecord::Base
+class Suspension < ApplicationRecord
   belongs_to :event
   belongs_to :seller, -> { with_deleted }, inverse_of: :suspensions
 

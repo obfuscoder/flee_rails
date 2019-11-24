@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class MoveShoppingTimesToTimePeriod < ActiveRecord::Migration
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
     has_one :shopping_period, -> { where kind: :shopping }, class_name: 'TimePeriod'
   end
-  class TimePeriod < ActiveRecord::Base; end
+  class TimePeriod < ApplicationRecord; end
 
   def up
     Event.find_each do |event|

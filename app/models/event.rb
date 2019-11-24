@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   enum kind: %i[commissioned direct]
   belongs_to :client
   has_one :bill, dependent: :destroy

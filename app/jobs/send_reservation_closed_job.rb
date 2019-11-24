@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SendReservationClosedJob < ActiveJob::Base
+class SendReservationClosedJob < ApplicationJob
   queue_as :default
 
   def perform(reservation)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Hardware < ActiveRecord::Base
+class Hardware < ApplicationRecord
   self.table_name = 'hardware'
 
   has_many :rentals, dependent: :restrict_with_error

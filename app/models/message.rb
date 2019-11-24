@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   belongs_to :event
   validates :category, uniqueness: { scope: :event_id }
 

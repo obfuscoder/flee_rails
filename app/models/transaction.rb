@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
   enum kind: %i[purchase refund]
 
   belongs_to :event
