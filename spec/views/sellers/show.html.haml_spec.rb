@@ -82,12 +82,12 @@ RSpec.describe 'sellers/show' do
         let(:notification) { build :notification, seller: seller }
         let(:event) { create :full_event, notifications: [notification] }
 
-        it 'does not link to notification' do
-          expect(rendered).not_to have_link href: event_notification_path(event)
-        end
-
         it 'shows position on notification list' do
           expect(rendered).to have_content 'Position 1'
+        end
+
+        it 'allows to remove seller from notification list' do
+          expect(rendered).to have_link href: event_notification_path(event)
         end
       end
     end

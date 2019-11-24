@@ -6,19 +6,24 @@ require 'features/admin/login'
 RSpec.describe 'admin event reviews' do
   include_context 'when logging in'
   let(:event) { create :billable_event }
+  let(:review_factories) { %i[good_review bad_review incomplete_review] }
+  let(:reservations) do
+    Timecop.travel event.reservation_start do
+      review_factories.count.times { create :reservation, event: event }
+    end
+    event.reload.reservations
+  end
   let(:reviews) do
-    %i[good_review bad_review incomplete_review].map do |review|
-      reservation = create :reservation, event: event
-      create review, reservation: reservation
+    review_factories.each_with_index.map do |factory, i|
+      create factory, reservation: reservations[i]
     end
   end
 
   before do
-    Timecop.travel event.pickup_periods.last.max do
-      click_on 'Termine'
-      click_on 'Anzeigen'
-      click_on 'Bewertungen'
-    end
+    reviews
+    click_on 'Termine'
+    click_on 'Anzeigen'
+    click_on 'Bewertungen'
   end
 
   it 'shows review summary' do

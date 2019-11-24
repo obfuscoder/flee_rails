@@ -51,6 +51,7 @@
             Leider sind alle Plätze bereits vergeben.
             - if @seller.notifications.any? { |notification| notification.event == event }
               Sie stehen auf der Warteliste an Position #{waiting_list_position(event, @seller)}.
+              = link_to 'Von Warteliste entfernen', event_notification_path(event), method: :delete, type: :warning, icon: :remove_circle
             - elsif event.notifiable_by?(@seller)
               Sie können sich #{ link_to 'auf die Warteliste setzen lassen', event_notification_path(event), method: :post }.
               Sie erhalten eine Mail, sobald ein Platz für Sie frei geworden ist.
