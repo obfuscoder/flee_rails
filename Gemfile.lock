@@ -334,6 +334,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-faker (0.2.0)
+      rubocop (>= 0.74)
     rubocop-performance (1.5.1)
       rubocop (>= 0.71.0)
     rubocop-rails (2.3.2)
@@ -463,6 +465,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails
   rubocop
+  rubocop-faker
   rubocop-performance
   rubocop-rails
   rubocop-rspec
