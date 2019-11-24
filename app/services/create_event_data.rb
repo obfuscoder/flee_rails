@@ -19,10 +19,10 @@ class CreateEventData
         json.code stock_item.code
         json.sold stock_item.sold_stock_items.find_by(event: @event).try(:amount)
       end
-      json.sellers @event.reservations.map(&:seller),
+      json.sellers @event.reservations.order(:number).map(&:seller),
                    :id, :first_name, :last_name, :street, :zip_code, :city, :email, :phone
-      json.reservations @event.reservations, :id, :number, :seller_id, :fee, :commission_rate
-      json.items @event.reservations.map(&:items).flatten.reject { |item| item.code.nil? },
+      json.reservations @event.reservations.order(:number), :id, :number, :seller_id, :fee, :commission_rate
+      json.items @event.reservations.order(:number).map(&:items).flatten.reject { |item| item.code.nil? },
                  :id, :category_id, :reservation_id, :description, :size, :price,
                  :number, :code, :sold,
                  :donation, :gender
