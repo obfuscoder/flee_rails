@@ -62,7 +62,7 @@ module Api
 
     describe 'POST transactions' do
       let(:event) { create :event }
-      let(:transactions) { { key: :value } }
+      let(:transactions) { [{ id: 'id', date: 'date', type: 'type', items: %w[item1 item2] }] }
       let(:importer) { double :importer, call: count }
       let(:count) { 10 }
 

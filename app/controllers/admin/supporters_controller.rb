@@ -5,7 +5,7 @@ module Admin
     before_action :init_event
     before_action :init_support_type
     before_action :init_supporter, only: %i[edit update destroy]
-    before_action :init_sellers, only: %i[new edit]
+    before_action :init_sellers, only: :new
 
     def index
       @supporters = @support_type.supporters.joins(:seller).search(params[:search]).page(@page).order(column_order)
@@ -16,7 +16,7 @@ module Admin
     end
 
     def create
-      @supporter = @support_type.supporters.build supporter_params
+      @supporter = @support_type.supporters.build create_supporter_params
       if @supporter.save
         redirect_to admin_event_support_type_supporters_path(@event, @support_type), notice: t('.success')
       else
@@ -27,7 +27,7 @@ module Admin
     def edit; end
 
     def update
-      if @supporter.update supporter_params
+      if @supporter.update update_supporter_params
         redirect_to admin_event_support_type_supporters_path(@event, @support_type), notice: t('.success')
       else
         render :edit
@@ -45,7 +45,6 @@ module Admin
       @sellers = @event.client.sellers
                        .merge(Seller.available_for_support_type(@support_type))
                        .order :first_name, :last_name
-      @sellers << @supporter.seller if @supporter.present?
     end
 
     def init_supporter
@@ -60,8 +59,12 @@ module Admin
       @support_type = @event.support_types.find params[:support_type_id]
     end
 
-    def supporter_params
+    def create_supporter_params
       params.require(:supporter).permit :seller_id, :comments
+    end
+
+    def update_supporter_params
+      params.require(:supporter).permit :comments
     end
 
     def column_order

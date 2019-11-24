@@ -6,6 +6,7 @@ RSpec.describe 'admin/supporters/_form' do
   let(:event) { create :event }
   let(:support_type) { create :support_type, event: event }
   let(:supporter) { build :supporter, support_type: support_type }
+  let(:sellers) { build_list :seller, 3 }
 
   before do
     assign :event, event
@@ -18,9 +19,20 @@ RSpec.describe 'admin/supporters/_form' do
   describe 'rendered' do
     subject { rendered }
 
-    before { render }
+    before do
+      preparations
+      render
+    end
 
-    it { is_expected.to have_field 'supporter_seller_id' }
+    let(:preparations) {}
+
     it { is_expected.to have_field 'supporter_comments' }
+    it { is_expected.not_to have_field 'supporter_seller_id' }
+
+    context 'when @sellers is defined' do
+      let(:preparations) { assign :sellers, sellers }
+
+      it { is_expected.to have_field 'supporter_seller_id' }
+    end
   end
 end

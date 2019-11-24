@@ -40,21 +40,21 @@ FactoryBot.define do
     end
 
     factory :random_review do
-      registration { Faker::Number.between(1, 3) }
-      reservation_process { Faker::Number.between(1, 3) }
-      items { Faker::Number.between(1, 3) }
-      print { Faker::Number.between(1, 3) }
-      mailing { Faker::Number.between(1, 3) }
-      content { Faker::Number.between(1, 3) }
-      design { Faker::Number.between(1, 3) }
-      support { Faker::Number.between(1, 3) }
-      handover { Faker::Number.between(1, 3) }
-      payoff { Faker::Number.between(1, 3) }
-      sale { Faker::Number.between(1, 3) }
-      organization { Faker::Number.between(1, 3) }
-      total { Faker::Number.between(1, 3) }
+      registration { Faker::Number.between(from: 1, to: 3) }
+      reservation_process { Faker::Number.between(from: 1, to: 3) }
+      items { Faker::Number.between(from: 1, to: 3) }
+      print { Faker::Number.between(from: 1, to: 3) }
+      mailing { Faker::Number.between(from: 1, to: 3) }
+      content { Faker::Number.between(from: 1, to: 3) }
+      design { Faker::Number.between(from: 1, to: 3) }
+      support { Faker::Number.between(from: 1, to: 3) }
+      handover { Faker::Number.between(from: 1, to: 3) }
+      payoff { Faker::Number.between(from: 1, to: 3) }
+      sale { Faker::Number.between(from: 1, to: 3) }
+      organization { Faker::Number.between(from: 1, to: 3) }
+      total { Faker::Number.between(from: 1, to: 3) }
       recommend { true }
-      source { %w[friends internet poster other][Faker::Number.between(0, 3)] }
+      source { %w[friends internet poster other][Faker::Number.between(from: 0, to: 3)] }
       to_improve { Faker::Lorem.sentence }
     end
 

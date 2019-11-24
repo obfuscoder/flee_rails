@@ -1,7 +1,8 @@
 = simple_form_for [:admin, @event, @support_type, @supporter] do |f|
   = f.error_notification
   .form-inputs
-    = f.input :seller_id, label_method: :label_for_selects, collection: @sellers, include_blank: false
+    - if @sellers.present?
+      = f.input :seller_id, label_method: :label_for_selects, collection: @sellers, include_blank: false
     = f.input :comments
   .form-actions
     = f.button :submit

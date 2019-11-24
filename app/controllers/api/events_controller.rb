@@ -11,7 +11,7 @@ module Api
     end
 
     def transactions
-      ImportTransactions.new(@event).call(params['_json'])
+      ImportTransactions.new(@event).call(transaction_params)
       render nothing: true
     end
 
@@ -23,6 +23,10 @@ module Api
         @event = Event.find_by token: token
         @event.present?
       end
+    end
+
+    def transaction_params
+      params.permit(_json: [:id, :type, :date, items: []]).to_h.first.last
     end
   end
 end

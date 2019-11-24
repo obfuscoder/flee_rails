@@ -144,14 +144,6 @@ RSpec.describe Admin::SupportersController do
       it { is_expected.to eq support_type }
     end
 
-    describe '@sellers' do
-      subject { assigns :sellers }
-
-      it { is_expected.to include available_seller }
-      it { is_expected.to include current_seller }
-      it { is_expected.not_to include existing_supporter.seller }
-    end
-
     describe '@supporter' do
       subject { assigns :supporter }
 
@@ -160,9 +152,8 @@ RSpec.describe Admin::SupportersController do
   end
 
   describe 'PUT update' do
-    let(:seller) { create :seller }
     let(:supporter) { create :supporter, support_type: support_type }
-    let(:params) { { comments: 'comments', seller_id: seller.id } }
+    let(:params) { { comments: 'comments' } }
 
     before { put :update, event_id: event.id, support_type_id: support_type.id, id: supporter.id, supporter: params }
 
@@ -173,37 +164,7 @@ RSpec.describe Admin::SupportersController do
     end
 
     it 'updates the supporter' do
-      expect(supporter.reload).to have_attributes comments: 'comments', seller: seller
-    end
-
-    context 'with invalid params' do
-      let(:existing_supporter) { create :supporter, support_type: support_type }
-      let(:params) { { seller_id: existing_supporter.seller.id } }
-
-      describe 'response' do
-        subject { response }
-
-        it { is_expected.to render_template :edit }
-        it { is_expected.to have_http_status :ok }
-      end
-
-      describe '@event' do
-        subject { assigns :event }
-
-        it { is_expected.to eq event }
-      end
-
-      describe '@support_type' do
-        subject { assigns :support_type }
-
-        it { is_expected.to eq support_type }
-      end
-
-      describe '@supporter' do
-        subject { assigns :supporter }
-
-        it { is_expected.to eq supporter }
-      end
+      expect(supporter.reload).to have_attributes comments: 'comments'
     end
   end
 

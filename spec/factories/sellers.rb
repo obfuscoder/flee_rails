@@ -15,7 +15,7 @@ FactoryBot.define do
     active { true }
 
     factory :random_seller do
-      created_at { Faker::Time.between 10.days.ago, Time.now }
+      created_at { Faker::Time.between from: 10.days.ago, to: Time.now }
     end
   end
 end

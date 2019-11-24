@@ -18,9 +18,9 @@ FactoryBot.define do
     end
 
     factory :random_item do
-      created_at { Faker::Time.between 10.days.ago, Time.now }
-      description { Faker::Lorem.words(4).join(' ') }
-      price { Faker::Number.decimal 1, 1 }
+      created_at { Faker::Time.between from: 10.days.ago, to: Time.now }
+      description { Faker::Lorem.words(number: 4).join(' ') }
+      price { Faker::Number.decimal l_digits: 1, r_digits: 1 }
     end
   end
 end

@@ -692,6 +692,8 @@ de:
       supporter:
         seller_id: Verkäufer
         comments: Bemerkungen
+      sold_stock_item:
+        amount: Anzahl
     errors:
       models:
         reservation:
