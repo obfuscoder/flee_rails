@@ -2,7 +2,7 @@
 
 namespace :flee do
   desc 'Restart worker'
-  task restart_worker: :environment do
+  task :restart_worker do
     on roles(:app), in: :sequence do
       within release_path do
         pid_file = File.join release_path, 'tmp', 'pids', 'worker.pid'

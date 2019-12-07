@@ -102,3 +102,7 @@ Rails/HasManyOrHasOneDependent:
 
 Metrics/ParameterLists:
   CountKeywordArgs: false
+
+Rails/RakeEnvironment:
+  Exclude:
+    - 'lib/capistrano/tasks/*.rake'
