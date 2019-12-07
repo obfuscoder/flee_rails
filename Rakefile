@@ -68,7 +68,7 @@ end
 
 namespace :db do
   desc 'creates backup of database'
-  task :backup do
+  task backup: :environment do
     destination_dir = "backup/db/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}"
     FileUtils.mkdir_p destination_dir
     settings = Rails.configuration.database_configuration['production']
@@ -83,7 +83,7 @@ namespace :db do
   namespace :demo do
     desc 'seeds demo content'
     task seed: :environment do
-      client_seeds = YAML.load_file(Rails.root.join('db', 'seeds', 'clients.yml'))
+      client_seeds = YAML.load_file(Rails.root.join('db/seeds/clients.yml'))
       demo_seed = client_seeds.find { |seed| seed['key'] == 'demo' }
       client = Client.create! demo_seed
       client.users.create! email: 'admin@flohmarkthelfer.de', password: 'admin'

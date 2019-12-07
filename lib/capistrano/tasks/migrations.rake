@@ -2,7 +2,7 @@
 
 namespace :flee do
   desc 'Backup database'
-  task :backup do
+  task backup: :environment do
     on roles(:app), in: :sequence do
       within release_path do
         with rails_env: :production do

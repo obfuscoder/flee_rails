@@ -41,7 +41,7 @@ class BillDocument < PdfDocument
   end
 
   def render_logo
-    logo = Rails.root.join 'app', 'assets', 'images', 'logo.png'
+    logo = Rails.root.join 'app/assets/images/logo.png'
     image logo, at: [340, 800], scale: 0.5
   end
 
