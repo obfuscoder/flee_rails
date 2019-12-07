@@ -40,6 +40,13 @@ class NotificationMailer < ActionMailer::Base
     mail_template(__method__)
   end
 
+  def label_document_created(event, download_url)
+    @event = event
+    @client = @event.client
+    @urls = { download: download_url }
+    mail_template(__method__)
+  end
+
   private
 
   def mail_template(category, options = {})
@@ -52,7 +59,8 @@ class NotificationMailer < ActionMailer::Base
                                      email: @email,
                                      name: @name,
                                      body: @body,
-                                     subject: @subject
+                                     subject: @subject,
+                                     urls: @urls
     message = generator.generate(template)
     from = options[:from] || @client.mail_from
     mail_options = { to: @client.mail_from, from: from, subject: message.subject }

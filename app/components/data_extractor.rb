@@ -38,6 +38,10 @@ class DataExtractor
     urls[:review]
   end
 
+  def download_url
+    urls[:download]
+  end
+
   def event_shopping_time
     ApplicationController.helpers.shopping_time(event)
   end

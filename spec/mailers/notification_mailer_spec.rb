@@ -58,4 +58,16 @@ RSpec.describe NotificationMailer do
 
     its(:subject) { is_expected.to include 'Kontaktanfrage' }
   end
+
+  describe '#label_document_created' do
+    subject(:mail) { described_class.label_document_created event, download_url }
+
+    let(:event) { build :event }
+    let(:download_url) { 'download_url' }
+    let(:expected_contents) { [download_url] }
+
+    it_behaves_like 'a notification mail'
+
+    its(:subject) { is_expected.to include 'Etiketten' }
+  end
 end

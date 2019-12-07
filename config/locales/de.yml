@@ -270,6 +270,12 @@ de:
           hint: &commission_rate_hint >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
             Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes.
+      labels:
+        success: >
+          Das Dokument mit den Etiketten aller Artikel für diesen Termin wird nun erzeugt.
+          Abhängig von der Anzahl der Artikel, kann dies mehrere Minuten dauern.
+          Es wird eine Mail an die Adresse %{mail_address} geschickt,
+          sobald das Dokument zum Download bereit steht.
     clients:
       edit:
         title: Systemeinstellungen
@@ -1055,3 +1061,16 @@ de:
 
         Viele Grüße,
         Ihr Flohmarkthelfer-Team
+    label_document_created:
+      subject: Flohmarkthelfer - Etiketten für Termin erzeugt
+      body: |
+        Das Dokument mit den Etiketten aller Artikel für den folgenden Termin wurden erzeugt:
+
+            Termin: {{ event_name }}
+            Datum: {{ event_shopping_time }}
+
+        Das Dokument kann unter dem folgendem Link abgerufen werden:
+
+        [Etikettendownload]({{ download_url }})
+
+        Das Dokument wird nach 14 Tagen wieder gelöscht. Der Link ist dann nicht mehr verfügbar.

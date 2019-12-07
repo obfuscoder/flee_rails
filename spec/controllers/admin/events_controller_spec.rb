@@ -201,4 +201,25 @@ RSpec.describe Admin::EventsController do
       its(:body) { is_expected.to eq report }
     end
   end
+
+  describe 'GET labels' do
+    before do
+      allow(CreateLabelsDocumentJob).to receive(:perform_later)
+      get :labels, params: { id: event.id }
+    end
+
+    it 'schedules the create label document job' do
+      expect(CreateLabelsDocumentJob).to have_received(:perform_later).with(event)
+    end
+
+    describe 'response' do
+      subject { response }
+
+      it { is_expected.to redirect_to admin_event_path(event) }
+    end
+
+    it 'notifies about scheduled job' do
+      expect(flash[:notice]).to be_present
+    end
+  end
 end

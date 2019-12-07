@@ -64,8 +64,8 @@ module Admin
     end
 
     def labels
-      pdf = CreateLabelDocument.new(current_client, @event.items.includes(:category, :reservation)).call
-      send_data pdf, filename: 'etiketten.pdf', type: 'application/pdf'
+      CreateLabelsDocumentJob.perform_later @event
+      redirect_to admin_event_path(@event), notice: t('.success', mail_address: current_client.mail_address)
     end
 
     private
