@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   include Statistics
 
   # in rails 5 there is _prefix to get rid of the 'size_'
-  enum gender: %i[male female both]
+  enum gender: { male: 0, female: 1, both: 2 }
 
   validates :category, :description, :price, :reservation, presence: true
   validates :description, length: { maximum: 250 }

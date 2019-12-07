@@ -14,7 +14,7 @@ class Category < ApplicationRecord
   belongs_to :parent, class_name: 'Category', inverse_of: :children
 
   # in rails 5 there is _prefix to get rid of the 'size_'
-  enum size_option: %i[size_optional size_required size_fixed size_disabled]
+  enum size_option: { size_optional: 0, size_required: 1, size_fixed: 2, size_disabled: 3 }
 
   validates :client, presence: true
   validates :name, presence: true, uniqueness: { scope: :client_id }

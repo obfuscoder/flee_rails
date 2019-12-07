@@ -12,7 +12,7 @@ RSpec.describe LabelDocument do
   end
   let(:stock_label) do
     double :label, reservation: nil, number: '47', gender?: false,
-           price: '€ 2,10', details: 'Tasche', code: '4711', donation?: false
+                   price: '€ 2,10', details: 'Tasche', code: '4711', donation?: false
   end
   let(:labels) { [label, stock_label] }
   let(:donation) { true }

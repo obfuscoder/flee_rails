@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Event < ApplicationRecord
-  enum kind: %i[commissioned direct]
+  enum kind: { commissioned: 0, direct: 1 }
   belongs_to :client
   has_one :bill, dependent: :destroy
   has_many :reservations, -> { order :id }, inverse_of: :event

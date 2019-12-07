@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Transaction < ApplicationRecord
-  enum kind: %i[purchase refund]
+  enum kind: { purchase: 0, refund: 1 }
 
   belongs_to :event
   has_many :items, through: :transaction_items
