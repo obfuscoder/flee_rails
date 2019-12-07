@@ -15,7 +15,7 @@ module Admin
     describe 'GET index' do
       let(:params) { {} }
 
-      before { get :index, params }
+      before { get :index, params: params }
 
       its(:searchable?) { is_expected.to eq true }
 
@@ -111,7 +111,7 @@ module Admin
 
       before do
         preparations
-        get :edit, id: seller.id
+        get :edit, params: { id: seller.id }
       end
 
       describe 'response' do

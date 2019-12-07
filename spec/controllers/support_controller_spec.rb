@@ -9,7 +9,7 @@ RSpec.describe SupportController do
   before { session[:seller_id] = seller.id }
 
   describe 'GET index' do
-    before { get :index, event_id: event.id }
+    before { get :index, params: { event_id: event.id } }
 
     describe 'response' do
       subject { response }
@@ -40,7 +40,7 @@ RSpec.describe SupportController do
   describe 'GET new' do
     let(:support_type) { event.support_types.first }
 
-    before { get :new, event_id: event.id, id: support_type.id }
+    before { get :new, params: { event_id: event.id, id: support_type.id } }
 
     describe 'response' do
       subject { response }
@@ -84,7 +84,7 @@ RSpec.describe SupportController do
       preparations
       supporter
       allow(NotificationMailer).to receive(:supporter_destroyed).and_return notification_mailer
-      delete :destroy, event_id: event.id, id: support_type.id
+      delete :destroy, params: { event_id: event.id, id: support_type.id }
     end
 
     describe 'response' do
@@ -141,7 +141,7 @@ RSpec.describe SupportController do
 
     before do
       allow(NotificationMailer).to receive(:supporter_created).and_return notification_mailer
-      post :create, event_id: event.id, id: support_type.id, supporter: { comments: 'lorem ipsum' }
+      post :create, params: { event_id: event.id, id: support_type.id, supporter: { comments: 'lorem ipsum' } }
     end
 
     describe 'response' do

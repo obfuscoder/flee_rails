@@ -24,7 +24,7 @@ RSpec.describe Admin::ClientsController do
   end
 
   describe 'PUT update' do
-    subject(:action) { put :update, client: client_params }
+    subject(:action) { put :update, params: { client: client_params } }
 
     let(:client_params) do
       {

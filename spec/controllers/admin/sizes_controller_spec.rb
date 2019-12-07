@@ -11,7 +11,7 @@ module Admin
     before { login_user user }
 
     describe 'GET new' do
-      before { get :new, category_id: category.id }
+      before { get :new, params: { category_id: category.id } }
 
       describe 'response' do
         subject { response }
@@ -30,7 +30,7 @@ module Admin
     describe 'GET edit' do
       let(:size) { create :size, category: category }
 
-      before { get :edit, category_id: category.id, id: size.id }
+      before { get :edit, params: { category_id: category.id, id: size.id } }
 
       describe 'response' do
         subject { response }
@@ -50,7 +50,7 @@ module Admin
       let(:size) { create :size, category: category }
       let(:params) { { value: 'new size' } }
 
-      before { put :update, id: size.id, size: params, category_id: category.id }
+      before { put :update, params: { id: size.id, size: params, category_id: category.id } }
 
       it 'redirects to index path' do
         expect(response).to redirect_to admin_category_sizes_path(category)
@@ -64,7 +64,7 @@ module Admin
     describe 'GET index' do
       let!(:sizes) { create_list :size, 5, category: category }
 
-      before { get :index, category_id: category.id }
+      before { get :index, params: { category_id: category.id } }
 
       describe 'response' do
         subject { response }

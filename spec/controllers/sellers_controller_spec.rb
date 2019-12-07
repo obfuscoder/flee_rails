@@ -19,7 +19,7 @@ RSpec.describe SellersController do
   describe 'POST create' do
     context 'with valid params' do
       def call_post
-        post :create, seller: build(:seller).attributes.merge(accept_terms: '1')
+        post :create, params: { seller: build(:seller).attributes.merge(accept_terms: '1') }
       end
 
       before { call_post }
@@ -38,7 +38,7 @@ RSpec.describe SellersController do
     end
 
     context 'with invalid params' do
-      before { post :create, seller: { name: nil } }
+      before { post :create, params: { seller: { name: nil } } }
 
       it 'assigns the not yet persisted instance to @seller' do
         expect(assigns(:seller)).to be_a_new Seller
@@ -54,7 +54,7 @@ RSpec.describe SellersController do
       it 'sends activation email with correct parameters' do
         mail = double :mail, deliver_later: nil
         allow(SellerMailer).to receive(:registration).and_return mail
-        post :create, seller: attributes_for(:seller)
+        post :create, params: { seller: attributes_for(:seller) }
         expect(SellerMailer).to have_received(:registration) { |seller| expect(seller).to be_a Seller }
         expect(mail).to have_received(:deliver_later).with no_args
       end
@@ -63,7 +63,7 @@ RSpec.describe SellersController do
     context 'with invalid params' do
       it 'does not send activation email' do
         allow(SellerMailer).to receive :registration
-        post :create, seller: { name: nil }
+        post :create, params: { seller: { name: nil } }
         expect(SellerMailer).not_to have_received :registration
       end
     end
@@ -83,7 +83,7 @@ RSpec.describe SellersController do
   end
 
   describe 'POST resend_activation' do
-    let(:post_it) { post :resend_activation, seller: { email: email } }
+    let(:post_it) { post :resend_activation, params: { seller: { email: email } } }
 
     context 'with known email' do
       let(:seller) { create :seller }
@@ -182,7 +182,7 @@ RSpec.describe SellersController do
   end
 
   describe 'GET login' do
-    subject(:action) { get :login, token: token }
+    subject(:action) { get :login, params: { token: token } }
 
     let(:seller) { create :seller }
 

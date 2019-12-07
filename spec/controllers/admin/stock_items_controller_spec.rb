@@ -48,7 +48,7 @@ module Admin
       let(:description) { 'some description' }
       let(:saved) { true }
 
-      before { post :create, stock_item: { price: price, description: description } }
+      before { post :create, params: { stock_item: { price: price, description: description } } }
 
       describe 'response' do
         subject { response }
@@ -70,7 +70,7 @@ module Admin
     describe 'GET edit' do
       let(:stock_item) { create :stock_item }
 
-      before { get :edit, id: stock_item.id }
+      before { get :edit, params: { id: stock_item.id } }
 
       describe 'response' do
         subject { response }
@@ -91,7 +91,7 @@ module Admin
       let(:description) { 'some description' }
       let(:stock_item) { create :stock_item }
 
-      before { put :update, id: stock_item.id, stock_item: { description: description, price: price } }
+      before { put :update, params: { id: stock_item.id, stock_item: { description: description, price: price } } }
 
       describe 'response' do
         subject { response }

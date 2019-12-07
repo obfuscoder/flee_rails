@@ -25,7 +25,7 @@ module Admin
     describe 'GET edit' do
       let(:message_template) { create :message_template }
 
-      before { get :edit, id: message_template.id }
+      before { get :edit, params: { id: message_template.id } }
 
       describe 'response' do
         subject { response }
@@ -44,7 +44,7 @@ module Admin
     describe 'DELETE destroy' do
       let(:message_template) { create :message_template }
 
-      before { delete :destroy, id: message_template.id }
+      before { delete :destroy, params: { id: message_template.id } }
 
       describe 'response' do
         subject { response }
@@ -62,7 +62,9 @@ module Admin
       let(:body) { 'new body' }
       let(:message_template) { create :message_template }
 
-      before { put :update, id: message_template.id, message_template: { subject: mail_subject, body: body } }
+      before do
+        put :update, params: { id: message_template.id, message_template: { subject: mail_subject, body: body } }
+      end
 
       describe 'response' do
         subject { response }

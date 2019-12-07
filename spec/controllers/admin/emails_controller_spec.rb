@@ -13,7 +13,7 @@ module Admin
       let(:seller) { create :seller }
       let!(:emails) { create_list :email, 5, seller: seller }
 
-      before { get :index, seller_id: seller.id }
+      before { get :index, params: { seller_id: seller.id } }
 
       describe '@seller' do
         subject { assigns :seller }
@@ -38,7 +38,7 @@ module Admin
     describe 'GET show' do
       let(:email) { create :email }
 
-      before { get :show, seller_id: email.seller.id, id: email.id }
+      before { get :show, params: { seller_id: email.seller.id, id: email.id } }
 
       describe '@email' do
         subject { assigns :email }
@@ -116,7 +116,7 @@ module Admin
 
       before do
         allow(SellerMailer).to receive(:custom).and_return(double(deliver_later: true))
-        post :create, params
+        post :create, params: params
       end
 
       it 'sends mail' do

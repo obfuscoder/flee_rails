@@ -14,7 +14,7 @@ module Admin
     end
 
     describe 'GET index' do
-      before { get :index, index_params }
+      before { get :index, params: index_params }
 
       let(:index_params) { { event_id: event.id }.merge params }
       let(:params) { {} }
@@ -44,7 +44,7 @@ module Admin
     end
 
     describe 'GET new' do
-      before { get :new, event_id: event.id }
+      before { get :new, params: { event_id: event.id } }
 
       let(:query) { double suspensible_sellers: suspensible_sellers }
       let(:suspensible_sellers) { double order: sellers }
@@ -65,7 +65,7 @@ module Admin
     end
 
     describe 'POST create' do
-      before { post :create, event_id: event.id, suspension: { seller_id: seller_ids, reason: reason } }
+      before { post :create, params: { event_id: event.id, suspension: { seller_id: seller_ids, reason: reason } } }
 
       let(:query) { double create: suspensions }
       let(:seller_ids) { %w[1 2] }
@@ -84,7 +84,7 @@ module Admin
     end
 
     describe 'GET edit' do
-      before { get :edit, event_id: event.id, id: id }
+      before { get :edit, params: { event_id: event.id, id: id } }
 
       let(:id) { '5' }
       let(:query) { double find: suspension }
@@ -114,14 +114,14 @@ module Admin
       let(:id) { '5' }
       let(:reason) { 'reason' }
 
-      before { put :update, event_id: event.id, id: id, suspension: { reason: reason } }
+      before { put :update, params: { event_id: event.id, id: id, suspension: { reason: reason } } }
 
       it 'uses SuspensionsQuery to find suspension' do
         expect(query).to have_received(:find).with(id)
       end
 
       it 'updates suspension' do
-        expect(suspension).to have_received(:update).with(reason: reason)
+        expect(suspension).to have_received(:update).with(hash_including(reason: reason))
       end
 
       describe 'response' do
@@ -153,7 +153,7 @@ module Admin
       let(:query) { double find: suspension }
       let(:id) { '5' }
 
-      before { delete :destroy, event_id: event.id, id: id }
+      before { delete :destroy, params: { event_id: event.id, id: id } }
 
       it 'uses SuspensionsQuery to find suspension' do
         expect(query).to have_received(:find).with(id)

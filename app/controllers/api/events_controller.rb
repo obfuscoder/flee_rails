@@ -12,7 +12,7 @@ module Api
 
     def transactions
       ImportTransactions.new(@event).call(transaction_params)
-      render nothing: true
+      head :no_content
     end
 
     private

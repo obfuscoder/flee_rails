@@ -40,7 +40,7 @@ RSpec.describe ItemsController do
   describe 'GET new' do
     before do
       preparations
-      get :new, event_id: event.id, reservation_id: reservation.id
+      get :new, params: { event_id: event.id, reservation_id: reservation.id }
     end
 
     let(:preparations) {}
@@ -118,7 +118,7 @@ RSpec.describe ItemsController do
   describe 'GET index' do
     let!(:items) { create_list :item, 25, reservation: reservation }
     let(:options) { {} }
-    let(:action) { get :index, options.merge(event_id: event.id, reservation_id: reservation.id) }
+    let(:action) { get :index, params: options.merge(event_id: event.id, reservation_id: reservation.id) }
     let(:preparations) {}
 
     before do
@@ -158,7 +158,7 @@ RSpec.describe ItemsController do
   end
 
   describe 'GET edit' do
-    let(:action) { get :edit, event_id: event.id, reservation_id: reservation.id, id: item.id }
+    let(:action) { get :edit, params: { event_id: event.id, reservation_id: reservation.id, id: item.id } }
 
     it_behaves_like 'obey item code'
     it_behaves_like 'obey ownership'
@@ -166,8 +166,10 @@ RSpec.describe ItemsController do
 
   describe 'PUT update' do
     let(:action) do
-      put :update, event_id: event.id, reservation_id: reservation.id, id: item.id,
-                   item: { description: item.description, category_id: item.category.id }
+      put :update, params: {
+        event_id: event.id, reservation_id: reservation.id, id: item.id,
+        item: { description: item.description, category_id: item.category.id }
+      }
     end
 
     it_behaves_like 'obey item code'
@@ -186,7 +188,7 @@ RSpec.describe ItemsController do
   end
 
   describe 'DELETE destroy' do
-    let(:action) { delete :destroy, event_id: event.id, reservation_id: reservation.id, id: item.id }
+    let(:action) { delete :destroy, params: { event_id: event.id, reservation_id: reservation.id, id: item.id } }
 
     it_behaves_like 'obey item code'
     it_behaves_like 'obey ownership'
@@ -194,7 +196,7 @@ RSpec.describe ItemsController do
 
   describe 'DELETE code' do
     let(:preparations) { item.create_code }
-    let(:action) { delete :delete_code, event_id: event.id, reservation_id: reservation.id, id: item.id }
+    let(:action) { delete :delete_code, params: { event_id: event.id, reservation_id: reservation.id, id: item.id } }
 
     it_behaves_like 'obey ownership'
 

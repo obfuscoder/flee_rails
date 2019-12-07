@@ -7,7 +7,7 @@ module Admin
     let(:user) { create :user }
 
     describe 'POST :create (login)' do
-      before { post :create, user: { email: user.email, password: 'password' } }
+      before { post :create, params: { user: { email: user.email, password: 'password' } } }
 
       describe 'response' do
         subject { response }

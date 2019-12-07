@@ -12,7 +12,7 @@ module Admin
     before { login_user user }
 
     describe 'DELETE delete_code' do
-      before { delete :delete_code, reservation_id: reservation.id, id: item.id }
+      before { delete :delete_code, params: { reservation_id: reservation.id, id: item.id } }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
 
@@ -25,7 +25,7 @@ module Admin
     describe 'DELETE delete_all_codes' do
       let!(:another_item) { create :item_with_code, reservation: reservation }
 
-      before { delete :delete_all_codes, reservation_id: reservation.id }
+      before { delete :delete_all_codes, params: { reservation_id: reservation.id } }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
 
@@ -40,7 +40,7 @@ module Admin
     describe 'GET new' do
       before { preparations }
 
-      before { get :new, reservation_id: reservation.id }
+      before { get :new, params: { reservation_id: reservation.id } }
 
       let(:preparations) {}
 
@@ -73,7 +73,7 @@ module Admin
 
       before do
         preparations
-        post :create, reservation_id: reservation.id, item: new_item.attributes
+        post :create, params: { reservation_id: reservation.id, item: new_item.attributes }
       end
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
@@ -100,7 +100,7 @@ module Admin
     end
 
     describe 'GET edit' do
-      before { get :edit, reservation_id: reservation.id, id: item.id }
+      before { get :edit, params: { reservation_id: reservation.id, id: item.id } }
 
       describe 'response' do
         subject { response }
@@ -117,7 +117,7 @@ module Admin
     end
 
     describe 'PUT update' do
-      before { put :update, reservation_id: reservation.id, id: item.id, item: item.attributes }
+      before { put :update, params: { reservation_id: reservation.id, id: item.id, item: item.attributes } }
 
       it { is_expected.to redirect_to admin_reservation_items_path(reservation) }
 
@@ -137,7 +137,7 @@ module Admin
     end
 
     describe 'GET labels' do
-      before { get :labels, reservation_id: reservation.id }
+      before { get :labels, params: { reservation_id: reservation.id } }
 
       describe 'response' do
         subject { response }
@@ -154,7 +154,7 @@ module Admin
     end
 
     describe 'POST create_labels' do
-      before { post :create_labels, reservation_id: reservation.id, labels: { item: [item.id] } }
+      before { post :create_labels, params: { reservation_id: reservation.id, labels: { item: [item.id] } } }
 
       describe 'response' do
         subject { response }

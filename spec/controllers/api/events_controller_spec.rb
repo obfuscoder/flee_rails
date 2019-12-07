@@ -74,13 +74,13 @@ module Api
       before do
         prerequisites
         allow(ImportTransactions).to receive(:new).with(event).and_return importer
-        post :transactions, _json: transactions, format: :json
+        post :transactions, params: { _json: transactions }, format: :json
       end
 
       describe 'response' do
         subject { response }
 
-        it { is_expected.to have_http_status :ok }
+        it { is_expected.to have_http_status :no_content }
 
         describe 'when not using authorization header' do
           let(:prerequisites) {}
@@ -98,7 +98,7 @@ module Api
           let(:other_client) { create :client }
           let(:event) { create :event, client: other_client }
 
-          it { is_expected.to have_http_status :ok }
+          it { is_expected.to have_http_status :no_content }
 
           it 'calls ImportTransactions with proper params' do
             expect(importer).to have_received(:call).with transactions

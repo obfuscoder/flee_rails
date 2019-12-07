@@ -33,7 +33,7 @@ RSpec.describe ContactController do
     before do
       preparation
       allow(NotificationMailer).to receive(:contact).and_return notification_mailer
-      post :submit, contact: contact_params
+      post :submit, params: { contact: contact_params }
     end
 
     let(:notification_mailer) { double deliver_now: nil }

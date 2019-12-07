@@ -8,7 +8,7 @@ RSpec.describe 'mail request' do
 
   before do
     preparations
-    post '/mail', mail_content, content_type: 'application/octet-stream'
+    post '/mail', params: mail_content, headers: { content_type: 'application/octet-stream' }
   end
 
   describe 'response' do

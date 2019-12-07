@@ -57,7 +57,7 @@ RSpec.describe Admin::EventsController do
   describe 'PUT update' do
     let(:event_params) { { confirmed: true } }
 
-    before { put :update, id: event.id, event: event_params }
+    before { put :update, params: { id: event.id, event: event_params } }
 
     it 'updates confirmed' do
       expect(event.reload).to be_confirmed
@@ -103,7 +103,7 @@ RSpec.describe Admin::EventsController do
   describe 'GET stats' do
     let(:event) { create :event }
 
-    before { get :stats, id: event.id }
+    before { get :stats, params: { id: event.id } }
 
     describe 'response' do
       subject { response }
@@ -126,7 +126,7 @@ RSpec.describe Admin::EventsController do
 
     before do
       allow(CreateEventData).to receive(:new).and_return creator
-      get :data, id: event.id
+      get :data, params: { id: event.id }
     end
 
     it 'uses CreateEventData' do
@@ -146,7 +146,7 @@ RSpec.describe Admin::EventsController do
   describe 'POST create' do
     let(:event) { attributes_for(:event) }
 
-    before { post :create, event: event }
+    before { post :create, params: { event: event } }
 
     describe 'response' do
       subject { response }
@@ -173,7 +173,7 @@ RSpec.describe Admin::EventsController do
     let(:event) { create(:billable_event).tap(&:create_bill) }
     let(:bill) { event.bill }
 
-    before { get :bill, id: event.id }
+    before { get :bill, params: { id: event.id } }
 
     describe 'response' do
       subject { response }
@@ -187,7 +187,7 @@ RSpec.describe Admin::EventsController do
   describe 'GET report' do
     before do
       allow(CreateEventReport).to receive(:new).with(event).and_return create_event_report
-      get :report, id: event.id
+      get :report, params: { id: event.id }
     end
 
     let(:create_event_report) { double call: report }

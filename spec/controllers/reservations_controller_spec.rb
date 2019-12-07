@@ -9,7 +9,7 @@ describe ReservationsController do
   before { allow(controller).to receive(:current_seller).and_return seller }
 
   describe 'GET create' do
-    let(:action) { get :create, event_id: event.id }
+    let(:action) { get :create, params: { event_id: event.id } }
     let(:reservation) { create :reservation }
     let(:creator) { double call: reservation }
     let(:options) { { host: 'demo.test.host', from: from } }
@@ -43,7 +43,7 @@ describe ReservationsController do
   end
 
   describe 'GET import' do
-    subject(:action) { get :import, event_id: event.id, id: reservation.id }
+    subject(:action) { get :import, params: { event_id: event.id, id: reservation.id } }
 
     let(:reservation) { create :reservation, event: event, seller: seller }
 
@@ -74,9 +74,13 @@ describe ReservationsController do
 
   describe 'POST import' do
     subject(:action) do
-      post :import, event_id: event.id,
-                    id: reservation.id,
-                    import: { from_reservation: previous_reservation.id, item: items }
+      post :import, params: {
+        event_id: event.id,
+        id: reservation.id,
+        import: {
+          from_reservation: previous_reservation.id, item: items
+        }
+      }
     end
 
     let(:reservation) { create :reservation, event: event, seller: seller }
@@ -102,7 +106,7 @@ describe ReservationsController do
 
   describe 'GET import_from' do
     subject(:action) do
-      get :import_from, event_id: event.id, reservation_id: reservation.id, id: previous_reservation.id
+      get :import_from, params: { event_id: event.id, reservation_id: reservation.id, id: previous_reservation.id }
     end
 
     let(:reservation) { create :reservation, event: event, seller: seller }

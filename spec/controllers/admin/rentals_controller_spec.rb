@@ -14,7 +14,7 @@ module Admin
     end
 
     describe 'GET index' do
-      before { get :index, event_id: event.id }
+      before { get :index, params: { event_id: event.id } }
 
       let(:query) { double all: rentals }
       let(:rentals) { double }
@@ -34,7 +34,7 @@ module Admin
     end
 
     describe 'GET new' do
-      before { get :new, event_id: event.id }
+      before { get :new, params: { event_id: event.id } }
 
       let(:query) { double rentable_hardware: hardware, new: rental }
       let(:hardware) { double }
@@ -61,7 +61,7 @@ module Admin
     end
 
     describe 'POST create' do
-      before { post :create, event_id: event.id, rental: params }
+      before { post :create, params: { event_id: event.id, rental: params } }
 
       let(:query) { double rentable_hardware: hardware, create: rental }
       let(:params) { { hardware_id: '3', amount: '5' } }
@@ -70,7 +70,7 @@ module Admin
       let(:valid) { true }
 
       it 'uses RentalsQuery to create rental' do
-        expect(query).to have_received(:create).with params
+        expect(query).to have_received(:create).with hash_including(params)
       end
 
       describe 'response' do
@@ -87,7 +87,7 @@ module Admin
     end
 
     describe 'GET edit' do
-      before { get :edit, event_id: event.id, id: id }
+      before { get :edit, params: { event_id: event.id, id: id } }
 
       let(:id) { '5' }
       let(:query) { double find: rental }
@@ -118,10 +118,10 @@ module Admin
       let(:id) { '5' }
       let(:amount) { '10' }
 
-      before { put :update, event_id: event.id, id: id, rental: { amount: amount, ignored_param: true } }
+      before { put :update, params: { event_id: event.id, id: id, rental: { amount: amount, ignored_param: true } } }
 
       it 'uses RentalsQuery to update rental' do
-        expect(query).to have_received(:update).with(id, amount: amount)
+        expect(query).to have_received(:update).with(id, hash_including(amount: amount))
       end
 
       describe 'response' do
@@ -153,7 +153,7 @@ module Admin
       let(:query) { double find: rental }
       let(:id) { '5' }
 
-      before { delete :destroy, event_id: event.id, id: id }
+      before { delete :destroy, params: { event_id: event.id, id: id } }
 
       it 'uses RentalsQuery to find rental' do
         expect(query).to have_received(:find).with id

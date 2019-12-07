@@ -14,14 +14,14 @@ RSpec.describe EventsController do
       let(:event) { create :event_with_ongoing_reservation, client: create(:client) }
 
       it 'throws exception' do
-        expect { get :show, id: event.id }.to raise_error ActiveRecord::RecordNotFound
+        expect { get :show, params: { id: event.id } }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
     context 'when event belongs to current client' do
       before do
         Timecop.travel event.shopping_periods.last.max + 1.day do
-          get :show, id: event.id
+          get :show, params: { id: event.id }
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe EventsController do
   describe 'GET review' do
     before do
       Timecop.travel event.shopping_periods.last.max + 1.day do
-        get :review, id: event.id
+        get :review, params: { id: event.id }
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe EventsController do
   end
 
   describe 'GET reserve' do
-    before { get :reserve, id: event.id }
+    before { get :reserve, params: { id: event.id } }
 
     describe 'response' do
       subject { response }

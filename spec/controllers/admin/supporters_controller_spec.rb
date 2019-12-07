@@ -13,7 +13,7 @@ RSpec.describe Admin::SupportersController do
   describe 'GET index' do
     let!(:supporters) { create_list :supporter, 5, support_type: support_type }
 
-    before { get :index, event_id: event.id, support_type_id: support_type.id }
+    before { get :index, params: { event_id: event.id, support_type_id: support_type.id } }
 
     describe 'response' do
       subject { response }
@@ -42,7 +42,7 @@ RSpec.describe Admin::SupportersController do
   end
 
   describe 'GET new' do
-    before { get :new, event_id: event.id, support_type_id: support_type.id }
+    before { get :new, params: { event_id: event.id, support_type_id: support_type.id } }
 
     describe 'response' do
       subject { response }
@@ -74,7 +74,7 @@ RSpec.describe Admin::SupportersController do
     let(:seller) { create :seller }
     let(:params) { { seller_id: seller.id, comments: 'comments' } }
 
-    before { post :create, event_id: event.id, support_type_id: support_type.id, supporter: params }
+    before { post :create, params: { event_id: event.id, support_type_id: support_type.id, supporter: params } }
 
     describe 'response' do
       subject { response }
@@ -123,7 +123,7 @@ RSpec.describe Admin::SupportersController do
     let(:supporter) { create :supporter, support_type: support_type }
     let(:current_seller) { supporter.seller }
 
-    before { get :edit, event_id: event.id, support_type_id: support_type.id, id: supporter.id }
+    before { get :edit, params: { event_id: event.id, support_type_id: support_type.id, id: supporter.id } }
 
     describe 'response' do
       subject { response }
@@ -155,7 +155,9 @@ RSpec.describe Admin::SupportersController do
     let(:supporter) { create :supporter, support_type: support_type }
     let(:params) { { comments: 'comments' } }
 
-    before { put :update, event_id: event.id, support_type_id: support_type.id, id: supporter.id, supporter: params }
+    before do
+      put :update, params: { event_id: event.id, support_type_id: support_type.id, id: supporter.id, supporter: params }
+    end
 
     describe 'response' do
       subject { response }
@@ -171,7 +173,7 @@ RSpec.describe Admin::SupportersController do
   describe 'DELETE destroy' do
     let(:supporter) { create :supporter, support_type: support_type }
 
-    before { delete :destroy, event_id: event.id, support_type_id: support_type.id, id: supporter.id }
+    before { delete :destroy, params: { event_id: event.id, support_type_id: support_type.id, id: supporter.id } }
 
     describe 'response' do
       subject { response }

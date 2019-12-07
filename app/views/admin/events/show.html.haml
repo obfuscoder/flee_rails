@@ -53,13 +53,13 @@
 %p
 .btn-group
   - if !Message.exists?(event: @event, category: :invitation) && @event.reservation_end.future?
-    = link_to 'Reservierungseinladung verschicken', admin_event_messages_path(@event, :invitation), method: :post, type: :primary, icon: :envelope
+    = link_to 'Reservierungseinladung verschicken', invitation_admin_event_messages_path(@event), method: :post, type: :primary, icon: :envelope
   - if !Message.exists?(event: @event, category: :reservation_closing) && @event.reservation_start.past? && @event.reservation_end.future?
-    = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', admin_event_messages_path(@event, :reservation_closing), method: :post, type: :primary, icon: :envelope
+    = link_to 'Erinnerungsmail vor Bearbeitungsschluss verschicken', reservation_closing_admin_event_messages_path(@event), method: :post, type: :primary, icon: :envelope
   - if !Message.exists?(event: @event, category: :reservation_closed) && @event.reservation_end.past?
-    = link_to 'Bearbeitungsabschlussmail verschicken', admin_event_messages_path(@event, :reservation_closed), method: :post, type: :primary, icon: :envelope
+    = link_to 'Bearbeitungsabschlussmail verschicken', reservation_closed_admin_event_messages_path(@event), method: :post, type: :primary, icon: :envelope
   - if !Message.exists?(event: @event, category: :finished) && @event.past?
-    = confirm_link_to admin_event_messages_path(@event, :finished), name: 'Abschlussmail verschicken', method: :post, type: :primary, icon: :envelope, message: t('.confirm.send_finished', transaction_count: @event.transactions.count, sold_item_count: @event.sold_item_count)
+    = confirm_link_to finished_admin_event_messages_path(@event), name: 'Abschlussmail verschicken', method: :post, type: :primary, icon: :envelope, message: t('.confirm.send_finished', transaction_count: @event.transactions.count, sold_item_count: @event.sold_item_count)
 %p
 - %i[invitation reservation_closing reservation_closed finished].each do |category|
   - if message = @event.messages.find_by(category: category)

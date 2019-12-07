@@ -76,7 +76,14 @@ Rails.application.routes.draw do
         end
         resources :supporters
       end
-      post 'messages/:action', to: 'messages#:action', as: :messages
+      resources :messages, only: [] do
+        collection do
+          post :invitation
+          post :reservation_closing
+          post :reservation_closed
+          post :finished
+        end
+      end
       member do
         get :stats
         get :data

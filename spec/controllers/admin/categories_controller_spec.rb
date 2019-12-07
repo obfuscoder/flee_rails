@@ -31,7 +31,7 @@ module Admin
       let(:parent) { create :category }
       let(:params) { { name: 'My Category', max_items_per_seller: 5, parent_id: parent.id, gender: true } }
 
-      before { put :update, id: category.id, category: params }
+      before { put :update, params: { id: category.id, category: params } }
 
       it 'redirects to index path' do
         expect(response).to redirect_to admin_categories_path

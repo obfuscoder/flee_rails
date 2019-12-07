@@ -12,7 +12,7 @@ RSpec.describe Admin::SupportTypesController do
   describe 'GET index' do
     let!(:support_types) { create_list :support_type, 5, event: event }
 
-    before { get :index, event_id: event.id }
+    before { get :index, params: { event_id: event.id } }
 
     describe 'response' do
       subject { response }
@@ -35,7 +35,7 @@ RSpec.describe Admin::SupportTypesController do
   end
 
   describe 'GET new' do
-    before { get :new, event_id: event.id }
+    before { get :new, params: { event_id: event.id } }
 
     describe 'response' do
       subject { response }
@@ -60,7 +60,7 @@ RSpec.describe Admin::SupportTypesController do
   describe 'POST create' do
     let(:params) { { name: 'name', description: 'description', capacity: 46 } }
 
-    before { post :create, event_id: event.id, support_type: params }
+    before { post :create, params: { event_id: event.id, support_type: params } }
 
     describe 'response' do
       subject { response }
@@ -100,7 +100,7 @@ RSpec.describe Admin::SupportTypesController do
   describe 'GET edit' do
     let(:support_type) { create :support_type, event: event }
 
-    before { get :edit, event_id: event.id, id: support_type.id }
+    before { get :edit, params: { event_id: event.id, id: support_type.id } }
 
     describe 'response' do
       subject { response }
@@ -126,7 +126,7 @@ RSpec.describe Admin::SupportTypesController do
     let(:support_type) { create :support_type, event: event }
     let(:params) { { name: 'name', description: 'description', capacity: 46 } }
 
-    before { put :update, event_id: event.id, id: support_type.id, support_type: params }
+    before { put :update, params: { event_id: event.id, id: support_type.id, support_type: params } }
 
     describe 'response' do
       subject { response }
@@ -165,7 +165,7 @@ RSpec.describe Admin::SupportTypesController do
   describe 'DELETE destroy' do
     let(:support_type) { create :support_type, event: event }
 
-    before { delete :destroy, event_id: event.id, id: support_type.id }
+    before { delete :destroy, params: { event_id: event.id, id: support_type.id } }
 
     describe 'response' do
       subject { response }
@@ -185,7 +185,7 @@ RSpec.describe Admin::SupportTypesController do
 
     before do
       allow(SupportTypesDocument).to receive(:new).with(event, support_types).and_return document
-      get :print, event_id: event.id
+      get :print, params: { event_id: event.id }
     end
 
     describe 'response' do

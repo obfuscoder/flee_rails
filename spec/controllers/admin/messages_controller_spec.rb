@@ -8,7 +8,7 @@ module Admin
     before { login_user create(:user) }
 
     describe 'POST :invitation' do
-      subject(:action) { post :invitation, event_id: event.id }
+      subject(:action) { post :invitation, params: { event_id: event.id } }
 
       let(:event) { create :event }
       let(:count) { 3 }
@@ -38,7 +38,7 @@ module Admin
     end
 
     describe 'POST :reservation_closing' do
-      subject(:action) { post :reservation_closing, event_id: event.id }
+      subject(:action) { post :reservation_closing, params: { event_id: event.id } }
 
       let(:event) { create :event }
       let(:count) { 3 }
@@ -68,7 +68,7 @@ module Admin
     end
 
     describe 'POST :reservation_closed' do
-      subject(:action) { post :reservation_closed, event_id: event.id }
+      subject(:action) { post :reservation_closed, params: { event_id: event.id } }
 
       let(:event) { create :event }
       let(:count) { 3 }
@@ -98,7 +98,7 @@ module Admin
     end
 
     describe 'POST :finished' do
-      subject(:action) { post :finished, event_id: event.id }
+      subject(:action) { post :finished, params: { event_id: event.id } }
 
       let(:event) { create :event }
       let(:count) { 3 }

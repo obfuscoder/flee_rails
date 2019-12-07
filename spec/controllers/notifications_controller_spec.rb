@@ -18,23 +18,23 @@ RSpec.describe NotificationsController do
           let!(:notification) { Notification.create event: event, seller: seller }
 
           it 'does not create another notification' do
-            expect { post :create, event_id: event.id }.not_to change(Notification, :count)
+            expect { post :create, params: { event_id: event.id } }.not_to change(Notification, :count)
           end
 
           it 'redirects to seller view' do
-            expect(post(:create, event_id: event.id)).to redirect_to seller_path
+            expect(post(:create, params: { event_id: event.id })).to redirect_to seller_path
           end
         end
 
         context 'with non existing notification' do
           it 'creates notification' do
             expect(Notification.find_by(event: event, seller: seller)).to be_nil
-            post :create, event_id: event.id
+            post :create, params: { event_id: event.id }
             expect(Notification.find_by(event: event, seller: seller)).not_to be_nil
           end
 
           it 'redirects to seller view' do
-            expect(post(:create, event_id: event.id)).to redirect_to seller_path
+            expect(post(:create, params: { event_id: event.id })).to redirect_to seller_path
           end
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe NotificationsController do
         let(:event_id) { 9999 }
 
         it 'throws error' do
-          expect { post :create, event_id: event_id }.to raise_error ActiveRecord::RecordNotFound
+          expect { post :create, params: { event_id: event_id } }.to raise_error ActiveRecord::RecordNotFound
         end
       end
     end
@@ -54,7 +54,7 @@ RSpec.describe NotificationsController do
       before { session[:seller_id] = nil }
 
       it 'shows unauthorized error' do
-        expect(post(:create, event_id: event.id)).to have_http_status :unauthorized
+        expect(post(:create, params: { event_id: event.id })).to have_http_status :unauthorized
       end
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe NotificationsController do
   describe 'DELETE destroy' do
     let(:seller) { create :seller }
     let!(:event) { create :event }
-    let(:delete_action) { delete :destroy, event_id: event.id }
+    let(:delete_action) { delete :destroy, params: { event_id: event.id } }
     let!(:notification) { Notification.create event: event, seller: seller }
 
     before { session[:seller_id] = seller.id }

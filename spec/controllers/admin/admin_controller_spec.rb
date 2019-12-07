@@ -10,7 +10,7 @@ module Admin
 
     controller do
       def test
-        render text: 'test'
+        render plain: 'test'
       end
     end
 
