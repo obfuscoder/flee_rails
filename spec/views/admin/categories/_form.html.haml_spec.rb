@@ -21,12 +21,12 @@ RSpec.describe 'admin/categories/_form' do
     Category.size_options.keys.each do |option|
       it { is_expected.to have_field('category_size_option_' + option) }
     end
-    it { is_expected.to have_checked_field('category_size_option_size_optional') }
+    it { is_expected.to have_checked_field('category_size_option_optional') }
 
     context 'with category with disabled size option' do
       let(:category) { build :category_with_size_disabled }
 
-      it { is_expected.to have_checked_field('category_size_option_size_disabled') }
+      it { is_expected.to have_checked_field('category_size_option_disabled') }
     end
 
     it { is_expected.to have_field('category_gender') }

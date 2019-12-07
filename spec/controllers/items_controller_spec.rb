@@ -87,7 +87,7 @@ RSpec.describe ItemsController do
 
       %w[optional required disabled fixed].each do |option|
         context "with category having size option #{option}" do
-          let(:size_option) { "size_#{option}" }
+          let(:size_option) { option }
           let(:preparations) { create :category, client: event.client, size_option: size_option }
 
           describe 'data element of that category' do
@@ -100,7 +100,7 @@ RSpec.describe ItemsController do
 
       context 'with category having size option fixed' do
         let(:category) do
-          create(:category, client: event.client, size_option: :size_fixed).tap do |category|
+          create(:category, client: event.client, size_option: :fixed).tap do |category|
             %w[XS S M L XL].each { |size| category.sizes.create value: size }
           end
         end

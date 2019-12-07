@@ -5,10 +5,10 @@ de:
     female: Mädchen
     both: beide
   size_option:
-    size_optional: optional
-    size_required: Pflicht
-    size_disabled: deaktiviert
-    size_fixed: feste Werte
+    optional: optional
+    required: Pflicht
+    disabled: deaktiviert
+    fixed: feste Werte
   message_categories:
     registration: Registrierungsbestätigung
     invitation: Reservierungseinladung
