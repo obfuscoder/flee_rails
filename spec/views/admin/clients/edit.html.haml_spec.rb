@@ -16,6 +16,7 @@ RSpec.describe 'admin/clients/edit' do
     it { is_expected.to have_field 'client_short_name' }
     it { is_expected.to have_field 'client_address' }
     it { is_expected.to have_field 'client_invoice_address' }
+    it { is_expected.to have_field 'client_logo' }
     it { is_expected.to have_field 'client_intro' }
     it { is_expected.to have_field 'client_outro' }
     it { is_expected.to have_field 'client_terms' }

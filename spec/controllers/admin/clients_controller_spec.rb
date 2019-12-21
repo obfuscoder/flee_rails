@@ -45,7 +45,8 @@ RSpec.describe Admin::ClientsController do
         auto_reservation_numbers_start: '100',
         import_items_allowed: '1',
         import_item_code_enabled: '1',
-        precise_bill_amounts: '1'
+        precise_bill_amounts: '1',
+        logo: 'https://example.org/logo.png'
       }
     end
 
@@ -65,7 +66,8 @@ RSpec.describe Admin::ClientsController do
                                                     precise_bill_amounts: true,
                                                     price_precision: 1.0,
                                                     reservation_fee: 10.0,
-                                                    commission_rate: 0.5
+                                                    commission_rate: 0.5,
+                                                    logo: 'https://example.org/logo.png'
     end
   end
 end

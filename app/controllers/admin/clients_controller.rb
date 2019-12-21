@@ -22,7 +22,7 @@ module Admin
     def client_params
       params.require(:client).permit :name, :short_name,
                                      :address, :invoice_address,
-                                     :intro, :outro, :terms,
+                                     :intro, :outro, :terms, :logo,
                                      :price_precision, :precise_bill_amounts,
                                      :reservation_fee, :commission_rate,
                                      :donation_of_unsold_items, :donation_of_unsold_items_default,

@@ -560,6 +560,7 @@ de:
         short_name: Kurzname (in Menüleiste sichtbar)
         address: Adresse
         invoice_address: Rechnungsadresse
+        logo: Logo
         intro: Einleitung auf Hauptseite
         outro: Epilog auf Hauptseite
         terms: Teilnahmebedingungen
