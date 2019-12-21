@@ -3,9 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe TimePeriod do
-  subject { build :time_period, event: event }
-
-  let(:event) { build :event }
+  subject { build :time_period }
 
   it { is_expected.to be_valid }
 

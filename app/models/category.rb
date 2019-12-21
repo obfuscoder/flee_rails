@@ -11,7 +11,7 @@ class Category < ApplicationRecord
   has_many :items
   has_many :sizes
   has_many :children, class_name: 'Category', foreign_key: :parent_id, inverse_of: :parent
-  belongs_to :parent, class_name: 'Category', inverse_of: :children, optional: true
+  belongs_to :parent, class_name: 'Category', inverse_of: :children
 
   enum size_option: { optional: 0, required: 1, fixed: 2, disabled: 3 }, _prefix: :size
 

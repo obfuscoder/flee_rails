@@ -3,8 +3,8 @@
 class Item < ApplicationRecord
   belongs_to :category, -> { with_deleted }, inverse_of: :items
   belongs_to :reservation
-  has_many :transaction_items, dependent: :restrict_with_error
   has_many :item_transactions, through: :transaction_items
+  has_many :transaction_items, dependent: :restrict_with_error
 
   include ActionView::Helpers::NumberHelper
   include Statistics
