@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'awesome_print'
 gem 'baby_squeel' # database query DSL
 gem 'barby' # pdf barcodes
+gem 'bootsnap'
 gem 'bootstrap-multiselect-rails'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
@@ -27,7 +28,7 @@ gem 'paranoia' # soft delete records
 gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 gem 'rake'
 gem 'redcarpet' # markdown
 gem 'rollbar'
