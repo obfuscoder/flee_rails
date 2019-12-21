@@ -18,9 +18,9 @@ class LabelDocument < PdfDocument
     define_grid columns: COLS, rows: ROWS, gutter: 5
     current_reservation = nil
     cell = [0, 0]
-    @labels.each_with_index do |label, i|
+    @labels.each do |label|
       if current_reservation != label.reservation
-        if current_reservation
+        if current_reservation && cell != [0, 0]
           cell = [0, 0]
           start_new_page
         end
@@ -29,7 +29,6 @@ class LabelDocument < PdfDocument
       label_cell(cell, label)
       cell = next_cell(cell)
       start_new_page if cell == [0, 0]
-      Rails.logger.info "new page ... #{i} items so far."
     end
     super
   end
