@@ -22,7 +22,7 @@ Rails:
 Metrics/ClassLength:
   Max: 170
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/ModuleLength:
