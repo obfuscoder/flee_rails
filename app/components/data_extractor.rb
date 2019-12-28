@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DataExtractor
   def initialize(data = {})
     @data = data

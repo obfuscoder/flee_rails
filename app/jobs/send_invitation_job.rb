@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SendInvitationJob < ApplicationJob
   queue_as :default
 

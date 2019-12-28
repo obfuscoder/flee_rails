@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UpdateIndexOnNumberAndCodeForStockItems < ActiveRecord::Migration
   def change
     remove_index :stock_items, column: :number

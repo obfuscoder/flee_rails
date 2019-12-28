@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddNumberColumnToEvents < ActiveRecord::Migration
   def change
     add_column :events, :number, :integer

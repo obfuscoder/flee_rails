@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemoveShoppingStartAndShoppingEndFromEvents < ActiveRecord::Migration
   def up
     remove_columns :events, :shopping_start, :shopping_end

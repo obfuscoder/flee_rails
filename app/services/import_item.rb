@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ImportItem
   def initialize(item)
     @item = item

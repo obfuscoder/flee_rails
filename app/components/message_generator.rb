@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MessageGenerator
   def initialize(data = {})
     @data_extractor = DataExtractor.new(data)

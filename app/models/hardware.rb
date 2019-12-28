@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Hardware < ApplicationRecord
   self.table_name = 'hardware'
 

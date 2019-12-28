@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddParentIdToCategory < ActiveRecord::Migration
   def change
     add_column :categories, :parent_id, :integer

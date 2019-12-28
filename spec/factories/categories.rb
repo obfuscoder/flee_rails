@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryBot.define do
   factory :category, aliases: [:category_with_size_optional] do
     client { Client.first }

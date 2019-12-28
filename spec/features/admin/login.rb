@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.shared_context 'when logging in' do
   let(:admin) { create :admin }
   let(:password) { 'password' }

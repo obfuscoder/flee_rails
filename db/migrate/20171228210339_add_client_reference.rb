@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddClientReference < ActiveRecord::Migration
   def change
     add_reference :categories, :client, index: true

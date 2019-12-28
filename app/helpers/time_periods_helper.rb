@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module TimePeriodsHelper
   def period(periods, options = {})
     return '' if periods.empty?

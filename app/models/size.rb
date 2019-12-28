@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Size < ApplicationRecord
   belongs_to :category, -> { with_deleted }, inverse_of: :sizes
 

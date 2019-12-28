@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddTimesToEvent < ActiveRecord::Migration
   def change
     add_column :events, :shopping_start, :datetime

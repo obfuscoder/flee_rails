@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateReceiptDocument
   def initialize(reservation)
     @reservation = reservation

@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class SellerMailer < ActionMailer::Base
+class SellerMailer < ApplicationMailer
   include MarkdownHelper
   include EventsHelper
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MovePickupTimesToTimePeriod < ActiveRecord::Migration
   class Event < ApplicationRecord
     has_many :pickup_periods, -> { where kind: :pickup }, class_name: 'TimePeriod'

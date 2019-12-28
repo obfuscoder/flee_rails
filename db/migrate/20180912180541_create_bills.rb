@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateBills < ActiveRecord::Migration
   def change
     create_table :bills do |t|

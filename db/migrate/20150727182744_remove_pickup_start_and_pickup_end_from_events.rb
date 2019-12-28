@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemovePickupStartAndPickupEndFromEvents < ActiveRecord::Migration
   def up
     remove_columns :events, :pickup_start, :pickup_end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class EmailsController < AdminController
     before_action :set_seller, only: %i[index show]

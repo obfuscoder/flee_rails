@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PagesController < ApplicationController
   def home
     return redirect_to :pages_index if Settings.domain == request.host

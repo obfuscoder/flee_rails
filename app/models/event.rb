@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Event < ApplicationRecord
   enum kind: { commissioned: 0, direct: 1 }
   belongs_to :client

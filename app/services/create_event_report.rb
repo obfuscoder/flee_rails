@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateEventReport
   def initialize(event)
     @event = event

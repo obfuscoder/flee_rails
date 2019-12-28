@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class ClientsController < AdminController
     before_action :deny_remote_request_for_demo, only: [:update]

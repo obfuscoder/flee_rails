@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class NotificationMailer < ActionMailer::Base
+class NotificationMailer < ApplicationMailer
   helper :events
 
   include MarkdownHelper

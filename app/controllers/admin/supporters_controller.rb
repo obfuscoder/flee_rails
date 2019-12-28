@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class SupportersController < AdminController
     before_action :init_event

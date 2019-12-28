@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateSupportTypes < ActiveRecord::Migration
   def change
     create_table :support_types do |t|

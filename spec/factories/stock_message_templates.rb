@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryBot.define do
   factory :stock_message_template do
     sequence(:category) { |n| "category-#{n}" }

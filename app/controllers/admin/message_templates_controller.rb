@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class MessageTemplatesController < AdminController
     before_action :check_and_create_message_templates

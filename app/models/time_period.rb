@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TimePeriod < ApplicationRecord
   belongs_to :event
 

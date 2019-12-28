@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
 
@@ -64,7 +62,7 @@ class LabelDocument < PdfDocument
     end
   end
 
-  FONT_NAME = 'freesans'
+  FONT_NAME = 'freesans'.freeze
 
   def donation_cell(height, top)
     font FONT_NAME, style: :bold, size: 30 do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class InvitationQuery
   def initialize(event)
     @event = event

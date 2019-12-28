@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CustomEmail
   include ActiveModel::Validations
   include ActiveModel::Conversion

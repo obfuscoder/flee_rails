@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class ReceiveMailer < ActionMailer::Base
+class ReceiveMailer < ApplicationMailer
   def receive(message)
     CreateEmail.new(message).call(false)
   end

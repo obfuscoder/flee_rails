@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ChangeTypeOfCommissionRateAndFeeInReservation < ActiveRecord::Migration
   def change
     change_column :reservations, :commission_rate, :decimal, precision: 3, scale: 2

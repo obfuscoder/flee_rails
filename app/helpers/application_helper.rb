@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ApplicationHelper
   def flash_class_from_type(type)
     map = { notice: 'success', alert: 'danger', flash: 'warning' }

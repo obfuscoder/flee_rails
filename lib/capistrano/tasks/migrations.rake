@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :flee do
   desc 'Backup database'
   task :backup do

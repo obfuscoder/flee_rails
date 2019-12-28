@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class SuspensionsController < AdminController
     before_action :set_event

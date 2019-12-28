@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PdfDocument < Prawn::Document
   def initialize
     super page_size: 'A4'

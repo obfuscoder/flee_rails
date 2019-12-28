@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DateTimePickerInput < SimpleForm::Inputs::Base
   def input(wrapper_options)
     template.content_tag(:div, class: 'input-group date form_datetime') do

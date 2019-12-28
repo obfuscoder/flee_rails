@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SendFinishedMails
   def initialize(event)
     @event = event

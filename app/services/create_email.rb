@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateEmail
   def initialize(message)
     @message = message

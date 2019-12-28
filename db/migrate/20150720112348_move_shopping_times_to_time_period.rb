@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MoveShoppingTimesToTimePeriod < ActiveRecord::Migration
   class Event < ApplicationRecord
     has_one :shopping_period, -> { where kind: :shopping }, class_name: 'TimePeriod'

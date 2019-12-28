@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class MessagesController < AdminController
     before_action { @event = current_client.events.find params[:event_id] }

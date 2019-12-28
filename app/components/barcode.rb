@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Barcode
   def barcode_cell(label)
     cell_top = bounds.top - header_line_height - small_line_height * 3

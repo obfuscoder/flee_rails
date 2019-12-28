@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemoveHandoverStartAndHandoverEndFromEvents < ActiveRecord::Migration
   def up
     remove_columns :events, :handover_start, :handover_end

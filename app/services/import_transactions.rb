@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ImportTransactions
   def initialize(event)
     @event = event

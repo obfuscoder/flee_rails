@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Supporter < ApplicationRecord
   belongs_to :support_type
   belongs_to :seller

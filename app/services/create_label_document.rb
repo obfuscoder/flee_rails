@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateLabelDocument
   def initialize(client, items)
     @client = client

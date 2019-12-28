@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Transaction < ApplicationRecord
   enum kind: { purchase: 0, refund: 1 }
 

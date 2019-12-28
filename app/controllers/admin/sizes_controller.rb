@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class SizesController < AdminController
     before_action :set_category

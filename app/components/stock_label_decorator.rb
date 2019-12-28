@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class StockLabelDecorator
   def initialize(stock_item)
     @stock_item = stock_item

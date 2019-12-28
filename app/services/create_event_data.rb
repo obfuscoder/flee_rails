@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateEventData
   def initialize(client)
     @client = client

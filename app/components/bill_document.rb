@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class BillDocument < PdfDocument
   def initialize(bill)
     super()

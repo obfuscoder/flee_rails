@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SendReservationClosingMails
   def initialize(event)
     @event = event

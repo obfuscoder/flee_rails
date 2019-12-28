@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateReservationOrder
   def initialize; end
 

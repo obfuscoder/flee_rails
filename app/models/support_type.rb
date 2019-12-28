@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SupportType < ApplicationRecord
   belongs_to :event
   has_many :supporters, dependent: :delete_all

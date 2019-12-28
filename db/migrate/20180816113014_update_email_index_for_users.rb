@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UpdateEmailIndexForUsers < ActiveRecord::Migration
   def change
     remove_index :users, column: :email

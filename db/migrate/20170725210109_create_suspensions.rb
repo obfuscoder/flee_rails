@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateSuspensions < ActiveRecord::Migration
   def change
     create_table :suspensions do |t|

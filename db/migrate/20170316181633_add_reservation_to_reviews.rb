@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'review'
 require 'reservation'
 

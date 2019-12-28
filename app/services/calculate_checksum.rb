@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # based on Luhn algorithm (https://en.wikipedia.org/wiki/Luhn_algorithm)
 # for supporting non-digit input, we simply use the byte value of each char as code point
 # so instead of '1' becoming the digit 1, it becomes 0x31 (49), while 'A' becomes 0x41 (65) and 'a' becomes 0x61 (141)

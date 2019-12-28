@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryBot.define do
   factory :hardware do
     sequence(:description) { |n| "Hardware #{n}" }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RemoveDomainFromClients < ActiveRecord::Migration
   def change
     remove_index :clients, :domain

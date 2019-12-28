@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateHardware < ActiveRecord::Migration
   def change
     create_table :hardware do |t|

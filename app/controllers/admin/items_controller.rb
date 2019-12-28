@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Admin
   class ItemsController < AdminController
     before_action do

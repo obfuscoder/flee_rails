@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SendReservationClosedJob < ApplicationJob
   queue_as :default
 

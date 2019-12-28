@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'barby/outputter/prawn_outputter'
 
 class SupportTypesDocument < PdfDocument

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module TranslationHelper
   # overwriting localize and alias to handle nil values
   def localize(*args)

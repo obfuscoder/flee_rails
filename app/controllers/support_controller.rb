@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SupportController < ApplicationController
   before_action :init_vars
 
