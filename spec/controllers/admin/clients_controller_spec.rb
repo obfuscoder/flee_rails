@@ -44,7 +44,8 @@ RSpec.describe Admin::ClientsController do
         import_items_allowed: '1',
         import_item_code_enabled: '1',
         precise_bill_amounts: '1',
-        logo: 'https://example.org/logo.png'
+        logo: 'https://example.org/logo.png',
+        gates: true
       }
     end
 
@@ -65,7 +66,8 @@ RSpec.describe Admin::ClientsController do
                                                     price_precision: 1.0,
                                                     reservation_fee: 10.0,
                                                     commission_rate: 0.5,
-                                                    logo: 'https://example.org/logo.png'
+                                                    logo: 'https://example.org/logo.png',
+                                                    gates: true
     end
   end
 end

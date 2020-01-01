@@ -575,6 +575,7 @@ de:
         import_items_allowed: Artikelimport aus älteren Reservierungen erlaubt
         import_item_code_enabled: Artikelcode beim Import behalten
         precise_bill_amounts: Cent-genaue Rechnungsbeträge
+        gates: Standard für Check-in/out System
       category:
         name: Name
         parent: Überkategorie
@@ -604,6 +605,7 @@ de:
         support_system_enabled: Helfersystem für Verkäufer freigeschaltet
         supporters_can_retire: Helfer können sich wieder austragen
         precise_bill_amounts: Cent-genaue Rechnungsbeträge
+        gates: Check-in/out System
       item:
         seller: Verkäufer
         category: Kategorie

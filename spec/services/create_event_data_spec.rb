@@ -30,7 +30,8 @@ RSpec.describe CreateEventData do
       it do
         is_expected.to include :id, :number, :token, :name, :price_precision, :precise_bill_amounts,
                                :commission_rate, :reservation_fee,
-                               :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
+                               :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance,
+                               :gates
       end
 
       it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }
@@ -59,7 +60,8 @@ RSpec.describe CreateEventData do
 
       its([:items]) do
         is_expected.to all(include(:id, :category_id, :reservation_id, :description,
-                                   :number, :code, :sold, :donation, :size, :price, :gender))
+                                   :number, :code, :sold, :donation, :size, :price, :gender,
+                                   :checked_in, :checked_out))
       end
     end
   end

@@ -8,7 +8,7 @@ class CreateEventData
     data = Jbuilder.new do |json|
       json.call @event, :id, :number, :name, :token, :price_precision, :precise_bill_amounts,
                 :commission_rate, :reservation_fee,
-                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance
+                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance, :gates
       json.categories @client.categories.all, :id, :name
       json.stock_items @client.stock_items.all do |stock_item|
         json.description stock_item.description
@@ -23,7 +23,8 @@ class CreateEventData
       json.items @event.reservations.order(:number).map(&:items).flatten.reject { |item| item.code.nil? },
                  :id, :category_id, :reservation_id, :description, :size, :price,
                  :number, :code, :sold,
-                 :donation, :gender
+                 :donation, :gender,
+                 :checked_in, :checked_out
     end.target!
     ActiveSupport::Gzip.compress data
   end

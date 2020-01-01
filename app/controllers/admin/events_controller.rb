@@ -18,6 +18,7 @@ module Admin
                                            reservation_fee: current_client.reservation_fee,
                                            kind: :commissioned,
                                            donation_of_unsold_items_enabled: current_client.donation_of_unsold_items,
+                                           gates: current_client.gates,
                                            reservation_start: date - 2.weeks, reservation_end: date - 2.days,
                                            shopping_periods_attributes: create_period(date),
                                            handover_periods_attributes: create_period(date - 1.day),
@@ -83,6 +84,7 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
+                                    :gates,
                                     shopping_periods_attributes: %i[id min max _destroy],
                                     handover_periods_attributes: %i[id min max _destroy],
                                     pickup_periods_attributes: %i[id min max _destroy]

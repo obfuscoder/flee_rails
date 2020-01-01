@@ -18,5 +18,6 @@ RSpec.describe 'admin/events/_form' do
     it { is_expected.to have_field 'event_support_system_enabled' }
     it { is_expected.to have_field 'event_supporters_can_retire' }
     it { is_expected.to have_field 'event_precise_bill_amounts' }
+    it { is_expected.to have_field 'event_gates' }
   end
 end
