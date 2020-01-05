@@ -30,23 +30,23 @@ itemEditCategorySelected = ->
     else ''
 
   switch size_option
-    when 'size_disabled'
+    when 'disabled'
       $('#item_size').show()
       $('#item_size').prop('disabled', true)
       $('#item_size').val('')
       $('#item_fixed_size').hide()
-    when 'size_optional'
+    when 'optional'
       $('#item_size').show()
       $('#item_size').prop('disabled', false)
       $('#item_size').val(value)
       $('#item_fixed_size').hide()
-    when 'size_required'
+    when 'required'
       $('#item_size').val($("#item_fixed_size option:selected").text()) if $('#item_fixed_size').is(':visible')
       $('#item_size').show()
       $('#item_size').val(value)
       $('#item_size').prop('disabled', false)
       $('#item_fixed_size').hide()
-    when 'size_fixed'
+    when 'fixed'
       $('#item_size').hide()
       $('#item_fixed_size').show()
       removeFixedSizes()
