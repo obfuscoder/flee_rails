@@ -28,6 +28,9 @@ class ImportTransactionJob < ApplicationJob
   def handle_item(transaction, item)
     item.sold = transaction.created_at if transaction.purchase?
     item.sold = nil if transaction.refund?
+    item.checked_in = transaction.created_at if transaction.checkin?
+    item.checked_out = transaction.created_at if transaction.checkout?
+
     item.save! context: :transaction
     transaction.transaction_items.create! item: item, created_at: transaction.created_at
   end

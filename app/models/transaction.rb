@@ -1,5 +1,5 @@
 class Transaction < ApplicationRecord
-  enum kind: { purchase: 0, refund: 1 }
+  enum kind: { purchase: 0, refund: 1, checkin: 2, checkout: 3 }
 
   belongs_to :event
   has_many :transaction_items, dependent: :delete_all
