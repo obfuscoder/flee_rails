@@ -53,6 +53,9 @@
   %li Leihgebühren: #{number_to_currency(@event.rental_fees)}
   %li Systemgebühren: #{number_to_currency(@event.system_fees)}
   %li Gesamtgebühren: #{number_to_currency(@event.total_fees)}
+  - if @event.gates
+    %li eingecheckt: #{@event.checked_in_item_count}
+    %li ausgecheckt: #{@event.checked_out_item_count}
 %h3 Verkäufer
 %ul
   %li

@@ -182,6 +182,24 @@ RSpec.describe Event do
       it { is_expected.to eq sold_item_count }
     end
 
+    describe '#checked_in_item_count' do
+      subject { event.checked_in_item_count }
+
+      let(:count) { 3 }
+      let!(:items) { create_list :checked_in_item, count, reservation: reservation }
+
+      it { is_expected.to eq count }
+    end
+
+    describe '#checked_out_item_count' do
+      subject { event.checked_out_item_count }
+
+      let(:count) { 3 }
+      let!(:items) { create_list :checked_out_item, count, reservation: reservation }
+
+      it { is_expected.to eq count }
+    end
+
     describe '#items_with_label_count' do
       subject { event.items_with_label_count }
 

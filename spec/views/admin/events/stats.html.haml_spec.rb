@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/events/stats' do
+  let(:gates) { false }
   let(:event) do
     double id: 1,
            max_reservations: 13,
@@ -34,7 +35,10 @@ RSpec.describe 'admin/events/stats' do
            sold_stock_items: [
              double(amount: 37, stock_item: double(description: 'stock item 1')),
              double(amount: 73, stock_item: double(description: 'stock item 2'))
-           ]
+           ],
+           gates: gates,
+           checked_in_item_count: 137,
+           checked_out_item_count: 157
   end
 
   before { assign :event, event }
@@ -108,6 +112,15 @@ RSpec.describe 'admin/events/stats' do
 
     it 'lists all seller cities for the notifications' do
       event.notifications.each { |notification| expect(output).to have_content notification.seller.city }
+    end
+
+    it { is_expected.not_to have_content 'eingecheckt' }
+
+    context 'with gates enabled' do
+      let(:gates) { true }
+
+      it { is_expected.to have_content 'eingecheckt: 137' }
+      it { is_expected.to have_content 'ausgecheckt: 157' }
     end
 
     it { is_expected.to have_link href: report_admin_event_path(event) }

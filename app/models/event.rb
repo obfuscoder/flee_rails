@@ -108,6 +108,14 @@ class Event < ApplicationRecord
     reservations.joins(:items).count
   end
 
+  def checked_in_item_count
+    reservations.joins(:items).merge(Item.checked_in).count
+  end
+
+  def checked_out_item_count
+    reservations.joins(:items).merge(Item.checked_out).count
+  end
+
   def items_with_label_count
     reservations.joins(:items).merge(Item.with_label).count
   end

@@ -29,6 +29,8 @@ class Item < ApplicationRecord
   scope :without_label, -> { where.has { code.eq nil } }
   scope :with_label, -> { where.has { code.not_eq nil } }
   scope :sold, -> { where.has { sold.not_eq nil } }
+  scope :checked_in, -> { where.has { checked_in.not_eq nil } }
+  scope :checked_out, -> { where.has { checked_out.not_eq nil } }
   scope :for_client, ->(client) { joins(reservation: :event).where.has { reservation.event.client_id.eq client.id } }
 
   attr_accessor :fixed_size # virtual attribute to allow fixed size selection
