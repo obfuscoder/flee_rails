@@ -9,11 +9,13 @@ RSpec.describe ImportTransactionJob do
   let(:items) { create_list :item_with_code, 10, category: category, reservation: reservation }
   let(:stock_items) { create_list :stock_item, 5 }
   let(:preparations) {}
+  let(:transaction_type) { 'PURCHASE' }
+  let(:transaction_items) { items.take(5) + stock_items.take(2) + stock_items.take(1) }
   let(:transaction) do
     {
       'id' => 'b1b3f5ea-0ed7-4f06-85d9-4837a56dc058',
-      'items' => items.take(5).map(&:code) + stock_items.take(2).map(&:code) + stock_items.take(1).map(&:code),
-      'type' => 'PURCHASE',
+      'items' => transaction_items.map(&:code),
+      'type' => transaction_type,
       'date' => '2015-08-27T10:57:29.094+02'
     }
   end
@@ -77,6 +79,36 @@ RSpec.describe ImportTransactionJob do
       its('items.count') { is_expected.to eq 2 }
       its('transaction_stock_items.count') { is_expected.to eq 2 }
       its('stock_items.count') { is_expected.to eq 2 }
+    end
+  end
+
+  context 'with checkin transaction' do
+    let(:transaction_items) { items }
+    let(:transaction_type) { 'CHECKIN' }
+
+    it 'sets checked_in of items' do
+      items.each { |item| expect(item.reload.checked_in).not_to be_nil }
+    end
+
+    describe 'stored transaction' do
+      subject(:stored_transaction) { event.transactions.first }
+
+      it { is_expected.to be_checkin }
+    end
+  end
+
+  context 'with checkin transaction' do
+    let(:transaction_items) { items }
+    let(:transaction_type) { 'CHECKOUT' }
+
+    it 'sets checked_in of items' do
+      items.each { |item| expect(item.reload.checked_out).not_to be_nil }
+    end
+
+    describe 'stored transaction' do
+      subject(:stored_transaction) { event.transactions.first }
+
+      it { is_expected.to be_checkout }
     end
   end
 end
