@@ -10,6 +10,8 @@ class ReceiptDocument < PdfDocument
     sold
     returned
     donated if @receipt.donation_enabled?
+    missing if @receipt.gates?
+    lost if @receipt.gates?
     super
   end
 
@@ -41,6 +43,14 @@ class ReceiptDocument < PdfDocument
 
   def donated
     table_section @receipt.donated_items, 'gespendet', &method(:format_table)
+  end
+
+  def missing
+    table_section @receipt.missing, 'nicht abgegeben', &method(:format_table)
+  end
+
+  def lost
+    table_section @receipt.lost, 'verloren gegangen', &method(:format_table)
   end
 
   def table_section(item_collection, action)

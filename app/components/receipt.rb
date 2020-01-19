@@ -12,6 +12,10 @@ class Receipt
     event.donation_of_unsold_items_enabled ? true : false
   end
 
+  def gates?
+    event.gates ? true : false
+  end
+
   def seller
     @reservation.seller
   end
@@ -25,15 +29,23 @@ class Receipt
   end
 
   def sold_items
-    @sold_items ||= @reservation.items.where.not(sold: nil)
+    @sold_items ||= @reservation.items.sold
   end
 
   def returned_items
-    @returned_items ||= @reservation.items.where(sold: nil).where(donation: [nil, false])
+    @returned_items ||= fetch_returned_items
   end
 
   def donated_items
-    @donated_items ||= @reservation.items.where(sold: nil).where(donation: true)
+    @donated_items ||= fetch_donated_items
+  end
+
+  def missing_items
+    @missing_items ||= @reservation.items.where(checked_in: nil)
+  end
+
+  def lost_items
+    @lost_items ||= @reservation.items.checked_in.where(sold: nil, donation: [nil, false], checked_out: nil)
   end
 
   def sold_items_sum
@@ -45,6 +57,18 @@ class Receipt
   end
 
   private
+
+  def fetch_donated_items
+    query = @reservation.items.where(sold: nil, donation: true)
+    query = query.checked_in if gates?
+    query
+  end
+
+  def fetch_returned_items
+    query = @reservation.items.where(sold: nil, donation: [nil, false])
+    query = query.checked_in.checked_out if gates?
+    query
+  end
 
   def round(value)
     if event.precise_bill_amounts
