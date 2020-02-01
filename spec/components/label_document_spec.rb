@@ -21,7 +21,7 @@ RSpec.describe LabelDocument do
     it 'contains label information' do
       expect(output).to include label.reservation
       expect(output).to include label.number
-      expect(output).to include label.price
+      expect(output).to include label.price[2..-1]
       expect(output).to include label.details
       expect(output).to include label.code
       expect(output).to include 'S'
@@ -29,7 +29,7 @@ RSpec.describe LabelDocument do
 
     it 'contains stock label information' do
       expect(output).to include stock_label.number
-      expect(output).to include stock_label.price
+      expect(output).to include stock_label.price[2..-1]
       expect(output).to include stock_label.details
       expect(output).to include stock_label.code
     end

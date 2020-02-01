@@ -27,8 +27,8 @@ RSpec.describe ReceiptDocument do
     context 'when reservation fee is not payed in advance' do
       it 'includes reservation fee' do
         expect(output).to include 'Reservierungsgebühr'
-        expect(output).to include '-2,00 €'
-        expect(output).to include '29,90 €'
+        expect(output).to include '-2,00 '
+        expect(output).to include '29,90 '
       end
     end
 
@@ -40,8 +40,8 @@ RSpec.describe ReceiptDocument do
 
       it 'does not include reservation fee' do
         expect(output).not_to include 'Reservierungsgebühr'
-        expect(output).not_to include '-2,00 €'
-        expect(output).to include '31,90 €'
+        expect(output).not_to include '-2,00 '
+        expect(output).to include '31,90 '
       end
     end
 
