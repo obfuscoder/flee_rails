@@ -4,7 +4,7 @@ class CreateEventReport
   end
 
   def call
-    items = @event.items.map do |item|
+    items = @event.items.includes(:category, :reservation).map do |item|
       [
         item.reservation.number,
         item.number,
