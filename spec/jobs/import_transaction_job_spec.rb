@@ -97,7 +97,7 @@ RSpec.describe ImportTransactionJob do
     end
   end
 
-  context 'with checkin transaction' do
+  context 'with checkout transaction' do
     let(:transaction_items) { items }
     let(:transaction_type) { 'CHECKOUT' }
 

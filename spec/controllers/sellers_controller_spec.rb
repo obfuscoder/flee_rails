@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe SellersController do
   before { allow(SellerMailer).to receive(:registration).and_return(double(deliver_later: self)) }
 
+  let(:mail) { double :mail, deliver_later: nil }
+
   describe 'GET new' do
     before { get :new }
 
@@ -15,53 +17,62 @@ RSpec.describe SellersController do
   end
 
   describe 'POST create' do
-    context 'with valid params' do
-      def call_post
-        post :create, params: { seller: build(:seller).attributes.merge(accept_terms: '1') }
-      end
+    before { allow(SellerMailer).to receive(:registration).and_return mail }
 
-      before { call_post }
+    context 'with valid params' do
+      subject(:action) { post :create, params: { seller: build(:seller).attributes.merge(accept_terms: '1') } }
 
       it 'increases the number of seller instances in the database' do
-        expect { call_post }.to change(Seller, :count).by 1
+        expect { action }.to change(Seller, :count).by 1
       end
 
-      it 'assigns the new instance to @seller' do
-        expect(assigns(:seller)).to eq Seller.last
+      describe '@seller' do
+        subject { assigns :seller }
+
+        before { action }
+
+        it { is_expected.to eq Seller.last }
+        it { is_expected.to be_persisted }
       end
 
-      it { expect(assigns(:seller)).to be_persisted }
-      it { expect(response).to render_template :create }
-      it { expect(response).to have_http_status :ok }
-    end
+      describe 'response' do
+        subject { response }
 
-    context 'with invalid params' do
-      before { post :create, params: { seller: { name: nil } } }
+        before { action }
 
-      it 'assigns the not yet persisted instance to @seller' do
-        expect(assigns(:seller)).to be_a_new Seller
+        it { is_expected.to render_template :create }
+        it { is_expected.to have_http_status :ok }
       end
 
-      it { expect(response).to render_template :new }
-      it { expect(response).to have_http_status :ok }
-    end
-  end
-
-  describe 'POST create' do
-    context 'with valid params' do
       it 'sends activation email with correct parameters' do
-        mail = double :mail, deliver_later: nil
-        allow(SellerMailer).to receive(:registration).and_return mail
-        post :create, params: { seller: attributes_for(:seller) }
+        action
         expect(SellerMailer).to have_received(:registration) { |seller| expect(seller).to be_a Seller }
         expect(mail).to have_received(:deliver_later).with no_args
       end
     end
 
     context 'with invalid params' do
+      subject(:action) { post :create, params: { seller: { name: nil } } }
+
+      describe '@seller' do
+        subject { assigns :seller }
+
+        before { action }
+
+        it { is_expected.to be_a_new Seller }
+      end
+
+      describe 'response' do
+        subject { response }
+
+        before { action }
+
+        it { is_expected.to render_template :new }
+        it { is_expected.to have_http_status :ok }
+      end
+
       it 'does not send activation email' do
-        allow(SellerMailer).to receive :registration
-        post :create, params: { seller: { name: nil } }
+        action
         expect(SellerMailer).not_to have_received :registration
       end
     end

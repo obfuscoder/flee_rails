@@ -109,3 +109,7 @@ Rails/RakeEnvironment:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# bug with rspec-its
+RSpec/RepeatedDescription:
+  Enabled: false

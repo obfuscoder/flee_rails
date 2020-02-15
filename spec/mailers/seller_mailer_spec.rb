@@ -65,7 +65,7 @@ RSpec.describe SellerMailer do
   end
 
   describe '#reservation' do
-    subject(:mail) { described_class.reservation_closing reservation }
+    subject(:mail) { described_class.reservation reservation }
 
     let(:reservation) { build :reservation }
     let(:seller) { reservation.seller }

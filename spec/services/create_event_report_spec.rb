@@ -22,7 +22,7 @@ RSpec.describe CreateEventReport do
       subject(:first_line) { action.lines.first }
 
       it 'contains columns separated with tabs' do
-        expect(first_line.split(/\t/)).to have(7).elements
+        expect(first_line.split(/\t/)).to have(8).elements
       end
     end
   end
