@@ -7,7 +7,7 @@ class CreateEventData
     @event = event
     data = Jbuilder.new do |json|
       json.call @event, :id, :number, :name, :token, :price_precision, :precise_bill_amounts,
-                :commission_rate, :reservation_fee,
+                :commission_rate, :reservation_fee, :price_factor,
                 :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance, :gates
       json.categories @client.categories.all, :id, :name
       json.stock_items @client.stock_items.all do |stock_item|

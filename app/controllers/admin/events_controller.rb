@@ -84,7 +84,7 @@ module Admin
                                     :reservation_start, :reservation_end,
                                     :handover_start, :handover_end,
                                     :pickup_start, :pickup_end,
-                                    :gates,
+                                    :gates, :price_factor,
                                     shopping_periods_attributes: %i[id min max _destroy],
                                     handover_periods_attributes: %i[id min max _destroy],
                                     pickup_periods_attributes: %i[id min max _destroy]

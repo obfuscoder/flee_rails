@@ -230,6 +230,12 @@ RSpec.describe Event do
       end
 
       it { is_expected.to eq 38.5 }
+
+      context 'with price_factor defined' do
+        let(:event) { create :event_with_ongoing_reservation, number: 5, price_factor: 1.1 }
+
+        it { is_expected.to eq 42.35 }
+      end
     end
 
     describe '#reservation_fees_sum' do

@@ -12,12 +12,13 @@ RSpec.describe 'admin/events/_form' do
 
     before { render }
 
-    it { is_expected.to have_field 'Termin steht fest' }
-    it { is_expected.to have_field 'Reservierungen pro Verkäufer' }
-    it { is_expected.to have_unchecked_field 'Reservierungsgebühr wird im Voraus bezahlt' }
+    it { is_expected.to have_field 'event_confirmed' }
+    it { is_expected.to have_field 'event_max_reservations_per_seller' }
+    it { is_expected.to have_unchecked_field 'event_reservation_fees_payed_in_advance' }
     it { is_expected.to have_field 'event_support_system_enabled' }
     it { is_expected.to have_field 'event_supporters_can_retire' }
     it { is_expected.to have_field 'event_precise_bill_amounts' }
     it { is_expected.to have_field 'event_gates' }
+    it { is_expected.to have_field 'event_price_factor' }
   end
 end

@@ -270,6 +270,11 @@ de:
           hint: &commission_rate_hint >
             Das ist der einbehaltene Anteil des Umsatzes zwischen 0.0 und 1.
             Ein Wert von 0.2 bedeutet bspw. 20% Anteil des Umsatzes.
+        price_factor:
+          hint: >
+            Möchten Sie einen Preisfaktor definieren, wird dieser bei der Kasse auf den Gesamtpreis
+            angewendet. Ein Faktor von 1 würde den selben Preis ergeben. Ein Faktor von 1.1 würde einen
+            Aufschlag um 10% bedeuten.
       labels:
         success: >
           Das Dokument mit den Etiketten aller Artikel für diesen Termin wird nun erzeugt.
@@ -606,6 +611,7 @@ de:
         supporters_can_retire: Helfer können sich wieder austragen
         precise_bill_amounts: Cent-genaue Rechnungsbeträge
         gates: Check-in/out System
+        price_factor: Preisfaktor
       item:
         seller: Verkäufer
         category: Kategorie

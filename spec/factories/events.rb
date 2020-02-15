@@ -49,6 +49,10 @@ FactoryBot.define do
         end
       end
 
+      factory :event_with_price_factor do
+        price_factor { 1.1 }
+      end
+
       factory :event_with_support do
         support_system_enabled { true }
         supporters_can_retire { true }

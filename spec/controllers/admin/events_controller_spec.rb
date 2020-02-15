@@ -165,6 +165,14 @@ RSpec.describe Admin::EventsController do
         expect(Event.last).to be_reservation_fees_payed_in_advance
       end
     end
+
+    context 'with price_factor given' do
+      let(:event) { attributes_for :event_with_price_factor }
+
+      it 'creates event with price_factor set' do
+        expect(Event.last.price_factor).to eq event[:price_factor]
+      end
+    end
   end
 
   describe 'GET bill' do

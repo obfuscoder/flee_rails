@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191229084032) do
+ActiveRecord::Schema.define(version: 20200215133339) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20191229084032) do
     t.boolean "supporters_can_retire"
     t.boolean "precise_bill_amounts"
     t.boolean "gates"
+    t.decimal "price_factor", precision: 3, scale: 2
     t.index ["client_id"], name: "index_events_on_client_id"
     t.index ["number", "client_id"], name: "index_events_on_number_and_client_id", unique: true
     t.index ["token"], name: "index_events_on_token", unique: true

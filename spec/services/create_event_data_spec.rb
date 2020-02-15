@@ -31,7 +31,7 @@ RSpec.describe CreateEventData do
         is_expected.to include :id, :number, :token, :name, :price_precision, :precise_bill_amounts,
                                :commission_rate, :reservation_fee,
                                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance,
-                               :gates
+                               :gates, :price_factor
       end
 
       it { is_expected.to include :categories, :sellers, :items, :reservations, :stock_items }

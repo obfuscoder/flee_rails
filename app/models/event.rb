@@ -40,6 +40,7 @@ class Event < ApplicationRecord
     validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
     validates :commission_rate, numericality: { greater_than_or_equal_to: 0.0, less_than: 1 }
     validates :max_items_per_reservation, numericality: { greater_than: 0, only_integer: true }
+    validates :price_factor, numericality: { greater_than_or_equal_to: 1.0, allow_nil: true }
   end
 
   validates :number, numericality: { greater_than: 0, only_integer: true }, uniqueness: { scope: :client_id }
@@ -125,8 +126,10 @@ class Event < ApplicationRecord
   end
 
   def sold_item_sum
-    reservations.joins(:items).merge(Item.sold).sum(:price) +
-      sold_stock_items.joins(:stock_item).sum('price * amount')
+    sum = reservations.joins(:items).merge(Item.sold).sum(:price) +
+          sold_stock_items.joins(:stock_item).sum('price * amount')
+    sum *= price_factor if price_factor.present?
+    sum
   end
 
   def reservation_fees_sum
