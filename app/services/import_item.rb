@@ -12,7 +12,8 @@ class ImportItem
                    description: @item.description,
                    size: @item.size,
                    price: @item.price,
-                   donation: @item.donation }
+                   donation: @item.donation,
+                   gender: @item.gender }
     attributes[:code] = @item.code if copy_code?
     @reservation.items.create attributes
   end
