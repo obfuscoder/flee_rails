@@ -5,8 +5,8 @@ domain: flohmarkthelfer.de
 imprint:
   address:
     - Lehmann Softwarelösungen
-    - Essenweinstraße 19
-    - 76131 Karlsruhe
+    - Am Königsbacher Berg 6
+    - 75203 Königsbach-Stein
   contact: imprint@flohmarkthelfer.de
 bill:
   title: FLOHMARKTHELFER
@@ -19,8 +19,8 @@ bill:
     company: Lehmann Softwarelösungen
     address:
       - Lehmann Softwarelösungen
-      - Essenweinstraße 19
-      - 76131 Karlsruhe
+      - Am Königsbacher Berg 6
+      - 75203 Königsbach-Stein
 default_client:
   name: Flohmarkthelfer
   short_name: Flohmarkt<strong>helfer</strong>
