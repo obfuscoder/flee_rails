@@ -62,7 +62,6 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'timecop'
 end
 
 group :test, :development do
@@ -74,6 +73,8 @@ group :test, :development do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+
+  gem 'timecop'
 
   # sqlite3 version 1.4.0+ is not compatible with latest rails 4 or 5.0.
   # See https://github.com/sparklemotion/sqlite3-ruby/issues/249
