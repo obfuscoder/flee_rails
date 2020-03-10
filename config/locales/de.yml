@@ -72,6 +72,7 @@ de:
   contact:
     show:
       title: Kontakt
+      sum: "Geben Sie bitte die Summe von %{add1} und %{add2} ein"
     submitted:
       title: Kontaktaufnahme erhalten
   reviews:
@@ -542,6 +543,7 @@ de:
         body: Inhalt
         name: Ihr Name
         email: Ihre eMail-Adresse
+        sum: Sicherheitsabfrage
   activerecord:
     models:
       category: Kategorie

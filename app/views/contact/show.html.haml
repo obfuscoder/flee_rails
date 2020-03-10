@@ -12,5 +12,8 @@
       = f.input :email, as: :string, required: true
     = f.input :topic, as: :string
     = f.input :body, as: :text, input_html: { rows: 15 }
+    = f.input :sum, as: :string, hint: t('.sum', add1: f.object.add1, add2: f.object.add2), required: true
+    = f.input :add1, as: :hidden
+    = f.input :add2, as: :hidden
   .form-actions
     = f.button :submit
