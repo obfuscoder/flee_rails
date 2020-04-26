@@ -38,7 +38,9 @@ RSpec.describe ContactController do
     let(:email) { Faker::Internet.email }
     let(:name) { Faker::Name.name }
     let(:contact) { build :contact }
-    let(:contact_params) { { email: email, name: name, topic: contact.topic, body: contact.body } }
+    let(:contact_params) do
+      { email: email, name: name, topic: contact.topic, body: contact.body, add1: 4, add2: 5, sum: 9 }
+    end
 
     it { expect(response).to redirect_to contact_submitted_path }
 
@@ -50,8 +52,17 @@ RSpec.describe ContactController do
       expect(notification_mailer).to have_received(:deliver_now)
     end
 
+    context 'with wrong captcha' do
+      let(:contact_params) do
+        { email: email, name: name, topic: contact.topic, body: contact.body, add1: 4, add2: 5, sum: 10 }
+      end
+
+      it { expect(response).to render_template :show }
+      it { expect(response).to have_http_status :ok }
+    end
+
     context 'with invalid input' do
-      let(:contact_params) { { email: 'asdadsa', name: '', topic: '', body: '' } }
+      let(:contact_params) { { email: 'asdadsa', name: '', topic: '', body: '', add1: 4, add2: 5, sum: 9 } }
 
       it { expect(response).to render_template :show }
       it { expect(response).to have_http_status :ok }
@@ -60,7 +71,7 @@ RSpec.describe ContactController do
     context 'when seller is logged in' do
       let(:seller) { create :seller }
       let(:preparation) { session[:seller_id] = seller.id }
-      let(:contact_params) { { topic: contact.topic, body: contact.body } }
+      let(:contact_params) { { topic: contact.topic, body: contact.body, add1: 4, add2: 5, sum: 9 } }
 
       it { expect(response).to redirect_to contact_submitted_path }
 
