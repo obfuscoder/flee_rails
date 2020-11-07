@@ -6,6 +6,7 @@ RSpec.describe CreateEventData do
   let(:client) { Client.first }
   let!(:categories) { create_list :category, 6 }
   let!(:category_with_gender) { create :category, gender: true }
+  let!(:deleted_category) { create :category, gender: true, deleted_at: 1.day.ago }
   let!(:stock_items) { create_list :stock_item, 4 }
 
   describe '#call' do
@@ -44,7 +45,7 @@ RSpec.describe CreateEventData do
         its(:first) { is_expected.to include sold: 2 }
       end
 
-      its([:categories]) { is_expected.to have(7).items }
+      its([:categories]) { is_expected.to have(8).items }
       its([:categories]) { is_expected.to all(include(:id, :name)) }
 
       its([:sellers]) { is_expected.to have(2).items }

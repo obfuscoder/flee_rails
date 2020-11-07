@@ -9,7 +9,7 @@ class CreateEventData
       json.call @event, :id, :number, :name, :token, :price_precision, :precise_bill_amounts,
                 :commission_rate, :reservation_fee, :price_factor,
                 :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance, :gates
-      json.categories @client.categories.all, :id, :name
+      json.categories @client.categories.all.with_deleted, :id, :name
       json.stock_items @client.stock_items.all do |stock_item|
         json.description stock_item.description
         json.price stock_item.price
