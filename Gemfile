@@ -25,7 +25,7 @@ gem 'mysql2'
 gem 'paranoia' # soft delete records
 gem 'prawn' # pdf generation
 gem 'prawn-table'
-gem 'puma'
+gem 'puma', '< 5' # we need to stay below 5.x as capistrano3-puma 5.x is not yet released
 gem 'rails', '~> 5.1.0'
 gem 'rake'
 gem 'redcarpet' # markdown
