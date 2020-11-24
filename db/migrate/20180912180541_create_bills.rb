@@ -1,4 +1,4 @@
-class CreateBills < ActiveRecord::Migration
+class CreateBills < ActiveRecord::Migration[4.2]
   def change
     create_table :bills do |t|
       t.references :event, index: true, foreign_key: true

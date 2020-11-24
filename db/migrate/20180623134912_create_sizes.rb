@@ -1,4 +1,4 @@
-class CreateSizes < ActiveRecord::Migration
+class CreateSizes < ActiveRecord::Migration[4.2]
   def change
     create_table :sizes do |t|
       t.timestamps null: false

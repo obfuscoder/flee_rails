@@ -1,4 +1,4 @@
-class CreateTimePeriods < ActiveRecord::Migration
+class CreateTimePeriods < ActiveRecord::Migration[4.2]
   def change
     create_table :time_periods do |t|
       t.timestamps null: false

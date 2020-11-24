@@ -1,4 +1,4 @@
-class UpdateIndexOnNumberAndCodeForStockItems < ActiveRecord::Migration
+class UpdateIndexOnNumberAndCodeForStockItems < ActiveRecord::Migration[4.2]
   def change
     remove_index :stock_items, column: :number
     remove_index :stock_items, column: :code

@@ -1,4 +1,4 @@
-class AddDonationToItem < ActiveRecord::Migration
+class AddDonationToItem < ActiveRecord::Migration[4.2]
   def change
     add_column :items, :donation, :boolean
   end

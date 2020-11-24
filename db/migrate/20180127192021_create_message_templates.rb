@@ -1,4 +1,4 @@
-class CreateMessageTemplates < ActiveRecord::Migration
+class CreateMessageTemplates < ActiveRecord::Migration[4.2]
   def change
     create_table :message_templates do |t|
       t.timestamps null: false

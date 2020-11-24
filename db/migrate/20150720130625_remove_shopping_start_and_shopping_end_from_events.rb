@@ -1,4 +1,4 @@
-class RemoveShoppingStartAndShoppingEndFromEvents < ActiveRecord::Migration
+class RemoveShoppingStartAndShoppingEndFromEvents < ActiveRecord::Migration[4.2]
   def up
     remove_columns :events, :shopping_start, :shopping_end
   end

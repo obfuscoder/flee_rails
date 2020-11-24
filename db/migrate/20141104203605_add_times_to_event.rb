@@ -1,4 +1,4 @@
-class AddTimesToEvent < ActiveRecord::Migration
+class AddTimesToEvent < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :shopping_start, :datetime
     add_column :events, :shopping_end, :datetime

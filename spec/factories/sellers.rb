@@ -6,7 +6,7 @@ FactoryBot.define do
     street { Faker::Address.street_address }
     zip_code { Faker::Address.zip }
     city { Faker::Address.city }
-    phone { Faker::PhoneNumber.phone_number }
+    phone { Faker::PhoneNumber.cell_phone_in_e164 }
     mailing { true }
     email { Faker::Internet.email }
     sequence(:token) { |n| "token#{n}" }

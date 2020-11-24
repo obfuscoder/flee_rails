@@ -4,10 +4,10 @@ gem 'awesome_print'
 gem 'baby_squeel' # database query DSL
 gem 'barby' # pdf barcodes
 gem 'bootsnap'
+gem 'bootstrap3-datetimepicker-rails'
 gem 'bootstrap-multiselect-rails'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
-gem 'bootstrap3-datetimepicker-rails'
 gem 'chartkick' # charts / graphics
 gem 'cocoon'
 gem 'coffee-rails'
@@ -42,9 +42,9 @@ gem 'whenever', require: false # cron
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 
 group :development do
+  gem 'capistrano3-puma'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'capistrano3-puma'
   gem 'spring'
 end
 

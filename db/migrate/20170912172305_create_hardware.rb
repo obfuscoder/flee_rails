@@ -1,4 +1,4 @@
-class CreateHardware < ActiveRecord::Migration
+class CreateHardware < ActiveRecord::Migration[4.2]
   def change
     create_table :hardware do |t|
       t.timestamps null: false

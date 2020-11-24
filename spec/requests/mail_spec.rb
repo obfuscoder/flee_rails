@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'mail request' do
-  let(:mail_content) { File.binread(File.dirname(__FILE__) + '/registration_mail.txt') }
+  let(:mail_content) { File.binread("#{File.dirname(__FILE__)}/registration_mail.txt") }
   let(:preparations) {}
 
   before do

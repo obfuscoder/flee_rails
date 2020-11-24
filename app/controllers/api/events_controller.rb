@@ -24,7 +24,7 @@ module Api
     end
 
     def transaction_params
-      params.permit(_json: [:id, :type, :date, items: []]).to_h.first.last
+      params.permit(_json: [:id, :type, :date, { items: [] }]).to_h.first.last
     end
   end
 end

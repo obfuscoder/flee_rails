@@ -1,7 +1,8 @@
-class MoveShoppingTimesToTimePeriod < ActiveRecord::Migration
+class MoveShoppingTimesToTimePeriod < ActiveRecord::Migration[4.2]
   class Event < ApplicationRecord
     has_one :shopping_period, -> { where kind: :shopping }, class_name: 'TimePeriod'
   end
+
   class TimePeriod < ApplicationRecord; end
 
   def up

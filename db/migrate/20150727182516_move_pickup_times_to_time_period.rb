@@ -1,7 +1,8 @@
-class MovePickupTimesToTimePeriod < ActiveRecord::Migration
+class MovePickupTimesToTimePeriod < ActiveRecord::Migration[4.2]
   class Event < ApplicationRecord
     has_many :pickup_periods, -> { where kind: :pickup }, class_name: 'TimePeriod'
   end
+
   class TimePeriod < ApplicationRecord; end
 
   def up

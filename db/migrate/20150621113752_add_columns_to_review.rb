@@ -1,4 +1,4 @@
-class AddColumnsToReview < ActiveRecord::Migration
+class AddColumnsToReview < ActiveRecord::Migration[4.2]
   def change
     add_column :reviews, :registration, :integer
     add_column :reviews, :items, :integer

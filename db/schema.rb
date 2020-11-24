@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200215133339) do
+ActiveRecord::Schema.define(version: 20201124102800) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
     t.string "number"
-    t.binary "document"
+    t.binary "document", limit: 1000000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_bills_on_event_id"
@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 20200215133339) do
     t.string "logo"
     t.string "address"
     t.string "invoice_address"
-    t.text "intro"
-    t.text "outro"
+    t.string "intro"
+    t.string "outro"
     t.string "mail_address"
-    t.text "terms"
+    t.string "terms"
     t.decimal "reservation_fee", precision: 4, scale: 2
     t.decimal "commission_rate", precision: 3, scale: 2
     t.decimal "price_precision", precision: 3, scale: 2
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20200215133339) do
     t.integer "hardware_id"
     t.integer "event_id"
     t.integer "amount"
+    t.index ["event_id", "hardware_id"], name: "index_rentals_on_event_id_and_hardware_id", unique: true
     t.index ["event_id"], name: "index_rentals_on_event_id"
     t.index ["hardware_id"], name: "index_rentals_on_hardware_id"
   end
@@ -240,7 +241,7 @@ ActiveRecord::Schema.define(version: 20200215133339) do
     t.boolean "recommend"
     t.text "to_improve"
     t.integer "reservation_id"
-    t.index ["reservation_id"], name: "index_reviews_on_reservation_id"
+    t.index ["reservation_id"], name: "index_reviews_on_reservation_id", unique: true
   end
 
   create_table "sellers", force: :cascade do |t|
@@ -259,6 +260,7 @@ ActiveRecord::Schema.define(version: 20200215133339) do
     t.datetime "deleted_at"
     t.integer "client_id"
     t.integer "default_reservation_number"
+    t.index ["client_id", "default_reservation_number"], name: "index_sellers_on_client_id_and_default_reservation_number", unique: true
     t.index ["client_id"], name: "index_sellers_on_client_id"
     t.index ["deleted_at"], name: "index_sellers_on_deleted_at"
     t.index ["email", "client_id"], name: "index_sellers_on_email_and_client_id", unique: true, where: "deleted_at IS NULL"

@@ -1,4 +1,4 @@
-class CreateSoldStockItems < ActiveRecord::Migration
+class CreateSoldStockItems < ActiveRecord::Migration[4.2]
   def change
     create_table :sold_stock_items do |t|
       t.timestamps null: false

@@ -13,7 +13,7 @@ RSpec.describe Bill do
   describe '#from_address' do
     subject(:action) { bill.from_address }
 
-    it { is_expected.to include "Lehmann Softwarelösungen" }
+    it { is_expected.to include 'Lehmann Softwarelösungen' }
   end
 
   describe '#address' do

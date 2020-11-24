@@ -1,7 +1,7 @@
 require 'review'
 require 'reservation'
 
-class AddReservationToReviews < ActiveRecord::Migration
+class AddReservationToReviews < ActiveRecord::Migration[4.2]
   def up
     rename_column :reviews, :reservation, :reservation_process
     add_reference :reviews, :reservation, index: true, foreign_key: true

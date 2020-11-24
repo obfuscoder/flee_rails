@@ -54,11 +54,9 @@ class SellersController < ApplicationController
     init_session_and_seller
     goto = params[:goto]
     event = params[:event]
-    if %w[show review reserve].include?(goto)
-      if event.present?
-        path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
-        return redirect_to send(path_method, event)
-      end
+    if %w[show review reserve].include?(goto) && event.present?
+      path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
+      return redirect_to send(path_method, event)
     end
     redirect_to seller_path
   end

@@ -6,7 +6,6 @@ require 'capistrano/deploy'
 require 'capistrano/rails'
 require 'capistrano/rvm'
 require 'capistrano/puma'
-require 'capistrano/deploy'
 
 require 'whenever/capistrano'
 

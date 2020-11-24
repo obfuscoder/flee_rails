@@ -1,4 +1,4 @@
-class AddColumnsToEmails < ActiveRecord::Migration
+class AddColumnsToEmails < ActiveRecord::Migration[4.2]
   def change
     add_column :emails, :from, :string
     add_column :emails, :cc, :string

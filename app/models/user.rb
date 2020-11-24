@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
-  attr_accessor :old_password
-  attr_accessor :password_confirmation
+  attr_accessor :old_password, :password_confirmation
 
   belongs_to :client
 

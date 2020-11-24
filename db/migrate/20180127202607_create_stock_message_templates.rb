@@ -1,4 +1,4 @@
-class CreateStockMessageTemplates < ActiveRecord::Migration
+class CreateStockMessageTemplates < ActiveRecord::Migration[4.2]
   def change
     create_table :stock_message_templates do |t|
       t.string :category

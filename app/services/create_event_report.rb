@@ -11,7 +11,7 @@ class CreateEventReport
         item.category.name,
         item.description,
         item.size,
-        item.gender.present? ? I18n.t('gender.' + item.gender) : '',
+        item.gender.present? ? I18n.t("gender.#{item.gender}") : '',
         item.price,
         I18n.t(item.sold.present?)
       ].join("\t")

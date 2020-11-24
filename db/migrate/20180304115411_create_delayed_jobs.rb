@@ -1,4 +1,4 @@
-class CreateDelayedJobs < ActiveRecord::Migration
+class CreateDelayedJobs < ActiveRecord::Migration[4.2]
   def change
     create_table :delayed_jobs, force: true do |table|
       table.timestamps null: true

@@ -1,7 +1,8 @@
-class MoveHandoverTimesToTimePeriod < ActiveRecord::Migration
+class MoveHandoverTimesToTimePeriod < ActiveRecord::Migration[4.2]
   class Event < ApplicationRecord
     has_many :handover_periods, -> { where kind: :handover }, class_name: 'TimePeriod'
   end
+
   class TimePeriod < ApplicationRecord; end
 
   def up

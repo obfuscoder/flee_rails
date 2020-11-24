@@ -1,4 +1,4 @@
-class AddClientReference < ActiveRecord::Migration
+class AddClientReference < ActiveRecord::Migration[4.2]
   def change
     add_reference :categories, :client, index: true
     add_reference :events, :client, index: true
