@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20201124102800) do
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
     t.string "number"
-    t.binary "document", limit: 1000000
+    t.binary "document"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_bills_on_event_id"
@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 20201124102800) do
     t.string "logo"
     t.string "address"
     t.string "invoice_address"
-    t.string "intro"
-    t.string "outro"
+    t.text "intro"
+    t.text "outro"
     t.string "mail_address"
-    t.string "terms"
+    t.text "terms"
     t.decimal "reservation_fee", precision: 4, scale: 2
     t.decimal "commission_rate", precision: 3, scale: 2
     t.decimal "price_precision", precision: 3, scale: 2

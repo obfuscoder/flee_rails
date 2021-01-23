@@ -47,7 +47,7 @@ module ApplicationHelper
     icon = ops.delete :icon
     if icon.is_a? Symbol
       icon = icon.to_s.dasherize
-      return "#{tag.span('', class: ['glyphicon', "glyphicon-#{icon}"], aria_hidden: true)} #{name}"
+      return "#{tag.span('', class: ['glyphicon', "glyphicon-#{icon}"], aria_hidden: true)} #{name}".html_safe
     end
     name
   end
