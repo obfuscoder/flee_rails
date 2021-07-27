@@ -46,6 +46,13 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'spring'
+  gem 'solargraph'
+
+  gem 'rubocop'
+  gem 'rubocop-faker'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :test do
@@ -68,11 +75,6 @@ group :test, :development do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'
-  gem 'rubocop'
-  gem 'rubocop-faker'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
 
   gem 'timecop'
 
@@ -81,4 +83,8 @@ group :test, :development do
   # and https://github.com/rails/rails/issues/35161
   # and https://github.com/rails/rails/issues/35153
   gem 'sqlite3', '< 1.4.0'
+
+  gem 'ruby-debug-ide'
+
+  gem 'debase'
 end

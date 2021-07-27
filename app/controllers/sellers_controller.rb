@@ -11,6 +11,7 @@ class SellersController < ApplicationController
 
   def edit
     @seller = current_seller
+    @seller.first_name = "hello"
   end
 
   def create
