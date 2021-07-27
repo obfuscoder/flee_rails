@@ -33,7 +33,6 @@ gem 'rollbar'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'sorcery'
-gem 'therubyracer' unless RUBY_PLATFORM.match?(/darwin/)
 gem 'uglifier'
 gem 'underscore-rails'
 gem 'validates_email_format_of'
@@ -45,8 +44,8 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'spring'
   gem 'solargraph'
+  gem 'spring'
 
   gem 'rubocop'
   gem 'rubocop-faker'

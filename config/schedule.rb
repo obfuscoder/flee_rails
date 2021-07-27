@@ -8,3 +8,7 @@ every :day, at: '1am' do
   rake 'db:demo:reset'
   rake 'db:backup'
 end
+
+every :day, at: '8am' do
+  rake 'jobs:check'
+end

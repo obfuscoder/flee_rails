@@ -233,7 +233,6 @@ GEM
       kramdown (~> 2.0)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libv8 (3.16.14.19)
     loofah (2.10.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -333,7 +332,6 @@ GEM
     rainbow (3.0.0)
     rake (13.0.6)
     redcarpet (3.5.1)
-    ref (2.0.0)
     regexp_parser (2.1.1)
     reverse_markdown (2.0.0)
       nokogiri
@@ -451,9 +449,6 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.2)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -543,7 +538,6 @@ DEPENDENCIES
   sorcery
   spring
   sqlite3 (< 1.4.0)
-  therubyracer
   timecop
   uglifier
   underscore-rails
