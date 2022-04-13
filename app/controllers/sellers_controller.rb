@@ -11,7 +11,6 @@ class SellersController < ApplicationController
 
   def edit
     @seller = current_seller
-    @seller.first_name = "hello"
   end
 
   def create
@@ -59,6 +58,8 @@ class SellersController < ApplicationController
       path_method = goto == 'show' ? 'event_path' : "#{goto}_event_path"
       return redirect_to send(path_method, event)
     end
+    return block_mailing if goto == 'unsubscribe'
+
     redirect_to seller_path
   end
 
@@ -76,7 +77,7 @@ class SellersController < ApplicationController
 
   def block_mailing
     current_seller.update!(mailing: false)
-    redirect_to seller_path, notice: t('.success')
+    redirect_to seller_path, notice: t('sellers.block_mailing.success')
   end
 
   def allow_mailing

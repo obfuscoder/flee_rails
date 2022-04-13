@@ -191,8 +191,9 @@ RSpec.describe SellersController do
   end
 
   describe 'GET login' do
-    subject(:action) { get :login, params: { token: token } }
+    subject(:action) { get :login, params: params }
 
+    let(:params) { { token: token } }
     let(:seller) { create :seller }
 
     context 'with valid token' do
@@ -207,6 +208,26 @@ RSpec.describe SellersController do
 
       it 'stores seller id in session' do
         expect { action }.to change { session[:seller_id] }.to seller.id
+      end
+
+      context 'with goto=unsubscribe' do
+        before { action }
+
+        let(:params) { { token: token, goto: 'unsubscribe' } }
+
+        it { is_expected.to redirect_to seller_path }
+
+        describe 'flash[:notice]' do
+          subject { flash[:notice] }
+
+          it { is_expected.to eq 'Die Mailbenachrichtigungen wurden für Sie deaktiviert.' }
+        end
+
+        describe 'seller' do
+          subject { seller.reload }
+
+          its(:mailing) { is_expected.to eq false }
+        end
       end
 
       context 'when seller was not active' do

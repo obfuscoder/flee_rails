@@ -5,6 +5,13 @@ RSpec.shared_examples 'a seller mail' do
   let(:to) { seller.email }
 
   it_behaves_like 'a mail'
+
+  describe 'unsubscribe header' do
+    subject { mail.header['List-Unsubscribe'].value }
+
+    it { is_expected.to start_with '<http://demo.test.host/sellers/login/token' }
+    it { is_expected.to end_with '?goto=unsubscribe>' }
+  end
 end
 
 RSpec.shared_examples 'a seller mail with attachment' do

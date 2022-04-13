@@ -63,23 +63,25 @@ class SellerMailer < ApplicationMailer
     body = body.gsub(/{{\s*login_link\s*}}/, '{{ login_url }}')
     generator = MessageGenerator.new(seller: @seller, urls: urls)
     message = generator.generate(OpenStruct.new(subject: subject, body: body))
-    mail subject: message.subject do |format|
+    build message
+  end
+
+  private
+
+  def build(message)
+    headers['List-Unsubscribe'] = "<#{urls[:unsubscribe]}>"
+    mail to: @seller.email, from: @client.mail_from, subject: message.subject do |format|
       format.text { render plain: message.body }
       format.html { render html: markdown(message.body).html_safe }
     end
   end
-
-  private
 
   def mail_template(category)
     template = fetch_template(category)
     generator = MessageGenerator.new(event: @event, reservation: @reservation, seller: @seller,
                                      position: @position, urls: urls)
     message = generator.generate(template)
-    mail to: @seller.email, from: @client.mail_from, subject: message.subject do |format|
-      format.text { render plain: message.body }
-      format.html { render html: markdown(message.body).html_safe }
-    end
+    build message
   end
 
   def fetch_template(category)
@@ -95,7 +97,8 @@ class SellerMailer < ApplicationMailer
       login: login_seller_url(@seller.token, host: @client.domain),
       results: login_seller_url(@seller.token, host: @client.domain, goto: :show, event: @event),
       review: login_seller_url(@seller.token, host: @client.domain, goto: :review, event: @event),
-      reserve: login_seller_url(@seller.token, host: @client.domain, goto: :reserve, event: @event)
+      reserve: login_seller_url(@seller.token, host: @client.domain, goto: :reserve, event: @event),
+      unsubscribe: login_seller_url(@seller.token, host: @client.domain, goto: :unsubscribe)
     }
   end
 end
