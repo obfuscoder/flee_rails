@@ -1,7 +1,7 @@
 de:
   print: Drucken
   gender:
-    male: Junge/männchlich
+    male: Junge/männlich
     female: Mädchen/weiblich
     both: beide
   size_option:
