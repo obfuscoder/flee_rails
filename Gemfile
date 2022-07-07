@@ -44,14 +44,13 @@ group :development do
   gem 'capistrano3-puma'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'solargraph'
-  gem 'spring'
-
   gem 'rubocop'
   gem 'rubocop-faker'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'solargraph'
+  gem 'spring'
 end
 
 group :test do
@@ -71,19 +70,11 @@ group :test do
 end
 
 group :test, :development do
+  gem 'debase'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-rails'
-
-  gem 'timecop'
-
-  # sqlite3 version 1.4.0+ is not compatible with latest rails 4 or 5.0.
-  # See https://github.com/sparklemotion/sqlite3-ruby/issues/249
-  # and https://github.com/rails/rails/issues/35161
-  # and https://github.com/rails/rails/issues/35153
-  gem 'sqlite3', '< 1.4.0'
-
   gem 'ruby-debug-ide'
-
-  gem 'debase'
+  gem 'sqlite3'
+  gem 'timecop'
 end
