@@ -68,8 +68,7 @@ class Event < ApplicationRecord
   end
 
   def reservable_by?(seller)
-    reservations_left? && client.reservation_by_seller_allowed? &&
-      can_add_to_notifications?(seller)
+    reservations_left? && can_add_to_notifications?(seller)
   end
 
   def notifiable_by?(seller)

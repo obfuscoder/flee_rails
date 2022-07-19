@@ -82,7 +82,7 @@ RSpec.describe Event do
       let(:event) { create :event_with_ongoing_reservation, client: client }
       let(:seller) { create :seller, client: client }
 
-      it { is_expected.to eq false }
+      it { is_expected.to eq true }
     end
   end
 
