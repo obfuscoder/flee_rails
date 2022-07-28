@@ -73,7 +73,7 @@ RSpec.describe 'admin sellers' do
         let(:preparation) { item_with_code }
 
         it 'shows code' do
-          expect(page).to have_content item.code
+          expect(page).to have_content item_with_code.code
         end
       end
     end

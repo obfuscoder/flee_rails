@@ -28,7 +28,7 @@ RSpec.describe 'admin event reviews' do
     expect(page).to have_content 'Bewertungen'
     expect(page).to have_content 'Anzahl: 3'
     reviews.each do |review|
-      expect(page).to have_link review.reservation.number, href: admin_seller_path(review.reservation.seller)
+      expect(page).to have_link review.reservation.number.to_s, href: admin_seller_path(review.reservation.seller)
     end
     expect(page).to have_content '2,0'
     expect(page).to have_content '2,3'

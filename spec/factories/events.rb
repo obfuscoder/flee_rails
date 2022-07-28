@@ -8,6 +8,7 @@ FactoryBot.define do
     end
 
     sequence(:name) { |n| "Event #{n}" }
+    sequence(:details) { |n| "Event details #{n}" }
     max_reservations { 10 }
     reservation_start { 1.day.from_now }
     reservation_end { shopping_time - 1.day }
