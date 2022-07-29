@@ -4,7 +4,7 @@ module Admin
 
     def create
       @email = create_params[:email]
-      user = User.find_by email: @email
+      user = current_client.users.find_by email: @email
       if user.nil?
         redirect_to new_admin_reset_password_path, alert: t('.unknown_email', email: @email)
       else
@@ -17,13 +17,13 @@ module Admin
 
     def edit
       @token = params[:token]
-      @user = User.load_from_reset_password_token(@token)
+      @user = current_client.users.load_from_reset_password_token(@token)
       redirect_to admin_login_path, alert: t('.unknown_token') if @user.nil?
     end
 
     def update
       @token = params[:token]
-      @user = User.load_from_reset_password_token(@token)
+      @user = current_client.users.load_from_reset_password_token(@token)
       if @user.nil?
         redirect_to admin_login_path, alert: t('.unknown_token')
       else
