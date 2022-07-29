@@ -120,7 +120,13 @@ Rails.application.routes.draw do
     end
     get 'emails', controller: :emails
     post 'emails', controller: :emails, action: :create
-    resource :user
+
+    resource :user, only: %i[edit update]
+
+    resource :reset_password, only: %i[new create]
+    get 'reset_password/token/:token', to: 'reset_passwords#edit', as: :reset_password_edit
+    patch 'reset_password/token/:token', to: 'reset_passwords#update', as: :reset_password_update
+
     get 'login', controller: :sessions, action: :new
     post 'login', controller: :sessions, action: :create
     get 'logout', controller: :sessions, action: :destroy

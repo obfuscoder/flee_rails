@@ -1,0 +1,7 @@
+- content_for :title, t('.title')
+= simple_form_for :reset_password, url: admin_reset_password_path do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :email, placeholder: @email
+  .form-actions
+    = f.button :submit

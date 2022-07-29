@@ -1,0 +1,9 @@
+- content_for :title, t('.title')
+= t('.intro')
+= simple_form_for @user, url: admin_reset_password_update_path(token: @token) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :password
+    = f.input :password_confirmation
+  .form-actions
+    = f.button :submit

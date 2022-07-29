@@ -40,6 +40,10 @@ class DataExtractor
     urls[:download]
   end
 
+  def password_reset_url
+    urls[:password_reset]
+  end
+
   def event_shopping_time
     ApplicationController.helpers.shopping_time(event)
   end

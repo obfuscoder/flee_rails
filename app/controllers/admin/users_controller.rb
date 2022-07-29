@@ -6,7 +6,8 @@ module Admin
 
     def update
       @user = current_user
-      if @user.update user_params
+      @user.assign_attributes(user_params)
+      if @user.save(context: :change_password)
         redirect_to admin_path, notice: t('.success')
       else
         render :edit

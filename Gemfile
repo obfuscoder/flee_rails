@@ -51,6 +51,7 @@ group :development do
   gem 'rubocop-rspec'
   gem 'solargraph'
   gem 'spring'
+  gem 'web-console'
 end
 
 group :test do

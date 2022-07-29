@@ -45,6 +45,13 @@ class NotificationMailer < ApplicationMailer
     mail_template(__method__)
   end
 
+  def reset_password_instructions(user, password_reset_url)
+    @user = user
+    @client = @user.client
+    @urls = { password_reset: password_reset_url }
+    mail_template(__method__, to: @user.email)
+  end
+
   private
 
   def mail_template(category, options = {})
@@ -61,7 +68,8 @@ class NotificationMailer < ApplicationMailer
                                      urls: @urls
     message = generator.generate(template)
     from = options[:from] || @client.mail_from
-    mail_options = { to: @client.mail_from, from: from, subject: message.subject }
+    to = options[:to] || @client.mail_from
+    mail_options = { to: to, from: from, subject: message.subject }
     mail_options[:bcc] = options[:bcc] if options[:bcc].present?
     mail mail_options do |format|
       format.text { render plain: message.body }

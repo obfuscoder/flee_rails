@@ -6,12 +6,19 @@ class User < ApplicationRecord
   belongs_to :client
 
   validates :email, uniqueness: { scope: :client_id }
-  validates :password, confirmation: { on: :update }
   validates :client, presence: true
-  validates :old_password, :password, :password_confirmation, presence: { on: :update }
-  validate :old_password_correct, on: :update
-  validate :password_differs_from_old_password, on: :update
-  validate :password_strength, on: :update
+
+  with_options on: :change_password do
+    validates :password, confirmation: true
+    validates :old_password, :password, :password_confirmation, presence: true
+    validate :password_change
+  end
+
+  with_options on: :reset_password do
+    validates :password, confirmation: true
+    validates :password, :password_confirmation, presence: true
+    validate :password_reset
+  end
 
   private
 
@@ -23,6 +30,18 @@ class User < ApplicationRecord
 
   def password_differs_from_old_password
     errors.add(:password, :no_change) if password == old_password
+  end
+
+  # having multiple custom validator methods in the with_options blocks caused one validator not to be called.
+  # no ideaa why. using a custom validator method for each with_options block/context solved the problem.
+  def password_change
+    old_password_correct
+    password_differs_from_old_password
+    password_strength
+  end
+
+  def password_reset
+    password_strength
   end
 
   def password_strength

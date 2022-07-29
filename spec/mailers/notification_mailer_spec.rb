@@ -68,4 +68,8 @@ RSpec.describe NotificationMailer do
 
     its(:subject) { is_expected.to include 'Etiketten' }
   end
+
+  describe '#reset_password_instructions' do
+    it 'works'
+  end
 end

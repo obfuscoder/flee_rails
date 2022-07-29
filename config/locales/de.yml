@@ -69,6 +69,8 @@ de:
         update: Systemeinstellungen aktualisieren
       contact:
         create: Nachricht senden
+      reset_password:
+        submit: Zurücksetzen
   contact:
     show:
       title: Kontakt
@@ -224,6 +226,32 @@ de:
         title: Passwort ändern
       update:
         success: Passwort wurde geändert
+    reset_passwords:
+      new:
+        title: Passwort zurücksetzen
+      create:
+        title: Passwortrücksetzung wurde initiiert
+        success: >
+          Der Vorgang zum Zurücksetzen des Passworts für den Zugang mit der eMail-Adresse %{email} wurde eingeleitet.
+          Es wird eine Mail an diese eMail-Adresse verschickt, die einen Link für das Neusetzen des Passworts enthält.
+        unknown_email: >
+          Die von Ihnen angegebene eMail-Adresse %{email} ist dem System nicht bekannt.
+          Bitte prüfen Sie Ihre Eingabe sowie den aufgerufenen Online-Bereich.
+      edit:
+        title: Passwort zurücksetzen
+        intro: >
+          Bitte definieren Sie hier ein neues Passwort. Das alte Passwort wird damit ungültig.
+          Anschließend können Sie sich mit dem neuen Passwort anmelden.
+        password: Passwort
+        password_confirmation: Passwortwiederholung
+        unknown_token: >
+          Das Zurücksetzen des Passworts kann nicht durchgeführt werden. Der Link ist möglicherweise nicht mehr gültig.
+          Bitte starten Sie das Zurücksetzen des Passworts erneut.
+      update:
+        success: Das Passwort für die eMail-Adresse %{email} wurde erfolgreich zurückgesetzt. Sie können sich nun mit dem neuen Passwort anmelden.
+        unknown_token: >
+          Das Zurücksetzen des Passworts kann nicht durchgeführt werden. Der Link ist möglicherweise nicht mehr gültig.
+          Bitte starten Sie das Zurücksetzen des Passworts erneut.
     pages:
       home:
         title: Adminbereich
@@ -1085,3 +1113,14 @@ de:
         [Etikettendownload]({{ download_url }})
 
         Das Dokument wird nach 14 Tagen wieder gelöscht. Der Link ist dann nicht mehr verfügbar.
+    reset_password_instructions:
+      subject: Flohmarkthelfer - Passwort zurücksetzen
+      body: |
+        Es wurde für diese eMail-Adresse das Zurücksetzen des Zugangspassworts initiiert.
+        Sollten Sie dies nicht selbst ausgelöst haben, bitte löschen Sie diese eMail.
+        Sie müssen dann nichts weiter tun.
+
+        Wenn Sie Ihr Passwort zurücksetzen wollen, klicken Sie bitte auf den folgenden Link.
+        Sie werden dann zur Eingabe eines neuen Passworts aufgefordert:
+
+        [Passwort zurücksetzen]({{ password_reset_url }})
