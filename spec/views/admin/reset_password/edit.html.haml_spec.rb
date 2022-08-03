@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'admin/reset_passwords/edit' do
+RSpec.describe 'admin/reset_password/edit' do
   let(:token) { 'token' }
   let(:user) { create :user }
 

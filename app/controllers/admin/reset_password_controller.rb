@@ -1,5 +1,5 @@
 module Admin
-  class ResetPasswordsController < ApplicationController
+  class ResetPasswordController < ApplicationController
     def new; end
 
     def create

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Admin
-  RSpec.describe ResetPasswordsController do
+  RSpec.describe ResetPasswordController do
     describe 'GET new' do
       before { get :new }
 

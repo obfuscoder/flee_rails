@@ -6,6 +6,7 @@ module Admin
         { link: admin_path, title: 'Adminbereich', icon: :home },
         { link: admin_events_path, title: 'Termine', icon: :calendar },
         { link: admin_sellers_path, title: 'Verkäufer', icon: :user },
+        { title: 'Mails', link: admin_emails_path, icon: :envelope },
         {
           title: 'Stammdaten', icon: :wrench, items: [
             { link: admin_categories_path, title: 'Kategorien', icon: :align_justify },
@@ -14,8 +15,6 @@ module Admin
             { link: edit_admin_client_path, title: 'Systemeinstellungen', icon: :cog }
           ]
         },
-        { title: 'Mails', link: admin_emails_path, icon: :envelope },
-
         { link: '/docs/index.html', title: 'Hilfe', icon: :question_sign }
       ]
     end

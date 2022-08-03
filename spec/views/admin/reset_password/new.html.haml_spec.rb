@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'admin/reset_passwords/new' do
+RSpec.describe 'admin/reset_password/new' do
   it_behaves_like 'a standard view'
 
   describe 'rendered' do

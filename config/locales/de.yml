@@ -221,12 +221,12 @@ de:
         failure: Anmeldung fehlgeschlagen
       destroy:
         success: Erfolgreich abgemeldet
-    users:
+    change_password:
       edit:
         title: Passwort ändern
       update:
         success: Passwort wurde geändert
-    reset_passwords:
+    reset_password:
       new:
         title: Passwort zurücksetzen
       create:

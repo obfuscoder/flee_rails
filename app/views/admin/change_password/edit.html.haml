@@ -1,5 +1,5 @@
 - content_for :title, t('.title')
-= simple_form_for([:admin, @user]) do |f|
+= simple_form_for(@user, url: admin_change_password_path) do |f|
   = f.error_notification
   .form-inputs
     = f.input :old_password

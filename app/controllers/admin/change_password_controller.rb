@@ -1,5 +1,5 @@
 module Admin
-  class UsersController < AdminController
+  class ChangePasswordController < AdminController
     def edit
       @user = current_user
     end
