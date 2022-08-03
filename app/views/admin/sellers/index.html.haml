@@ -19,6 +19,6 @@
         = icon_link_to t('show'), [:admin, seller], type: :primary, icon: :eye_open
         = icon_link_to t('.emails'), admin_seller_emails_path(seller), type: :info, icon: :envelope
         = icon_link_to t('edit'), edit_admin_seller_path(seller), type: :success, icon: :pencil
-        = destroy_icon_link_to admin_seller_path(seller), message: t('.delete.confirm', seller: seller)
+        = destroy_icon_link_to admin_seller_path(seller), message: t('.destroy.confirm', seller: seller)
 %p= paginate @sellers
 = render '/confirm', locals: { type: :danger }

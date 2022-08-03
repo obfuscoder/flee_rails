@@ -1,4 +1,5 @@
-- key: demo
+- id: 1
+  key: demo
   prefix: XXX
   name: Flohmarkthelfer Demo
   address: |

@@ -9,8 +9,7 @@ module Admin
         redirect_to new_admin_reset_password_path, alert: t('.unknown_email', email: @email)
       else
         user.generate_reset_password_token!
-        password_reset_url = admin_reset_password_edit_url(user.reset_password_token)
-        NotificationMailer.reset_password_instructions(user, password_reset_url).deliver_now
+        NotificationMailer.reset_password_instructions(user).deliver_now
         redirect_to admin_login_path, notice: t('.success', email: @email)
       end
     end

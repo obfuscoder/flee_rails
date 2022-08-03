@@ -121,6 +121,8 @@ Rails.application.routes.draw do
     get 'emails', controller: :emails
     post 'emails', controller: :emails, action: :create
 
+    resources :users
+
     resource :change_password, only: %i[edit update]
     resource :reset_password, only: %i[new create]
     get 'reset_password/token/:token', to: 'reset_password#edit', as: :reset_password_edit

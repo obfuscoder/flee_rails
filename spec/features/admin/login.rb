@@ -1,6 +1,6 @@
 RSpec.shared_context 'when logging in' do
-  let(:admin) { create :admin }
-  let(:password) { 'password' }
+  let(:admin) { User.first }
+  let(:password) { 'Admin123' }
 
   before do
     visit 'http://demo.test.host/admin'

@@ -30,8 +30,7 @@ module Admin
         end
 
         it 'triggers notification mail with token' do
-          expect(NotificationMailer).to have_received(:reset_password_instructions).with(
-            user, admin_reset_password_edit_url(user.reload.reset_password_token))
+          expect(NotificationMailer).to have_received(:reset_password_instructions).with(user)
           expect(notification_mailer).to have_received(:deliver_now)
         end
 

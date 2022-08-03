@@ -1,0 +1,19 @@
+- content_for :title, t('.title')
+%table.table.table-condensed.table-hover.table-striped
+  %tr
+    %th= t('position')
+    %th= sort_link_to User, :name
+    %th= sort_link_to User, :email
+    %th= link_to t('.new'), new_admin_user_path, type: :primary, icon: :file
+
+  - @users.each_with_index do |user, index|
+    %tr
+      %td= @users.offset + index + 1
+      %td= user.name
+      %td= user.email
+      %td.btn-group
+        = icon_link_to t('edit'), edit_admin_user_path(user), type: :success, icon: :pencil
+        - if user != current_user
+          = destroy_icon_link_to admin_user_path(user), message: t('.destroy.confirm', user: user)
+%p= paginate @users
+= render '/confirm', locals: { type: :danger }

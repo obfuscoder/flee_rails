@@ -17,7 +17,7 @@ RSpec.describe 'admin login' do
     end
 
     describe 'change password' do
-      let(:old_password) { 'password' }
+      let(:old_password) { 'Admin123' }
       let(:new_password) { 'N3wP4ssword' }
       let(:password_repeat) { new_password }
 

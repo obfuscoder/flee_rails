@@ -45,10 +45,19 @@ class NotificationMailer < ApplicationMailer
     mail_template(__method__)
   end
 
-  def reset_password_instructions(user, password_reset_url)
+  def reset_password_instructions(user)
     @user = user
     @client = @user.client
-    @urls = { password_reset: password_reset_url }
+    @urls = { password_reset: admin_reset_password_edit_url(@user.reset_password_token, host: @client.domain) }
+    mail_template(__method__, to: @user.email)
+  end
+
+  def user_created(user, password)
+    @user = user
+    @client = @user.client
+    @email = @user.email
+    @password = password
+    @urls = { admin: admin_login_url(host: @client.domain) }
     mail_template(__method__, to: @user.email)
   end
 
@@ -62,6 +71,7 @@ class NotificationMailer < ApplicationMailer
                                      supporter: @supporter,
                                      bill: @bill,
                                      email: @email,
+                                     password: @password,
                                      name: @name,
                                      body: @body,
                                      subject: @subject,

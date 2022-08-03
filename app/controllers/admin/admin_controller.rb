@@ -12,6 +12,7 @@ module Admin
             { link: admin_categories_path, title: 'Kategorien', icon: :align_justify },
             { link: admin_stock_items_path, title: 'Stammartikel', icon: :th_large },
             { link: admin_message_templates_path, title: 'Standardmails', icon: :envelope },
+            { link: admin_users_path, title: 'Nutzerverwaltung', icon: :user },
             { link: edit_admin_client_path, title: 'Systemeinstellungen', icon: :cog }
           ]
         },

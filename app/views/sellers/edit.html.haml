@@ -15,5 +15,5 @@
 %p
   Mit dem folgenden Link können Sie alle Ihre Daten inklusive aller Artikel und Reservierungen löschen.
   Sie können sich jederzeit wieder neu registrieren. Ihre bisher eingebenen Daten sind aber unwiderruflich verloren.
-%p= destroy_link_to seller_path, name: t('.delete.text'), icon: :ban_circle, message: t('.delete.confirm')
+%p= destroy_link_to seller_path, name: t('.destroy.text'), icon: :ban_circle, message: t('.destroy.confirm')
 = render '/confirm', locals: { type: :danger }

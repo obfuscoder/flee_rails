@@ -172,7 +172,7 @@ de:
         Alle Ihre für diesen Flohmarkt eingegebenen Artikel werden gelöscht.
     edit:
       title: Stammdaten bearbeiten
-      delete:
+      destroy:
         text: Ich möchte mich abmelden und meine Daten löschen
         confirm: >
           Sind Sie sicher, dass Sie Ihre Daten löschen wollen?
@@ -203,7 +203,7 @@ de:
       title: Helfergruppen
       help: Helfer werden
       unhelp: Als Helfer zurücktreten
-      delete:
+      destroy:
         confirm: Sind Sie sicher? Sie verlieren damit auch die Vorteile, die mit dieser Helferstelle verknüpft sind.
     destroy:
       success: Helferstelle wurde freigegeben.
@@ -392,7 +392,7 @@ de:
         new: Neuer Verkäufer
         items: Artikel
         emails: eMails
-        delete:
+        destroy:
           confirm: Wollen Sie wirklich den Verkäufer %{seller} löschen?
       new:
         title: Verkäufer anlegen
@@ -552,6 +552,22 @@ de:
         success: Helfer erfolgreich aktualisiert
       destroy:
         success: Helfer gelöscht
+    users:
+      index:
+        title: Nutzerverwaltung
+        new: Neuer Nutzer
+        destroy:
+          confirm: Wollen Sie den Nutzer %{user} wirklich löschen?
+      new:
+        title: Nutzer anlegen
+      create:
+        success: Der Nutzer %{user} wurde erfolgreich angelegt und eine eMail mit den Zugangsdaten an die eMail-Adresse %{email} verschickt.
+      edit:
+        title: Nutzer bearbeiten
+      update:
+        success: Der Nutzer %{user} wurde erfolgreich aktualisiert.
+      destroy:
+        success: Der Nutzer wurde erfolgreich gelöscht.
   activemodel:
     attributes:
       custom_email:
@@ -1124,3 +1140,20 @@ de:
         Sie werden dann zur Eingabe eines neuen Passworts aufgefordert:
 
         [Passwort zurücksetzen]({{ password_reset_url }})
+    user_created:
+      subject: Flohmarkthelfer - Zugangsdaten zum Verwaltungsbereich
+      body: |
+        Sie erhalten diese eMail, weil mit Ihrer eMail-Adresse ein Zugang zum Verwaltungsbereich
+        bei Flohmarkthelfer eingerichtet wurde. Ihre Zugangsdaten sind:
+
+            eMail: {{ email }}
+            Passwort: {{ password }}
+
+        Sie erreichen den Verwaltungsbereich unter folgender Adresse:
+
+        [Verwaltungsbereich]{{ admin_url }}
+
+        Sie können das automatisch vergebene Passwort nach der ersten Anmeldung ändern.
+
+        Viele Grüße,
+        Ihr Flohmarkthelfer-Team

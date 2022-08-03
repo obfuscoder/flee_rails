@@ -5,8 +5,15 @@ class User < ApplicationRecord
 
   belongs_to :client
 
-  validates :email, uniqueness: { scope: :client_id }
-  validates :client, presence: true
+  validates :client, :email, presence: true
+
+  validates :email, uniqueness: { case_sensitive: false, scope: :client_id }
+  validates_email_format_of :email
+
+  with_options on: :create do
+    validates :password, presence: true
+    validate :password_strength
+  end
 
   with_options on: :change_password do
     validates :password, confirmation: true
@@ -20,7 +27,23 @@ class User < ApplicationRecord
     validate :password_reset
   end
 
+  scope :search, ->(needle) { needle.nil? ? all : where.has { sift :full_text_search, needle } }
+
+  def to_s
+    name || email
+  end
+
   private
+
+  before_validation do
+    email&.downcase!
+  end
+
+  sifter :full_text_search do |needle|
+    pattern = "%#{needle}%"
+    email.matches(pattern) |
+      name.matches(pattern)
+  end
 
   def old_password_correct
     # We cannot use valid_password?(old_password) as the salt and encrypted_password has been changed already.
@@ -49,7 +72,8 @@ class User < ApplicationRecord
   end
 
   def password_strong?(password)
-    password.size >= 5 &&
+    password.present? &&
+      password.size >= 5 &&
       password.match(/[[:digit:]]/) &&
       password.match(/[[:lower:]]/) &&
       password.match(/[[:upper:]]/)

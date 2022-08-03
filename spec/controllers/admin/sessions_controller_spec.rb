@@ -2,10 +2,10 @@ require 'rails_helper'
 
 module Admin
   RSpec.describe SessionsController do
-    let(:user) { create :user }
+    let(:user) { User.first }
 
     describe 'POST :create (login)' do
-      before { post :create, params: { user: { email: user.email, password: 'password' } } }
+      before { post :create, params: { user: { email: user.email, password: 'Admin123' } } }
 
       describe 'response' do
         subject { response }

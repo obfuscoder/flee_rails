@@ -20,6 +20,10 @@ class DataExtractor
     DATA
   end
 
+  def admin_url
+    urls[:admin]
+  end
+
   def login_url
     urls[:login]
   end
@@ -78,6 +82,10 @@ class DataExtractor
 
   def email
     @data[:email]
+  end
+
+  def password
+    @data[:password]
   end
 
   def subject

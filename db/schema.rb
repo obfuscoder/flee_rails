@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220728163945) do
+ActiveRecord::Schema.define(version: 20220803083507) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
@@ -395,6 +395,7 @@ ActiveRecord::Schema.define(version: 20220728163945) do
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
     t.integer "access_count_to_reset_password_page", default: 0
+    t.string "name"
     t.index ["client_id"], name: "index_users_on_client_id"
     t.index ["email", "client_id"], name: "index_users_on_email_and_client_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
