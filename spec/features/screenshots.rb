@@ -24,7 +24,7 @@ RSpec.describe 'Screenshots', js: true do
 
     visit 'http://demo.localhost:3000/admin'
     fill_in 'eMail-Adresse', with: 'admin@flohmarkthelfer.de'
-    fill_in 'Passwort', with: 'admin'
+    fill_in 'Passwort', with: 'Admin123'
     capture :admin_login, selector: 'div[role="main"]'
 
     click_on 'Anmelden'

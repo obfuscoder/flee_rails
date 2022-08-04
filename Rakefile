@@ -84,7 +84,7 @@ namespace :db do
       client_seeds = YAML.load_file(Rails.root.join('db/seeds/clients.yml'))
       demo_seed = client_seeds.find { |seed| seed['key'] == 'demo' }
       client = Client.create! demo_seed
-      client.users.create! email: 'admin@flohmarkthelfer.de', password: 'admin'
+      client.users.create! email: 'admin@flohmarkthelfer.de', password: 'Admin123'
       create_demo_categories(client)
       event = create_demo_event(client)
       create_demo_reservation(client, event)
