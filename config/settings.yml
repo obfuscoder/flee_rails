@@ -77,3 +77,4 @@ default_client:
     Datenbank für ihren Flohmarkt zu verlangen.
 mail:
   from: Flohmarkthelfer <info@flohmarkthelfer.de>
+  notify: notify@flohmarkthelfer.de
