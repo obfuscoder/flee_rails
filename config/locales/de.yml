@@ -1157,3 +1157,33 @@ de:
 
         Viele Grüße,
         Ihr Flohmarkthelfer-Team
+  admin_mailer:
+    event_created:
+      subject: Flohmarkthelfer - Termin angelegt
+      body: |
+        Ein Termin wurde angelegt:
+
+            Client: {{ client_name }} ({{ client_key }})
+            Termin: {{ event_name }}
+            Zeit: {{ event_shopping_time }}
+    event_upcoming:
+      subject: Flohmarkthelfer - Vorbereitungen abgeschlossen
+      body: |
+        Die Vorbereitungen für einen Termin wurden abgeschlossen:
+
+            Client: {{ client_name }} ({{ client_key }})
+            Termin: {{ event_name }}
+            Zeit: {{ event_shopping_time }}
+            Artikel: {{ event_item_count }}
+    event_finished:
+      subject: Flohmarkthelfer - Termin abgeschlossen
+      body: |
+        Ein Termin wurde abgeschlossen:
+        
+            Client: {{ client_name }} ({{ client_key }})
+            Termin: {{ event_name }}
+            Zeit: {{ event_shopping_time }}
+            Artikel: {{ event_item_count }}
+            verkauft: {{ event_sold_item_count }}
+            Umsatz: {{ event_revenue }}
+            Gebühren: {{ event_total_fees }}

@@ -143,8 +143,12 @@ RSpec.describe Admin::EventsController do
 
   describe 'POST create' do
     let(:event) { attributes_for(:event) }
+    let(:admin_mailer) { double deliver_later: nil }
 
-    before { post :create, params: { event: event } }
+    before do
+      allow(AdminMailer).to receive(:event_created).and_return admin_mailer
+      post :create, params: { event: event }
+    end
 
     describe 'response' do
       subject { response }
@@ -172,6 +176,11 @@ RSpec.describe Admin::EventsController do
       it 'creates event with price_factor set' do
         expect(Event.last.price_factor).to eq event[:price_factor]
       end
+    end
+
+    it 'triggers admin mailer for created event' do
+      expect(AdminMailer).to have_received(:event_created).with(Event.last)
+      expect(admin_mailer).to have_received(:deliver_later)
     end
   end
 

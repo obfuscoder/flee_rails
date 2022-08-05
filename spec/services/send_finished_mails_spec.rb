@@ -12,8 +12,12 @@ RSpec.describe SendFinishedMails do
     let(:reservation2) { double :reservation2 }
     let(:reservations) { [reservation1, reservation2] }
     let(:messages) { double :messages, create: nil }
+    let(:admin_mailer) { double deliver_later: nil }
 
-    before { allow(SendFinishedJob).to receive :perform_later }
+    before do
+      allow(SendFinishedJob).to receive :perform_later
+      allow(AdminMailer).to receive(:event_finished).and_return admin_mailer
+    end
 
     it { is_expected.to eq reservations.count }
 
@@ -27,6 +31,12 @@ RSpec.describe SendFinishedMails do
       reservations.each do |reservation|
         expect(SendFinishedJob).to have_received(:perform_later).with(reservation)
       end
+    end
+
+    it 'triggers admin mailer for finished event' do
+      action
+      expect(AdminMailer).to have_received(:event_finished).with(event)
+      expect(admin_mailer).to have_received(:deliver_later)
     end
   end
 end

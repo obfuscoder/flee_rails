@@ -28,6 +28,7 @@ module Admin
     def create
       @event = current_client.events.create(event_params)
       if @event.valid?
+        AdminMailer.event_created(@event).deliver_later
         redirect_to admin_events_path, notice: t('.success')
       else
         render :new

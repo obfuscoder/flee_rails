@@ -3,8 +3,11 @@ class DataExtractor
     @data = data
   end
 
+  delegate :name, :key, to: :client, prefix: true
   delegate :name, :first_name, :last_name, :street, :zip_code, :city, :phone, :email, to: :seller, prefix: true
-  delegate :name, :max_reservations, :max_items_per_reservation, :max_reservations_per_seller, to: :event, prefix: true
+  delegate :name, :max_reservations, :max_items_per_reservation, :max_reservations_per_seller,
+           :item_count, :sold_item_count,
+           to: :event, prefix: true
   delegate :number, to: :reservation, prefix: true
   delegate :comments, to: :supporter, prefix: true
   delegate :name, to: :support_type, prefix: true
@@ -76,6 +79,14 @@ class DataExtractor
     ApplicationController.helpers.number_to_currency(event.reservation_fee)
   end
 
+  def event_total_fees
+    ApplicationController.helpers.number_to_currency(event.total_fees)
+  end
+
+  def event_revenue
+    ApplicationController.helpers.number_to_currency(event.revenue)
+  end
+
   def name
     @data[:name]
   end
@@ -104,6 +115,10 @@ class DataExtractor
 
   def event
     @data[:event]
+  end
+
+  def client
+    @data[:client]
   end
 
   def reservation
