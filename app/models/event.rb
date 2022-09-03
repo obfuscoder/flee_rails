@@ -35,6 +35,7 @@ class Event < ApplicationRecord
   validates :reservation_fee, numericality: { greater_than_or_equal_to: 0.0, less_than: 50 }
   validates :max_reservations, numericality: { greater_than: 0, only_integer: true }
   validates :reservation_start, :reservation_end, presence: true
+  validate :exclusive_reservation_fee_options
 
   with_options if: :commissioned? do
     validates :price_precision, numericality: { greater_than_or_equal_to: 0.1, less_than_or_equal_to: 1 }
@@ -216,5 +217,11 @@ class Event < ApplicationRecord
 
     current_max = client.events.maximum(:number) || 0
     self.number = current_max + 1
+  end
+
+  def exclusive_reservation_fee_options
+    return unless reservation_fee_based_on_item_count? && reservation_fees_payed_in_advance?
+
+    errors.add :reservation_fees_payed_in_advance, :fee_based_on_item_count
   end
 end

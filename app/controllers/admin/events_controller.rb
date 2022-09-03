@@ -79,6 +79,7 @@ module Admin
                                     :max_items_per_reservation, :max_reservations_per_seller,
                                     :price_precision, :precise_bill_amounts,
                                     :commission_rate, :reservation_fee,
+                                    :reservation_fee_based_on_item_count,
                                     :reservation_fees_payed_in_advance,
                                     :donation_of_unsold_items_enabled,
                                     :support_system_enabled, :supporters_can_retire,

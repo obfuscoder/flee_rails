@@ -653,6 +653,7 @@ de:
         donation_of_unsold_items_enabled: Spenden nicht verkaufter Artikel aktiviert
         token: Token
         reservation_fees_payed_in_advance: Reservierungsgebühr wird im Voraus bezahlt
+        reservation_fee_based_on_item_count: Reservierungsgebühr pro Artikel
         support_system_enabled: Helfersystem für Verkäufer freigeschaltet
         supporters_can_retire: Helfer können sich wieder austragen
         precise_bill_amounts: Cent-genaue Rechnungsbeträge
@@ -818,6 +819,11 @@ de:
           attributes:
             max:
               before_min: Der Endzeitpunkt darf nicht vor dem Startzeitpunkt sein.
+        event:
+          attributes:
+            reservation_fees_payed_in_advance:
+              fee_based_on_item_count: |
+                Die Reservierungsgebühr basiert auf die Anzahl eingegebener Artikel und kann daher nicht im Vorraus bezahlt werden.
   pages:
     imprint:
       title: Impressum

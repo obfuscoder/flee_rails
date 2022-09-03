@@ -8,7 +8,8 @@ class CreateEventData
     data = Jbuilder.new do |json|
       json.call @event, :id, :number, :name, :token, :price_precision, :precise_bill_amounts,
                 :commission_rate, :reservation_fee, :price_factor,
-                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance, :gates
+                :donation_of_unsold_items_enabled, :reservation_fees_payed_in_advance, :gates,
+                :reservation_fee_based_on_item_count
       json.categories @client.categories.all.with_deleted, :id, :name
       stock_items(json)
       json.sellers @event.reservations.order(:number).map(&:seller),

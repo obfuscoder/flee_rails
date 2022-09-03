@@ -23,7 +23,10 @@
     %dt= Event.human_attribute_name :commission_rate
     %dd= number_to_percentage @event.commission_rate*100, precision: 0
   - if @event.reservation_fee.present?
-    %dt= Event.human_attribute_name :reservation_fee
+    %dt
+      = Event.human_attribute_name :reservation_fee
+      - if @event.reservation_fee_based_on_item_count?
+        pro Artikel
     %dd= number_to_currency @event.reservation_fee
   - if @event.price_factor.present?
     %dt= Event.human_attribute_name :price_factor
