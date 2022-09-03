@@ -154,16 +154,36 @@ RSpec.describe Reservation do
   describe '#fee' do
     subject(:action) { reservation.fee }
 
-    let(:fee) { 1.5 }
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:reservation) { create :reservation, event: event, fee: fee }
+    let(:fee) { nil }
+
+    it { is_expected.to eq reservation.event.reservation_fee }
 
     context 'when reservation fee is set' do
-      before { reservation.fee = fee }
+      let(:fee) { 1.5 }
 
       it { is_expected.to eq fee }
     end
 
-    context 'when reservation fee is not set' do
-      it { is_expected.to eq reservation.event.reservation_fee }
+    context 'when event reservation fee is based on item count' do
+      let(:event) { create :event_with_ongoing_reservation, reservation_fee_based_on_item_count: true }
+
+      it { is_expected.to eq 0 }
+
+      context 'with items' do
+        let(:items) { create_list :item, 5, reservation: reservation }
+
+        before { items }
+
+        it { is_expected.to eq 10 }
+
+        context 'when reservation fee is set' do
+          let(:fee) { 1.5 }
+
+          it { is_expected.to eq 7.5 }
+        end
+      end
     end
   end
 

@@ -49,7 +49,8 @@ class Reservation < ApplicationRecord
   end
 
   def fee
-    self[:fee] || event.reservation_fee
+    result = self[:fee] || event.reservation_fee
+    event.reservation_fee_based_on_item_count? ? result * items.count : result
   end
 
   def max_items

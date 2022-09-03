@@ -31,7 +31,7 @@ RSpec.describe 'admin events' do
     expect(find_field('Basis für Preisangaben').value).to eq '0.1'
   end
 
-  it 'seller fee prefilled with brand setting' do
+  it 'reservation fee prefilled with brand setting' do
     click_on 'Neuer Termin'
     expect(find_field('event_reservation_fee').value).to eq '2.0'
   end

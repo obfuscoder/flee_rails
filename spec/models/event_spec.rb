@@ -241,9 +241,31 @@ RSpec.describe Event do
     describe '#reservation_fees_sum' do
       subject { event.reservation_fees_sum }
 
-      let!(:reservation2) { create :reservation, event: event, fee: 10 }
+      it { is_expected.to eq 2 }
 
-      it { is_expected.to eq 12 }
+      context 'with 2nd reservation having special fee' do
+        let!(:reservation2) { create :reservation, event: event, fee: 3 }
+
+        it { is_expected.to eq 5 }
+      end
+
+      context 'when reservation fee is based on item count' do
+        let(:event) { build :event_with_ongoing_reservation, reservation_fee_based_on_item_count: true }
+
+        it { is_expected.to eq 10 }
+
+        context 'with 2nd reservation having special fee' do
+          let!(:reservation2) { create :reservation, event: event, fee: 3 }
+
+          it { is_expected.to eq 10 }
+
+          context 'with items' do
+            let!(:items2) { create_list :item, 3, reservation: reservation2 }
+
+            it { is_expected.to eq 19 }
+          end
+        end
+      end
     end
 
     describe '#revenue' do
