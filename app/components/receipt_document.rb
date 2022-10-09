@@ -46,11 +46,11 @@ class ReceiptDocument < PdfDocument
   end
 
   def missing
-    table_section @receipt.missing, 'nicht abgegeben', &method(:format_table)
+    table_section @receipt.missing_items, 'nicht abgegeben', &method(:format_table)
   end
 
   def lost
-    table_section @receipt.lost, 'verloren gegangen', &method(:format_table)
+    table_section @receipt.lost_items, 'verloren gegangen', &method(:format_table)
   end
 
   def table_section(item_collection, action)
