@@ -33,4 +33,4 @@
               %dd= pickup_time event
             %dt Freie Plätze
             %dd #{event.reservations_left} von #{event.max_reservations}
-.hidden-xs= markdown(current_client.outro).html_safe if current_client.try(:outro).present?
+= markdown(current_client.outro).html_safe if current_client.try(:outro).present?
