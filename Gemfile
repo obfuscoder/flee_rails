@@ -41,7 +41,7 @@ gem 'whenever', require: false # cron
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 
 group :development do
-  gem 'capistrano3-puma'
+  gem 'capistrano3-puma', '~> 5'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'rubocop'
