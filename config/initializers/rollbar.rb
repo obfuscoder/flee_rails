@@ -2,17 +2,22 @@ Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
 
-  config.access_token = '720d6e5df892434d93f421801f1a9f82'
+  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
 
-  config.enabled = false unless Rails.env.production?
+  # Here we'll disable in 'test':
+  if Rails.env.test?
+    config.enabled = false
+  end
 
   # By default, Rollbar will try to call the `current_user` controller method
-  # to fetch the logged-in user object, and then call that object's `id`,
-  # `username`, and `email` methods to fetch those properties. To customize:
+  # to fetch the logged-in user object, and then call that object's `id`
+  # method to fetch this property. To customize:
   # config.person_method = "my_current_user"
   # config.person_id_method = "my_id"
-  # config.person_username_method = "my_username"
-  # config.person_email_method = "my_email"
+
+  # Additionally, you may specify the following:
+  # config.person_username_method = "username"
+  # config.person_email_method = "email"
 
   # If you want to attach custom data to all exception and message reports,
   # provide a lambda like the following. It should return a hash.
