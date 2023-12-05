@@ -1,0 +1,64 @@
+!!! 5
+%html(lang="de")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %meta(name="description" content="Das Komplettsystem für Ihren vorsortierten Flohmarkt, Basar oder Kommissionsflohmarkt inklusive Kassensystem, Verwaltung von Artikeln und Unterstützung beim Druck von Etiketten mit Barcode.")
+    %meta(name="keywords" content="Flohmarkt,Basar,vorsortierter Flohmarkt,Kommissionsflohmarkt,Barcode,Artikel,Etiketten,Verkäufer,Kassensystem,Kasse,Abrechnungsystem,Scanner,Barcodescanner,Verleih")
+    %title= current_client.name + (content_for?(:title) ? " - " + yield(:title) : "")
+    = csrf_meta_tags
+    / HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag '/simplemde/simplemde.min'
+    = javascript_include_tag '/simplemde/simplemde.min'
+    = stylesheet_link_tag 'application', media: 'all'
+    = favicon_link_tag 'favicon.ico', rel: 'shortcut icon'
+    = javascript_include_tag 'application'
+  %body
+    .navbar.navbar-inverse.navbar-static-top
+      .container
+        .navbar-header
+          %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to current_client.short_name.html_safe, root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            - @menu ||= [{ title: 'Hauptseite', link: root_path, icon: :home },
+                         { title: 'Hilfe', link: 'https://flohmarkthelfer.de/docs/', icon: :question_sign },
+                         { title: 'Kontakt', link: contact_show_path, icon: :envelope },
+                         { title: 'Impressum', link: pages_imprint_path, icon: :info_sign },
+                         { title: 'Datenschutz', link: pages_privacy_path, icon: :lock },
+                         { title: 'Bedingungen', link: pages_terms_path, icon: :certificate },
+                         { title: 'Ihr Flohmarkt', link: 'https://flohmarkthelfer.de', icon: :heart }]
+            = render partial: 'layouts/menu_item', collection: @menu, as: :item
+          - if searchable?
+            %form.navbar-form.navbar-left(role='search')
+              %input(type='hidden' name='page' value='1')
+              .form-group
+                %input.form-control(type='text' placeholder='Suche' name='search'){ value: params[:search] }
+          - if logged_in?
+            %ul.nav.navbar-nav.navbar-right
+              %li.dropdown#admin-info
+                %a.dropdown-toggle(data-toggle='dropdown' role='button')
+                  Angemeldet als #{current_user}
+                  %span.caret
+                %ul.dropdown-menu
+                  %li= link_to 'Passwort ändern', edit_admin_change_password_path, icon: :cog
+                  %li.divider(role='separator')
+                  %li= link_to 'Abmelden', admin_logout_path, icon: :log_out
+    .container(role='main')
+      - if content_for?(:title)
+        %h2= yield(:title)
+      - else
+        %h1= current_client.name.html_safe
+      = render '/maintenance'
+      - if current_client.locked.present?
+        %div{class: flash_class_from_type(:alert)}= current_client.locked
+      - else
+        - flash.each do |type, message|
+          %div{class: flash_class_from_type(type)}= message
+        = yield

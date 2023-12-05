@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220903092144) do
+ActiveRecord::Schema.define(version: 20231205145337) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
@@ -41,16 +41,16 @@ ActiveRecord::Schema.define(version: 20220903092144) do
   create_table "clients", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "key"
-    t.string "prefix"
-    t.string "name"
-    t.string "short_name"
-    t.string "logo"
+    t.string "key", limit: 40
+    t.string "prefix", limit: 4
+    t.string "name", limit: 80
+    t.string "short_name", limit: 60
+    t.string "logo", limit: 40
     t.string "address"
     t.string "invoice_address"
     t.text "intro"
     t.text "outro"
-    t.string "mail_address"
+    t.string "mail_address", limit: 128
     t.text "terms"
     t.decimal "reservation_fee", precision: 4, scale: 2
     t.decimal "commission_rate", precision: 3, scale: 2
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20220903092144) do
     t.boolean "import_item_code_enabled"
     t.boolean "precise_bill_amounts"
     t.boolean "gates"
+    t.string "locked"
     t.index ["key"], name: "index_clients_on_key", unique: true
     t.index ["prefix"], name: "index_clients_on_prefix", unique: true
   end
