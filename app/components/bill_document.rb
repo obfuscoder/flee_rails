@@ -36,6 +36,9 @@ class BillDocument < PdfDocument
     move_down 10
     text Settings.bill.issuer.name
     text Settings.bill.issuer.company
+    move_down 20
+    text 'Hinweis: Als Kleinunternehmer im Sinne von §19 Abs. 1 UStG wird ' \
+         'die Umsatzsteuer nicht berechnet.'
   end
 
   def render_logo
@@ -54,7 +57,8 @@ class BillDocument < PdfDocument
   def render_header
     text "Leistungsdatum: #{date(@bill.delivery_date)}"
     text "Rechnungsdatum: #{date(@bill.date)}"
-    move_down 50
+    text "Steuernummer: #{Settings.bill.issuer.taxnumber}"
+    move_down 40
     text "Rechnung Nr. #{@bill.number}", size: 16, style: :bold
     text '(Bitte bei Fragen und Überweisungen mit angeben)', size: 10
   end
