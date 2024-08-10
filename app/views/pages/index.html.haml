@@ -7,6 +7,7 @@
     .col-md-4
       = image_tag 'logo.png', class: 'img-responsive'
 = render '/maintenance'
+.alert.alert-warning= markdown(t('outlook')).html_safe
 .row.marketing
   .col-lg-8
     %p

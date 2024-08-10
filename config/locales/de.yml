@@ -1,4 +1,10 @@
 de:
+  outlook: |
+    Leider blockiert das Mailsystem von Microsoft immer wieder Mails, die unser System verschickt.
+    Obwohl alle Mailsenderrichtlinien eingehalten werden, stuft die von Microsoft eingesetzte
+    Künstliche Intelligenz (KI) das Netzwerk falsch ein. Wir empfehlen daher allen im Besitz einer
+    **Outlook**, **Hotmail**, oder **Live.com** Mailadresse, auf einen anderen Mailprovider auszuweichen
+    und ggf. eine Weiterleitung an die eigentliche Mailadresse einzurichten.
   print: Drucken
   gender:
     male: Junge/männlich
