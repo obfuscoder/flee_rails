@@ -27,7 +27,7 @@ gem 'paranoia' # soft delete records
 gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 gem 'rake'
 gem 'redcarpet' # markdown
 gem 'rollbar'
@@ -54,6 +54,7 @@ group :development do
   gem 'solargraph'
   gem 'spring'
   gem 'web-console'
+  gem 'listen'
 end
 
 group :test do
@@ -81,3 +82,4 @@ group :test, :development do
   gem 'sqlite3', '~> 1.6.9' # pinned due to 1.7.0 requiring ruby 3
   gem 'timecop'
 end
+
