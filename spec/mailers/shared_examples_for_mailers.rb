@@ -38,7 +38,7 @@ RSpec.shared_examples 'a mail with attachment' do
   it_behaves_like 'a mail with headers'
 
   describe 'body' do
-    subject(:body) { mail.parts[1].body }
+    subject(:body) { mail.parts.first.body }
 
     it_behaves_like 'a mail multipart body'
   end

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   class UnauthorizedError < StandardError; end
 
   rescue_from UnauthorizedError do
-    render file: '/public/401', status: :unauthorized
+    render file: Rails.root.join('public/401'), status: :unauthorized
   end
 
   rescue_from ActionView::MissingTemplate, with: :not_acceptable
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_acceptable
 
   def not_found
-    render file: '/public/404', status: :not_found
+    render file: Rails.root.join('public/404'), status: :not_found
   end
 
   def not_acceptable; end

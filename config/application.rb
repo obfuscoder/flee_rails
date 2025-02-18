@@ -8,6 +8,8 @@ require "active_record/railtie"
 # require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
 require "sprockets/railtie"
@@ -34,6 +36,8 @@ module Flee
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :de
+
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob" # TODO: Remove when setting load_defaults 6.0
 
     config.assets.paths << Rails.root.join('app/assets/fonts')
 

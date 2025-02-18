@@ -104,7 +104,7 @@ RSpec.describe SellerMailer do
 
     it_behaves_like 'a seller mail with attachment'
 
-    it { expect(mail.parts[0].body).to eq labels }
+    it { expect(mail.parts.second.body.raw_source).to eq labels }
   end
 
   describe '#finished' do
@@ -119,7 +119,7 @@ RSpec.describe SellerMailer do
 
     it_behaves_like 'a seller mail with attachment'
 
-    it { expect(mail.parts[0].body).to eq receipt }
+    it { expect(mail.parts.second.body).to eq receipt }
   end
 
   describe '#custom' do

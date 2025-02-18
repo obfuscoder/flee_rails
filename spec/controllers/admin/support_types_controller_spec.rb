@@ -190,7 +190,7 @@ RSpec.describe Admin::SupportTypesController do
       subject { response }
 
       it { is_expected.to have_http_status :ok }
-      its(:content_type) { is_expected.to eq 'application/pdf' }
+      its(:media_type) { is_expected.to eq 'application/pdf' }
       its(:body) { is_expected.to eq pdf }
     end
   end

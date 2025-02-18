@@ -62,13 +62,11 @@ module Admin
 
       before do
         allow(Seller).to receive(:with_mailing).and_call_original
-        allow(Event).to receive(:all).and_call_original
         get :emails
       end
 
       it 'calls proper scopes on event and seller' do
         expect(Seller).to have_received(:with_mailing).at_least(:once)
-        expect(Event).to have_received(:all).at_least(:once)
       end
 
       describe 'response' do

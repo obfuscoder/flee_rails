@@ -136,7 +136,7 @@ RSpec.describe Admin::EventsController do
       subject { response }
 
       it { is_expected.to have_http_status :ok }
-      its(:content_type) { is_expected.to eq 'application/octet-stream' }
+      its(:media_type) { is_expected.to eq 'application/octet-stream' }
       its(:body) { is_expected.to eq data }
     end
   end
@@ -194,7 +194,7 @@ RSpec.describe Admin::EventsController do
       subject { response }
 
       it { is_expected.to have_http_status :ok }
-      its(:content_type) { is_expected.to eq 'application/pdf' }
+      its(:media_type) { is_expected.to eq 'application/pdf' }
       its(:body) { is_expected.to eq bill.document }
     end
   end
@@ -212,7 +212,7 @@ RSpec.describe Admin::EventsController do
       subject { response }
 
       it { is_expected.to have_http_status :ok }
-      its(:content_type) { is_expected.to eq 'text/plain' }
+      its(:media_type) { is_expected.to eq 'text/plain' }
       its(:body) { is_expected.to eq report }
     end
   end

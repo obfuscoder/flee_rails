@@ -19,7 +19,6 @@ gem 'haml-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'jquery-tablesorter'
-gem 'mail', '<2.7' # breaking changes in parsing emails
 gem 'maildown'
 gem 'momentjs-rails'
 gem 'mysql2'
@@ -27,7 +26,8 @@ gem 'paranoia' # soft delete records
 gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
+gem 'concurrent-ruby', '1.3.4' # Remove with rails 7.1 - dependency needs to be pinned for logger transient dependency being removed in 1.3.5
 gem 'rake'
 gem 'redcarpet' # markdown
 gem 'rollbar'

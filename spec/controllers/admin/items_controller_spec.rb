@@ -157,7 +157,7 @@ module Admin
       describe 'response' do
         subject { response }
 
-        its(:content_type) { is_expected.to eq 'application/pdf' }
+        its(:media_type) { is_expected.to eq 'application/pdf' }
         it { is_expected.to have_http_status :ok }
       end
     end
