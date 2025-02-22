@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+gssclass ApplicationController < ActionController::Base
   before_action :log_client
   before_action :init_page_parameter
   before_action :init_sort_parameter
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   class UnauthorizedError < StandardError; end
 
   rescue_from UnauthorizedError do
-    render file: Rails.root.join('public/401'), status: :unauthorized
+    render file: Rails.root.join('public/401.html'), status: :unauthorized
   end
 
   rescue_from ActionView::MissingTemplate, with: :not_acceptable
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_acceptable
 
   def not_found
-    render file: Rails.root.join('public/404'), status: :not_found
+    render file: Rails.root.join('public/404.html'), status: :not_found
   end
 
   def not_acceptable; end

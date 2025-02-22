@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -403,4 +403,24 @@ ActiveRecord::Schema.define(version: 2023_12_05_145337) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "bills", "events"
+  add_foreign_key "categories", "categories", column: "parent_id"
+  add_foreign_key "emails", "sellers"
+  add_foreign_key "message_templates", "clients"
+  add_foreign_key "messages", "events"
+  add_foreign_key "rentals", "hardware"
+  add_foreign_key "reviews", "reservations"
+  add_foreign_key "sizes", "categories"
+  add_foreign_key "sold_stock_items", "events"
+  add_foreign_key "sold_stock_items", "stock_items"
+  add_foreign_key "support_types", "events"
+  add_foreign_key "supporters", "sellers"
+  add_foreign_key "supporters", "support_types"
+  add_foreign_key "suspensions", "events"
+  add_foreign_key "suspensions", "sellers"
+  add_foreign_key "transaction_items", "items"
+  add_foreign_key "transaction_items", "transactions"
+  add_foreign_key "transaction_stock_items", "stock_items"
+  add_foreign_key "transaction_stock_items", "transactions"
+  add_foreign_key "transactions", "events"
 end
