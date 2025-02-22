@@ -1,4 +1,4 @@
-gssclass ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base
   before_action :log_client
   before_action :init_page_parameter
   before_action :init_sort_parameter
