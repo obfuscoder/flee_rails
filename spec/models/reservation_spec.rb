@@ -54,7 +54,11 @@ RSpec.describe Reservation do
   end
 
   context 'when seller is suspended for the event' do
-    let!(:suspension) { create :suspension, event: reservation.event, seller: reservation.seller }
+    let(:event) { create :event_with_ongoing_reservation }
+    let(:seller) { create :seller }
+    let!(:suspension) { create :suspension, event: event, seller: seller }
+
+    subject(:reservation) { build :reservation, event: event, seller: seller }
 
     it { is_expected.not_to be_valid }
 
