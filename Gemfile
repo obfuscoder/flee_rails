@@ -82,4 +82,3 @@ group :test, :development do
   gem 'sqlite3', '~> 1.6.9' # pinned due to 1.7.0 requiring ruby 3
   gem 'timecop'
 end
-

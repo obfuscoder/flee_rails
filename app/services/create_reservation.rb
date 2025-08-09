@@ -12,10 +12,10 @@ class CreateReservation
     call reservation, save_options
   end
 
-  def call(reservation, save_options = {})
+  def call(reservation, **save_options)
     ActiveRecord::Base.transaction do
       notification = reservation.event.notifications.find_by seller: reservation.seller
-      if reservation.save(save_options)
+      if reservation.save(**save_options)
         notification&.destroy
         send_reservation_mail reservation
       elsif notification

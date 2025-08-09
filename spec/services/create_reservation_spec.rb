@@ -56,10 +56,9 @@ RSpec.describe CreateReservation do
     end
 
     it 'passes on provided options to save' do
-      options = { context: :admin }
       allow(reservation).to receive(:save).and_return(reservation)
-      instance.call reservation, options
-      expect(reservation).to have_received(:save).with(options)
+      instance.call reservation, context: :admin
+      expect(reservation).to have_received(:save).with(context: :admin)
     end
   end
 
