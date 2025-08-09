@@ -61,6 +61,10 @@ module Admin
       redirect_to admin_event_reservations_path, notice: t('.success')
     end
 
+    def searchable?
+      action_name == 'index'
+    end
+
     private
 
     def create_reservation_params
@@ -91,10 +95,6 @@ module Admin
         return "sellers.first_name #{direction}, sellers.last_name #{direction}" if column == 'sellers.name'
       end
       result
-    end
-
-    def searchable?
-      action_name == 'index'
     end
 
     def reservation_params

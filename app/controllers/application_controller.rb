@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def not_acceptable; end
 
+  def searchable?
+    false
+  end
+
   private
 
   def current_seller
@@ -93,9 +97,5 @@ class ApplicationController < ActionController::Base
     return "#{column_name} #{direction}" if column_name.include? '.'
 
     { column_name => direction }
-  end
-
-  def searchable?
-    false
   end
 end

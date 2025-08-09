@@ -44,6 +44,10 @@ module Admin
       end
     end
 
+    def searchable?
+      action_name == 'index'
+    end
+
     private
 
     def init_available_numbers
@@ -63,10 +67,6 @@ module Admin
       result = super
       result = { first_name: @dir, last_name: @dir } if result.keys.first == 'name'
       result
-    end
-
-    def searchable?
-      action_name == 'index'
     end
   end
 end

@@ -42,6 +42,10 @@ class ItemsController < ApplicationController
     redirect_to event_reservation_items_path(@event, @reservation), notice: t('.success')
   end
 
+  def searchable?
+    action_name == 'index'
+  end
+
   private
 
   def init_categories
@@ -85,9 +89,5 @@ class ItemsController < ApplicationController
     category = current_client.categories.find parameters['category_id']
     parameters['donation'] = true if category.donation_enforced
     parameters
-  end
-
-  def searchable?
-    action_name == 'index'
   end
 end

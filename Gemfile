@@ -38,7 +38,7 @@ gem 'uglifier'
 gem 'underscore-rails'
 gem 'validates_email_format_of'
 gem 'whenever', require: false # cron
-gem 'ffi', '~> 1.16.0' # pinned due to 1.17 requiring ruby 3
+gem 'ffi'
 
 # gem 'turbolinks' disabled as it might interfere with multi domain concept
 
@@ -79,6 +79,6 @@ group :test, :development do
   gem 'faker'
   gem 'pry-rails'
   gem 'ruby-debug-ide'
-  gem 'sqlite3', '~> 1.6.9' # pinned due to 1.7.0 requiring ruby 3
+  gem 'sqlite3', '~> 1.7.3' # pinned due to version 2.x not compatible with rails 6.1
   gem 'timecop'
 end

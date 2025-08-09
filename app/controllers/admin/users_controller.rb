@@ -44,11 +44,11 @@ module Admin
       end
     end
 
-    private
-
     def searchable?
       action_name == 'index'
     end
+
+    private
 
     def user_params
       params.require(:user).permit :name, :email

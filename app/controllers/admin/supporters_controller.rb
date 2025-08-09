@@ -37,6 +37,10 @@ module Admin
       redirect_to admin_event_support_type_supporters_path(@event, @support_type), notice: t('.success')
     end
 
+    def searchable?
+      action_name == 'index'
+    end
+
     private
 
     def init_sellers
@@ -67,10 +71,6 @@ module Admin
 
     def column_order
       'sellers.first_name, sellers.last_name'
-    end
-
-    def searchable?
-      action_name == 'index'
     end
   end
 end

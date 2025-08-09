@@ -33,6 +33,10 @@ module Admin
       redirect_to admin_event_suspensions_path, notice: t('.success')
     end
 
+    def searchable?
+      action_name == 'index'
+    end
+
     private
 
     def set_event
@@ -45,10 +49,6 @@ module Admin
 
     def set_suspension
       @suspension = query.find(params[:id])
-    end
-
-    def searchable?
-      action_name == 'index'
     end
 
     def suspension_params
