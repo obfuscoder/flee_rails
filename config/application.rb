@@ -32,12 +32,14 @@ module Flee
     config.time_zone = "Berlin"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :de
 
     config.assets.paths << Rails.root.join('app/assets/fonts')
-    config.autoload_paths << Rails.root.join('components')
     config.active_job.queue_adapter = :delayed_job
   end
 end

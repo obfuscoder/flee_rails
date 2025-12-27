@@ -1,1 +1,3 @@
-ActionMailer::Base.register_observer(MailObserver)
+Rails.application.config.to_prepare do
+  ActionMailer::Base.register_observer(MailObserver)
+end

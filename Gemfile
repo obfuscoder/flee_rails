@@ -26,7 +26,8 @@ gem 'paranoia' # soft delete records
 gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
+gem 'sprockets-rails' # became optional with rails 7.0
 gem 'concurrent-ruby', '1.3.4' # Remove with rails 7.1 - dependency needs to be pinned for logger transient dependency being removed in 1.3.5
 gem 'rake'
 gem 'redcarpet' # markdown
