@@ -8,7 +8,7 @@ require:
 
 AllCops:
   TargetRubyVersion: 3.0
-  TargetRailsVersion: 6.1
+  TargetRailsVersion: 7.0
   DisplayCopNames: true
   Exclude:
     - 'db/schema.rb'
