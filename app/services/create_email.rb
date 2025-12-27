@@ -3,16 +3,16 @@ class CreateEmail
     @message = message
   end
 
-  def call(sent)
-    orga_mail = Mail::Address.new(sent ? @message.from.first : @message.to.first)
+  def call
+    orga_mail = Mail::Address.new(@message.from.first)
     client = find_client(orga_mail)
     return unless client
 
-    seller_mail = sent ? @message.to.first : @message.from.first
+    seller_mail = @message.to.first
     seller = client.sellers.where(email: seller_mail).first
     return unless seller
 
-    Email.create! kind: :custom, seller: seller, sent: sent, message_id: @message.message_id,
+    Email.create! kind: :custom, seller: seller, message_id: @message.message_id,
                   subject: @message.subject, to: @message.to.first, from: @message.from.first, body: body(@message)
   end
 

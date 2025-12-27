@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_05_145337) do
+ActiveRecord::Schema.define(version: 2025_12_27_135548) do
 
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 2023_12_05_145337) do
     t.string "to"
     t.string "subject"
     t.text "body"
-    t.boolean "sent"
     t.string "from"
     t.string "cc"
     t.string "message_id"

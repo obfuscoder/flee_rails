@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CreateEmail do
-  subject(:action) { described_class.new(message).call sent }
+  subject(:action) { described_class.new(message).call }
 
   before { allow(Client).to receive(:find_by).and_return found_client }
 
@@ -15,7 +15,6 @@ RSpec.describe CreateEmail do
   let(:sellers) { double :sellers, where: [seller] }
   let(:mail_subject) { 'subject' }
   let(:body) { 'body' }
-  let(:sent) { true }
   let(:from) { 'info@example.com' }
   let(:message_id) { 'message id' }
 
@@ -27,8 +26,7 @@ RSpec.describe CreateEmail do
                                    from: from,
                                    to: seller.email,
                                    message_id: message_id,
-                                   seller: seller,
-                                   sent: sent
+                                   seller: seller
   end
 
   it 'performs client lookup based on mail address' do
