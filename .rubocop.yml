@@ -7,8 +7,8 @@ require:
   - rubocop-faker
 
 AllCops:
-  TargetRubyVersion: 2.5
-  TargetRailsVersion: 5.1
+  TargetRubyVersion: 3.0
+  TargetRailsVersion: 6.1
   DisplayCopNames: true
   Exclude:
     - 'db/schema.rb'
