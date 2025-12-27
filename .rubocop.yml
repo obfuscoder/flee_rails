@@ -7,7 +7,7 @@ require:
   - rubocop-faker
 
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.1
   TargetRailsVersion: 7.0
   DisplayCopNames: true
   Exclude:
