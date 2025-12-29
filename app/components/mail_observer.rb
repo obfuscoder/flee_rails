@@ -1,5 +1,5 @@
 class MailObserver
   def self.delivered_email(message)
-    CreateEmail.new(message).call(true)
+    CreateEmail.new(message).call
   end
 end
