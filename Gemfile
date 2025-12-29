@@ -27,6 +27,7 @@ gem 'prawn' # pdf generation
 gem 'prawn-table'
 gem 'puma'
 gem 'rails', '~> 7.0.0'
+gem 'mail', '~> 2.7.1' # mail gem 2.8.0+ causes error with rails 7.0: :arguments expected to be an Array of individual string args
 gem 'sprockets-rails' # became optional with rails 7.0
 gem 'concurrent-ruby', '1.3.4' # Remove with rails 7.1 - dependency needs to be pinned for logger transient dependency being removed in 1.3.5
 gem 'rake'
