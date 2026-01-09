@@ -19,6 +19,7 @@ class Reservation < ApplicationRecord
   end
 
   validates :max_items, numericality: { greater_than: 0, only_integer: true }
+  validates :max_donations, numericality: { greater_than: 0, only_integer: true, allow_nil: true }
 
   before_validation :create_number
 
@@ -55,6 +56,10 @@ class Reservation < ApplicationRecord
 
   def max_items
     self[:max_items] || event.try(:max_items_per_reservation)
+  end
+
+  def max_donations
+    self[:max_donations] || event.try(:max_donations_per_reservation)
   end
 
   def previous?

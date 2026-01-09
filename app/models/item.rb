@@ -21,6 +21,7 @@ class Item < ApplicationRecord
   validate :price_divisible_by_precision
   validate :max_number_of_items_for_category, on: %i[create update]
   validate :item_count_for_reservation, on: :create
+  validate :donation_count_for_reservation, on: %i[create update]
   validate :size_required_for_category, on: %i[create update]
   validate :allowed_size_for_category, on: %i[create update]
   validate :size_disabled_for_category, on: %i[create update]
@@ -32,6 +33,7 @@ class Item < ApplicationRecord
   scope :checked_in, -> { where.not(checked_in: nil) }
   scope :checked_out, -> { where.not(checked_out: nil) }
   scope :for_client, ->(client) { joins(reservation: :event).where.has { reservation.event.client_id.eq client.id } }
+  scope :with_donation, -> { where(donation: true) }
 
   attr_accessor :fixed_size # virtual attribute to allow fixed size selection
 
@@ -93,6 +95,14 @@ class Item < ApplicationRecord
     return if reservation.blank?
 
     errors.add :base, :limit_reached if reservation.items.count >= reservation.max_items
+  end
+
+  def donation_count_for_reservation
+    return if donation.blank? || donation == false
+    return unless reservation.event.donations_limited?
+    return if reservation.blank? || reservation.max_donations.blank?
+
+    errors.add :base, :donation_limit_reached if reservation.items.with_donation.where.not(id: id).count >= reservation.max_donations
   end
 
   def allowed_size_for_category

@@ -53,12 +53,17 @@ RSpec.describe Admin::EventsController do
   end
 
   describe 'PUT update' do
-    let(:event_params) { { confirmed: true } }
+    let(:max_donations) { 6 }
+    let(:event_params) { { confirmed: true, max_donations_per_reservation: max_donations } }
 
     before { put :update, params: { id: event.id, event: event_params } }
 
     it 'updates confirmed' do
       expect(event.reload).to be_confirmed
+    end
+
+    it 'updates max_donations_per_reservation' do
+      expect(event.reload.max_donations_per_reservation).to eq max_donations
     end
 
     it 'redirects to index path' do

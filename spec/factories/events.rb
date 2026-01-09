@@ -54,6 +54,10 @@ FactoryBot.define do
         price_factor { 1.1 }
       end
 
+      factory :event_with_donation_limit do
+        max_donations_per_reservation { 2 }
+      end
+
       factory :event_with_support do
         support_system_enabled { true }
         supporters_can_retire { true }

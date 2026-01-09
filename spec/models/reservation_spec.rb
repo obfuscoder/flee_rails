@@ -223,6 +223,23 @@ RSpec.describe Reservation do
     end
   end
 
+  describe '#max_donations' do
+    subject(:action) { reservation.max_donations }
+
+    let(:event) { create :event_with_max_donations }
+    let(:max_donations) { 5 }
+
+    context 'when max donations is set' do
+      before { reservation.max_donations = max_donations }
+
+      it { is_expected.to eq max_donations }
+    end
+
+    context 'when max donations is not set' do
+      it { is_expected.to eq reservation.event.max_donations_per_reservation }
+    end
+  end
+
   describe '#increase_label_counter' do
     subject(:action) { reservation.increase_label_counter }
 

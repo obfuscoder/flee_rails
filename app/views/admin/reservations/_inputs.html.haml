@@ -2,3 +2,4 @@
 = f.input :fee
 = f.input :max_items
 = f.input :category_limits_ignored
+= f.input :max_donations if @event.donations_limited?

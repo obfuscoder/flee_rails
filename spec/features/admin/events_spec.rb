@@ -40,9 +40,9 @@ RSpec.describe 'admin events' do
     context 'when disabled' do
       before { Client.first.update donation_of_unsold_items: false }
 
-      it 'donation option is not available when creating event' do
+      it 'donation option is unselected when creating event' do
         click_on 'Neuer Termin'
-        expect(page).not_to have_field 'Spenden nicht verkaufter Artikel aktiviert'
+        expect(find_field('Spenden nicht verkaufter Artikel aktiviert')).not_to be_checked
       end
     end
 

@@ -646,6 +646,7 @@ de:
         max_reservations: maximale Anzahl Reservierungen
         max_items_per_reservation: maximale Anzahl Artikel je Reservierung
         max_reservations_per_seller: Reservierungen pro Verkäufer
+        max_donations_per_reservation: maximale Spendenanzahl je Reservierung
         confirmed: Termin steht fest
         shopping_periods: Verkauf
         reservation_start: Reservierungsstart
@@ -698,6 +699,7 @@ de:
         commission_rate: Kommissionsanteil
         fee: Reservierungsgebühr
         max_items: max. Artikelzahl
+        max_donations: max. Spendenanzahl
         category_limits_ignored: keine Kategorielimits
       suspension:
         seller: Verkäufer
@@ -811,6 +813,7 @@ de:
           attributes:
             base:
               limit_reached: Maximale Artikelanzahl erreicht.
+              donation_limit_reached: Die maximale Anzahl an Spendenartikeln ist erreicht.
             price:
               precision: muss ein Vielfaches von %{precision} sein
             category:

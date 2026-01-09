@@ -143,10 +143,12 @@ module Admin
       let(:commission_rate) { 0.4 }
       let(:fee) { 15 }
       let(:max_items) { 300 }
+      let(:max_donations) { 6 }
       let(:category_limits_ignored) { true }
       let(:reservation_param) do
         { seller_id: new_seller.id, number: number, commission_rate: commission_rate,
-          category_limits_ignored: category_limits_ignored, max_items: max_items, fee: fee }
+          category_limits_ignored: category_limits_ignored, max_items: max_items, fee: fee,
+          max_donations: max_donations }
       end
       let(:action) { post :create, params: { event_id: event.id, reservation: reservation_param } }
       let(:reservation) { create :reservation, event: event, seller: new_seller, number: number }
@@ -264,7 +266,7 @@ module Admin
     describe 'PUT update' do
       let(:reservation) { create :reservation }
       let(:event) { reservation.event }
-      let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42', category_limits_ignored: true } }
+      let(:params) { { fee: '2.5', commission_rate: '0.7', max_items: '42', max_donations: '6', category_limits_ignored: true } }
 
       before { put :update, params: { event_id: event.id, id: reservation.id, reservation: params } }
 
@@ -279,6 +281,10 @@ module Admin
 
       it 'stores max items' do
         expect(reservation.reload.max_items).to eq 42
+      end
+
+      it 'stores max donations' do
+        expect(reservation.reload.max_donations).to eq 6
       end
 
       it 'stores category limits ignored' do

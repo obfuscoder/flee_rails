@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'admin/reservations/_form' do
-  before { assign :reservation, build(:reservation) }
+  let(:reservation) { create(:reservation) }
+  before { assign :reservation, reservation }
+  before { assign :event, reservation.event }
 
   it_behaves_like 'a standard partial'
 

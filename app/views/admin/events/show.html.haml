@@ -31,9 +31,10 @@
   - if @event.price_factor.present?
     %dt= Event.human_attribute_name :price_factor
     %dd= number_to_percentage @event.price_factor*100, precision: 0
-  - if current_client.donation_of_unsold_items
-    %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
-    %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
+  %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
+  %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
+  %dt= Event.human_attribute_name :max_donations_per_reservation
+  %dd= t(@event.max_donations_per_reservation?.to_s)
   %dt= Event.human_attribute_name :support_system_enabled
   %dd= t(@event.support_system_enabled?.to_s)
   %dt= Event.human_attribute_name :supporters_can_retire

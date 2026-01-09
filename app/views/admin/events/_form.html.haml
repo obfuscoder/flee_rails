@@ -16,10 +16,11 @@
     = f.input :price_precision, hint: t('.price_precision.hint')
     = f.input :precise_bill_amounts
     = f.input :commission_rate, hint: t('.commission_rate.hint')
-    = f.input :donation_of_unsold_items_enabled if current_client.donation_of_unsold_items
     = f.input :reservation_fee
     = f.input :reservation_fee_based_on_item_count
     = f.input :reservation_fees_payed_in_advance
+    = f.input :donation_of_unsold_items_enabled
+    = f.input :max_donations_per_reservation
     = f.input :support_system_enabled
     = f.input :supporters_can_retire
     = f.input :gates

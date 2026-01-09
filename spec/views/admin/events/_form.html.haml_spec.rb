@@ -14,6 +14,7 @@ RSpec.describe 'admin/events/_form' do
 
     it { is_expected.to have_field 'event_confirmed' }
     it { is_expected.to have_field 'event_max_reservations_per_seller' }
+    it { is_expected.to have_field 'event_max_items_per_reservation' }
     it { is_expected.to have_unchecked_field 'event_reservation_fees_payed_in_advance' }
     it { is_expected.to have_field 'event_support_system_enabled' }
     it { is_expected.to have_field 'event_supporters_can_retire' }

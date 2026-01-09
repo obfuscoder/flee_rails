@@ -9,6 +9,8 @@
     %th= Reservation.human_attribute_name :max_items
     %th= Reservation.human_attribute_name :fee
     %th= Reservation.human_attribute_name :commission_rate
+    - if @event.donations_limited?
+      %th= Reservation.human_attribute_name :max_donations
     - if current_client.reservation_numbers_assignable
       %th= link_to t('.new'), new_admin_event_reservation_path(@event), type: :primary, icon: :file
     - else
@@ -23,6 +25,8 @@
       %td= reservation.max_items
       %td= number_to_currency reservation.fee
       %td= number_to_percentage reservation.commission_rate * 100, precision: 0
+      - if @event.donations_limited?
+        %td= reservation.max_donations
       %td
         = icon_link_to t('.items'), admin_reservation_items_path(reservation), type: :success, icon: :list
         = icon_link_to t('edit'), edit_admin_event_reservation_path(@event, reservation), type: :primary, icon: :pencil
