@@ -34,7 +34,7 @@
   %dt= Event.human_attribute_name :donation_of_unsold_items_enabled
   %dd= t(@event.donation_of_unsold_items_enabled?.to_s)
   %dt= Event.human_attribute_name :max_donations_per_reservation
-  %dd= t(@event.max_donations_per_reservation?.to_s)
+  %dd= @event.max_donations_per_reservation
   %dt= Event.human_attribute_name :support_system_enabled
   %dd= t(@event.support_system_enabled?.to_s)
   %dt= Event.human_attribute_name :supporters_can_retire
