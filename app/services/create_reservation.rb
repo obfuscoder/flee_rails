@@ -9,7 +9,7 @@ class CreateReservation
     event = Event.find event_id
     seller = Seller.find seller_id
     reservation = Reservation.new event: event, seller: seller
-    call reservation, save_options
+    call reservation, **save_options
   end
 
   def call(reservation, **save_options)

@@ -90,7 +90,7 @@ RSpec.describe CreateReservation do
 
     it 'calls call' do
       action
-      expect(instance).to have_received(:call).with(reservation, {})
+      expect(instance).to have_received(:call).with(reservation)
     end
   end
 end
