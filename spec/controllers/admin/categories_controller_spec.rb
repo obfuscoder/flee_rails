@@ -27,7 +27,9 @@ module Admin
 
     describe 'PUT update' do
       let(:parent) { create :category }
-      let(:params) { { name: 'My Category', max_items_per_seller: 5, parent_id: parent.id, gender: true } }
+      let(:params) do
+        { name: 'My Category', max_items_per_seller: 5, parent_id: parent.id, gender: true, max_donations: 6 }
+      end
 
       before { put :update, params: { id: category.id, category: params } }
 
@@ -45,6 +47,10 @@ module Admin
 
       it 'stores parent' do
         expect(category.reload.parent).to eq parent
+      end
+
+      it 'stores max_donations' do
+        expect(category.reload.max_donations).to eq 6
       end
     end
   end

@@ -47,7 +47,8 @@ module Admin
                                        :max_items_per_seller,
                                        :parent_id,
                                        :size_option,
-                                       :gender
+                                       :gender,
+                                       :max_donations
     end
 
     def set_category

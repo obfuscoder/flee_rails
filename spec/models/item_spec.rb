@@ -26,7 +26,7 @@ RSpec.describe Item do
       subject(:instance) { described_class.new }
 
       it 'calls superclass' do
-        expect(instance.to_s).to eq(instance.class.superclass.instance_method(:to_s).bind(instance).call)
+        expect(instance.to_s).to eq(instance.class.superclass.instance_method(:to_s).bind_call(instance))
       end
     end
   end
@@ -105,7 +105,7 @@ RSpec.describe Item do
         expect { existing_item.update! description: 'xxxxx' }.not_to raise_error
       end
 
-      context 'when reservation cab ignore category limits' do
+      context 'when reservation can ignore category limits' do
         let(:reservation) { create :reservation, category_limits_ignored: true }
 
         it 'allows to create additional items for the category' do
@@ -141,6 +141,69 @@ RSpec.describe Item do
     end
   end
 
+  describe '#donation_count_for_reservation' do
+    before { Client.first.update donation_of_unsold_items: true }
+
+    let(:max_donations) { 5 }
+    let(:reservation) { create :reservation, event: event }
+    let(:event) do
+      create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true,
+                                              max_donations_per_reservation: max_donations
+    end
+
+    context 'when donation limit is not yet reached' do
+      it 'allows to create item' do
+        expect { create :item, reservation: reservation, donation: true }.not_to raise_error
+      end
+    end
+
+    context 'when donation limit has been reached' do
+      let!(:existing_items) { create_list :item, max_donations, donation: true, reservation: reservation }
+
+      it 'does not allow to create additional items' do
+        expect do
+          create :item, reservation: reservation, donation: true
+        end.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
+  end
+
+  describe '#donation_count_for_category' do
+    before { Client.first.update donation_of_unsold_items: true }
+
+    let(:reservation) { create :reservation, event: event }
+    let(:event) { create :event_with_ongoing_reservation, donation_of_unsold_items_enabled: true }
+    let(:category) { create :category_with_max_donations }
+
+    context 'when donation limit is not yet reached' do
+      it 'allows to create item' do
+        expect { create :item, reservation: reservation, category: category, donation: true }.not_to raise_error
+      end
+    end
+
+    context 'when donation limit has been reached' do
+      let!(:existing_items) do
+        create_list :item, category.max_donations, reservation: reservation, category: category, donation: true
+      end
+
+      it 'does not allow to create additional items' do
+        expect do
+          create :item, reservation: reservation, category: category, donation: true
+        end.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
+
+    context 'when donation limit has been reached in another category' do
+      let!(:existing_items) do
+        create_list :item, category.max_donations, reservation: reservation, category: category, donation: true
+      end
+
+      it 'allows to create item' do
+        expect { create :item, reservation: reservation, donation: true }.not_to raise_error
+      end
+    end
+  end
+
   context 'with category#gender' do
     subject(:item) { build :item, category: category }
 
@@ -154,7 +217,6 @@ RSpec.describe Item do
 
       it { is_expected.to be_valid }
       its(:female?) { is_expected.to eq true }
-
       its(:gender?) { is_expected.to eq true }
     end
   end

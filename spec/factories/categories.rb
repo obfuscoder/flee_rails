@@ -16,6 +16,10 @@ FactoryBot.define do
       size_option { :disabled }
     end
 
+    factory :category_with_max_donations do
+      max_donations { 5 }
+    end
+
     factory :category_with_size_fixed do
       size_option { :fixed }
 

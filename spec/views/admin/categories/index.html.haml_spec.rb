@@ -28,23 +28,23 @@ RSpec.describe 'admin/categories/index' do
     expect(rendered).to have_content 'Überkategorie'
   end
 
-  describe 'donation column' do
-    context 'when donation option is disabled' do
-      before { Client.first.update donation_of_unsold_items: false }
+  context 'when donation option is disabled' do
+    before { Client.first.update donation_of_unsold_items: false }
 
-      it 'does not show column' do
-        render
-        expect(rendered).not_to have_content 'Spendenzwang'
-      end
+    it 'does not show donation columns' do
+      render
+      expect(rendered).not_to have_content 'Spendenzwang'
+      expect(rendered).not_to have_content 'Spendenlimit'
     end
+  end
 
-    context 'when donation option is enabled' do
-      before { Client.first.update donation_of_unsold_items: true }
+  context 'when donation option is enabled' do
+    before { Client.first.update donation_of_unsold_items: true }
 
-      it 'shows donation column' do
-        render
-        expect(rendered).to have_content 'Spendenzwang'
-      end
+    it 'shows donation column' do
+      render
+      expect(rendered).to have_content 'Spendenzwang'
+      expect(rendered).to have_content 'Spendenlimit'
     end
   end
 end

@@ -7,6 +7,7 @@
     %th= Category.human_attribute_name :max_items_per_seller
     - if current_client.donation_of_unsold_items
       %th= Category.human_attribute_name :donation_enforced
+      %th= Category.human_attribute_name :max_donations
     %th= Category.human_attribute_name :size_option
     %th= link_to t('.new'), new_admin_category_path, type: :primary, icon: :file
 
@@ -18,6 +19,7 @@
       %td= category.max_items_per_seller
       - if current_client.donation_of_unsold_items
         %td= t(category.donation_enforced?.to_s)
+        %td= category.max_donations
       %td= t('size_option.' + category.size_option)
       %td.btn-group
         = icon_link_to t('edit'), edit_admin_category_path(category), type: :primary, icon: :pencil

@@ -42,6 +42,10 @@ class Category < ApplicationRecord
     [self, parent.try(:most_limited_category)].compact.select(&:max_items_per_seller).min_by(&:max_items_per_seller)
   end
 
+  def most_donation_limited_category
+    [self, parent.try(:most_donation_limited_category)].compact.select(&:max_donations).min_by(&:max_donations)
+  end
+
   def self_and_parents
     [self] + (parent ? parent.self_and_parents : [])
   end

@@ -28,5 +28,12 @@ RSpec.describe 'admin/categories/_form' do
     end
 
     it { is_expected.to have_field('category_gender') }
+
+    context 'when donation option is enabled' do
+      before { Client.first.update donation_of_unsold_items: true }
+
+      it { is_expected.to have_content 'Spendenzwang' }
+      it { is_expected.to have_content 'Spendenlimit' }
+    end
   end
 end

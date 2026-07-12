@@ -22,6 +22,7 @@ class Item < ApplicationRecord
   validate :max_number_of_items_for_category, on: %i[create update]
   validate :item_count_for_reservation, on: :create
   validate :donation_count_for_reservation, on: %i[create update]
+  validate :donation_count_for_category, on: %i[create update]
   validate :size_required_for_category, on: %i[create update]
   validate :allowed_size_for_category, on: %i[create update]
   validate :size_disabled_for_category, on: %i[create update]
@@ -102,7 +103,25 @@ class Item < ApplicationRecord
     return unless reservation.event.donations_limited?
     return if reservation.blank? || reservation.max_donations.blank?
 
-    errors.add :base, :donation_limit_reached if reservation.items.with_donation.where.not(id: id).count >= reservation.max_donations
+    return unless reservation.items.with_donation.where.not(id: id).count >= reservation.max_donations
+
+    errors.add :base, :donation_limit_reached
+  end
+
+  def donation_count_for_category
+    return if donation.blank? || donation == false
+    return if reservation.blank? || reservation.category_limits_ignored?
+    return if category.blank?
+
+    most_limited_category = category.try(:most_donation_limited_category)
+    return if most_limited_category.blank?
+
+    items_with_category = reservation.items.where(category: most_limited_category.self_and_descendants,
+                                                  donation: true).where.not(id: id)
+    return if items_with_category.count < most_limited_category.max_donations
+
+    errors.add :category, :donation_limit, limit: most_limited_category.max_donations,
+                                           category: most_limited_category.name
   end
 
   def allowed_size_for_category

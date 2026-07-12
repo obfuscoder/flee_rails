@@ -21,7 +21,7 @@ RSpec.describe Category do
       subject(:instance) { described_class.new }
 
       it 'calls superclass' do
-        expect(instance.to_s).to eq(instance.class.superclass.instance_method(:to_s).bind(instance).call)
+        expect(instance.to_s).to eq(instance.class.superclass.instance_method(:to_s).bind_call(instance))
       end
     end
   end
@@ -113,6 +113,14 @@ RSpec.describe Category do
       it { is_expected.to include category }
       it { is_expected.to include parent }
     end
+  end
+
+  describe '#max_donations' do
+    subject { category.max_donations }
+
+    let(:category) { build :category_with_max_donations }
+
+    it { is_expected.to eq 5 }
   end
 
   describe '#most_limited_category' do

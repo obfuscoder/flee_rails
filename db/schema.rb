@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_09_110814) do
+ActiveRecord::Schema[7.0].define(version: 2026_07_12_121304) do
   create_table "bills", force: :cascade do |t|
     t.integer "event_id"
     t.string "number"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_09_110814) do
     t.integer "client_id"
     t.integer "size_option", default: 0
     t.boolean "gender"
+    t.integer "max_donations"
     t.index ["client_id"], name: "index_categories_on_client_id"
     t.index ["deleted_at"], name: "index_categories_on_deleted_at"
     t.index ["name"], name: "index_categories_on_name", where: "deleted_at IS NULL"
